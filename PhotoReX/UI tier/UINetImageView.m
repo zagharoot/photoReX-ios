@@ -21,7 +21,7 @@
 @synthesize drawUserActivityStatus=_drawUserActivityStatus; 
 @synthesize percentageDataAvailable=_percentageDataAvailable; 
 @synthesize unavailableImageHandler=_unavailableImageHandler; 
-
+@synthesize tmpImage=_tmpImage; 
 
 
 -(ImageStatusOverlayView*) imageStatusOverlayView
@@ -142,6 +142,8 @@
     
     _percentageDataAvailable = 0;           //no data for this image is received yet!
     
+    loadStartTime = [[NSDate date] timeIntervalSince1970]; 
+    
     [[ImageDataProvider mainDataProvider] getDataForPicture:self.pictureInfo withResolution:[PictureInfo CGSizeToImageResolution:self.frame.size] withObserver:self]; 
 
  }
@@ -171,6 +173,7 @@
 {
     self.pictureInfo = nil; 
     self.unavailableImageHandler = nil; 
+    self.tmpImage = nil; 
     
     //remove nsnotification center observer 
     [[NSNotificationCenter defaultCenter] removeObserver:self]; 
@@ -202,14 +205,10 @@
 }
 
 
+
+
 -(void) imageDidBecomeAvailable:(UIImage *)theImage
 {
-    [self.unavailableImageHandler removeFromSuperview]; 
-    self.unavailableImageHandler = nil; 
-    
-    _percentageDataAvailable = 1.0; 
-    self.unavailableImageHandler = nil; 
-    
     if (self.clipToBound)
     {
         //want to grab a clipping area from the picture. based on the size of the displayable area, we need to grab enough pixels from the actual image (taking into account that iphone4 can display two points per pixel). 
@@ -243,8 +242,30 @@
         if (theImage.size.width > theImage.size.height) 
             theImage = [UIImage imageWithCGImage:[theImage CGImage] scale:1.0 orientation:UIImageOrientationRight]; 
     }
+
+    self.tmpImage = theImage; 
     
-    [self setImage:theImage]; 
+    double loadDelay = 0; 
+    if ([[NSDate date] timeIntervalSince1970] - loadStartTime > 0.8)
+        loadDelay = 0.15; 
+    
+    
+    
+    [NSTimer scheduledTimerWithTimeInterval:loadDelay target:self selector:@selector(becomeAvailable) userInfo:nil repeats:NO]; 
+    
+}
+
+-(void) becomeAvailable
+{
+    [self.unavailableImageHandler removeFromSuperview]; 
+    self.unavailableImageHandler = nil; 
+    
+    _percentageDataAvailable = 1.0; 
+    self.unavailableImageHandler = nil; 
+    
+    
+    [self setImage:self.tmpImage];
+    self.tmpImage = nil; 
     
     [self sizeToFit]; 
     
@@ -253,8 +274,10 @@
     [UIView animateWithDuration:0.8 delay:0 options:UIViewAnimationCurveLinear 
                      animations:^{self.alpha = 1.0;  } 
                      completion:^(BOOL fin) {} ]; 
-    
-    [self.delegate imageBecameAvailableForView:self]; 
+
+    [self.delegate imageBecameAvailableForView:self];     
+
 }
+
 
 @end

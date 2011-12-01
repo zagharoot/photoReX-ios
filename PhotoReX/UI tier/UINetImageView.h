@@ -34,6 +34,9 @@
     BOOL _clipToBound; 
     BOOL _drawUserActivityStatus; 
     double _percentageDataAvailable; 
+    UIImage* _tmpImage;                 //this is just because we want to delay becomeAvailable
+    
+    NSTimeInterval loadStartTime;               //time we started loading the image; 
 }
 
 -(id) initWithPictureInfo:(PictureInfo*) pictureInfo andFrame:(CGRect) frame; 
@@ -44,7 +47,7 @@
 // get updates from the picture info 
 -(void) imageActivityStatusDidChange:(NSNotification*) notification; 
 -(void) imageDataDidChange:(NSNotification*) notification; 
-
+-(void) becomeAvailable; 
 
 
 
@@ -56,6 +59,7 @@
 @property (nonatomic, readonly) double percentageDataAvailable; 
 @property (nonatomic, retain) UnavailableImageHandler* unavailableImageHandler; 
 @property (nonatomic, readonly) ImageStatusOverlayView* imageStatusOverlayView; 
+@property (nonatomic, retain) UIImage* tmpImage; 
 @end
 
 

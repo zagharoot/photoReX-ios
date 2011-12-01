@@ -21,8 +21,19 @@
 @synthesize drawUserActivityStatus=_drawUserActivityStatus; 
 @synthesize percentageDataAvailable=_percentageDataAvailable; 
 @synthesize unavailableImageHandler=_unavailableImageHandler; 
-@synthesize imageStatusOverlayLayer=_imageStatusOverlayLayer; 
 
+
+
+-(ImageStatusOverlayView*) imageStatusOverlayView
+{
+    if (! _imageStatusOverlayView)
+    {
+        _imageStatusOverlayView = [[ImageStatusOverlayView alloc] initWithPictureInfo:self.pictureInfo andParentFrame:self.frame]; 
+        [self addSubview:_imageStatusOverlayView]; 
+    }
+
+    return _imageStatusOverlayView; 
+}
 
 -(void) setDrawUserActivityStatus:(BOOL)drawUserActivityStatus
 {
@@ -90,11 +101,8 @@
     [self setNeedsDisplay]; 
 */
     
-    if (self.imageStatusOverlayLayer)
-        [self setNeedsDisplay]; 
-    
-    
-    
+    if (self.imageStatusOverlayView)
+        [self.imageStatusOverlayView setNeedsDisplay]; 
 }
 
 
@@ -148,8 +156,6 @@
     else
     {
         self.unavailableImageHandler = [[[UnavailableImageHandler4x3 alloc] initWithImageView:self] autorelease]; 
-        self.imageStatusOverlayLayer = [[ImageStatusOverlayLayer alloc] initWithPictureInfo:self.pictureInfo]; 
-        [self.layer addSublayer:self.imageStatusOverlayLayer]; 
     }
 //        self.image = [UINetImageView getUnavailableImage4x3]; 
   //  [self sizeToFit]; 

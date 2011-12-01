@@ -10,7 +10,7 @@
 #import "PictureInfo.h"
 #import "ImageDataProvider.h"
 #import "UnavailableImageHandler.h"
-#import "ImageStatusOverlayLayer.h"
+#import "ImageStatusOverlayView.h"
 
 @class UINetImageView; 
 
@@ -27,7 +27,7 @@
     PictureInfo* _pictureInfo; 
     CGSize _originalResolution;             //this is the resolution of the picture coming from the net. (0,0) means don't have the data yet.
     UnavailableImageHandler* _unavailableImageHandler; 
-    ImageStatusOverlayLayer* _imageStatusOverlayLayer; 
+    ImageStatusOverlayView* _imageStatusOverlayView; 
     
     id <UINetImageViewDelegate> _delegate; 
         
@@ -55,7 +55,7 @@
 @property (nonatomic) BOOL drawUserActivityStatus; 
 @property (nonatomic, readonly) double percentageDataAvailable; 
 @property (nonatomic, retain) UnavailableImageHandler* unavailableImageHandler; 
-@property (nonatomic, retain) ImageStatusOverlayLayer* imageStatusOverlayLayer; 
+@property (nonatomic, readonly) ImageStatusOverlayView* imageStatusOverlayView; 
 @end
 
 

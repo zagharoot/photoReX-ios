@@ -40,7 +40,7 @@
 }
 
 -(id) initWithPictureInfo:(PictureInfo*) pictureInfo andFrame:(CGRect) frame; 
--(id) initWithPictureInfo:(PictureInfo *)pictureInfo andFrame:(CGRect) frame shouldClipToBound:(BOOL) clip;
+-(id) initWithPictureInfo:(PictureInfo *)pictureInfo andFrame:(CGRect) frame shouldClipToBound:(BOOL) clip drawUserActivity:(BOOL) activity;
 -(void) loadAsUnavailableImage; 
 -(void) loadPicture; 
 

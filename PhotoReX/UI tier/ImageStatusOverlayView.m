@@ -33,9 +33,13 @@
 
 -(void) drawRect:(CGRect)rect
 {
+    if (pictureInfo.userActivityStatus == ImageActivityStatusNotVisited || 
+        pictureInfo.userActivityStatus == ImageActivityStatusUnknown)
+        return; 
+    
+    
     CGFloat curX = 5; 
 
-    
     CGContextRef context = UIGraphicsGetCurrentContext();
     UIGraphicsPushContext(context); 
     CGContextSetFillColorWithColor(context, [UIColor colorWithHue:0.0 saturation:0.0 brightness:0 alpha:0.65].CGColor);

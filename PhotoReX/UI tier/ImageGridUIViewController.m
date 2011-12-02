@@ -45,8 +45,8 @@
         PictureInfo* pictureInfo = [self.imageSource getPictureInfoAtLocation:i]; 
         CGPoint pos = [self getRowAndColFromIndex:i]; 
         CGRect frame = [self getPictureFrameAtPosition:pos]; 
-        UINetImageView* img = [[UINetImageView alloc] initWithPictureInfo:pictureInfo andFrame:frame]; 
-        img.drawUserActivityStatus = YES; 
+        UINetImageView* img = [[UINetImageView alloc] initWithPictureInfo:pictureInfo andFrame:frame shouldClipToBound:YES drawUserActivity:YES]; 
+//        img.drawUserActivityStatus = YES; 
         
         UIImageButton* btn = [[UIImageButton alloc] initWithImage:img]; 
         [btn addTarget:self action:@selector(showImageDetail:) forControlEvents:UIControlEventTouchUpInside]; 

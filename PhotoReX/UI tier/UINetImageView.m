@@ -108,19 +108,19 @@
 
 -(id) initWithPictureInfo:(PictureInfo*)pictureInfo andFrame:(CGRect) frame
 {
-    return [self initWithPictureInfo:pictureInfo andFrame:frame shouldClipToBound:YES]; 
+    return [self initWithPictureInfo:pictureInfo andFrame:frame shouldClipToBound:YES drawUserActivity:NO]; 
 }
 
 
--(id) initWithPictureInfo:(PictureInfo *)pictureInfo andFrame:(CGRect) frame shouldClipToBound:(BOOL) clip
+-(id) initWithPictureInfo:(PictureInfo *)pictureInfo andFrame:(CGRect) frame shouldClipToBound:(BOOL) clip drawUserActivity:(BOOL)activity
 {
     self = [self initWithFrame:frame]; 
     if (!self)
         return nil; 
  
     self.clipToBound = clip; 
-    
     self.pictureInfo = pictureInfo; 
+    self.drawUserActivityStatus = activity; 
     
     //register to the notification center to receive updates for this object 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageDataDidChange:) name:@"PictureInfoImageDataDidChange" object:pictureInfo]; 
@@ -146,6 +146,8 @@
     
     [[ImageDataProvider mainDataProvider] getDataForPicture:self.pictureInfo withResolution:[PictureInfo CGSizeToImageResolution:self.frame.size] withObserver:self]; 
 
+    
+    [self imageActivityStatusDidChange:nil]; 
  }
 
 

@@ -47,6 +47,19 @@
     return [self.images objectAtIndex:index]; 
 }
 
+-(int) getIndexOfPictureInfo:(PictureInfo *)pic
+{
+
+    for (int i=0; i< self.images.count; i++)
+        if ([self.images objectAtIndex:i]==pic)
+            return i; 
+    
+    
+    return -1; 
+    
+}
+
+
 -(void) loadPicturesWithData:(NSArray *)data
 {
     

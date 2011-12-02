@@ -73,11 +73,26 @@
         content = [[[ImageGridUIViewController alloc] initWithNibName:@"ImageGridUIViewController" bundle:[NSBundle mainBundle]] autorelease]; 
     }
     
+    content.delegate = self; 
     content.page = page; 
     
     content.imageSource = [self.contentProvider getContentAtPage:page];  
     
     return content;
+}
+
+
+#pragma mark - Image grid ui delegate methods 
+
+//respond to the selection of an image
+-(void) imageAtIndex:(int)indx selectedInPictureInfoCollection:(PictureInfoCollection *)picCollection
+{
+    ExploreImageProvider* exp = (ExploreImageProvider*) self.contentProvider; 
+    
+    if (! exp) 
+        return; 
+    
+    [exp userVisitsImageAtIndex:indx inPictureInfoCollection:picCollection]; 
 }
 
 

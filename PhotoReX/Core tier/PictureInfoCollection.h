@@ -27,5 +27,7 @@
 -(void) loadPicturesWithData:(NSArray*) data;               //after the data (which is an array of json data), call this function and the data of each pictureInfo is created/updated from the json data 
 -(id) initWithCount:(int) count; 
 -(PictureInfo*) getPictureInfoAtLocation:(int) index; 
+-(int) getIndexOfPictureInfo:(PictureInfo*) pic;            //currently works only if the same object is sent as param
+
 
 @end

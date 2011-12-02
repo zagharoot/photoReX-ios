@@ -12,7 +12,7 @@
 //  This is a specialized PagedNavigatorController class that shows grids of images per page
 
 
-@interface ExploreNavigatorController : PagedNavigatorController
+@interface ExploreNavigatorController : PagedNavigatorController <ImageGridUIActivityDelegate>
 {
 }
 

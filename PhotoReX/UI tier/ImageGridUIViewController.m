@@ -19,6 +19,7 @@
 @synthesize label= m_label; 
 @synthesize imageSource   = _imageSource; 
 @synthesize images = _images; 
+@synthesize delegate=_delegate; 
 
 -(void) setup
 {
@@ -178,5 +179,13 @@
     //present the picture modally using the tabbar (the root of all view controllers, so nothing intercepts) 
     [[HidableTabbarController getInstance] presentViewController:pvc animated:YES completion:nil];  
  //   [self presentModalViewController:pvc animated:YES]; 
+    
+    
+    if (self.delegate)
+        if ([self.delegate respondsToSelector:@selector(imageAtIndex:selectedInPictureInfoCollection:)])
+        {
+            int indx = [self.imageSource getIndexOfPictureInfo:imgBtn.imageView.pictureInfo]; 
+            [self.delegate imageAtIndex:indx  selectedInPictureInfoCollection:self.imageSource]; 
+        }
 }
 @end

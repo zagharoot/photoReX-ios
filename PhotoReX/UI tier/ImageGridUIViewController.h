@@ -15,6 +15,14 @@
 //TODO: we can optimize performance by caching the picture size and all the functions that are called for computing picture location ...
 
 
+
+// if someone is using the grid viewer and wants to be notified when the user clicks on an image, it needs to comply with this protocol 
+@protocol ImageGridUIActivityDelegate <NSObject>
+@optional 
+-(void) imageAtIndex:(int) indx selectedInPictureInfoCollection:(PictureInfoCollection*) picCollection; 
+@end
+
+
 @interface ImageGridUIViewController : InfiniteScrollViewContent
 {
     UILabel* IBOutlet m_label; 
@@ -23,6 +31,7 @@
     int numberOfColumns; 
     NSMutableArray* _images;
     PictureInfoCollection* _imageSource; 
+    id<ImageGridUIActivityDelegate> _delegate;      //for notification of user activity
 }
 
 -(void) setup; 
@@ -39,5 +48,5 @@
 @property (nonatomic, retain)  UILabel* label; 
 @property (nonatomic, retain) PictureInfoCollection* imageSource; 
 @property (nonatomic, retain) NSMutableArray* images; 
-
+@property (nonatomic, assign) id<ImageGridUIActivityDelegate> delegate; 
 @end

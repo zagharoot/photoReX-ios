@@ -10,15 +10,19 @@
 #import "SBJsonParser.h"
 
 //#define SERVER_ADDRESS   @"http://192.168.10.106/rlimage/imagerecommendationservice.asmx/recommend"
-#define SERVER_ADDRESS   @"http://68.45.157.225/rlimage/imagerecommendationservice.asmx/recommend"
+#define SERVER_ADDRESS   @"http://68.45.157.225"
 
+#define SERVICE_RECOMMEND   @"/rlimage/imagerecommendationservice.asmx/recommend" 
+#define SERVICE_IMAGEVIEWED     @"/rlimage/imagerecommendationservice.asmx/updateModel"
 
 // This class takes care of receiving information from our own web server (image recommendations). 
 // 
 
 @interface RLWebserviceClient : NSObject
 {
-    NSMutableURLRequest* _request; 
+    NSMutableURLRequest* _requestRecommend;
+    NSMutableURLRequest* _requestImageViewed; 
+    
     NSString* _userid; 
 }
 
@@ -28,9 +32,10 @@
 -(void) getPageFromServerAsync:(int) howMany andRunBlock:(void (^)(NSString* pageid, NSArray* picInfoData)) theBlock ; 
 
 //sends user activity to the server (guarantees receive on the server side) 
--(void) sendPageActivity:(NSString*) pageid pictureIndex:(int) index; 
+-(void) sendPageActivityAsync:(NSString*) pageid pictureIndex:(int) index; 
 
-@property (retain, readonly) NSMutableURLRequest* request; 
+@property (retain, readonly) NSMutableURLRequest* requestRecommend;
+@property (retain, readonly) NSMutableURLRequest* requestImageViewed; 
 @property (copy) NSString* userid; 
 
 @end

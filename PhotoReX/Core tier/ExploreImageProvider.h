@@ -22,7 +22,7 @@
 -(id) initWithUserid:(NSString*) userid;                    //count is number of photos per page (note that we don't need the specific layout of the pictures) 
 
 -(PictureInfoCollection*) retrievePageAsync:(int) howMany;        //retrieves one page of pictureInfo from the server 
-
+-(void) userVisitsImageAtIndex:(int) indx inPictureInfoCollection:(PictureInfoCollection*) picCollection; 
 
 @property (retain) NSMutableArray* pages;           //arrays of pictureInfoCollection
 @property (copy) NSString* userid; 

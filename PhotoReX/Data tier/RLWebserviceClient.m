@@ -11,7 +11,9 @@
 
 @implementation RLWebserviceClient
 
-@synthesize request=_request; 
+@synthesize requestRecommend=_requestRecommend;
+@synthesize requestImageViewed=_requestImageViewed; 
+
 @synthesize userid = _userid; 
 
 - (id)initWithUserid:(NSString*) u
@@ -22,14 +24,26 @@
         
         
         //create the request: only the body part of the request remains to be created on the fly at each call
-        NSURL* url = [NSURL URLWithString:SERVER_ADDRESS]; 
-        _request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageAllowedInMemoryOnly timeoutInterval:60]; 
+        NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_RECOMMEND]]; 
+        _requestRecommend = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageAllowedInMemoryOnly timeoutInterval:60]; 
         
         //set parameters of the request except for the body: 
-        [self.request setHTTPMethod:@"POST"]; 
+        [self.requestRecommend setHTTPMethod:@"POST"]; 
         
-        [self.request addValue:@"application/json" forHTTPHeaderField:@"content-type"]; 
-        [self.request addValue:@"utf8" forHTTPHeaderField:@"charset"]; 
+        [self.requestRecommend addValue:@"application/json" forHTTPHeaderField:@"content-type"]; 
+        [self.requestRecommend addValue:@"utf8" forHTTPHeaderField:@"charset"]; 
+        
+        //--------------------
+        
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_IMAGEVIEWED]]; 
+        _requestImageViewed = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageAllowedInMemoryOnly timeoutInterval:60]; 
+        
+        //set parameters of the request except for the body: 
+        [self.requestImageViewed setHTTPMethod:@"POST"]; 
+        
+        [self.requestImageViewed addValue:@"application/json" forHTTPHeaderField:@"content-type"]; 
+        [self.requestImageViewed addValue:@"utf8" forHTTPHeaderField:@"charset"]; 
+        
         
 //        [self.request setHTTPBody: [ body dataUsingEncoding:NSUTF8StringEncoding]]; 
     }
@@ -44,14 +58,14 @@
 {
     NSString* body = [NSString stringWithFormat:@"{\"userid\":\"%@\",\"howMany\":\"%d\"}", self.userid, howMany]; 
     
-    [self.request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]]; 
+    [self.requestRecommend setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]]; 
     
     
     //increment network activity
     [NetworkActivityIndicatorController incrementNetworkConnections]; 
     
     
-    [NSURLConnection sendAsynchronousRequest:self.request queue:[NSOperationQueue mainQueue] completionHandler:
+    [NSURLConnection sendAsynchronousRequest:self.requestRecommend queue:[NSOperationQueue mainQueue] completionHandler:
     ^(NSURLResponse* response, NSData* data, NSError* error)
      {
          //decrement network activity
@@ -110,10 +124,25 @@
 }
 
 
--(void) sendPageActivity:(NSString *)pageid pictureIndex:(int)index
-{
-    //TODO: send the data to the server. Also, save locally and redo later if connection failed
-    //remember to take care of network activity
+-(void) sendPageActivityAsync:(NSString *)pageid pictureIndex:(int)index
+{    
+    NSString* body = [NSString stringWithFormat:@"{\"userid\":\"%@\",\"collectionID\":\"%@\",\"picIndex\":\"%d\"}", self.userid, pageid, index]; 
+    
+    [self.requestImageViewed setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]]; 
+    
+    //NSLog(@"sending user activity for collection %@ pic index %d to server\n", pageid,index );
+    
+    [NSURLConnection sendAsynchronousRequest:self.requestImageViewed queue:[NSOperationQueue mainQueue] completionHandler:
+     ^(NSURLResponse* response, NSData* data, NSError* error)
+     {
+         if (response == nil)       //error happened
+         {
+             //TODO: we need to save to disk to try again later 
+         } else         //success
+         {
+            //TODO: do we need to actually do an ack here? 
+         }
+     }]; 
 }
 
 
@@ -121,7 +150,8 @@
 -(void) dealloc
 {
     self.userid = nil; 
-    [_request release]; 
+    [_requestRecommend release]; 
+    [_requestImageViewed release]; 
 }
 
 @end

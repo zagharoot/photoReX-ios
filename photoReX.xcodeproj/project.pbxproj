@@ -70,7 +70,7 @@
 		08F152B51481316100CF7BD9 /* HidableTabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F152701481316100CF7BD9 /* HidableTabbarController.m */; };
 		08F152B61481316100CF7BD9 /* ImageGridUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F152721481316100CF7BD9 /* ImageGridUIViewController.m */; };
 		08F152B71481316100CF7BD9 /* ImageGridUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08F152731481316100CF7BD9 /* ImageGridUIViewController.xib */; };
-		08F152B81481316100CF7BD9 /* ImageStatusOverlayLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F152751481316100CF7BD9 /* ImageStatusOverlayLayer.m */; };
+		08F152B81481316100CF7BD9 /* ImageStatusOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F152751481316100CF7BD9 /* ImageStatusOverlayView.m */; };
 		08F152B91481316100CF7BD9 /* InfinitePagedScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F152771481316100CF7BD9 /* InfinitePagedScrollView.m */; };
 		08F152BA1481316100CF7BD9 /* PagedNavigatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F152791481316100CF7BD9 /* PagedNavigatorController.m */; };
 		08F152BB1481316100CF7BD9 /* PageIndicatorHUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F1527B1481316100CF7BD9 /* PageIndicatorHUDView.m */; };
@@ -122,6 +122,7 @@
 		0839162C14619A89005C42D8 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		0839162D14619A89005C42D8 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		0839162E14619A89005C42D8 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		088B2F081487BDF0005C785E /* ImageStatusOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStatusOverlayView.h; sourceTree = "<group>"; };
 		089FB68B1480ACD000190764 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		08F1522C1481316000CF7BD9 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		08F1522D1481316000CF7BD9 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -189,8 +190,7 @@
 		08F152711481316100CF7BD9 /* ImageGridUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageGridUIViewController.h; sourceTree = "<group>"; };
 		08F152721481316100CF7BD9 /* ImageGridUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageGridUIViewController.m; sourceTree = "<group>"; };
 		08F152731481316100CF7BD9 /* ImageGridUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageGridUIViewController.xib; sourceTree = "<group>"; };
-		08F152741481316100CF7BD9 /* ImageStatusOverlayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStatusOverlayLayer.h; sourceTree = "<group>"; };
-		08F152751481316100CF7BD9 /* ImageStatusOverlayLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStatusOverlayLayer.m; sourceTree = "<group>"; };
+		08F152751481316100CF7BD9 /* ImageStatusOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStatusOverlayView.m; sourceTree = "<group>"; };
 		08F152761481316100CF7BD9 /* InfinitePagedScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfinitePagedScrollView.h; sourceTree = "<group>"; };
 		08F152771481316100CF7BD9 /* InfinitePagedScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfinitePagedScrollView.m; sourceTree = "<group>"; };
 		08F152781481316100CF7BD9 /* PagedNavigatorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PagedNavigatorController.h; sourceTree = "<group>"; };
@@ -416,8 +416,8 @@
 				08F152711481316100CF7BD9 /* ImageGridUIViewController.h */,
 				08F152721481316100CF7BD9 /* ImageGridUIViewController.m */,
 				08F152731481316100CF7BD9 /* ImageGridUIViewController.xib */,
-				08F152741481316100CF7BD9 /* ImageStatusOverlayLayer.h */,
-				08F152751481316100CF7BD9 /* ImageStatusOverlayLayer.m */,
+				088B2F081487BDF0005C785E /* ImageStatusOverlayView.h */,
+				08F152751481316100CF7BD9 /* ImageStatusOverlayView.m */,
 				08F152761481316100CF7BD9 /* InfinitePagedScrollView.h */,
 				08F152771481316100CF7BD9 /* InfinitePagedScrollView.m */,
 				08F152781481316100CF7BD9 /* PagedNavigatorController.h */,
@@ -565,7 +565,7 @@
 				08F152B41481316100CF7BD9 /* HidableTabbar.m in Sources */,
 				08F152B51481316100CF7BD9 /* HidableTabbarController.m in Sources */,
 				08F152B61481316100CF7BD9 /* ImageGridUIViewController.m in Sources */,
-				08F152B81481316100CF7BD9 /* ImageStatusOverlayLayer.m in Sources */,
+				08F152B81481316100CF7BD9 /* ImageStatusOverlayView.m in Sources */,
 				08F152B91481316100CF7BD9 /* InfinitePagedScrollView.m in Sources */,
 				08F152BA1481316100CF7BD9 /* PagedNavigatorController.m in Sources */,
 				08F152BB1481316100CF7BD9 /* PageIndicatorHUDView.m in Sources */,

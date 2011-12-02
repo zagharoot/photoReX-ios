@@ -73,6 +73,11 @@ const int CACHED_PAGES  =  1;           //number of pages retrieved in advance
 }
 
 
+-(void) userVisitsImageAtIndex:(int)indx inPictureInfoCollection:(PictureInfoCollection *)picCollection
+{
+    [webservice sendPageActivityAsync:picCollection.uniqueID pictureIndex:indx]; 
+}
+
 
 -(void) dealloc
 {

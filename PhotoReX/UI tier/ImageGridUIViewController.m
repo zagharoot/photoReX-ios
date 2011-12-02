@@ -16,7 +16,6 @@
 
 
 @implementation ImageGridUIViewController
-@synthesize label= m_label; 
 @synthesize imageSource   = _imageSource; 
 @synthesize images = _images; 
 @synthesize delegate=_delegate; 
@@ -62,7 +61,6 @@
 -(void) setPage:(int)page
 {
     _page = page; 
-    self.label.text =[NSString stringWithFormat:@"%d", _page]; 
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -94,15 +92,9 @@
     
 }
 
--(void) viewWillAppear:(BOOL)animated
-{
-    self.label.text = [NSString stringWithFormat:@"%d", self.page]; 
-}
-
 
 - (void)viewDidUnload
 {
-    self.label = nil; 
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

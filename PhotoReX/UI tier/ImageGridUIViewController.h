@@ -25,7 +25,6 @@
 
 @interface ImageGridUIViewController : InfiniteScrollViewContent
 {
-    UILabel* IBOutlet m_label; 
     
     int numberOfRows; 
     int numberOfColumns; 
@@ -45,7 +44,6 @@
 
 -(void) showImageDetail:(UIImageButton*) imgBtn; 
 
-@property (nonatomic, retain)  UILabel* label; 
 @property (nonatomic, retain) PictureInfoCollection* imageSource; 
 @property (nonatomic, retain) NSMutableArray* images; 
 @property (nonatomic, assign) id<ImageGridUIActivityDelegate> delegate; 

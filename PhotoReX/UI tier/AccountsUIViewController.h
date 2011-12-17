@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface AccountsUIViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+{
+    NSMutableDictionary* accountCells; //this is a dictionary from indexPath to AccountTableViewCell necessary to compute the row height
+    
+}
 
 @end

@@ -12,25 +12,77 @@
 @implementation FlickrAccount
 @synthesize frobKey=_frobKey; 
 
+
+
+
+
 - (id)init
 {
     self = [super init];
     if (self) 
     {
-        //read user defaults for the frobKey
-               NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
-        _frobKey = [ud valueForKey:@"flickrFrobKey"]; 
-        
-        if (self.frobKey != nil ) //we've got a match. Now let's double check it with flickr to see if we still have access
-        {
-            
-            
-            //todo: check with flickr. if there's no access, remove the key 
-            
-        }
+        [self loadSettings]; 
     }
     
     return self;
+}
+
+
+-(void) loadSettings
+{
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"AccountSettings" ofType:@"plist"]; 
+    NSData* data = [NSData dataWithContentsOfFile:path]; 
+    
+    NSString* error; 
+    NSPropertyListFormat format; 
+    NSDictionary* plist; 
+    
+    plist = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:&format errorDescription:&error]; 
+    
+    if (!plist) 
+    {
+        NSLog(@"%@", error); 
+        [error release]; 
+        return; 
+    }
+    
+    NSDictionary* flickr = [plist objectForKey:self.accountName]; 
+    
+    
+    self.frobKey = [flickr objectForKey:@"frobKey"]; 
+    
+    NSData* iconData =  [flickr objectForKey:@"userIconData"]; 
+    
+    if (iconData)
+        _userIconImage = [[UIImage imageWithData:iconData] retain];     
+}
+
+
+-(void) saveSettings
+{
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"AccountSettings" ofType:@"plist"]; 
+    NSData* data = [NSData dataWithContentsOfFile:path]; 
+    
+    NSString* error; 
+    NSPropertyListFormat format; 
+    NSDictionary* plist; 
+    
+    plist = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:&format errorDescription:&error]; 
+    
+    if (!plist) 
+    {
+        NSLog(@"%@", error); 
+        [error release]; 
+        return; 
+    }
+    
+    NSDictionary* flickr = [plist objectForKey:self.accountName]; 
+    
+    
+    [flickr setValue:self.frobKey forKey:@"frobKey"]; 
+
+    NSData *dataObj = UIImageJPEGRepresentation(self.userIconImage, 1.0);
+    [flickr setValue:dataObj forKey:@"userIconImage"]; 
 }
 
 
@@ -53,14 +105,6 @@
 {
     NSLog(@"setting frobkey: %@\n", value); 
     _frobKey = value; 
-    
-    //replace the value in the userdefaults
-    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
-    
-    if(_frobKey != nil) 
-        [ud setValue:_frobKey forKey:@"flickrFrobKey"]; 
-    else
-        [ud removeObjectForKey:@"flickrFrobKey"]; 
 }
 
 

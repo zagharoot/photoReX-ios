@@ -12,6 +12,7 @@
 @interface Account: NSObject 
 {
     UIImage* _logoImage; 
+    UIImage* _userIconImage; 
 }
 
 -(BOOL) isActive;         //returns true if the account has been set up and ready to use
@@ -19,7 +20,12 @@
 -(NSString*) accountName; 
 -(void) didReceiveMemoryWarning; 
 
+//load and save settings related to this account in to the plist 
+-(void) loadSettings; 
+-(void) saveSettings; 
+
 @property (readonly, nonatomic) UIImage* logoImage; 
+@property (readonly, nonatomic) UIImage* userIconImage; 
 @end
 
 

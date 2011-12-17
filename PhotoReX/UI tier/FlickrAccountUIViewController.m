@@ -84,6 +84,7 @@
         if (frob != nil)    //we've got a working frob: save it and take ourselves from nav stack. 
         {
             self.theAccount.frobKey = frob; 
+            [self.theAccount saveSettings]; 
             
             [self.navigationController popViewControllerAnimated:YES]; 
             [self.delegate accountStatusDidChange]; 

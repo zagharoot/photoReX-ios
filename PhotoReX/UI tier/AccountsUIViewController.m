@@ -34,13 +34,18 @@
 
 - (void)viewDidLoad
 {
+    accountCells = [[NSMutableDictionary alloc] initWithCapacity:5]; 
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewDidUnload
 {
+    
     [super viewDidUnload];
+    
+    [accountCells release]; 
+    
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
@@ -69,23 +74,33 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    if (indexPath.section==0)   //this is the account section 
+    {
+        static NSString *CellIdentifier = @"Cell";
+        Account* account = [[AccountManager standardAccountManager] getAccountAtIndex:indexPath.row]; 
+        CGRect frame = CGRectMake(0, 0, 320, 60); 
     
-    Account* account = [[AccountManager standardAccountManager] getAccountAtIndex:indexPath.row]; 
+        AccountTableViewCell *cell = (AccountTableViewCell*) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if (cell == nil) {
+            cell = [[[AccountTableViewCell alloc] initWithFrame:frame andAccount:account] autorelease]; 
+        }
     
-    CGRect frame = CGRectMake(0, 0, 320, 60); 
-    
-    
-    AccountTableViewCell *cell = (AccountTableViewCell*) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[AccountTableViewCell alloc] initWithFrame:frame andAccount:account] autorelease]; 
+        // Configure the cell...
+        cell.theAccount = account; 
+        [cell updateActiveImage]; 
+   
+        // add the cell to the account cell dictionary 
+        [accountCells setValue:cell forKey:[NSString stringWithFormat:@"%d", indexPath.row]]; 
+        
+        return cell;
+    } else if (indexPath.section==1) //this is the configs section
+    {
+        return nil; 
+        
     }
     
-    // Configure the cell...
-    cell.theAccount = account; 
-    [cell updateActiveImage]; 
     
-    return cell;
+    return nil; 
 }
 
 /*
@@ -129,8 +144,31 @@
 
 #pragma mark - Table view delegate
 
+
+-(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    AccountTableViewCell* cell = [accountCells objectForKey:[NSString stringWithFormat:@"%d", indexPath.row]]; 
+    
+    if (!cell) 
+        return 60; 
+    
+    
+    if (cell.status == ACCOUNTCELL_ACTIVE_EXPANDED)
+        return 130; 
+    else
+        return 60; 
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //don't do anything if the account is already active
+    if ([[AccountManager standardAccountManager] getAccountAtIndex:indexPath.row].isActive)
+    {
+        [tableView beginUpdates];
+        [tableView endUpdates];        
+        return;
+    }
+    
+    
     // Navigation logic may go here. Create and push another view controller.
     
     UIViewController* detailViewController=nil; 
@@ -155,9 +193,11 @@
             break;
     }
     
-
-    [self.navigationController pushViewController:detailViewController animated:YES];
-    [detailViewController release];
+    if (detailViewController) 
+    {
+        [self.navigationController pushViewController:detailViewController animated:YES];
+        [detailViewController release];
+    }
     
 }
 

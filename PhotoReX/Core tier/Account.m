@@ -9,7 +9,13 @@
 #import "Account.h"
 
 @implementation Account
+@synthesize userIconImage=_userIconImage; 
 
+-(void) loadSettings
+{}
+
+-(void) saveSettings
+{}
 
 
 -(UIImage*) logoImage

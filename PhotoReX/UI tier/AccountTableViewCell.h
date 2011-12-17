@@ -15,25 +15,45 @@
 
 @end
 
+
+enum ACCOUNTCELL_STATUS
+{
+    ACCOUNTCELL_INACTIVE = 0, 
+    ACCOUNTCELL_ACTIVE_COMPACT = + 1, 
+    ACCOUNTCELL_ACTIVE_EXPANDED = -1
+};
+
 @interface AccountTableViewCell : UITableViewCell <AccountActiveStatusDelegate>
 {
     NSString* imgPath; 
-    UIImageView* _img; 
-    UIImageView* _isActiveImage; 
+    UIImageView* _img;                  //account image logo 
+    UIImageView* _isActiveImage;        //is account active image on the left
     Account* _account; 
+    
+    UIImageView* _rightIndicator;       //little indicator image at the right 
+    
+    //stuff for view when it's extended 
+    UIImageView* _userIconImage;        //icon for user picture on the website 
+    UISwitch*    _deactivateSwitch; 
+    UILabel*     _usernameLabel; 
+    
+    enum ACCOUNTCELL_STATUS _status; 
 }
 
 
 @property (nonatomic, retain) UIImageView* logoImageView; 
 @property (nonatomic, retain) UIImageView* isActiveImageView; 
 @property (nonatomic, retain) Account* theAccount; 
+@property (nonatomic, retain) UIImageView* rightIndicator; 
+@property (nonatomic) enum ACCOUNTCELL_STATUS status; 
 
-
-
+@property (nonatomic, retain) UIImageView* userIconImage; 
+@property (nonatomic, retain) UISwitch* deactivateSwitch; 
+@property (nonatomic, retain) UILabel* usernameLabel; 
 
 - (id) initWithFrame:(CGRect)frame andAccount:(Account*) a; 
 
 -(void) updateActiveImage; 
-
-
+-(void) setStatus:(enum ACCOUNTCELL_STATUS)status animated:(BOOL) animated; 
+-(void) deactivateAccount:(id) sender; 
 @end

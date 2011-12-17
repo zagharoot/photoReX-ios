@@ -25,7 +25,11 @@
 		0839163A14619A89005C42D8 /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0839162A14619A89005C42D8 /* SBJsonTokeniser.m */; };
 		0839163B14619A89005C42D8 /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = 0839162C14619A89005C42D8 /* SBJsonUTF8Stream.m */; };
 		0839163C14619A89005C42D8 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0839162E14619A89005C42D8 /* SBJsonWriter.m */; };
+		0839DBBB149CDAF900043178 /* tableCellIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 0839DBBA149CDAF900043178 /* tableCellIndicator.png */; };
+		0839DBC1149D08E200043178 /* AccountSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0839DBC0149D08E200043178 /* AccountSettings.plist */; };
+		0839DBC3149D459D00043178 /* defaultIconImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0839DBC2149D459D00043178 /* defaultIconImage.png */; };
 		089FB68C1480ACD000190764 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 089FB68B1480ACD000190764 /* QuartzCore.framework */; };
+		08E71F3C148D773F00845199 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 08E71F3B148D773F00845199 /* Settings.bundle */; };
 		08F1528C1481316100CF7BD9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F1522D1481316000CF7BD9 /* AppDelegate.m */; };
 		08F1528D1481316100CF7BD9 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F152301481316000CF7BD9 /* Account.m */; };
 		08F1528E1481316100CF7BD9 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F152321481316000CF7BD9 /* AccountManager.m */; };
@@ -122,8 +126,12 @@
 		0839162C14619A89005C42D8 /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonUTF8Stream.m; sourceTree = "<group>"; };
 		0839162D14619A89005C42D8 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		0839162E14619A89005C42D8 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		0839DBBA149CDAF900043178 /* tableCellIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tableCellIndicator.png; sourceTree = "<group>"; };
+		0839DBC0149D08E200043178 /* AccountSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AccountSettings.plist; sourceTree = "<group>"; };
+		0839DBC2149D459D00043178 /* defaultIconImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultIconImage.png; sourceTree = "<group>"; };
 		088B2F081487BDF0005C785E /* ImageStatusOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStatusOverlayView.h; sourceTree = "<group>"; };
 		089FB68B1480ACD000190764 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		08E71F3B148D773F00845199 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		08F1522C1481316000CF7BD9 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		08F1522D1481316000CF7BD9 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		08F1522F1481316000CF7BD9 /* Account.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Account.h; sourceTree = "<group>"; };
@@ -173,16 +181,16 @@
 		08F1525F1481316100CF7BD9 /* noimageLandscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noimageLandscape@2x.png"; sourceTree = "<group>"; };
 		08F152601481316100CF7BD9 /* splash-01@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-01@2x.png"; sourceTree = "<group>"; };
 		08F152611481316100CF7BD9 /* splash-02@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-02@2x.png"; sourceTree = "<group>"; };
-		08F152631481316100CF7BD9 /* AccountsUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountsUIViewController.h; sourceTree = "<group>"; };
-		08F152641481316100CF7BD9 /* AccountsUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountsUIViewController.m; sourceTree = "<group>"; };
-		08F152651481316100CF7BD9 /* AccountsUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountsUIViewController.xib; sourceTree = "<group>"; };
-		08F152661481316100CF7BD9 /* AccountTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountTableViewCell.h; sourceTree = "<group>"; };
-		08F152671481316100CF7BD9 /* AccountTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountTableViewCell.m; sourceTree = "<group>"; };
+		08F152631481316100CF7BD9 /* AccountsUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountsUIViewController.h; path = ../AccountsUIViewController.h; sourceTree = "<group>"; };
+		08F152641481316100CF7BD9 /* AccountsUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountsUIViewController.m; path = ../AccountsUIViewController.m; sourceTree = "<group>"; };
+		08F152651481316100CF7BD9 /* AccountsUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountsUIViewController.xib; path = ../AccountsUIViewController.xib; sourceTree = "<group>"; };
+		08F152661481316100CF7BD9 /* AccountTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountTableViewCell.h; path = ../AccountTableViewCell.h; sourceTree = "<group>"; };
+		08F152671481316100CF7BD9 /* AccountTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountTableViewCell.m; path = ../AccountTableViewCell.m; sourceTree = "<group>"; };
 		08F152681481316100CF7BD9 /* ExploreNavigatorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExploreNavigatorController.h; sourceTree = "<group>"; };
 		08F152691481316100CF7BD9 /* ExploreNavigatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExploreNavigatorController.m; sourceTree = "<group>"; };
-		08F1526A1481316100CF7BD9 /* FlickrAccountUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAccountUIViewController.h; sourceTree = "<group>"; };
-		08F1526B1481316100CF7BD9 /* FlickrAccountUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrAccountUIViewController.m; sourceTree = "<group>"; };
-		08F1526C1481316100CF7BD9 /* FlickrAccountUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlickrAccountUIViewController.xib; sourceTree = "<group>"; };
+		08F1526A1481316100CF7BD9 /* FlickrAccountUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlickrAccountUIViewController.h; path = ../FlickrAccountUIViewController.h; sourceTree = "<group>"; };
+		08F1526B1481316100CF7BD9 /* FlickrAccountUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlickrAccountUIViewController.m; path = ../FlickrAccountUIViewController.m; sourceTree = "<group>"; };
+		08F1526C1481316100CF7BD9 /* FlickrAccountUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FlickrAccountUIViewController.xib; path = ../FlickrAccountUIViewController.xib; sourceTree = "<group>"; };
 		08F1526D1481316100CF7BD9 /* HidableTabbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HidableTabbar.h; sourceTree = "<group>"; };
 		08F1526E1481316100CF7BD9 /* HidableTabbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HidableTabbar.m; sourceTree = "<group>"; };
 		08F1526F1481316100CF7BD9 /* HidableTabbarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HidableTabbarController.h; sourceTree = "<group>"; };
@@ -315,6 +323,21 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
+		0839DBB8149CD0F400043178 /* Account Management */ = {
+			isa = PBXGroup;
+			children = (
+				08F152631481316100CF7BD9 /* AccountsUIViewController.h */,
+				08F152641481316100CF7BD9 /* AccountsUIViewController.m */,
+				08F152651481316100CF7BD9 /* AccountsUIViewController.xib */,
+				08F152661481316100CF7BD9 /* AccountTableViewCell.h */,
+				08F152671481316100CF7BD9 /* AccountTableViewCell.m */,
+				08F1526A1481316100CF7BD9 /* FlickrAccountUIViewController.h */,
+				08F1526B1481316100CF7BD9 /* FlickrAccountUIViewController.m */,
+				08F1526C1481316100CF7BD9 /* FlickrAccountUIViewController.xib */,
+			);
+			path = "Account Management";
+			sourceTree = "<group>";
+		};
 		08F1522B1481316000CF7BD9 /* PhotoReX */ = {
 			isa = PBXGroup;
 			children = (
@@ -324,11 +347,13 @@
 				08F1522E1481316000CF7BD9 /* Core tier */,
 				08F1523C1481316000CF7BD9 /* Data tier */,
 				08F152471481316000CF7BD9 /* InfoPlist.strings */,
+				0839DBC0149D08E200043178 /* AccountSettings.plist */,
 				08F152491481316000CF7BD9 /* main.m */,
 				08F1524A1481316000CF7BD9 /* NetworkActivityIndicatorController.h */,
 				08F1524B1481316000CF7BD9 /* NetworkActivityIndicatorController.m */,
 				08F1524C1481316000CF7BD9 /* photoRex-Info.plist */,
 				08F1524D1481316000CF7BD9 /* photoRex-Prefix.pch */,
+				08E71F3B148D773F00845199 /* Settings.bundle */,
 				08F1524E1481316000CF7BD9 /* photoRexplore.xcdatamodeld */,
 				08F152501481316000CF7BD9 /* pics */,
 			);
@@ -375,6 +400,8 @@
 		08F152501481316000CF7BD9 /* pics */ = {
 			isa = PBXGroup;
 			children = (
+				0839DBC2149D459D00043178 /* defaultIconImage.png */,
+				0839DBBA149CDAF900043178 /* tableCellIndicator.png */,
 				08F152511481316000CF7BD9 /* __noimageFull@2x.png */,
 				08F152521481316000CF7BD9 /* accountActive.png */,
 				08F152531481316000CF7BD9 /* accountInactive.png */,
@@ -399,16 +426,9 @@
 		08F152621481316100CF7BD9 /* UI tier */ = {
 			isa = PBXGroup;
 			children = (
-				08F152631481316100CF7BD9 /* AccountsUIViewController.h */,
-				08F152641481316100CF7BD9 /* AccountsUIViewController.m */,
-				08F152651481316100CF7BD9 /* AccountsUIViewController.xib */,
-				08F152661481316100CF7BD9 /* AccountTableViewCell.h */,
-				08F152671481316100CF7BD9 /* AccountTableViewCell.m */,
+				0839DBB8149CD0F400043178 /* Account Management */,
 				08F152681481316100CF7BD9 /* ExploreNavigatorController.h */,
 				08F152691481316100CF7BD9 /* ExploreNavigatorController.m */,
-				08F1526A1481316100CF7BD9 /* FlickrAccountUIViewController.h */,
-				08F1526B1481316100CF7BD9 /* FlickrAccountUIViewController.m */,
-				08F1526C1481316100CF7BD9 /* FlickrAccountUIViewController.xib */,
 				08F1526D1481316100CF7BD9 /* HidableTabbar.h */,
 				08F1526E1481316100CF7BD9 /* HidableTabbar.m */,
 				08F1526F1481316100CF7BD9 /* HidableTabbarController.h */,
@@ -519,6 +539,10 @@
 				08F152B71481316100CF7BD9 /* ImageGridUIViewController.xib in Resources */,
 				08F152BE1481316100CF7BD9 /* PhotoViewController.xib in Resources */,
 				08F152C01481316100CF7BD9 /* TestViewController.xib in Resources */,
+				08E71F3C148D773F00845199 /* Settings.bundle in Resources */,
+				0839DBBB149CDAF900043178 /* tableCellIndicator.png in Resources */,
+				0839DBC1149D08E200043178 /* AccountSettings.plist in Resources */,
+				0839DBC3149D459D00043178 /* defaultIconImage.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

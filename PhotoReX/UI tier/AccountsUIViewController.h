@@ -12,6 +12,10 @@
 {
     NSMutableDictionary* accountCells; //this is a dictionary from indexPath to AccountTableViewCell necessary to compute the row height
     
+    IBOutlet UITableView *tableView;
 }
+
+
+-(void) reevaluateHeights; 
 
 @end

@@ -30,23 +30,12 @@
 
 -(void) loadSettings
 {
-    NSString* path = [[NSBundle mainBundle] pathForResource:@"AccountSettings" ofType:@"plist"]; 
-    NSData* data = [NSData dataWithContentsOfFile:path]; 
+    //read user defaults for the frobKey
+    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
+    NSDictionary* flickr = [ud valueForKey:self.accountName]; 
     
-    NSString* error; 
-    NSPropertyListFormat format; 
-    NSDictionary* plist; 
-    
-    plist = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:&format errorDescription:&error]; 
-    
-    if (!plist) 
-    {
-        NSLog(@"%@", error); 
-        [error release]; 
+    if (!flickr) 
         return; 
-    }
-    
-    NSDictionary* flickr = [plist objectForKey:self.accountName]; 
     
     
     self.frobKey = [flickr objectForKey:@"frobKey"]; 
@@ -59,30 +48,18 @@
 
 
 -(void) saveSettings
-{
-    NSString* path = [[NSBundle mainBundle] pathForResource:@"AccountSettings" ofType:@"plist"]; 
-    NSData* data = [NSData dataWithContentsOfFile:path]; 
-    
-    NSString* error; 
-    NSPropertyListFormat format; 
-    NSDictionary* plist; 
-    
-    plist = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:&format errorDescription:&error]; 
-    
-    if (!plist) 
-    {
-        NSLog(@"%@", error); 
-        [error release]; 
-        return; 
-    }
-    
-    NSDictionary* flickr = [plist objectForKey:self.accountName]; 
-    
+{    
+    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
+
+    NSMutableDictionary* flickr = [NSMutableDictionary dictionaryWithCapacity:5]; 
     
     [flickr setValue:self.frobKey forKey:@"frobKey"]; 
-
+        
     NSData *dataObj = UIImageJPEGRepresentation(self.userIconImage, 1.0);
     [flickr setValue:dataObj forKey:@"userIconImage"]; 
+    
+    
+    [ud setValue:flickr forKey:self.accountName]; 
 }
 
 
@@ -97,6 +74,17 @@
     BOOL result =  (self.frobKey!=nil) ; 
     return result; 
 }
+
+
+-(void) deactivate
+{
+    //TODO: inform server and flickr perhaps? 
+    self.frobKey = nil; 
+    self.userIconImage = nil; 
+    [self saveSettings]; 
+    
+}
+
 
 
 

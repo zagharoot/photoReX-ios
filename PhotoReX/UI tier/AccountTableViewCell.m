@@ -7,6 +7,8 @@
 //
 
 #import "AccountTableViewCell.h"
+#import "AccountsUIViewController.h" 
+
 
 @implementation AccountTableViewCell
 @synthesize logoImageView=_img; 
@@ -58,6 +60,8 @@
         [self addSubview:_deactivateSwitch]; 
     }
     
+    [_deactivateSwitch setOn:YES]; 
+    
     return _deactivateSwitch; 
 }
 
@@ -69,6 +73,7 @@
         
         _usernameLabel.textColor = [UIColor grayColor];
         _usernameLabel.backgroundColor = [UIColor clearColor]; 
+        _usernameLabel.font = [UIFont fontWithName:@"futura" size:17]; 
         [self addSubview:_usernameLabel]; 
     }
     
@@ -177,12 +182,14 @@
     
 }
 
-- (id) initWithFrame:(CGRect)frame andAccount:(Account*) a
+- (id) initWithFrame:(CGRect)frame andAccount:(Account*) a andTableController:(AccountsUIViewController *)p
 {
 //    if (self = [super initWithFrame:frame]) 
     if (self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"])
     {
         self.theAccount = a; 
+        parent = p; 
+        
         self.logoImageView.image = a.logoImage; 
         UIImage* img = [UIImage imageNamed:@"tableCellIndicator.png"]; 
         self.rightIndicator.image = img; 
@@ -209,10 +216,27 @@
 -(void) deactivateAccount:(id)sender
 {
     NSLog(@"deactivating the account\n"); 
+
+    [self setStatus:ACCOUNTCELL_INACTIVE animated:YES]; 
+    CGRect frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, 60); 
+    self.frame = frame; 
+    
+    //hide extended elements 
+    self.deactivateSwitch.hidden = YES; 
+    self.userIconImage.hidden = YES; 
+    
+    //deactivate the account 
+    [self.theAccount deactivate]; 
+    
+    //redraw table 
+    [parent reevaluateHeights]; 
+
+    [self updateActiveImage]; 
 }
 
 -(void) accountStatusDidChange
 {
+    self.status = self.theAccount.isActive? ACCOUNTCELL_ACTIVE_COMPACT: ACCOUNTCELL_INACTIVE; 
     [self updateActiveImage]; 
     self.selected = NO; 
 }
@@ -265,7 +289,7 @@
         self.userIconImage.frame = frame; 
         
         
-        frame = CGRectMake(boundsX+ 80, 60, 120, 30); 
+        frame = CGRectMake(boundsX+ 80, 70, 120, 30); 
         self.usernameLabel.frame = frame; 
         
     }

@@ -24,8 +24,13 @@
 -(void) loadSettings; 
 -(void) saveSettings; 
 
+
+-(void) deactivate; 
+
+
+
 @property (readonly, nonatomic) UIImage* logoImage; 
-@property (readonly, nonatomic) UIImage* userIconImage; 
+@property (nonatomic, retain) UIImage* userIconImage; 
 @end
 
 

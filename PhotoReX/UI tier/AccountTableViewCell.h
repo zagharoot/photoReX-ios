@@ -23,12 +23,16 @@ enum ACCOUNTCELL_STATUS
     ACCOUNTCELL_ACTIVE_EXPANDED = -1
 };
 
+
+@class AccountsUIViewController; 
+
 @interface AccountTableViewCell : UITableViewCell <AccountActiveStatusDelegate>
 {
     NSString* imgPath; 
     UIImageView* _img;                  //account image logo 
     UIImageView* _isActiveImage;        //is account active image on the left
     Account* _account; 
+    AccountsUIViewController* parent; 
     
     UIImageView* _rightIndicator;       //little indicator image at the right 
     
@@ -51,7 +55,7 @@ enum ACCOUNTCELL_STATUS
 @property (nonatomic, retain) UISwitch* deactivateSwitch; 
 @property (nonatomic, retain) UILabel* usernameLabel; 
 
-- (id) initWithFrame:(CGRect)frame andAccount:(Account*) a; 
+- (id) initWithFrame:(CGRect)frame andAccount:(Account*) a andTableController:(AccountsUIViewController*) p; 
 
 -(void) updateActiveImage; 
 -(void) setStatus:(enum ACCOUNTCELL_STATUS)status animated:(BOOL) animated; 

@@ -42,6 +42,8 @@
 - (void)viewDidUnload
 {
     
+    [tableView release];
+    tableView = nil;
     [super viewDidUnload];
     
     [accountCells release]; 
@@ -72,7 +74,7 @@
     return 2;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableViewLocal cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section==0)   //this is the account section 
     {
@@ -82,7 +84,7 @@
     
         AccountTableViewCell *cell = (AccountTableViewCell*) [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
         if (cell == nil) {
-            cell = [[[AccountTableViewCell alloc] initWithFrame:frame andAccount:account] autorelease]; 
+            cell = [[[AccountTableViewCell alloc] initWithFrame:frame andAccount:account andTableController:self] autorelease]; 
         }
     
         // Configure the cell...
@@ -158,14 +160,20 @@
     else
         return 60; 
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+
+-(void) reevaluateHeights
+{
+    [tableView beginUpdates];
+    [tableView endUpdates];        
+}
+
+- (void)tableView:(UITableView *)tableViewLocal didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //don't do anything if the account is already active
     if ([[AccountManager standardAccountManager] getAccountAtIndex:indexPath.row].isActive)
     {
-        [tableView beginUpdates];
-        [tableView endUpdates];        
-        return;
+        [self reevaluateHeights]; 
+        return; 
     }
     
     
@@ -217,4 +225,8 @@
 
 
 
+- (void)dealloc {
+    [tableView release];
+    [super dealloc];
+}
 @end

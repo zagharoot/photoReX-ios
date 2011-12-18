@@ -517,11 +517,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/UI tier/AccountTableViewCell.m"
-         timestampString = "345868296.974093"
+         timestampString = "345872023.914494"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "188"
-         endingLineNumber = "188"
+         startingLineNumber = "190"
+         endingLineNumber = "190"
          landmarkName = "-initWithFrame:andAccount:andTableController:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -531,11 +531,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/UI tier/AccountTableViewCell.m"
-         timestampString = "345868296.974093"
+         timestampString = "345872023.914494"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "147"
-         endingLineNumber = "147"
+         startingLineNumber = "149"
+         endingLineNumber = "149"
          landmarkName = "-setSelected:animated:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -545,11 +545,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/UI tier/AccountTableViewCell.m"
-         timestampString = "345869511.999685"
+         timestampString = "345872023.914494"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "279"
-         endingLineNumber = "279"
+         startingLineNumber = "281"
+         endingLineNumber = "281"
          landmarkName = "-layoutSubviews"
          landmarkType = "5">
       </FileBreakpoint>
@@ -559,11 +559,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/UI tier/AccountTableViewCell.m"
-         timestampString = "345869511.999685"
+         timestampString = "345872023.914494"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "282"
-         endingLineNumber = "282"
+         startingLineNumber = "284"
+         endingLineNumber = "284"
          landmarkName = "-layoutSubviews"
          landmarkType = "5">
       </FileBreakpoint>
@@ -573,11 +573,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/UI tier/AccountTableViewCell.m"
-         timestampString = "345868296.974093"
+         timestampString = "345872023.914494"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "86"
-         endingLineNumber = "86"
+         startingLineNumber = "88"
+         endingLineNumber = "88"
          landmarkName = "-userIconImage"
          landmarkType = "5">
       </FileBreakpoint>

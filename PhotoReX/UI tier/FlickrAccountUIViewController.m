@@ -37,17 +37,11 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    //NSString* sig = @"32c600fad81cf3e3api_keya73d15993130578b1489177a9912aeaapermsread"; 
-    
+        
     //This string is the MD5 encryption of the above string (do it using the command line md5)
-    NSString* sig = @"f454cf953f00d0819ccf5064242f9e71"; 
     
     //customized url for the application
-    NSString* url = @"http://flickr.com/services/auth/?api_key=a73d15993130578b1489177a9912aeaa&perms=read&api_sig="; 
-    
-    url = [url stringByAppendingString:sig]; 
-    
+    NSString* url = [NSString stringWithFormat: @"http://flickr.com/services/auth/?api_key=%@&perms=read&api_sig=%@", self.theAccount.api_key, self.theAccount.signature];  
     
     NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]]; 
     m_webView.delegate = self; 

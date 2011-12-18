@@ -11,7 +11,8 @@
 
 @implementation FlickrAccount
 @synthesize frobKey=_frobKey; 
-
+@synthesize api_key=_api_key; 
+@synthesize signature=_signature; 
 
 
 
@@ -30,7 +31,33 @@
 
 -(void) loadSettings
 {
-    //read user defaults for the frobKey
+    //---------- read the static keys (api_key and signature) 
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"AccountSettings" ofType:@"plist"]; 
+    NSData* data = [NSData dataWithContentsOfFile:path]; 
+    
+    NSString* error; 
+    NSPropertyListFormat format; 
+    NSDictionary* plist; 
+    
+    plist = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:&format errorDescription:&error]; 
+    
+    if (plist) 
+    {
+        NSDictionary* staticSettings = [plist objectForKey:self.accountName]; 
+        
+        self.api_key = [staticSettings valueForKey:@"api_key"]; 
+        self.signature = [staticSettings valueForKey:@"signature"]; 
+    }
+    
+    
+    
+
+    
+    
+    
+    
+    
+    //---------- read user defaults for the frobKey
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
     NSDictionary* flickr = [ud valueForKey:self.accountName]; 
     

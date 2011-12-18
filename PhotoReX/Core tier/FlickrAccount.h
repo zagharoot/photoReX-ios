@@ -12,6 +12,10 @@
 @interface FlickrAccount: Account
 {
     NSString* _frobKey; 
+    
+    //static stuff 
+    NSString* _api_key; 
+    NSString* _signature; 
 }
 
 
@@ -19,7 +23,9 @@
 -(BOOL) isActive; 
 
 
-//todo: change this to atomic (do we need atomicity?)
 @property (copy, nonatomic) NSString* frobKey; 
+
+@property (nonatomic, copy) NSString* api_key; 
+@property (nonatomic, copy) NSString* signature; 
 
 @end

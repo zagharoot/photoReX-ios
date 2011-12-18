@@ -4,10 +4,10 @@
 <dict>
 	<key>flickrAccount</key>
 	<dict>
-		<key>userIconData</key>
-		<data></data>
-		<key>frobKey</key>
-		<string></string>
+		<key>api_key</key>
+		<string>a73d15993130578b1489177a9912aeaa</string>
+		<key>signature</key>
+		<string>f454cf953f00d0819ccf5064242f9e71</string>
 	</dict>
 </dict>
 </plist>

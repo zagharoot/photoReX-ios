@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "PictureInfo.h"
-#import "FlickrFetcher.h"
 #import "ImageDataProvider.h"
+
+#import "ObjectiveFlickr.h" 
 
 
 //This is a wrapper class that retrieved the actual image data given a pictureInfo from flickr

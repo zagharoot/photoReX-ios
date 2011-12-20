@@ -75,29 +75,32 @@
 -(void) getDataForPicture:(PictureInfo *)pictureInfo withResolution:(ImageResolution)resolution withObserver:(id<DataDownloadObserver>)observer
 {
 
-    NSString* urlString; 
-    if (resolution == ImageResolutionGridThumbnail)
-        urlString = [FlickrFetcher urlStringForPhotoWithFlickrInfo:pictureInfo.dictionaryRepresentation format:FlickrFetcherPhotoFormatSmall]; 
-    else
-        urlString =  [FlickrFetcher urlStringForPhotoWithFlickrInfo:pictureInfo.dictionaryRepresentation format:FlickrFetcherPhotoFormatLarge]; 
+    return; //TODO: incomplete
     
-    
-    NSURL* url = [NSURL URLWithString:urlString]; 
-    
-    //create the request 
-    NSURLRequest* req = [NSURLRequest requestWithURL:url]; 
-    
-    
-    //create the connection
-    NSURLConnection* conn = [NSURLConnection connectionWithRequest:req delegate:self];
-    
-    //add the connection to the dictionary
-    FlickrImageDataConnectionDetails* det = [[[FlickrImageDataConnectionDetails alloc] initWithObserver:observer] autorelease]; 
-    [connections setObject:det forKey:conn.currentRequest.URL.description];  
-    
-    
-    //increment network activity 
-    [NetworkActivityIndicatorController incrementNetworkConnections]; 
+//    
+//    NSString* urlString; 
+//    if (resolution == ImageResolutionGridThumbnail)
+//        urlString = [FlickrFetcher urlStringForPhotoWithFlickrInfo:pictureInfo.dictionaryRepresentation format:FlickrFetcherPhotoFormatSmall]; 
+//    else
+//        urlString =  [FlickrFetcher urlStringForPhotoWithFlickrInfo:pictureInfo.dictionaryRepresentation format:FlickrFetcherPhotoFormatLarge]; 
+//    
+//    
+//    NSURL* url = [NSURL URLWithString:urlString]; 
+//    
+//    //create the request 
+//    NSURLRequest* req = [NSURLRequest requestWithURL:url]; 
+//    
+//    
+//    //create the connection
+//    NSURLConnection* conn = [NSURLConnection connectionWithRequest:req delegate:self];
+//    
+//    //add the connection to the dictionary
+//    FlickrImageDataConnectionDetails* det = [[[FlickrImageDataConnectionDetails alloc] initWithObserver:observer] autorelease]; 
+//    [connections setObject:det forKey:conn.currentRequest.URL.description];  
+//    
+//    
+//    //increment network activity 
+//    [NetworkActivityIndicatorController incrementNetworkConnections]; 
 }
 
 

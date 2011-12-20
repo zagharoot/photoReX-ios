@@ -9,19 +9,33 @@
 #import <UIKit/UIKit.h>
 #import "FlickrAccount.h"
 #import "AccountTableViewCell.h"
+#import "ObjectiveFlickr.h"
+#import "GCDiscreetNotificationView.h"
 
-
-
-@interface FlickrAccountUIViewController : UIViewController <UIWebViewDelegate>
+@interface FlickrAccountUIViewController : UIViewController <UIWebViewDelegate, OFFlickrAPIRequestDelegate>
 {    
     UIWebView *m_webView;
     FlickrAccount* _theAccount; 
     id<AccountActiveStatusDelegate> delegate; 
+    
+    OFFlickrAPIRequest* _apiRequest; 
+
+
+    GCDiscreetNotificationView* _notificationView; 
+
 }
 
+-(void) closePage; 
 
-
+@property (nonatomic, retain) GCDiscreetNotificationView*  notificationView; 
 @property (nonatomic, retain) IBOutlet UIWebView *m_webView;
 @property (nonatomic, retain) FlickrAccount* theAccount; 
 @property (nonatomic, assign) id<AccountActiveStatusDelegate> delegate; 
+
+//objective flickr stuff 
+@property (nonatomic, retain) OFFlickrAPIRequest* apiRequest; 
+
+
+
+
 @end

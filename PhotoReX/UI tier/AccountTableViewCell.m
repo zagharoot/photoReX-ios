@@ -196,7 +196,7 @@
 
         [self updateActiveImage]; 
 
-        self.usernameLabel.text = @"Alidoon"; 
+        self.usernameLabel.text = @"[]"; 
         
         [self.contentView addSubview:self.logoImageView]; 
         [self.contentView addSubview:self.isActiveImageView]; 
@@ -238,6 +238,15 @@
 {
     self.status = self.theAccount.isActive? ACCOUNTCELL_ACTIVE_COMPACT: ACCOUNTCELL_INACTIVE; 
     [self updateActiveImage]; 
+    
+    //update stuff inside the cell 
+    if (self.theAccount.isActive)
+    {
+        if (self.theAccount.username)
+            self.usernameLabel.text = self.theAccount.username; 
+    }
+    
+    
     self.selected = NO; 
 }
 

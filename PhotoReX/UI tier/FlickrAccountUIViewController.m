@@ -13,6 +13,24 @@
 @synthesize m_webView;
 @synthesize theAccount=_theAccount; 
 @synthesize delegate; 
+@synthesize notificationView=_notificationView; 
+
+@synthesize apiRequest=_apiRequest; 
+
+
+
+-(GCDiscreetNotificationView*) notificationView
+{
+    if (!_notificationView)
+        _notificationView = [[GCDiscreetNotificationView alloc] initWithText:@"" 
+                                                                showActivity:YES
+                                                          inPresentationMode:GCDiscreetNotificationViewPresentationModeTop 
+                                                                      inView:self.view];
+    
+    return _notificationView; 
+}
+
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,18 +54,67 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    // Do any additional setup after loading the view from its nib
         
-    //This string is the MD5 encryption of the above string (do it using the command line md5)
     
-    //customized url for the application
-    NSString* url = [NSString stringWithFormat: @"http://flickr.com/services/auth/?api_key=%@&perms=read&api_sig=%@", self.theAccount.api_key, self.theAccount.signature];  
+    self.apiRequest = [[OFFlickrAPIRequest alloc] initWithAPIContext:self.theAccount.apiContext];
+    self.apiRequest.delegate = self;
+    self.apiRequest.requestTimeoutInterval = 60.0;
     
-    NSURLRequest* request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]]; 
+    [self.apiRequest fetchOAuthRequestTokenWithCallbackURL:[NSURL URLWithString:@"www.rlimage.com"]];
+    
+    
     m_webView.delegate = self; 
     
-    [self.m_webView loadRequest:request]; 
-                             
+    self.notificationView.textLabel = @"Authorizing..."; 
+    [self.notificationView setShowActivity:YES animated:YES]; 
+    [self.notificationView show:YES]; 
+}
+
+-(void) closePage
+{
+    //return to account page 
+    [self.navigationController popViewControllerAnimated:YES]; 
+    [self.delegate accountStatusDidChange]; 
+}
+
+-(void) flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
+{
+    NSLog(@"flickr api error: %@\n", inError.description); 
+    
+    
+    self.notificationView.textLabel = @"An error occurred. Please try again later!"; 
+    self.notificationView.showActivity = NO; 
+    
+    [self performSelector:@selector(closePage) withObject:self afterDelay:2000]; 
+}
+
+- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didObtainOAuthRequestToken:(NSString *)inRequestToken secret:(NSString *)inSecret
+{
+    // these two lines are important
+    self.theAccount.apiContext.OAuthToken = inRequestToken;
+    self.theAccount.apiContext.OAuthTokenSecret = inSecret;
+    self.theAccount.requestToken = inRequestToken; 
+    
+    NSURL *authURL = [self.theAccount.apiContext userAuthorizationURLWithRequestToken:inRequestToken requestedPermission:OFFlickrWritePermission];
+
+
+    NSURLRequest* urlRequest = [NSURLRequest requestWithURL:authURL]; 
+    m_webView.delegate = self; 
+    [self.m_webView loadRequest:urlRequest]; 
+
+}
+
+
+- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didObtainOAuthAccessToken:(NSString *)inAccessToken secret:(NSString *)inSecret userFullName:(NSString *)inFullName userName:(NSString *)inUserName userNSID:(NSString *)inNSID
+{
+    //update the flickr account 
+    self.theAccount.accessToken = inAccessToken; 
+    self.theAccount.accessSecret = inSecret; 
+    self.theAccount.username = inUserName;     
+    [self.theAccount saveSettings]; 
+    
+    [self closePage]; 
 }
 
 
@@ -69,20 +136,22 @@
 
 -(BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSURL* url = request.URL; 
+    NSString* url = [request.URL absoluteString];  
     
-    if ([[url host] isEqualToString:@"www.rlimage.com"])    //successfully authorized the account: take note of the frobKey and exit
+    NSRange range = [url rangeOfString:@"www.rlimage.com"]; 
+    if (range.location != NSNotFound) 
     {
-        NSString* frob = [self extractFrobFromURL:url];  
-
-        if (frob != nil)    //we've got a working frob: save it and take ourselves from nav stack. 
-        {
-            self.theAccount.frobKey = frob; 
-            [self.theAccount saveSettings]; 
-            
-            [self.navigationController popViewControllerAnimated:YES]; 
-            [self.delegate accountStatusDidChange]; 
+        NSString *token = nil;
+        NSString *verifier = nil;
+        BOOL result = OFExtractOAuthCallback(request.URL, [NSURL URLWithString:@"http://m.flickr.com/www.rlimage.com"], &token, &verifier);
+        
+        if (!result) {
+            NSLog(@"Cannot obtain token/secret from URL: %@", url);
+            return YES;
         }
+        
+        [self.apiRequest fetchOAuthAccessTokenWithRequestToken:token verifier:verifier];
+        self.notificationView.textLabel = @"Almost done!"; 
         
         return NO;
     }
@@ -90,8 +159,10 @@
         return YES; 
 }
 
+
 - (void)viewDidUnload
 {
+    [self setNotificationView:nil]; 
     [self setM_webView:nil];
     [super viewDidUnload];
     self.theAccount = nil; 

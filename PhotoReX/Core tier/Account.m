@@ -10,12 +10,38 @@
 
 @implementation Account
 @synthesize userIconImage=_userIconImage; 
+@synthesize username=_username; 
 
 -(void) loadSettings
-{}
+{
+    //---------- read user defaults for the frobKey
+    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
+    NSDictionary* account = [ud valueForKey:self.accountName]; 
+    
+    if (!account) 
+        return; 
+    
+    NSData* iconData =  [account objectForKey:@"userIconData"]; 
+    if (iconData)
+        _userIconImage = [[UIImage imageWithData:iconData] retain];     
+
+    
+    self.username = [account objectForKey:@"username"]; 
+}
 
 -(void) saveSettings
-{}
+{
+    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
+    
+    NSMutableDictionary* account = [NSMutableDictionary dictionaryWithCapacity:5]; 
+    
+    NSData *dataObj = UIImageJPEGRepresentation(self.userIconImage, 1.0);
+    [account setValue:dataObj forKey:@"userIconImage"]; 
+    
+    [account setValue:self.username forKey:@"username"]; 
+    
+    [ud setValue:account forKey:self.accountName]; 
+}
 
 
 -(UIImage*) logoImage
@@ -58,6 +84,15 @@
 {
     return NO; 
 }
+
+-(void) dealloc
+{
+    self.username = nil; 
+    self.userIconImage = nil; 
+    
+    [super dealloc]; 
+}
+
 
 @end
 

@@ -657,12 +657,26 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/Core tier/FlickrAccount.m"
-         timestampString = "346083474.580462"
+         timestampString = "346088858.776905"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "77"
-         endingLineNumber = "77"
+         startingLineNumber = "112"
+         endingLineNumber = "112"
          landmarkName = "-saveSettings"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "PhotoReX/Core tier/FlickrAccount.m"
+         timestampString = "346089388.674086"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "170"
+         endingLineNumber = "170"
+         landmarkName = "-flickrAPIRequest:didCompleteWithResponse:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

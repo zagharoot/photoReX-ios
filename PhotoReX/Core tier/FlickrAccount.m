@@ -16,6 +16,41 @@
 @synthesize requestToken=_requestToken; 
 @synthesize accessToken=_accessToken; 
 @synthesize accessSecret=_accessSecret; 
+@synthesize apiRequest=_apiRequest; 
+
+
+//lazily create the object 
+-(OFFlickrAPIRequest*) apiRequest
+{
+    if (!_apiRequest)
+    {
+        _apiRequest = [[OFFlickrAPIRequest alloc] initWithAPIContext:self.apiContext]; 
+        _apiRequest.delegate = self; 
+    }
+    return _apiRequest; 
+}
+
+
+//this is a copy property. overridden so we can update our buddy icon 
+-(void) setUsername:(NSString *)username
+{
+    [_username release]; 
+    self.userIconImage = nil; 
+    
+    
+    if (username) 
+    {
+        _username = [username copy]; 
+        
+        NSDictionary* args = [NSDictionary dictionaryWithObjectsAndKeys:self.api_key, @"api_key", _username, @"username", nil]; 
+        
+        [self.apiRequest callAPIMethodWithGET:@"flickr.people.findByUsername" arguments:args]; 
+    }else
+    {
+        _username = nil; 
+    }
+    
+}
 
 
 - (id)init
@@ -126,5 +161,31 @@
     [super dealloc]; 
 }
 
+
+#pragma mark- flickr request delegate 
+- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
+{
+    NSLog(@"response from flickr: %@\n", inResponseDictionary); 
+    
+    NSDictionary* user = [inResponseDictionary objectForKey:@"user"]; 
+    
+    
+    if (user) 
+    {
+        NSString* nsid = [user objectForKey:@"nsid"]; 
+        NSString* url = [NSString stringWithFormat:@"http://flickr.com/buddyicons/%@.jpg", nsid ]; 
+        NSData* iconData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url] options:NSDataReadingMapped error:nil]; 
+        self.userIconImage = [UIImage imageWithData:iconData];
+        [self saveSettings]; 
+    }
+    
+    self.apiRequest = nil; //don't really need this anymore 
+}
+
+
+- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
+{
+    
+}
 
 @end

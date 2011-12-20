@@ -11,7 +11,7 @@
 #import "ObjectiveFlickr.h" 
 
 
-@interface FlickrAccount: Account
+@interface FlickrAccount: Account <OFFlickrAPIRequestDelegate> 
 {    
     //static stuff 
     NSString* _api_key; 
@@ -24,6 +24,9 @@
     NSString* _accessSecret; 
     
     OFFlickrAPIContext* _apiContext; 
+    
+    //personal stuff 
+    OFFlickrAPIRequest* _apiRequest;        //used to obtain nsid from username 
 }
 
 
@@ -40,4 +43,8 @@
 
 //objective flickr stuff 
 @property (nonatomic, retain) OFFlickrAPIContext* apiContext; 
+@property (nonatomic, retain) OFFlickrAPIRequest* apiRequest; 
+
 @end
+
+

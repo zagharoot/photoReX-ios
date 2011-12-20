@@ -30,8 +30,9 @@ enum ACCOUNT_INDEX  //WEBSITE: add the website here
 {
     NOT_AVAILABLE = -1, 
     FLICKR_INDEX = 0, 
-    GOOGLE_INDEX = 1, 
-    INSTAGRAM_INDEX = 2
+    INSTAGRAM_INDEX = 1, 
+    FIVEHUNDREDPX_INDEX = 2,
+    GOOGLE_INDEX = 3
 };
 
 
@@ -119,6 +120,16 @@ enum ACCOUNT_INDEX  //WEBSITE: add the website here
 
 +(InstagramPictureInfo*) infoFromJsonData:(NSDictionary*) data; 
 
+@end
+
+
+
+@interface FiveHundredPXPictureInfo : PictureInfoDetails {
+@private
+    
+}
+
++(FiveHundredPXPictureInfo*) infoFromJsonData:(NSDictionary*) data; 
 @end
 
 

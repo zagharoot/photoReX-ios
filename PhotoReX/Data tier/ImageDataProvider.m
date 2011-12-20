@@ -9,6 +9,7 @@
 #import "ImageDataProvider.h"
 #import "ImageFlickrDataProvider.h"
 #import "ImageInstagramDataProvider.h"
+#import "ImageFiveHundredPXDataProvider.h"
 //WEBSITE: 
 
 
@@ -19,6 +20,7 @@ static ImageDataProvider* theProvider=nil;
 @synthesize cachedProvider = _cachedProvider; 
 @synthesize flickrProvider = _flickrProvider; 
 @synthesize instagramProvider = _instagramProvider; 
+@synthesize fiveHundredPXProvider=_fiveHundredPXDataProvider; 
 //WEBSITE: 
 
 +(ImageDataProvider*) mainDataProvider
@@ -37,6 +39,7 @@ static ImageDataProvider* theProvider=nil;
         // Initialization code here.
         _flickrProvider = [[ImageFlickrDataProvider alloc] init]; 
         _instagramProvider = [[ImageInstagramDataProvider alloc] init]; 
+        _fiveHundredPXDataProvider = [[ImageFiveHundredPXDataProvider alloc] init]; 
         //WEBSITE: 
         
     }
@@ -70,8 +73,13 @@ static ImageDataProvider* theProvider=nil;
         return; 
     }
     
+    
+    if (pictureInfo.info.website == FIVEHUNDREDPX_INDEX)
+    {
+        [self.fiveHundredPXProvider getDataForPicture:pictureInfo withResolution:resolution withObserver:observer]; 
+        return; 
+    }
         //WEBSITE: add code for other websites
-
 }
 
 -(void) addImageToCache:(UIImage *)img forPictureInfo:(PictureInfo *)pictureInfo andResolution:(ImageResolution)resolution
@@ -84,6 +92,7 @@ static ImageDataProvider* theProvider=nil;
 {
     [_flickrProvider release]; 
     [_instagramProvider release]; 
+    [_fiveHundredPXDataProvider release]; 
     //WEBSITE: 
     
     [super dealloc]; 

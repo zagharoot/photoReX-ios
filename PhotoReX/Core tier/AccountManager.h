@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "FlickrAccount.h"
+#import "FiveHundredPXAccount.h"
 #import "PictureInfo.h"
 #import "Account.h"
 
@@ -20,6 +21,7 @@
 -(id) init; 
 -(FlickrAccount*) flickrAccount;                //WEBSITE: 
 -(InstagramAccount*) instagramAccount; 
+-(FiveHundredPXAccount*) fiveHundredPXAccount; 
 
 
 -(BOOL) hasAnyActiveAccount; 

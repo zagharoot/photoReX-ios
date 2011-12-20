@@ -112,6 +112,8 @@
         [self setInfo:[FlickrPictureInfo infoFromJsonData:picData]]; 
     else if ([website isEqualToString:@"instagram"])
         [self setInfo:[InstagramPictureInfo infoFromJsonData:picData]]; 
+    else if ([website isEqualToString:@"fiveHundredPX"])
+        [self setInfo:[FiveHundredPXPictureInfo infoFromJsonData:picData]]; 
     
     
     
@@ -256,8 +258,20 @@
 {
     return nil; //TODO: 
 }
+@end
 
 
+
+//---------------------------------------
+@implementation FiveHundredPXPictureInfo
+
+
++(FiveHundredPXPictureInfo*) infoFromJsonData:(NSDictionary *)data
+{
+    //TODO: incomplete 
+    return nil; 
+    
+}
 
 @end
 

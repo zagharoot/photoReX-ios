@@ -10,7 +10,6 @@
 #import "PictureInfo.h"
 #import "ImageCachedDataProvider.h"
 
-
 @protocol DataDownloadObserver <NSObject>
 -(void) imageDidBecomeAvailable:(UIImage*) img; 
 @optional
@@ -20,6 +19,7 @@
 
 @class ImageFlickrDataProvider; 
 @class ImageInstagramDataProvider; 
+@class ImageFiveHundredPXDataProvider; 
 //WEBSITE: 
 
 //This is a wrapper class that contains different providers that actually retrieve data in different ways. 
@@ -29,12 +29,14 @@
     ImageCachedDataProvider* _cachedProvider; 
     ImageFlickrDataProvider* _flickrProvider; 
     ImageInstagramDataProvider* _instagramProvider; 
+    ImageFiveHundredPXDataProvider* _fiveHundredPXDataProvider; 
     //WEBSITE: 
 }
 
 @property (retain) ImageCachedDataProvider* cachedProvider;
 @property (retain) ImageFlickrDataProvider* flickrProvider; 
 @property (retain) ImageInstagramDataProvider* instagramProvider; 
+@property (retain) ImageFiveHundredPXDataProvider* fiveHundredPXProvider; 
 //WEBSITE: 
 
 +(ImageDataProvider*) mainDataProvider; 

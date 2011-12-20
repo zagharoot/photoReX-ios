@@ -7,7 +7,6 @@
 //
 
 #import "ImageFlickrDataProvider.h"
-#import "FlickrAPIKey.h"
 #import "NetworkActivityIndicatorController.h"
 
 @interface FlickrImageDataConnectionDetails : NSObject {

@@ -7,7 +7,6 @@
 //
 
 #import "PhotoViewController.h"
-#import "FlickrFetcher.h"
 
 @implementation PhotoViewController
 

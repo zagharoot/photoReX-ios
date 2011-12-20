@@ -71,7 +71,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return [AccountManager standardAccountManager].NUMBER_OF_ACCOUNTS; 
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableViewLocal cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -181,6 +181,7 @@
     
     UIViewController* detailViewController=nil; 
     
+    //WEBSITE: 
     switch (indexPath.row) {
         case FLICKR_INDEX:
             detailViewController = [[FlickrAccountUIViewController alloc] initWithNibName:@"FlickrAccountUIViewController" bundle:[NSBundle mainBundle]];
@@ -192,7 +193,7 @@
         case INSTAGRAM_INDEX: 
             
             break; 
-        case GOOGLE_INDEX: 
+        case FIVEHUNDREDPX_INDEX: 
            
             
             break;

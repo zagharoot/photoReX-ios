@@ -41,6 +41,11 @@ static AccountManager* theAccountManager;
         return [[AccountManager standardAccountManager] instagramAccount]; 
     }
     
+    if ([className isEqualToString:@"FiveHundredPXAccount"]) //picture is from 500px
+    {
+        return [[AccountManager standardAccountManager] fiveHundredPXAccount]; 
+    }
+    
     //WEBSITE: handle other websites here 
     return nil; //couldn't find the downloader 
 }
@@ -51,8 +56,9 @@ static AccountManager* theAccountManager;
 
 -(int) NUMBER_OF_ACCOUNTS
 {
-    return 2; //there are two accounts
+    return 3; 
     
+    //WEBSITE: 
     //todo: can we extract the number of available accounts from the enum? 
 }
 
@@ -68,10 +74,12 @@ static AccountManager* theAccountManager;
         [_accounts addObject:item]; 
         
         
-        //add flickr account 
+        //add instagram account 
         InstagramAccount* item2 = [[[InstagramAccount alloc] init] autorelease]; 
-        
         [_accounts addObject:item2]; 
+        
+        FiveHundredPXAccount* item3 = [[[FiveHundredPXAccount alloc] init] autorelease]; 
+        [_accounts addObject:item3]; 
         
         //WEBSITE: 
         
@@ -115,6 +123,14 @@ static AccountManager* theAccountManager;
 {
     if ([self.accounts count] > INSTAGRAM_INDEX)
         return [self.accounts objectAtIndex:INSTAGRAM_INDEX]; 
+    else
+        return nil; 
+}
+
+-(FiveHundredPXAccount*) fiveHundredPXAccount
+{
+    if ([self.accounts count] > FIVEHUNDREDPX_INDEX)
+        return [self.accounts objectAtIndex:FIVEHUNDREDPX_INDEX]; 
     else
         return nil; 
 }

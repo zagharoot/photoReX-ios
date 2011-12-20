@@ -503,11 +503,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/UI tier/PhotoViewController.m"
-         timestampString = "344445520.340608"
+         timestampString = "346102344.379226"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "174"
-         endingLineNumber = "174"
+         startingLineNumber = "173"
+         endingLineNumber = "173"
          landmarkName = "-imageBecameAvailableForView:"
          landmarkType = "5">
       </FileBreakpoint>

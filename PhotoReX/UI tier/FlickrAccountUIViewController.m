@@ -79,20 +79,17 @@
 -(void) flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
 {
     NSLog(@"flickr api error: %@\n", inError.description); 
-    
-    
+
     self.notificationView.textLabel = @"An error occurred. Please try again later!"; 
     self.notificationView.showActivity = NO; 
     
-    [self performSelector:@selector(closePage) withObject:self afterDelay:2000]; 
+    [self performSelector:@selector(closePage) withObject:self afterDelay:2]; 
 }
 
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didObtainOAuthRequestToken:(NSString *)inRequestToken secret:(NSString *)inSecret
 {
-    // these two lines are important
-    self.theAccount.apiContext.OAuthToken = inRequestToken;
-    self.theAccount.apiContext.OAuthTokenSecret = inSecret;
     self.theAccount.requestToken = inRequestToken; 
+    self.theAccount.requestSecret = inSecret; 
     
     NSURL *authURL = [self.theAccount.apiContext userAuthorizationURLWithRequestToken:inRequestToken requestedPermission:OFFlickrWritePermission];
 
@@ -135,11 +132,17 @@
         
         [self.apiRequest fetchOAuthAccessTokenWithRequestToken:token verifier:verifier];
         self.notificationView.textLabel = @"Almost done!"; 
+        [self.notificationView showAnimated]; 
         
         return NO;
     }
     else
         return YES; 
+}
+
+-(void) webViewDidFinishLoad:(UIWebView *)webView
+{
+    [self.notificationView hideAnimated]; 
 }
 
 

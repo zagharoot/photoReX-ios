@@ -14,9 +14,58 @@
 @synthesize signature=_signature; 
 @synthesize apiContext=_apiContext; 
 @synthesize requestToken=_requestToken; 
+@synthesize requestSecret=_requestSecret; 
 @synthesize accessToken=_accessToken; 
 @synthesize accessSecret=_accessSecret; 
 @synthesize apiRequest=_apiRequest; 
+
+
+-(OFFlickrAPIContext*) apiContext
+{
+    if (!_apiContext)
+    {
+        if (self.api_key && self.signature)
+            _apiContext = [[OFFlickrAPIContext alloc] initWithAPIKey:self.api_key sharedSecret:self.signature]; 
+    }
+    
+    return _apiContext; 
+}
+
+-(void) setApiKey:(NSString *)key andSignature:(NSString *)signature
+{
+    [_api_key release]; 
+    [_signature release]; 
+
+    _api_key = [key copy]; 
+    _signature = [signature copy]; 
+    
+    //update the context 
+    self.apiContext = [[[OFFlickrAPIContext alloc] initWithAPIKey:self.api_key sharedSecret:self.signature] autorelease];
+}
+
+
+
+//copy    //TODO: are there other methods we need to relay to api context? 
+-(void) setRequestToken:(NSString *)requestToken
+{
+    [_requestToken release]; 
+    _requestToken = [requestToken copy]; 
+    
+
+    if (_apiContext)        //don't use the property here or otherwise we'll create obj if nil 
+        _apiContext.OAuthToken = _requestToken; 
+}
+
+
+-(void) setRequestSecret:(NSString *)requestSecret
+{
+    [_requestSecret release]; 
+    _requestSecret = [requestSecret copy]; 
+    
+    if (_apiContext)        //don't use the property here or otherwise we'll create obj if nil 
+        _apiContext.OAuthTokenSecret = _requestSecret; 
+}
+
 
 
 //lazily create the object 
@@ -81,13 +130,7 @@
     {
         NSDictionary* staticSettings = [plist objectForKey:self.accountName]; 
         
-        self.api_key = [staticSettings valueForKey:@"api_key"]; 
-        self.signature = [staticSettings valueForKey:@"signature"]; 
-        
-        
-        //create the api context 
-        
-        self.apiContext = [[[OFFlickrAPIContext alloc] initWithAPIKey:self.api_key sharedSecret:self.signature] autorelease]; 
+        [self setApiKey:[staticSettings valueForKey:@"api_key"] andSignature:[staticSettings valueForKey:@"signature"]]; 
     }
     
     //---------- read user defaults for the frobKey
@@ -98,6 +141,7 @@
         return; 
     
     self.requestToken = [flickr objectForKey:@"requestToken"]; 
+    self.requestSecret = [flickr objectForKey:@"requestSecret"]; 
     self.accessToken = [flickr objectForKey:@"accessToken"]; 
     self.accessSecret = [flickr objectForKey:@"accessSecret"]; 
     
@@ -110,10 +154,12 @@
 -(void) saveSettings
 {    
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
+    NSDictionary* prevSettings = [ud valueForKey:self.accountName]; 
 
-    NSMutableDictionary* flickr = [NSMutableDictionary dictionaryWithCapacity:5]; 
+    NSMutableDictionary* flickr = [NSMutableDictionary dictionaryWithDictionary:prevSettings]; 
     
     [flickr setValue:self.requestToken forKey:@"requestToken"]; 
+    [flickr setValue:self.requestSecret forKey:@"requestSecret"]; 
     [flickr setValue:self.accessToken forKey:@"accessToken"]; 
     [flickr setValue:self.accessSecret forKey:@"accessSecret"]; 
     
@@ -141,19 +187,20 @@
 -(void) deactivate
 {
     //TODO: inform server and flickr perhaps? 
-    self.apiContext = nil; 
     self.accessToken = nil; 
     self.accessSecret = nil; 
     self.requestToken = nil; 
+    self.requestSecret = nil;     
+    self.apiContext = nil; 
     
     [self saveSettings]; 
-    
 }
 
 
 -(void) dealloc
 {
     self.requestToken = nil; 
+    self.requestSecret = nil; 
     self.accessToken = nil; 
     self.accessSecret = nil; 
     self.apiContext = nil; 

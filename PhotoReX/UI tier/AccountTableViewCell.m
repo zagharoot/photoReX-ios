@@ -32,6 +32,12 @@
     _account = [theAccount retain]; 
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountDetailsDidChange:) name:@"AccountDetailsDidChange" object:_account]; 
+
+    
+    self.userIconImage = nil; 
+    self.usernameLabel.text = theAccount.username; 
+    [self setNeedsDisplay]; 
+
 }
 
 

@@ -21,19 +21,20 @@
     if (!account) 
         return; 
     
-    NSData* iconData =  [account objectForKey:@"userIconData"]; 
+    NSData* iconData =  [account objectForKey:@"userIconImage"]; 
     if (iconData)
         _userIconImage = [[UIImage imageWithData:iconData] retain];     
 
     
-    self.username = [account objectForKey:@"username"]; 
+    _username = [[account objectForKey:@"username"] copy]; 
 }
 
 -(void) saveSettings
 {
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
+    NSDictionary* prevSettings = [ud valueForKey:self.accountName]; 
+    NSMutableDictionary* account = [NSMutableDictionary dictionaryWithDictionary:prevSettings]; 
     
-    NSMutableDictionary* account = [NSMutableDictionary dictionaryWithCapacity:5]; 
     
     NSData *dataObj = UIImageJPEGRepresentation(self.userIconImage, 1.0);
     [account setValue:dataObj forKey:@"userIconImage"]; 

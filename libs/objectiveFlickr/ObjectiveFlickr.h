@@ -68,8 +68,8 @@ extern NSString *const OFFlickrDeletePermission;
 // API endpoints
 
 #if MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_4
-@property (nonatomic, readonly) NSString *key;
-@property (nonatomic, readonly) NSString *sharedSecret;
+@property (nonatomic, copy) NSString *key;
+@property (nonatomic, copy) NSString *sharedSecret;
 @property (nonatomic, retain) NSString *authToken;
 
 @property (nonatomic, retain) NSString *RESTAPIEndpoint;

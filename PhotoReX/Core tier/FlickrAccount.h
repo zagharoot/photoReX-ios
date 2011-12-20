@@ -20,6 +20,7 @@
     
     //dynamic stuff 
     NSString* _requestToken; 
+    NSString* _requestSecret; 
     NSString* _accessToken; 
     NSString* _accessSecret; 
     
@@ -30,14 +31,16 @@
 }
 
 
+-(void) setApiKey:(NSString*) key andSignature:(NSString*) signature; 
 
 -(BOOL) isActive; 
 
-
-@property (nonatomic, copy) NSString* api_key; 
-@property (nonatomic, copy) NSString* signature; 
+//write access through designated method 
+@property (nonatomic, readonly) NSString* api_key; 
+@property (nonatomic, readonly) NSString* signature; 
 
 @property (nonatomic, copy) NSString* requestToken; 
+@property (nonatomic, copy) NSString* requestSecret; 
 @property (nonatomic, copy) NSString* accessToken; 
 @property (nonatomic, copy) NSString* accessSecret; 
 

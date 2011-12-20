@@ -517,11 +517,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/UI tier/AccountTableViewCell.m"
-         timestampString = "346087670.993212"
+         timestampString = "346091493.24747"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "204"
-         endingLineNumber = "204"
+         startingLineNumber = "210"
+         endingLineNumber = "210"
          landmarkName = "-initWithFrame:andAccount:andTableController:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -531,11 +531,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/UI tier/AccountTableViewCell.m"
-         timestampString = "346087670.993212"
+         timestampString = "346091493.24747"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "163"
-         endingLineNumber = "163"
+         startingLineNumber = "169"
+         endingLineNumber = "169"
          landmarkName = "-setSelected:animated:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -545,11 +545,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/UI tier/AccountTableViewCell.m"
-         timestampString = "346087670.993212"
+         timestampString = "346091493.24747"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "304"
-         endingLineNumber = "304"
+         startingLineNumber = "310"
+         endingLineNumber = "310"
          landmarkName = "-layoutSubviews"
          landmarkType = "5">
       </FileBreakpoint>
@@ -559,11 +559,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/UI tier/AccountTableViewCell.m"
-         timestampString = "346087670.993212"
+         timestampString = "346091493.24747"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "307"
-         endingLineNumber = "307"
+         startingLineNumber = "313"
+         endingLineNumber = "313"
          landmarkName = "-layoutSubviews"
          landmarkType = "5">
       </FileBreakpoint>
@@ -573,11 +573,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/UI tier/AccountTableViewCell.m"
-         timestampString = "346087670.993212"
+         timestampString = "346091493.24747"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "102"
-         endingLineNumber = "102"
+         startingLineNumber = "108"
+         endingLineNumber = "108"
          landmarkName = "-userIconImage"
          landmarkType = "5">
       </FileBreakpoint>
@@ -587,26 +587,12 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/UI tier/FlickrAccountUIViewController.m"
-         timestampString = "346087670.993212"
+         timestampString = "346090743.001218"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "122"
-         endingLineNumber = "122"
+         startingLineNumber = "119"
+         endingLineNumber = "119"
          landmarkName = "-webView:shouldStartLoadWithRequest:navigationType:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "PhotoReX/UI tier/FlickrAccountUIViewController.m"
-         timestampString = "346087670.993212"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "93"
-         endingLineNumber = "93"
-         landmarkName = "-flickrAPIRequest:didObtainOAuthRequestToken:secret:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -629,11 +615,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/UI tier/FlickrAccountUIViewController.m"
-         timestampString = "346087670.993212"
+         timestampString = "346090743.001218"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "125"
-         endingLineNumber = "125"
+         startingLineNumber = "122"
+         endingLineNumber = "122"
          landmarkName = "-webView:shouldStartLoadWithRequest:navigationType:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -643,11 +629,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/UI tier/FlickrAccountUIViewController.m"
-         timestampString = "346087670.993212"
+         timestampString = "346090743.001218"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "124"
-         endingLineNumber = "124"
+         startingLineNumber = "121"
+         endingLineNumber = "121"
          landmarkName = "-webView:shouldStartLoadWithRequest:navigationType:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -657,26 +643,68 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/Core tier/FlickrAccount.m"
-         timestampString = "346088858.776905"
+         timestampString = "346094548.114484"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "112"
-         endingLineNumber = "112"
+         startingLineNumber = "156"
+         endingLineNumber = "156"
          landmarkName = "-saveSettings"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/Core tier/FlickrAccount.m"
-         timestampString = "346089388.674086"
+         timestampString = "346094392.995403"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "170"
-         endingLineNumber = "170"
+         startingLineNumber = "217"
+         endingLineNumber = "217"
          landmarkName = "-flickrAPIRequest:didCompleteWithResponse:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "PhotoReX/Core tier/FlickrAccount.m"
+         timestampString = "346094548.114484"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "120"
+         endingLineNumber = "120"
+         landmarkName = "-loadSettings"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "PhotoReX/UI tier/AccountTableViewCell.m"
+         timestampString = "346093817.189046"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "106"
+         endingLineNumber = "106"
+         landmarkName = "-userIconImage"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "PhotoReX/Core tier/FlickrAccount.m"
+         timestampString = "346094158.616302"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "27"
+         endingLineNumber = "27"
+         landmarkName = "-apiContext"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

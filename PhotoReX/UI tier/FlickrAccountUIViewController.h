@@ -16,7 +16,6 @@
 {    
     UIWebView *m_webView;
     FlickrAccount* _theAccount; 
-    id<AccountActiveStatusDelegate> delegate; 
     
     OFFlickrAPIRequest* _apiRequest; 
 
@@ -30,7 +29,6 @@
 @property (nonatomic, retain) GCDiscreetNotificationView*  notificationView; 
 @property (nonatomic, retain) IBOutlet UIWebView *m_webView;
 @property (nonatomic, retain) FlickrAccount* theAccount; 
-@property (nonatomic, assign) id<AccountActiveStatusDelegate> delegate; 
 
 //objective flickr stuff 
 @property (nonatomic, retain) OFFlickrAPIRequest* apiRequest; 

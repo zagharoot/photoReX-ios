@@ -9,13 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "Account.h"
 
-@protocol AccountActiveStatusDelegate <NSObject>
-
--(void) accountStatusDidChange; 
-
-@end
-
-
 enum ACCOUNTCELL_STATUS
 {
     ACCOUNTCELL_INACTIVE = 0, 
@@ -26,7 +19,7 @@ enum ACCOUNTCELL_STATUS
 
 @class AccountsUIViewController; 
 
-@interface AccountTableViewCell : UITableViewCell <AccountActiveStatusDelegate>
+@interface AccountTableViewCell : UITableViewCell 
 {
     NSString* imgPath; 
     UIImageView* _img;                  //account image logo 
@@ -56,6 +49,8 @@ enum ACCOUNTCELL_STATUS
 @property (nonatomic, retain) UILabel* usernameLabel; 
 
 - (id) initWithFrame:(CGRect)frame andAccount:(Account*) a andTableController:(AccountsUIViewController*) p; 
+
+-(void) accountDetailsDidChange:(NSNotification*) notification; 
 
 -(void) updateActiveImage; 
 -(void) setStatus:(enum ACCOUNTCELL_STATUS)status animated:(BOOL) animated; 

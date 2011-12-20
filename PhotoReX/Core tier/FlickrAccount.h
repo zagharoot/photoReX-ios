@@ -23,7 +23,6 @@
     NSString* _accessToken; 
     NSString* _accessSecret; 
     
-    
     OFFlickrAPIContext* _apiContext; 
 }
 

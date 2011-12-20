@@ -106,10 +106,7 @@
 -(void) deactivate
 {
     //TODO: inform server and flickr perhaps? 
-    self.userIconImage = nil; 
     self.apiContext = nil; 
-    
-    self.username = nil; 
     self.accessToken = nil; 
     self.accessSecret = nil; 
     self.requestToken = nil; 

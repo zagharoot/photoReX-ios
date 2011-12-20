@@ -41,6 +41,8 @@
     [account setValue:self.username forKey:@"username"]; 
     
     [ud setValue:account forKey:self.accountName]; 
+    
+    [self broadcastChange]; 
 }
 
 
@@ -77,6 +79,19 @@
 -(NSString*) accountName
 {
     return @"No Account"; 
+}
+
+-(void) deactivate
+{
+    self.username = nil; 
+    self.userIconImage = nil; 
+    [self saveSettings]; 
+}
+
+-(void) broadcastChange
+{
+    //publish this to the notification center 
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"AccountDetailsDidChange" object:self]; 
 }
 
 

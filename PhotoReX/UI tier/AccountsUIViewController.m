@@ -187,7 +187,6 @@
             
             ((FlickrAccountUIViewController*)detailViewController).theAccount = [[AccountManager standardAccountManager] flickrAccount] ; 
             
-            ((FlickrAccountUIViewController*)detailViewController).delegate = (AccountTableViewCell*)[tableView cellForRowAtIndexPath:indexPath];
             break;
         
         case INSTAGRAM_INDEX: 

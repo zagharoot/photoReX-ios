@@ -12,12 +12,9 @@
 @implementation FlickrAccountUIViewController
 @synthesize m_webView;
 @synthesize theAccount=_theAccount; 
-@synthesize delegate; 
 @synthesize notificationView=_notificationView; 
 
 @synthesize apiRequest=_apiRequest; 
-
-
 
 -(GCDiscreetNotificationView*) notificationView
 {
@@ -66,6 +63,8 @@
     
     m_webView.delegate = self; 
     
+    self.navigationController.title = @"Link to Flickr"; 
+    
     self.notificationView.textLabel = @"Authorizing..."; 
     [self.notificationView setShowActivity:YES animated:YES]; 
     [self.notificationView show:YES]; 
@@ -75,7 +74,6 @@
 {
     //return to account page 
     [self.navigationController popViewControllerAnimated:YES]; 
-    [self.delegate accountStatusDidChange]; 
 }
 
 -(void) flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
@@ -117,21 +115,6 @@
     [self closePage]; 
 }
 
-
--(NSString*) extractFrobFromURL:(NSURL*) url
-{
-    NSString* us = [url absoluteString]; 
-    NSRange frobPos = [us rangeOfString:@"frob"]; 
-    
-    //doesn't have the frobkey
-    if (frobPos.location == NSNotFound)
-        return nil; 
-    
-    NSString* result = [us substringFromIndex:frobPos.location + 5]; 
-    
-    
-    return result; 
-}
 
 
 -(BOOL) webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType

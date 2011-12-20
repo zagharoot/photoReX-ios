@@ -26,9 +26,9 @@
 -(void) loadSettings; 
 -(void) saveSettings; 
 
-
 -(void) deactivate; 
 
+-(void) broadcastChange;                //uses NSNotification to inform everyone that this account has been changed
 
 
 @property (readonly, nonatomic) UIImage* logoImage; 

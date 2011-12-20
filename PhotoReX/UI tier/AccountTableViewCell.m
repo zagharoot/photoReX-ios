@@ -21,6 +21,20 @@
 @synthesize deactivateSwitch=_deactivateSwitch; 
 @synthesize usernameLabel=_usernameLabel; 
 
+//this is a retain property
+-(void) setTheAccount:(Account *)theAccount
+{
+    //inform notification center that we don't need update for previous account 
+    if (_account)
+        [[NSNotificationCenter defaultCenter] removeObserver:self]; 
+    
+    [_account release]; 
+    _account = [theAccount retain]; 
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountDetailsDidChange:) name:@"AccountDetailsDidChange" object:_account]; 
+}
+
+
 -(void) setStatus:(enum ACCOUNTCELL_STATUS)status animated:(BOOL)animated
 {
 //    if (_status == status) 
@@ -234,7 +248,7 @@
     [self updateActiveImage]; 
 }
 
--(void) accountStatusDidChange
+-(void) accountDetailsDidChange:(NSNotification*) notification
 {
     self.status = self.theAccount.isActive? ACCOUNTCELL_ACTIVE_COMPACT: ACCOUNTCELL_INACTIVE; 
     [self updateActiveImage]; 

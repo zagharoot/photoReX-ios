@@ -11,7 +11,6 @@
 		083915BD14617577005C42D8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083915BC14617577005C42D8 /* Foundation.framework */; };
 		083915BF14617577005C42D8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083915BE14617577005C42D8 /* CoreGraphics.framework */; };
 		083915C114617577005C42D8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083915C014617577005C42D8 /* CoreData.framework */; };
-		0839162F14619A89005C42D8 /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0839161114619A89005C42D8 /* FlickrFetcher.m */; };
 		0839163014619A89005C42D8 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 0839161514619A89005C42D8 /* NSObject+SBJson.m */; };
 		0839163114619A89005C42D8 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 0839161714619A89005C42D8 /* NSString+SBJSON.m */; };
 		0839163214619A89005C42D8 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0839161A14619A89005C42D8 /* SBJsonParser.m */; };
@@ -105,9 +104,6 @@
 		083915BC14617577005C42D8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		083915BE14617577005C42D8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		083915C014617577005C42D8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		0839160F14619A89005C42D8 /* FlickrAPIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAPIKey.h; sourceTree = "<group>"; };
-		0839161014619A89005C42D8 /* FlickrFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrFetcher.h; sourceTree = "<group>"; };
-		0839161114619A89005C42D8 /* FlickrFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrFetcher.m; sourceTree = "<group>"; };
 		0839161314619A89005C42D8 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		0839161414619A89005C42D8 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		0839161514619A89005C42D8 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
@@ -308,20 +304,9 @@
 			children = (
 				08F738F714A0D4DE006987A3 /* DiscreteNotificationBar */,
 				08B6BF68149F83DD002CD986 /* objectiveFlickr */,
-				0839160E14619A89005C42D8 /* flickrFetcher */,
 				0839161214619A89005C42D8 /* JSON */,
 			);
 			path = libs;
-			sourceTree = "<group>";
-		};
-		0839160E14619A89005C42D8 /* flickrFetcher */ = {
-			isa = PBXGroup;
-			children = (
-				0839160F14619A89005C42D8 /* FlickrAPIKey.h */,
-				0839161014619A89005C42D8 /* FlickrFetcher.h */,
-				0839161114619A89005C42D8 /* FlickrFetcher.m */,
-			);
-			path = flickrFetcher;
 			sourceTree = "<group>";
 		};
 		0839161214619A89005C42D8 /* JSON */ = {
@@ -626,7 +611,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0839162F14619A89005C42D8 /* FlickrFetcher.m in Sources */,
 				0839163014619A89005C42D8 /* NSObject+SBJson.m in Sources */,
 				0839163114619A89005C42D8 /* NSString+SBJSON.m in Sources */,
 				0839163214619A89005C42D8 /* SBJsonParser.m in Sources */,

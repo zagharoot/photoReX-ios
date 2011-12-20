@@ -212,7 +212,7 @@
 #pragma mark- flickr request delegate 
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
 {
-    NSLog(@"response from flickr: %@\n", inResponseDictionary); 
+    //NSLog(@"response from flickr: %@\n", inResponseDictionary); 
     
     NSDictionary* user = [inResponseDictionary objectForKey:@"user"]; 
     
@@ -232,7 +232,7 @@
 
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
 {
-    
+    //don't need to do anything here. We couldn't get the nsid, so no update for buddy icon !!!
 }
 
 @end

@@ -54,7 +54,7 @@
     // Do any additional setup after loading the view from its nib
         
     
-    self.apiRequest = [[OFFlickrAPIRequest alloc] initWithAPIContext:self.theAccount.apiContext];
+    self.apiRequest = [[[OFFlickrAPIRequest alloc] initWithAPIContext:self.theAccount.apiContext] autorelease];
     self.apiRequest.delegate = self;
     self.apiRequest.requestTimeoutInterval = 60.0;
     

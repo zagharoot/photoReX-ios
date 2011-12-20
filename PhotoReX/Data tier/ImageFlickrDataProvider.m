@@ -50,7 +50,6 @@
 {
     [data release]; 
     [super dealloc]; 
-    
 }
 
 @end
@@ -75,32 +74,23 @@
 -(void) getDataForPicture:(PictureInfo *)pictureInfo withResolution:(ImageResolution)resolution withObserver:(id<DataDownloadObserver>)observer
 {
 
-    return; //TODO: incomplete
+    NSString* urlString = [self urlStringForPhotoWithFlickrInfo:pictureInfo.dictionaryRepresentation withResolution:resolution]; 
     
-//    
-//    NSString* urlString; 
-//    if (resolution == ImageResolutionGridThumbnail)
-//        urlString = [FlickrFetcher urlStringForPhotoWithFlickrInfo:pictureInfo.dictionaryRepresentation format:FlickrFetcherPhotoFormatSmall]; 
-//    else
-//        urlString =  [FlickrFetcher urlStringForPhotoWithFlickrInfo:pictureInfo.dictionaryRepresentation format:FlickrFetcherPhotoFormatLarge]; 
-//    
-//    
-//    NSURL* url = [NSURL URLWithString:urlString]; 
-//    
-//    //create the request 
-//    NSURLRequest* req = [NSURLRequest requestWithURL:url]; 
-//    
-//    
-//    //create the connection
-//    NSURLConnection* conn = [NSURLConnection connectionWithRequest:req delegate:self];
-//    
-//    //add the connection to the dictionary
-//    FlickrImageDataConnectionDetails* det = [[[FlickrImageDataConnectionDetails alloc] initWithObserver:observer] autorelease]; 
-//    [connections setObject:det forKey:conn.currentRequest.URL.description];  
-//    
-//    
-//    //increment network activity 
-//    [NetworkActivityIndicatorController incrementNetworkConnections]; 
+    NSURL* url = [NSURL URLWithString:urlString]; 
+    
+    //create the request 
+    NSURLRequest* req = [NSURLRequest requestWithURL:url]; 
+    
+    
+    //create the connection
+    NSURLConnection* conn = [NSURLConnection connectionWithRequest:req delegate:self];
+    
+    //add the connection to the dictionary
+    FlickrImageDataConnectionDetails* det = [[[FlickrImageDataConnectionDetails alloc] initWithObserver:observer] autorelease]; 
+    [connections setObject:det forKey:conn.currentRequest.URL.description];  
+    
+    //increment network activity 
+    [NetworkActivityIndicatorController incrementNetworkConnections]; 
 }
 
 
@@ -214,6 +204,32 @@
     [NetworkActivityIndicatorController decrementNetworkConnections]; 
     
 }
+
+
+
+#pragma mark-working with flickr results 
+
+-(NSString *)urlStringForPhotoWithFlickrInfo:(NSDictionary *)flickrInfo withResolution:(ImageResolution) resolution
+{
+	id farm = [flickrInfo objectForKey:@"farm"];
+	id server = [flickrInfo objectForKey:@"server"];
+	id photo_id = [flickrInfo objectForKey:@"id"];
+	id secret = [flickrInfo objectForKey:@"secret"];
+	NSString *fileType = @"jpg";
+	
+	if (!farm || !server || !photo_id || !secret) return nil;
+	
+	NSString *formatString = @"s";
+	switch (resolution) {
+		case ImageResolutionFullPage:     formatString = @"b"; break;
+		case ImageResolutionGridThumbnail:     formatString = @"m"; break;
+	}
+    
+	NSString* result =  [NSString stringWithFormat:@"http://farm%@.static.flickr.com/%@/%@_%@_%@.%@", farm, server, photo_id, secret, formatString, fileType];
+    
+    return result; 
+}	
+
 
 
 @end

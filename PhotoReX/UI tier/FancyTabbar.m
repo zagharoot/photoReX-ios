@@ -1,0 +1,174 @@
+//
+//  FancyTabbar.m
+//  photoReX
+//
+//  Created by Ali Nouri on 12/21/11.
+//  Copyright (c) 2011 Rutgers. All rights reserved.
+//
+
+#import "FancyTabbar.h"
+
+@implementation FancyTabbar
+@synthesize items=_items; 
+@synthesize selectedIndex=_selectedIndex; 
+@synthesize deleage=_delegate; 
+
+#define BAR_TOP_MARGIN      5
+#define BAR_BOTTOM_MARGIN   3
+#define BAR_EDGE_INSET      20
+#define BAR_HANDLE_HEIGHT   6 
+
+
+-(void) setSelectedIndex:(int)selectedIndex
+{
+    if (selectedIndex <0 || selectedIndex >= self.items.count)
+        return; 
+    
+    
+    //unselect the old button
+    if (_selectedIndex >=0)
+       ( (FancyTabbarItem*) [self.items objectAtIndex:_selectedIndex]).selected = NO; 
+    
+    _selectedIndex = selectedIndex;
+    ((FancyTabbarItem*) [self.items objectAtIndex:_selectedIndex]).selected = YES; 
+
+    //inform delegate 
+    [self.deleage selectedItemDidChange:_selectedIndex]; 
+    
+    [self setNeedsDisplay]; 
+}
+
+
+-(id) init
+{
+    self = [super init]; 
+    if (self) 
+    {
+        _items = [[NSMutableArray alloc] initWithCapacity:4]; 
+        _selectedIndex = -1; 
+        
+        fillColor = [[UIColor colorWithHue:0.0 saturation:0.0 brightness:0 alpha:0.8] retain];
+        strokeColor = [[UIColor colorWithHue:0 saturation:0 brightness:1 alpha:0.9] retain]; 
+        self.backgroundColor = [UIColor clearColor]; 
+        self.clipsToBounds = NO; 
+
+    }
+    
+    return self; 
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+    }
+    return self;
+}
+
+
+-(void) addItemWithName:(NSString *)name andImageName:(NSString *)img
+{
+    FancyTabbarItem* item = [FancyTabbarItem buttonWithName:name andImageName:img]; 
+    [self.items addObject:item]; 
+    [self addSubview:item]; 
+    [item addTarget:self action:@selector(buttonPushed:) forControlEvents:UIControlEventTouchDown]; 
+}
+
+
+-(void) buttonPushed:(id)sender
+{
+    NSLog(@"button was pushed\n\n\n"); 
+    
+}
+
+
+
+- (void)drawRect:(CGRect)rect
+{
+    // Drawing code
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetLineWidth(context, 1);
+    CGContextSetFillColorWithColor(context,fillColor.CGColor);
+    CGContextSetStrokeColorWithColor(context, strokeColor.CGColor);
+    
+    CGRect rrect = self.bounds;
+    
+    CGFloat radius = 10; 
+    
+    CGFloat minx = CGRectGetMinX(rrect);
+    CGFloat midx = CGRectGetMidX(rrect);
+    CGFloat maxx = CGRectGetMaxX(rrect);
+    CGFloat miny = CGRectGetMinY(rrect)+ BAR_HANDLE_HEIGHT; 
+    CGFloat maxy = CGRectGetMaxY(rrect);
+    
+    CGFloat hw = 20;        //half the width of the handle 
+    CGFloat hh = BAR_HANDLE_HEIGHT;         //height of the handle 
+
+//    CGContextMoveToPoint(context, minx, maxy);
+//    CGContextAddArcToPoint(context, minx, miny, midx, miny, radius);
+//    CGContextAddArcToPoint(context, maxx, miny, maxx, maxy, radius);
+//    CGContextAddLineToPoint(context, maxx, maxy);
+//    CGContextClosePath(context);
+//    CGContextDrawPath(context, kCGPathFillStroke);
+
+    CGContextMoveToPoint(context, minx, maxy);
+    CGContextAddArcToPoint(context, minx, miny, midx-hw-5, miny, radius);   //5 is a small number 
+
+    CGContextAddArcToPoint(context, midx-hw, miny, midx-hw+hh/2, miny-hh/2,3);
+    CGContextAddArcToPoint(context, midx-hw+6, miny-hh, midx, miny-hh,3);
+    CGContextAddArcToPoint(context, midx+hw-6, miny-hh, midx+hw-hh/2, miny-hh/2,3);
+    CGContextAddArcToPoint(context, midx+hw, miny, midx+hw+5, miny,3);
+
+    
+    CGContextAddArcToPoint(context, maxx, miny, maxx, maxy, radius);
+    CGContextAddLineToPoint(context, maxx, maxy);
+    CGContextClosePath(context);
+    CGContextDrawPath(context, kCGPathFillStroke);
+
+}
+
+
+-(void) layoutSubviews
+{
+    if (self.items.count==0)
+        return; 
+    
+    //put the item in the middle 
+    if (self.items.count==1)
+    {
+        return; 
+    }
+    
+    CGFloat ITEM_WIDTH = 65; 
+    
+    CGRect f = self.bounds; 
+    CGSize size = self.frame.size; 
+    CGFloat w = size.width; 
+    
+    CGFloat curX = f.origin.x +  BAR_EDGE_INSET; 
+    CGFloat padding = (w-2*BAR_EDGE_INSET - self.items.count*ITEM_WIDTH)/(self.items.count-1);
+    for (FancyTabbarItem* item in self.items)
+    {
+        CGRect bf = CGRectMake(curX, f.origin.y+BAR_TOP_MARGIN + BAR_HANDLE_HEIGHT, ITEM_WIDTH, size.height- BAR_TOP_MARGIN - BAR_BOTTOM_MARGIN); 
+        item.frame = bf; 
+        curX += ITEM_WIDTH + padding; 
+    }
+}
+
+-(void) dealloc
+{
+    [fillColor release]; 
+    [strokeColor release]; 
+    self.items = nil; 
+    [super dealloc]; 
+}
+
+
++(CGFloat) barHeight
+{
+    return [FancyTabbarItem buttonHeight] + BAR_TOP_MARGIN + BAR_BOTTOM_MARGIN + BAR_HANDLE_HEIGHT; 
+}
+
+@end

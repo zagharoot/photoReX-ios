@@ -15,6 +15,8 @@
 #import "PagedNavigatorController.h"
 #import "AccountsUIViewController.h"
 
+#import "FancyTabbarController.h"
+
 static double _applicationStartTime=0; 
 #define SPLASH_SCREEN_DURATION 1           //number of seconds to show splash screen
 
@@ -41,44 +43,50 @@ static double _applicationStartTime=0;
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
     
+//    //The explore page
+//    ExploreNavigatorController* exploreNavigator = [[ExploreNavigatorController alloc] init]; 
+//
+//    //The settings page:
+//    AccountsUIViewController* accViewController =     [[AccountsUIViewController alloc] initWithNibName:@"AccountsUIViewController" bundle:[NSBundle mainBundle]];
+//    UINavigationController* sunc = [[UINavigationController alloc] init]; 
+//    [sunc pushViewController:accViewController animated:NO]; 
+//    
+//    
+//    
+//    exploreNavigator.tabBarItem.title = @"Explore"; 
+//    sunc.tabBarItem.title = @"Settings"; 
+//    
+//        
+//    //wrap the controllers into an array 
+//    NSMutableArray* controllers = [NSMutableArray  arrayWithObjects:exploreNavigator, sunc, nil]; 
+//    [exploreNavigator release]; 
+//    [accViewController release]; 
+//    [sunc release]; 
+//    
+//    //create the tabbar wrapper
+//    HidableTabbarController* tabbarController = [HidableTabbarController getInstance];  
+//    [tabbarController setViewControllers:controllers]; 
+//    
+//    
+//    [self.window addSubview:tabbarController.view]; 
+//    [self.window setRootViewController:tabbarController]; 
+    
+//    self.window.backgroundColor = [UIColor blackColor];
+//    [self.window makeKeyAndVisible];
+//    
+//    if ( [[NSDate date] timeIntervalSince1970] - [AppDelegate applicationStartTime] < SPLASH_SCREEN_DURATION - 0.5)
+//        [self showSplashScreenOnView:tabbarController ];
 
-    //The explore page
-    ExploreNavigatorController* exploreNavigator = [[ExploreNavigatorController alloc] init]; 
-
-    
-    
-    //The settings page:
-    AccountsUIViewController* accViewController =     [[AccountsUIViewController alloc] initWithNibName:@"AccountsUIViewController" bundle:[NSBundle mainBundle]];
-    UINavigationController* sunc = [[UINavigationController alloc] init]; 
-    [sunc pushViewController:accViewController animated:NO]; 
-    
-    
-    
-    exploreNavigator.tabBarItem.title = @"Explore"; 
-    sunc.tabBarItem.title = @"Settings"; 
-    
-        
-    //wrap the controllers into an array 
-    NSMutableArray* controllers = [NSMutableArray  arrayWithObjects:exploreNavigator, sunc, nil]; 
-    [exploreNavigator release]; 
-    [accViewController release]; 
-    [sunc release]; 
-    
-    //create the tabbar wrapper
-    HidableTabbarController* tabbarController = [HidableTabbarController getInstance];  
-    [tabbarController setViewControllers:controllers]; 
-    
-    
-    [self.window addSubview:tabbarController.view]; 
-    [self.window setRootViewController:tabbarController]; 
-
+    FancyTabbarController* ftc = [FancyTabbarController getInstance]; 
+    [self.window addSubview:ftc.view]; 
+    [self.window setRootViewController:ftc]; 
     
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
-    
     if ( [[NSDate date] timeIntervalSince1970] - [AppDelegate applicationStartTime] < SPLASH_SCREEN_DURATION - 0.5)
-        [self showSplashScreenOnView:tabbarController ];
-    
+    [self showSplashScreenOnView:ftc ];
+
+        
     return YES;
 }
 

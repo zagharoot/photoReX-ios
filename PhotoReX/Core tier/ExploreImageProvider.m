@@ -15,18 +15,15 @@ const int CACHED_PAGES  =  1;           //number of pages retrieved in advance
 @implementation ExploreImageProvider
 
 @synthesize pages=_pages; 
-@synthesize userid=_userid; 
 
-- (id)initWithUserid:(NSString*) userid; 
+- (id)init
 {
     self = [super init];
     if (self) {
         _pages = [[NSMutableArray alloc] initWithCapacity:20]; 
         // Initialization code here.
         
-        self.userid = userid; 
-        
-        webservice = [[RLWebserviceClient alloc] initWithUserid:userid]; 
+        webservice = [RLWebserviceClient standardClient]; 
     }
     
     return self;
@@ -82,9 +79,6 @@ const int CACHED_PAGES  =  1;           //number of pages retrieved in advance
 -(void) dealloc
 {
     self.pages = nil; 
-    self.userid = nil; 
-    [webservice release]; 
-    
 }
 
 

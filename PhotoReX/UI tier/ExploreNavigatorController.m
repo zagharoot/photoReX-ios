@@ -20,7 +20,7 @@
 //this is the designated initializer 
 -(id) init
 {
-    ExploreImageProvider* ex = [[ExploreImageProvider alloc] initWithUserid:@"ali"]; 
+    ExploreImageProvider* ex = [[ExploreImageProvider alloc] init]; 
     self = [super initWithContentProvider:ex];     
     [ex release]; 
     

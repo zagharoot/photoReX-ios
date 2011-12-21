@@ -52,7 +52,11 @@
     [super saveSettings]; 
 }
 
-
+-(NSDictionary*) dictionaryRepresentation
+{
+    return nil; //TODO: incomplete 
+    
+}
 
 -(void) dealloc
 {

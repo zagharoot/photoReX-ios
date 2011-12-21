@@ -26,10 +26,11 @@
 -(void) loadSettings; 
 -(void) saveSettings; 
 
+-(void) activate;       
 -(void) deactivate; 
 
 -(void) broadcastChange;                //uses NSNotification to inform everyone that this account has been changed
-
+-(NSDictionary*) dictionaryRepresentation;      //this is for sending account info to our website 
 
 @property (readonly, nonatomic) UIImage* logoImage; 
 @property (nonatomic, retain) UIImage* userIconImage; 

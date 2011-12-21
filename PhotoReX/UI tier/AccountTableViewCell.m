@@ -235,7 +235,7 @@
 
 -(void) deactivateAccount:(id)sender
 {
-    NSLog(@"deactivating the account\n"); 
+//    NSLog(@"deactivating the account\n"); 
 
     [self setStatus:ACCOUNTCELL_INACTIVE animated:YES]; 
     CGRect frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, 60); 

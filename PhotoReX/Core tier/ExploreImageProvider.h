@@ -14,18 +14,14 @@
 
 @interface ExploreImageProvider : NSObject <PagedContentProvider> 
 {
-    RLWebserviceClient* webservice;                 //this is created once, and kept with us the whole time
+    RLWebserviceClient* webservice;                 //this is linked to the standard one
     NSMutableArray* _pages;                         //this is an array of PictureInfoCollection*
-    NSString* _userid;                              //?    
 }
 
--(id) initWithUserid:(NSString*) userid;                    //count is number of photos per page (note that we don't need the specific layout of the pictures) 
 
 -(PictureInfoCollection*) retrievePageAsync:(int) howMany;        //retrieves one page of pictureInfo from the server 
 -(void) userVisitsImageAtIndex:(int) indx inPictureInfoCollection:(PictureInfoCollection*) picCollection; 
 
 @property (retain) NSMutableArray* pages;           //arrays of pictureInfoCollection
-@property (copy) NSString* userid; 
-
 
 @end

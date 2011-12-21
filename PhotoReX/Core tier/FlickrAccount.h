@@ -34,6 +34,8 @@
 -(void) setApiKey:(NSString*) key andSignature:(NSString*) signature; 
 
 -(BOOL) isActive; 
+-(void) activate:(NSString*) username accessToken:(NSString*) at accessSecret:(NSString*) as; 
+
 
 //write access through designated method 
 @property (nonatomic, readonly) NSString* api_key; 

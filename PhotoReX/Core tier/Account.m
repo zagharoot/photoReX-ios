@@ -7,6 +7,7 @@
 //
 
 #import "Account.h"
+#import "RLWebserviceClient.h" 
 
 @implementation Account
 @synthesize userIconImage=_userIconImage; 
@@ -82,11 +83,25 @@
     return @"No Account"; 
 }
 
+-(NSDictionary*) dictionaryRepresentation
+{
+    return nil; 
+}
+
 -(void) deactivate
 {
+    //tell the website 
+    [[RLWebserviceClient standardClient] deregsiterAccountAsync:[self dictionaryRepresentation]]; 
+    
     self.username = nil; 
     self.userIconImage = nil; 
     [self saveSettings]; 
+}
+
+-(void) activate
+{
+    //tell the website
+    [[RLWebserviceClient standardClient] registerAccountAsync:[self dictionaryRepresentation]]; 
 }
 
 -(void) broadcastChange

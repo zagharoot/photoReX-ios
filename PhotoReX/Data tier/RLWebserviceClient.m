@@ -8,6 +8,10 @@
 
 #import "RLWebserviceClient.h"
 #import "NetworkActivityIndicatorController.h"
+#import "SBJsonWriter.h"
+
+
+static RLWebserviceClient* _rlWebServiceClient= nil; 
 
 @implementation RLWebserviceClient
 
@@ -16,12 +20,95 @@
 
 @synthesize userid = _userid; 
 
-- (id)initWithUserid:(NSString*) u
+
++(RLWebserviceClient*) standardClient
+{
+    if (!_rlWebServiceClient)
+        _rlWebServiceClient = [[RLWebserviceClient alloc] init]; 
+    
+    return _rlWebServiceClient; 
+}
+
+//this is a copy property
+-(void) setUserid:(NSString *)userid
+{
+    [_userid release]; 
+    _userid = [userid copy];
+    
+    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
+    [ud setValue:_userid   forKey:@"masterAccountID"];     
+}
+
+
+-(void) loadUserid
+{
+    //---------- read user defaults for the master account ID 
+    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
+    NSString* masterID = [ud valueForKey:@"masterAccountID"]; 
+    
+    if (masterID) 
+    {
+        _userid = [masterID copy] ;     //don't call the setter method here 
+        return; 
+    }
+}
+
+
+-(void) registerAsNewAccount
+{
+    CFUUIDRef uuidRef =  CFUUIDCreate(NULL); 
+    NSString* uuid = (NSString*) CFUUIDCreateString(NULL, uuidRef); 
+    NSString* body = [NSString stringWithFormat:@"{\"uuid\":\"%@\"}", uuid]; 
+    //get a new one from the website 
+    [self.requestImageViewed setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]]; 
+        
+    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_CREATE_USER]]; 
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url]; 
+    [request setHTTPMethod:@"POST"]; 
+    [request  addValue:@"application/json" forHTTPHeaderField:@"content-type"]; 
+    [request  addValue:@"utf8" forHTTPHeaderField:@"charset"]; 
+        
+
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
+         ^(NSURLResponse* response, NSData* data, NSError* error)
+         {
+             if (response == nil)       //error happened
+             {
+             } else         //success
+             {
+                 NSString* datastr = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]; 
+                 //NSLog(@"received data for new user  as %@\n", datastr); 
+                 
+                 
+                 SBJsonParser* parser = [[[SBJsonParser alloc] init] autorelease]; 
+                 parser.maxDepth = 4; 
+                 NSDictionary* d1 = [parser objectWithData:data]; 
+                 
+                 if (d1 == nil) { NSLog(@"wrong username format: %@\n ", datastr);return;}
+                 
+                 
+                 NSDictionary* d2 = [parser objectWithString:[d1 objectForKey:@"d"]]; 
+                 
+                 if (d2 == nil) { NSLog(@"wrong username format: %@\n", datastr); return;}
+                 
+                 
+                 NSString* usernameStr = [d2 objectForKey:@"masterAcountID"];     //use the setter to save to default
+                 
+                 if (usernameStr.length>0)
+                     self.userid = usernameStr; 
+             }
+        }];    
+}
+
+- (id)init
 {
     self = [super init];
     if (self) {
-        self.userid = u; 
         
+        [self loadUserid]; 
+        if (! self.userid)
+            [self registerAsNewAccount]; 
         
         //create the request: only the body part of the request remains to be created on the fly at each call
         NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_RECOMMEND]]; 
@@ -56,6 +143,10 @@
 // if an error occurs, the block is called with nil arguments 
 -(void) getPageFromServerAsync:(int)howMany andRunBlock:(void (^)(NSString *, NSArray *))theBlock
 {
+    if (!self.userid) 
+        return; 
+    
+    
     NSString* body = [NSString stringWithFormat:@"{\"userid\":\"%@\",\"howMany\":\"%d\"}", self.userid, howMany]; 
     
     [self.requestRecommend setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]]; 
@@ -126,6 +217,9 @@
 
 -(void) sendPageActivityAsync:(NSString *)pageid pictureIndex:(int)index
 {    
+    if (!self.userid) 
+        return; 
+
     NSString* body = [NSString stringWithFormat:@"{\"userid\":\"%@\",\"collectionID\":\"%@\",\"picIndex\":\"%d\"}", self.userid, pageid, index]; 
     
     [self.requestImageViewed setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]]; 
@@ -145,6 +239,83 @@
      }]; 
 }
 
+
+-(void) registerAccountAsync:(NSDictionary *)account
+{
+    if (!self.userid)
+        return; 
+    
+    //create the json string out of the dictionary 
+    
+    SBJsonWriter *jsonWriter = [[SBJsonWriter new] autorelease];
+    NSDictionary* message = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.userid, @"userid", account, @"account", nil]; 
+    NSString *body = [jsonWriter stringWithObject:message];
+    
+    
+    [self.requestImageViewed setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]]; 
+
+    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_REGISTER_ACCOUNT]]; 
+    
+    //create a request (dont have an ivar for this) 
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url]; 
+    
+    //set parameters of the request except for the body: 
+    [request setHTTPMethod:@"POST"]; 
+    
+    [request  addValue:@"application/json" forHTTPHeaderField:@"content-type"]; 
+    [request  addValue:@"utf8" forHTTPHeaderField:@"charset"]; 
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
+     ^(NSURLResponse* response, NSData* data, NSError* error)
+     {
+         if (response == nil)       //error happened
+         {
+             //TODO: we need to save to disk to try again later 
+         } else         //success
+         {
+             //TODO: do we need to actually do an ack here? 
+         }
+     }]; 
+}
+
+
+-(void) deregsiterAccountAsync:(NSDictionary *)account
+{
+    if (!self.userid)
+        return; 
+    
+        //create the json string out of the dictionary 
+        
+        SBJsonWriter *jsonWriter = [SBJsonWriter new];
+        NSDictionary* message = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.userid, @"userid", account, @"account", nil]; 
+        NSString *body = [jsonWriter stringWithObject:message];
+        
+        
+        [self.requestImageViewed setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]]; 
+        
+        NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_DEREGISTER_ACCOUNT]]; 
+        
+        //create a request (dont have an ivar for this) 
+        NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url]; 
+        
+        //set parameters of the request except for the body: 
+        [request setHTTPMethod:@"POST"]; 
+        
+        [request  addValue:@"application/json" forHTTPHeaderField:@"content-type"]; 
+        [request  addValue:@"utf8" forHTTPHeaderField:@"charset"]; 
+        
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
+         ^(NSURLResponse* response, NSData* data, NSError* error)
+         {
+             if (response == nil)       //error happened
+             {
+                 //TODO: we need to save to disk to try again later 
+             } else         //success
+             {
+                 //TODO: do we need to actually do an ack here? 
+             }
+         }]; 
+}
 
 
 -(void) dealloc

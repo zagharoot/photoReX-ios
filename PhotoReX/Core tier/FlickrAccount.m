@@ -177,16 +177,42 @@
 }
 
 
+-(NSDictionary*) dictionaryRepresentation
+{
+    NSMutableDictionary* result = [NSMutableDictionary dictionaryWithCapacity:5]; 
+    
+    [result setValue:self.accountName forKey:@"accountName"]; 
+    [result setValue:self.username forKey:@"username"]; 
+    [result setValue:self.requestToken forKey:@"requestToken"]; 
+    [result setValue:self.requestSecret forKey:@"requestSecret"]; 
+    [result setValue:self.accessToken forKey:@"accessToken"]; 
+    [result setValue:self.accessSecret forKey:@"accessSecret"]; 
+    
+    
+    return result; 
+}
+
 -(BOOL) isActive
 {
     BOOL result =  (self.accessToken) && ( [self.accessToken length]); 
     return result; 
 }
 
+-(void) activate:(NSString *)username accessToken:(id)at accessSecret:(NSString *)as
+{
+    self.username = username; 
+    self.accessToken = at; 
+    self.accessSecret = as; 
+    
+    
+    [super activate];       //this should be called last 
+    [self saveSettings]; 
+}
 
 -(void) deactivate
-{
-    //TODO: inform server and flickr perhaps? 
+{    
+    [super deactivate];     //this should be called first 
+
     self.accessToken = nil; 
     self.accessSecret = nil; 
     self.requestToken = nil; 

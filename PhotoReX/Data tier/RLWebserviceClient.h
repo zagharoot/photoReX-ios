@@ -14,6 +14,9 @@
 
 #define SERVICE_RECOMMEND   @"/rlimage/imagerecommendationservice.asmx/recommend" 
 #define SERVICE_IMAGEVIEWED     @"/rlimage/imagerecommendationservice.asmx/updateModel"
+#define SERVICE_REGISTER_ACCOUNT  @"/rlimage/imagerecommendationservice.asmx/registerAccount"
+#define SERVICE_DEREGISTER_ACCOUNT  @"/rlimage/imagerecommendationservice.asmx/deregisterAccount"
+#define SERVICE_CREATE_USER         @"/rlimage/imagerecommendationservice.asmx/createUser"
 
 // This class takes care of receiving information from our own web server (image recommendations). 
 // 
@@ -27,15 +30,24 @@
 }
 
 
--(id) initWithUserid:(NSString*) u; 
++(RLWebserviceClient*) standardClient;      //returns the onl object we hve for this class 
+
+-(void) registerAsNewAccount; 
+-(void) loadUserid; 
+
+
 //picInfoData is actually an array of json data that can be used to generated pictureInfos
 -(void) getPageFromServerAsync:(int) howMany andRunBlock:(void (^)(NSString* pageid, NSArray* picInfoData)) theBlock ; 
 
 //sends user activity to the server (guarantees receive on the server side) 
 -(void) sendPageActivityAsync:(NSString*) pageid pictureIndex:(int) index; 
 
+-(void) registerAccountAsync:(NSDictionary*) account;            //given a dictionary representation of an account, registers it with the website 
+-(void) deregsiterAccountAsync:(NSDictionary*) account; 
+
+
 @property (retain, readonly) NSMutableURLRequest* requestRecommend;
 @property (retain, readonly) NSMutableURLRequest* requestImageViewed; 
-@property (copy) NSString* userid; 
+@property (nonatomic, copy) NSString* userid; 
 
 @end

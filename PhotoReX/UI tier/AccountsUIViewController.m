@@ -186,6 +186,10 @@
         case FLICKR_INDEX:
             detailViewController = [[FlickrAccountUIViewController alloc] initWithNibName:@"FlickrAccountUIViewController" bundle:[NSBundle mainBundle]];
             
+            FlickrAccount* fa = [[AccountManager standardAccountManager] flickrAccount]; 
+            fa.apiContext.OAuthToken = nil; 
+            fa.apiContext.OAuthTokenSecret = nil; 
+            
             ((FlickrAccountUIViewController*)detailViewController).theAccount = [[AccountManager standardAccountManager] flickrAccount] ; 
             
             break;

@@ -12,7 +12,7 @@
 #import "ExploreNavigatorController.h"
 #import "AccountsUIViewController.h"
 
-#define BAR_EDGE_INSET  8
+#define BAR_EDGE_INSET  6
 
 FancyTabbarController* theInstance = nil; 
 
@@ -49,6 +49,7 @@ FancyTabbarController* theInstance = nil;
     //CUSTOMIZE: create view controllers we need for this app. if we want to use this component in another place, we should rewrite this! sorry for not taking a general approach design 
         
     viewControllers = [[NSMutableArray alloc] initWithCapacity:3]; 
+    autoHideArray   = [[NSMutableArray alloc] initWithCapacity:3]; 
     tabbar = [[FancyTabbar alloc] init]; 
     tabbar.deleage = self; 
     
@@ -57,6 +58,7 @@ FancyTabbarController* theInstance = nil;
     [viewControllers addObject:exploreNavigator]; 
     [tabbar addItemWithName:@"Explore" andImageName:@"exploreIcon"]; 
     [exploreNavigator release]; 
+    [autoHideArray addObject:[NSNumber numberWithBool:YES]]; 
 
     
     //The settings page:
@@ -64,9 +66,10 @@ FancyTabbarController* theInstance = nil;
     UINavigationController* sunc = [[UINavigationController alloc] init]; 
     [sunc pushViewController:accViewController animated:NO]; 
     [viewControllers addObject:sunc]; 
-    [tabbar addItemWithName:@"Settings" andImageName:@"settingsButton.png"]; 
+    [tabbar addItemWithName:@"Settings" andImageName:@"settingsIcon.png"]; 
     [sunc release]; 
     [accViewController release]; 
+    [autoHideArray addObject:[NSNumber numberWithBool:NO]]; 
     
 }
 
@@ -102,8 +105,9 @@ FancyTabbarController* theInstance = nil;
     [self.view addSubview:tabbar]; 
     [self.view bringSubviewToFront:tabbar]; 
     
-    tabbar.selectedIndex = 0; 
     [self setupGestures]; 
+    
+    isShowing = YES; 
     
 }
 
@@ -111,20 +115,29 @@ FancyTabbarController* theInstance = nil;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-}
+    self.wantsFullScreenLayout = YES; 
+    tabbar.selectedIndex = 0; 
 
--(void) viewWillAppear:(BOOL)animated
-{
-    
     CGSize s = [[UIScreen mainScreen] applicationFrame].size; 
-    self.view.frame = CGRectMake(0, 0, s.width, s.height); 
-    
-    selectedViewController.view.frame = self.view.frame; 
     
     CGRect barFrame = CGRectMake(BAR_EDGE_INSET, s.height-[FancyTabbar barHeight], s.width-BAR_EDGE_INSET*2, [FancyTabbar barHeight]+5); 
     tabbar.frame = barFrame; 
-    
+}
+
+
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    selectedViewController.view.frame = self.view.bounds; 
     [super viewWillAppear:animated]; 
+}
+
+-(void) viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated]; 
+    
+    if ([autoHideArray objectAtIndex:tabbar.selectedIndex])
+        [self performSelector:@selector(hideBarWithAnimation:) withObject:[NSNumber numberWithBool:YES] afterDelay:1.0]; 
 }
 
 - (void)viewDidUnload
@@ -153,12 +166,18 @@ FancyTabbarController* theInstance = nil;
     if (selectedViewController)
     {
         [selectedViewController.view removeFromSuperview]; 
+
+        // if selectedViewController is nil, it means its the first time, so we can't actually do this 
+        if ([[autoHideArray objectAtIndex:selectedIndex] boolValue])
+            [self hideBarWithAnimation:YES]; 
     }
     
     
     selectedViewController = [viewControllers objectAtIndex:selectedIndex]; 
-    selectedViewController.view.frame = self.view.frame;            //fills the entire page 
+    selectedViewController.view.frame = self.view.bounds;            //fills the entire page 
     [self.view insertSubview:selectedViewController.view atIndex:0]; 
+    
+    
 }
 
 
@@ -179,9 +198,11 @@ FancyTabbarController* theInstance = nil;
         
     CGRect b = self.view.bounds; 
 	if (show) {
+        isShowing = YES; 
         tabbarFrame = CGRectMake(BAR_EDGE_INSET, b.size.height-[FancyTabbar barHeight],b.size.width-BAR_EDGE_INSET*2, [FancyTabbar barHeight]+5); 
 	}
 	else {
+        isShowing = NO; 
         tabbarFrame = CGRectMake(BAR_EDGE_INSET, b.size.height-5,b.size.width-BAR_EDGE_INSET*2, [FancyTabbar barHeight]+5); 
 	}
     

@@ -69,6 +69,9 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
     [request  addValue:@"utf8" forHTTPHeaderField:@"charset"]; 
         
 
+    //TODO: remove this
+    self.userid = uuid; 
+    return; 
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
          ^(NSURLResponse* response, NSData* data, NSError* error)

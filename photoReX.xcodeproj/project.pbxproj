@@ -28,6 +28,9 @@
 		0839DBC1149D08E200043178 /* AccountSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0839DBC0149D08E200043178 /* AccountSettings.plist */; };
 		0839DBC3149D459D00043178 /* defaultIconImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0839DBC2149D459D00043178 /* defaultIconImage.png */; };
 		089FB68C1480ACD000190764 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 089FB68B1480ACD000190764 /* QuartzCore.framework */; };
+		08A19B8414A2D2FB00E49E58 /* settingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 08A19B8114A2D2FB00E49E58 /* settingsIcon.png */; };
+		08A19B8514A2D2FB00E49E58 /* settingsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08A19B8214A2D2FB00E49E58 /* settingsIcon@2x.png */; };
+		08A19B8614A2D2FB00E49E58 /* tableCellIndicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08A19B8314A2D2FB00E49E58 /* tableCellIndicator@2x.png */; };
 		08B6BF65149F833E002CD986 /* libObjectiveFlickr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08B6BF64149F833E002CD986 /* libObjectiveFlickr.a */; };
 		08B6BF67149F836B002CD986 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08B6BF66149F836B002CD986 /* CFNetwork.framework */; };
 		08B6BF71149F83DD002CD986 /* ObjectiveFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B6BF6B149F83DD002CD986 /* ObjectiveFlickr.m */; };
@@ -37,6 +40,9 @@
 		08B6BF94149FB029002CD986 /* LFSiteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B6BF91149FB029002CD986 /* LFSiteReachability.m */; };
 		08B6BF95149FB029002CD986 /* NSData+LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B6BF92149FB029002CD986 /* NSData+LFHTTPFormExtensions.m */; };
 		08B6BF97149FB1FE002CD986 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08B6BF96149FB1FE002CD986 /* SystemConfiguration.framework */; };
+		08CE517314A23741004C1916 /* FancyTabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE517214A23740004C1916 /* FancyTabbarController.m */; };
+		08CE517714A23763004C1916 /* FancyTabbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE517614A23763004C1916 /* FancyTabbar.m */; };
+		08CE517A14A23ABA004C1916 /* FancyTabbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE517914A23ABA004C1916 /* FancyTabbarItem.m */; };
 		08E71F3C148D773F00845199 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 08E71F3B148D773F00845199 /* Settings.bundle */; };
 		08F1528C1481316100CF7BD9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F1522D1481316000CF7BD9 /* AppDelegate.m */; };
 		08F1528D1481316100CF7BD9 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F152301481316000CF7BD9 /* Account.m */; };
@@ -78,8 +84,6 @@
 		08F152B11481316100CF7BD9 /* ExploreNavigatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F152691481316100CF7BD9 /* ExploreNavigatorController.m */; };
 		08F152B21481316100CF7BD9 /* FlickrAccountUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F1526B1481316100CF7BD9 /* FlickrAccountUIViewController.m */; };
 		08F152B31481316100CF7BD9 /* FlickrAccountUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08F1526C1481316100CF7BD9 /* FlickrAccountUIViewController.xib */; };
-		08F152B41481316100CF7BD9 /* HidableTabbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F1526E1481316100CF7BD9 /* HidableTabbar.m */; };
-		08F152B51481316100CF7BD9 /* HidableTabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F152701481316100CF7BD9 /* HidableTabbarController.m */; };
 		08F152B61481316100CF7BD9 /* ImageGridUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F152721481316100CF7BD9 /* ImageGridUIViewController.m */; };
 		08F152B71481316100CF7BD9 /* ImageGridUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08F152731481316100CF7BD9 /* ImageGridUIViewController.xib */; };
 		08F152B81481316100CF7BD9 /* ImageStatusOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F152751481316100CF7BD9 /* ImageStatusOverlayView.m */; };
@@ -139,6 +143,9 @@
 		0839DBC2149D459D00043178 /* defaultIconImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultIconImage.png; sourceTree = "<group>"; };
 		088B2F081487BDF0005C785E /* ImageStatusOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStatusOverlayView.h; sourceTree = "<group>"; };
 		089FB68B1480ACD000190764 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		08A19B8114A2D2FB00E49E58 /* settingsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingsIcon.png; sourceTree = "<group>"; };
+		08A19B8214A2D2FB00E49E58 /* settingsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingsIcon@2x.png"; sourceTree = "<group>"; };
+		08A19B8314A2D2FB00E49E58 /* tableCellIndicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tableCellIndicator@2x.png"; sourceTree = "<group>"; };
 		08B6BF64149F833E002CD986 /* libObjectiveFlickr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveFlickr.a; path = libs/objectiveFlickr/libObjectiveFlickr.a; sourceTree = "<group>"; };
 		08B6BF66149F836B002CD986 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		08B6BF6A149F83DD002CD986 /* ObjectiveFlickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveFlickr.h; sourceTree = "<group>"; };
@@ -155,6 +162,12 @@
 		08B6BF91149FB029002CD986 /* LFSiteReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSiteReachability.m; sourceTree = "<group>"; };
 		08B6BF92149FB029002CD986 /* NSData+LFHTTPFormExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+LFHTTPFormExtensions.m"; sourceTree = "<group>"; };
 		08B6BF96149FB1FE002CD986 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		08CE517114A23740004C1916 /* FancyTabbarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FancyTabbarController.h; sourceTree = "<group>"; };
+		08CE517214A23740004C1916 /* FancyTabbarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FancyTabbarController.m; sourceTree = "<group>"; };
+		08CE517514A23763004C1916 /* FancyTabbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FancyTabbar.h; sourceTree = "<group>"; };
+		08CE517614A23763004C1916 /* FancyTabbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FancyTabbar.m; sourceTree = "<group>"; };
+		08CE517814A23AB9004C1916 /* FancyTabbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FancyTabbarItem.h; sourceTree = "<group>"; };
+		08CE517914A23ABA004C1916 /* FancyTabbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FancyTabbarItem.m; sourceTree = "<group>"; };
 		08E71F3B148D773F00845199 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		08F1522C1481316000CF7BD9 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		08F1522D1481316000CF7BD9 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -215,10 +228,6 @@
 		08F1526A1481316100CF7BD9 /* FlickrAccountUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FlickrAccountUIViewController.h; path = ../FlickrAccountUIViewController.h; sourceTree = "<group>"; };
 		08F1526B1481316100CF7BD9 /* FlickrAccountUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FlickrAccountUIViewController.m; path = ../FlickrAccountUIViewController.m; sourceTree = "<group>"; };
 		08F1526C1481316100CF7BD9 /* FlickrAccountUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FlickrAccountUIViewController.xib; path = ../FlickrAccountUIViewController.xib; sourceTree = "<group>"; };
-		08F1526D1481316100CF7BD9 /* HidableTabbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HidableTabbar.h; sourceTree = "<group>"; };
-		08F1526E1481316100CF7BD9 /* HidableTabbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HidableTabbar.m; sourceTree = "<group>"; };
-		08F1526F1481316100CF7BD9 /* HidableTabbarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HidableTabbarController.h; sourceTree = "<group>"; };
-		08F152701481316100CF7BD9 /* HidableTabbarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HidableTabbarController.m; sourceTree = "<group>"; };
 		08F152711481316100CF7BD9 /* ImageGridUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageGridUIViewController.h; sourceTree = "<group>"; };
 		08F152721481316100CF7BD9 /* ImageGridUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageGridUIViewController.m; sourceTree = "<group>"; };
 		08F152731481316100CF7BD9 /* ImageGridUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageGridUIViewController.xib; sourceTree = "<group>"; };
@@ -459,8 +468,11 @@
 		08F152501481316000CF7BD9 /* pics */ = {
 			isa = PBXGroup;
 			children = (
-				0839DBC2149D459D00043178 /* defaultIconImage.png */,
+				08A19B8114A2D2FB00E49E58 /* settingsIcon.png */,
+				08A19B8214A2D2FB00E49E58 /* settingsIcon@2x.png */,
 				0839DBBA149CDAF900043178 /* tableCellIndicator.png */,
+				08A19B8314A2D2FB00E49E58 /* tableCellIndicator@2x.png */,
+				0839DBC2149D459D00043178 /* defaultIconImage.png */,
 				08F152511481316000CF7BD9 /* __noimageFull@2x.png */,
 				08F152521481316000CF7BD9 /* accountActive.png */,
 				08F152531481316000CF7BD9 /* accountInactive.png */,
@@ -488,10 +500,6 @@
 				0839DBB8149CD0F400043178 /* Account Management */,
 				08F152681481316100CF7BD9 /* ExploreNavigatorController.h */,
 				08F152691481316100CF7BD9 /* ExploreNavigatorController.m */,
-				08F1526D1481316100CF7BD9 /* HidableTabbar.h */,
-				08F1526E1481316100CF7BD9 /* HidableTabbar.m */,
-				08F1526F1481316100CF7BD9 /* HidableTabbarController.h */,
-				08F152701481316100CF7BD9 /* HidableTabbarController.m */,
 				08F152711481316100CF7BD9 /* ImageGridUIViewController.h */,
 				08F152721481316100CF7BD9 /* ImageGridUIViewController.m */,
 				08F152731481316100CF7BD9 /* ImageGridUIViewController.xib */,
@@ -519,6 +527,12 @@
 				08F152891481316100CF7BD9 /* UIVanillaView.m */,
 				08F1528A1481316100CF7BD9 /* UnavailableImageHandler.h */,
 				08F1528B1481316100CF7BD9 /* UnavailableImageHandler.m */,
+				08CE517114A23740004C1916 /* FancyTabbarController.h */,
+				08CE517214A23740004C1916 /* FancyTabbarController.m */,
+				08CE517514A23763004C1916 /* FancyTabbar.h */,
+				08CE517614A23763004C1916 /* FancyTabbar.m */,
+				08CE517814A23AB9004C1916 /* FancyTabbarItem.h */,
+				08CE517914A23ABA004C1916 /* FancyTabbarItem.m */,
 			);
 			path = "UI tier";
 			sourceTree = "<group>";
@@ -611,6 +625,9 @@
 				0839DBBB149CDAF900043178 /* tableCellIndicator.png in Resources */,
 				0839DBC1149D08E200043178 /* AccountSettings.plist in Resources */,
 				0839DBC3149D459D00043178 /* defaultIconImage.png in Resources */,
+				08A19B8414A2D2FB00E49E58 /* settingsIcon.png in Resources */,
+				08A19B8514A2D2FB00E49E58 /* settingsIcon@2x.png in Resources */,
+				08A19B8614A2D2FB00E49E58 /* tableCellIndicator@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,8 +670,6 @@
 				08F152B01481316100CF7BD9 /* AccountTableViewCell.m in Sources */,
 				08F152B11481316100CF7BD9 /* ExploreNavigatorController.m in Sources */,
 				08F152B21481316100CF7BD9 /* FlickrAccountUIViewController.m in Sources */,
-				08F152B41481316100CF7BD9 /* HidableTabbar.m in Sources */,
-				08F152B51481316100CF7BD9 /* HidableTabbarController.m in Sources */,
 				08F152B61481316100CF7BD9 /* ImageGridUIViewController.m in Sources */,
 				08F152B81481316100CF7BD9 /* ImageStatusOverlayView.m in Sources */,
 				08F152B91481316100CF7BD9 /* InfinitePagedScrollView.m in Sources */,
@@ -676,6 +691,9 @@
 				08F738FA14A0D4DE006987A3 /* GCDiscreetNotificationView.m in Sources */,
 				08F7390614A10E15006987A3 /* FiveHundredPXAccount.m in Sources */,
 				08F7390914A1116E006987A3 /* ImageFiveHundredPXDataProvider.m in Sources */,
+				08CE517314A23741004C1916 /* FancyTabbarController.m in Sources */,
+				08CE517714A23763004C1916 /* FancyTabbar.m in Sources */,
+				08CE517A14A23ABA004C1916 /* FancyTabbarItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

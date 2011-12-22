@@ -11,7 +11,7 @@
 @implementation FancyTabbarItem
 @synthesize selected=_selected; 
 @synthesize textLabel=_textLabel; 
-
+@synthesize parentIndex=_parentIndex; 
 
 
 -(void) setSelected:(BOOL)selected
@@ -32,7 +32,7 @@
         _textLabel.textAlignment = UITextAlignmentCenter; 
         _textLabel.textColor = [UIColor grayColor]; 
         _textLabel.backgroundColor = [UIColor clearColor]; 
-        _textLabel.font = [UIFont fontWithName:@"futura" size:12]; 
+        _textLabel.font = [UIFont fontWithName:@"futura" size:10]; 
         
         [self addSubview:_textLabel]; 
         [_textLabel release]; 
@@ -47,6 +47,7 @@
     if (self) 
     {
         _selected = NO; 
+        self.clipsToBounds = NO; 
     }
     
     return self; 
@@ -64,7 +65,7 @@
 
 +(CGFloat) buttonHeight
 {
-    return 55; 
+    return  42; 
 }
 
 
@@ -73,7 +74,7 @@
     [super layoutSubviews]; 
 
     
-    CGFloat IMAGE_SIZE = 36;    //the size of the image in the button (its square) 
+    CGFloat IMAGE_SIZE = 32;    //the size of the image in the button (its square) 
     
     
     CGRect b = self.bounds; 
@@ -84,7 +85,7 @@
     self.imageView.frame = f; 
     
     CGFloat y = b.origin.y + f.size.height;  
-    f = CGRectMake(b.origin.x, y, b.size.width, b.size.height-y); 
+    f = CGRectMake(b.origin.x, y-4, b.size.width, b.size.height-y); 
     self.textLabel.frame = f; 
 }
 

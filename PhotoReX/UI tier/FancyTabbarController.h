@@ -9,11 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "FancyTabbar.h"
 
+
 @interface FancyTabbarController : UIViewController <FancyTabbarDelegate>
 {
     NSMutableArray* viewControllers;    //array of UIViewController
+    NSMutableArray* autoHideArray;      //array of BOOL (does each page need the tabbar to autohide when selected) 
     UIViewController* selectedViewController; 
     
+    BOOL isShowing;                 //are we showing the tabbar 
     FancyTabbar* tabbar; 
 }
 

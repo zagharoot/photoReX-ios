@@ -11,7 +11,7 @@
 @interface FancyTabbarItem : UIButton
 {
     BOOL _selected; 
-    
+    int _parentIndex;           //the index of this in the parent tabbar
     UILabel* _textLabel; 
 }
 
@@ -21,5 +21,6 @@
 
 @property (nonatomic) BOOL selected; 
 @property (nonatomic, retain) UILabel* textLabel; 
+@property (nonatomic) int parentIndex; 
 
 @end

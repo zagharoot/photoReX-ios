@@ -48,7 +48,7 @@
         _selectedIndex = -1; 
         
         fillColor = [[UIColor colorWithHue:0.0 saturation:0.0 brightness:0 alpha:0.8] retain];
-        strokeColor = [[UIColor colorWithHue:0 saturation:0 brightness:1 alpha:0.9] retain]; 
+        strokeColor = [[UIColor colorWithHue:0 saturation:0 brightness:1 alpha:0.6] retain]; 
         self.backgroundColor = [UIColor clearColor]; 
         self.clipsToBounds = NO; 
 
@@ -70,6 +70,8 @@
 -(void) addItemWithName:(NSString *)name andImageName:(NSString *)img
 {
     FancyTabbarItem* item = [FancyTabbarItem buttonWithName:name andImageName:img]; 
+    item.parentIndex = self.items.count; 
+    
     [self.items addObject:item]; 
     [self addSubview:item]; 
     [item addTarget:self action:@selector(buttonPushed:) forControlEvents:UIControlEventTouchDown]; 
@@ -78,8 +80,9 @@
 
 -(void) buttonPushed:(id)sender
 {
-    NSLog(@"button was pushed\n\n\n"); 
-    
+    FancyTabbarItem* item = (FancyTabbarItem*) sender; 
+
+    self.selectedIndex = item.parentIndex; 
 }
 
 
@@ -97,10 +100,10 @@
     
     CGFloat radius = 10; 
     
-    CGFloat minx = CGRectGetMinX(rrect);
+    CGFloat minx = CGRectGetMinX(rrect)+1;
     CGFloat midx = CGRectGetMidX(rrect);
-    CGFloat maxx = CGRectGetMaxX(rrect);
-    CGFloat miny = CGRectGetMinY(rrect)+ BAR_HANDLE_HEIGHT; 
+    CGFloat maxx = CGRectGetMaxX(rrect)-1;
+    CGFloat miny = CGRectGetMinY(rrect)+ BAR_HANDLE_HEIGHT+1; 
     CGFloat maxy = CGRectGetMaxY(rrect);
     
     CGFloat hw = 20;        //half the width of the handle 

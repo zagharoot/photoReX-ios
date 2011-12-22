@@ -18,10 +18,7 @@
     FlickrAccount* _theAccount; 
     
     OFFlickrAPIRequest* _apiRequest; 
-
-
     GCDiscreetNotificationView* _notificationView; 
-
 }
 
 -(void) closePage; 

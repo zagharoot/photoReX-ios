@@ -9,11 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "InfinitePagedScrollView.h"
 #import "PagedContentProvider.h"
-#import "HidableTabbarController.h"
 
 //  This class provides an infinite scroll of pages [0,\infty) for showing some stuff 
 
-@interface PagedNavigatorController : UIViewController <InfiniteScrollDelegate, HidableTabbarDelegate>
+@interface PagedNavigatorController : UIViewController <InfiniteScrollDelegate>
 {
     InfinitePagedScrollView* infiniteScroller; 
     

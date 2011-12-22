@@ -9,22 +9,20 @@
 #import <UIKit/UIKit.h>
 #import "FancyTabbarItem.h"
 
-@protocol FancyTabbarDelegate <NSObject>
-
--(void) selectedItemDidChange:(int) selectedIndex; 
-@end
-
+@class FancyTabbarController; 
 
 @interface FancyTabbar : UIView
 {
     int _selectedIndex; 
     NSMutableArray* _items;  //array of fancytabbaritems 
     
-    id<FancyTabbarDelegate> _delegate; 
+    FancyTabbarController* _parent; 
     
     UIColor* fillColor; 
     UIColor* strokeColor; 
     
+    BOOL isHandlingFlickDown;           //this is a flag that tracks whether we are examining to hide or not
+    CGPoint startTouchLoc;              //the place where the touch started (used for show/hide)
 }
 
 +(CGFloat) barHeight; 
@@ -32,10 +30,11 @@
 -(void) addItemWithName:(NSString*) name andImageName:(NSString*) img; 
 
 -(void) buttonPushed:(id) sender; 
+-(void) handleTapGesture:(UITapGestureRecognizer*) gesture; 
 
 @property (nonatomic, retain) NSMutableArray* items; 
 @property (nonatomic) int selectedIndex; 
-@property (nonatomic, assign) id<FancyTabbarDelegate> deleage; 
+@property (nonatomic, assign) FancyTabbarController* parent; 
 
 
 @end

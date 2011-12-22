@@ -7,11 +7,13 @@
 //
 
 #import "FancyTabbar.h"
+#import "FancyTabbarController.h"
+
 
 @implementation FancyTabbar
 @synthesize items=_items; 
 @synthesize selectedIndex=_selectedIndex; 
-@synthesize deleage=_delegate; 
+@synthesize parent=_parent; 
 
 #define BAR_TOP_MARGIN      5
 #define BAR_BOTTOM_MARGIN   3
@@ -33,7 +35,7 @@
     ((FancyTabbarItem*) [self.items objectAtIndex:_selectedIndex]).selected = YES; 
 
     //inform delegate 
-    [self.deleage selectedItemDidChange:_selectedIndex]; 
+    [self.parent selectedItemDidChange:_selectedIndex]; 
     
     [self setNeedsDisplay]; 
 }
@@ -52,6 +54,38 @@
         self.backgroundColor = [UIColor clearColor]; 
         self.clipsToBounds = NO; 
 
+/*        
+        UIPanGestureRecognizer* flickDown = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleFlickDownGesture:)]; 
+        
+        flickDown.delaysTouchesBegan = YES; 
+        flickDown.delaysTouchesEnded = YES; 
+        flickDown.maximumNumberOfTouches = 1; 
+        [self addGestureRecognizer:flickDown]; 
+        [flickDown release]; 
+        
+        
+        
+        //set up gesture recognizers for showing and hiding the tabbar 
+        UISwipeGestureRecognizer* swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleTabbarGesture:)];
+        
+        swipe.direction = UISwipeGestureRecognizerDirectionDown; 
+        swipe.delaysTouchesBegan = YES; 
+        swipe.delaysTouchesEnded = YES; 
+        [self addGestureRecognizer:swipe]; 
+        [swipe release]; 
+*/
+        
+        
+        UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)]; 
+        
+        tap.numberOfTapsRequired=1; 
+        tap.numberOfTouchesRequired = 1; 
+        
+        [self addGestureRecognizer:tap]; 
+        
+        
+        isHandlingFlickDown = NO; 
+        
     }
     
     return self; 
@@ -74,7 +108,7 @@
     
     [self.items addObject:item]; 
     [self addSubview:item]; 
-    [item addTarget:self action:@selector(buttonPushed:) forControlEvents:UIControlEventTouchDown]; 
+    [item addTarget:self action:@selector(buttonPushed:) forControlEvents:UIControlEventTouchUpInside]; 
 }
 
 
@@ -158,6 +192,7 @@
         item.frame = bf; 
         curX += ITEM_WIDTH + padding; 
     }
+
 }
 
 -(void) dealloc
@@ -173,5 +208,78 @@
 {
     return [FancyTabbarItem buttonHeight] + BAR_TOP_MARGIN + BAR_BOTTOM_MARGIN + BAR_HANDLE_HEIGHT; 
 }
+
+
+#pragma mark- handling show/hide methods 
+
+-(UIView*) hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    //we allow the user to tap just a little above us if we're hidden (so we can show ourself by a tap) 
+    if (!self.parent.isShowing)
+        if (point.y>-9.5)
+            return self; 
+        else
+            return nil; 
+    
+    if ( [self pointInside:point withEvent:event])
+        return self; 
+    else
+        return nil; 
+}
+
+-(void) handleTapGesture:(UITapGestureRecognizer *)gesture
+{
+    if (! isHandlingFlickDown)
+    {
+
+        if (!self.parent.isShowing)                     //if hidden, we show by just a tap 
+            [self.parent showBarWithAnimation:YES]; 
+        
+
+        //fire the corresponding button 
+        for (FancyTabbarItem* btn in self.items) 
+        {
+            CGPoint p = [gesture locationInView:btn]; 
+            if ( [btn pointInside:p withEvent:nil])
+                [self buttonPushed:btn]; 
+        }
+    }
+}
+
+
+-(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (touches.count > 1) 
+        return; 
+    
+    UITouch* touch = [touches anyObject]; 
+    
+    if (touch.tapCount>1)
+        return; 
+    
+    startTouchLoc = [touch locationInView:self]; 
+}
+
+
+-(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    isHandlingFlickDown = YES; 
+    CGPoint newPoint = [[touches anyObject] locationInView:self]; 
+ 
+    if (newPoint.y > startTouchLoc.y+15 && fabs(newPoint.x - startTouchLoc.x) < 10)
+        [self.parent hideBarWithAnimation:YES]; 
+}
+
+
+-(void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    isHandlingFlickDown = NO; 
+}
+
+-(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    isHandlingFlickDown = NO; 
+}
+
 
 @end

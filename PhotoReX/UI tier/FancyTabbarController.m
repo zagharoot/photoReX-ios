@@ -17,7 +17,7 @@
 FancyTabbarController* theInstance = nil; 
 
 @implementation FancyTabbarController
-
+@synthesize isShowing=_isShowing; 
 
 +(FancyTabbarController*) getInstance
 {
@@ -36,6 +36,7 @@ FancyTabbarController* theInstance = nil;
     
     flickUP.direction = UISwipeGestureRecognizerDirectionUp; 
     flickDown.direction = UISwipeGestureRecognizerDirectionDown; 
+    flickDown.delaysTouchesBegan = YES; 
     
     [self.view addGestureRecognizer:flickUP]; 
     [self.view addGestureRecognizer:flickDown]; 
@@ -51,7 +52,7 @@ FancyTabbarController* theInstance = nil;
     viewControllers = [[NSMutableArray alloc] initWithCapacity:3]; 
     autoHideArray   = [[NSMutableArray alloc] initWithCapacity:3]; 
     tabbar = [[FancyTabbar alloc] init]; 
-    tabbar.deleage = self; 
+    tabbar.parent = self; 
     
     //The explore page
     ExploreNavigatorController* exploreNavigator = [[ExploreNavigatorController alloc] init]; 
@@ -107,7 +108,7 @@ FancyTabbarController* theInstance = nil;
     
     [self setupGestures]; 
     
-    isShowing = YES; 
+    _isShowing = YES; 
     
 }
 
@@ -198,11 +199,11 @@ FancyTabbarController* theInstance = nil;
         
     CGRect b = self.view.bounds; 
 	if (show) {
-        isShowing = YES; 
+        _isShowing = YES; 
         tabbarFrame = CGRectMake(BAR_EDGE_INSET, b.size.height-[FancyTabbar barHeight],b.size.width-BAR_EDGE_INSET*2, [FancyTabbar barHeight]+5); 
 	}
 	else {
-        isShowing = NO; 
+        _isShowing = NO; 
         tabbarFrame = CGRectMake(BAR_EDGE_INSET, b.size.height-5,b.size.width-BAR_EDGE_INSET*2, [FancyTabbar barHeight]+5); 
 	}
     
@@ -230,5 +231,9 @@ FancyTabbarController* theInstance = nil;
     if (gestureRecognizer.direction == UISwipeGestureRecognizerDirectionDown)
         [self hideBarWithAnimation:YES]; 
 }
+
+
+
+
 
 @end

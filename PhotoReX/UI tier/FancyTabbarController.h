@@ -10,18 +10,19 @@
 #import "FancyTabbar.h"
 
 
-@interface FancyTabbarController : UIViewController <FancyTabbarDelegate>
+@interface FancyTabbarController : UIViewController
 {
     NSMutableArray* viewControllers;    //array of UIViewController
     NSMutableArray* autoHideArray;      //array of BOOL (does each page need the tabbar to autohide when selected) 
     UIViewController* selectedViewController; 
     
-    BOOL isShowing;                 //are we showing the tabbar 
+    BOOL _isShowing;                 //are we showing the tabbar 
     FancyTabbar* tabbar; 
 }
 
 -(void) setupGestures; 
 -(void) setupViewControllers; 
+-(void) selectedItemDidChange:(int) selectedIndex; 
 
 
 -(void) showBarWithAnimation:(BOOL) animation; 
@@ -30,6 +31,7 @@
 
 -(void) handleTabbarGesture:(UISwipeGestureRecognizer *)gestureRecognizer; 
 
+@property (readonly) BOOL isShowing; 
 
 +(FancyTabbarController*) getInstance;        //the singleton pattern (we never have two tabbars, right?) 
 

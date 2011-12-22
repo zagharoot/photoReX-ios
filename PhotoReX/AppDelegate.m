@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "HidableTabbarController.h"
 #import "PagedNavigatorController.h"
 #import "ExploreImageProvider.h"
 #import "ExploreNavigatorController.h"

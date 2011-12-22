@@ -8,7 +8,7 @@
 
 #import "ImageGridUIViewController.h"
 #import "PhotoViewController.h"
-#import "HidableTabbarController.h"
+#import "FancyTabbarController.h" 
 
 #define EDGE_PADDING    13                      //the space around the pictures to the edge of the frame
 #define PICTURE_PADDING  8         //the space between pictures specified in percentage of the pic width
@@ -169,7 +169,7 @@
     NSLog(@"cur page: (%f,%f) (%f,%f) \n", f.origin.x, f.origin.y, f.size.width, f.size.height); 
 
     //present the picture modally using the tabbar (the root of all view controllers, so nothing intercepts) 
-    [[HidableTabbarController getInstance] presentViewController:pvc animated:YES completion:nil];  
+    [[FancyTabbarController getInstance] presentViewController:pvc animated:YES completion:nil];  
  //   [self presentModalViewController:pvc animated:YES]; 
     
     

@@ -9,5 +9,12 @@
 		<key>signature</key>
 		<string>32c600fad81cf3e3</string>
 	</dict>
+	<key>fiveHundredPXAccount</key>
+	<dict>
+		<key>api_key</key>
+		<string>xqNgbk94AvX7E0RbGEPTFKjMFWbnNSEjOdYOeCU3</string>
+		<key>signature</key>
+		<string>JTlIJCKG2ktsSBRLM18WoqSJl8nKaBnWEGE0FlyP</string>
+	</dict>
 </dict>
 </plist>

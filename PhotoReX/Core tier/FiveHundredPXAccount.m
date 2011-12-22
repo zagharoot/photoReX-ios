@@ -7,12 +7,15 @@
 //
 
 #import "FiveHundredPXAccount.h"
+#import "PictureInfo.h"
 
 @implementation FiveHundredPXAccount
-
-
-
-
+@synthesize api_key=_api_key; 
+@synthesize signature=_signature; 
+@synthesize requestToken=_requestToken; 
+@synthesize requestSecret=_requestSecret; 
+@synthesize accessToken=_accessToken; 
+@synthesize accessSecret=_accessSecret; 
 
 -(UIImage*) logoImage
 {
@@ -26,6 +29,18 @@
     
     return _logoImage; 
 }
+
+
+-(void) setApiKey:(NSString *)key andSignature:(NSString *)signature
+{
+    [_api_key release]; 
+    [_signature release]; 
+    
+    _api_key = [key copy]; 
+    _signature = [signature copy]; 
+    
+}
+
 
 -(NSString*) accountName
 {

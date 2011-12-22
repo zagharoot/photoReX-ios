@@ -303,7 +303,7 @@
     self.logoImageView.frame = frame;
     
     
-    frame = CGRectMake( boundsX + contentRect.size.width - 10 - 20, 17, 20 , 20) ; 
+    frame = CGRectMake( boundsX + contentRect.size.width - 10 - 20, 17, 18 , 18) ; 
     self.rightIndicator.frame = frame; 
     
     

@@ -27,6 +27,18 @@ FancyTabbarController* theInstance = nil;
     return theInstance; 
 }
 
+
+-(UIViewController*) selectedViewController
+{
+    if (selectedIndex<0)
+        return nil; 
+    
+    if (selectedIndex >= viewControllers.count)
+        return nil; 
+    
+    return [viewControllers objectAtIndex:selectedIndex]; 
+}
+
 -(void) setupGestures
 {
     //set up gesture recognizers for showing and hiding the tabbar 
@@ -57,13 +69,14 @@ FancyTabbarController* theInstance = nil;
     //The explore page
     ExploreNavigatorController* exploreNavigator = [[ExploreNavigatorController alloc] init]; 
     [viewControllers addObject:exploreNavigator]; 
-    [tabbar addItemWithName:@"Explore" andImageName:@"exploreIcon"]; 
+    [tabbar addItemWithName:@"Explore" andImageName:@"settingsIcon.png"]; 
     [exploreNavigator release]; 
     [autoHideArray addObject:[NSNumber numberWithBool:YES]]; 
 
     
     //The settings page:
     AccountsUIViewController* accViewController =     [[AccountsUIViewController alloc] initWithNibName:@"AccountsUIViewController" bundle:[NSBundle mainBundle]];
+    accViewController.fancyTabbarController = self; 
     UINavigationController* sunc = [[UINavigationController alloc] init]; 
     [sunc pushViewController:accViewController animated:NO]; 
     [viewControllers addObject:sunc]; 
@@ -98,7 +111,8 @@ FancyTabbarController* theInstance = nil;
 - (void)loadView
 {    
     self.view = [[UIView alloc] init]; 
-    selectedViewController = nil; 
+    selectedIndex = -1; 
+    previousSelectedIndex = -1; 
     
     [self setupViewControllers]; 
 
@@ -123,13 +137,14 @@ FancyTabbarController* theInstance = nil;
     
     CGRect barFrame = CGRectMake(BAR_EDGE_INSET, s.height-[FancyTabbar barHeight], s.width-BAR_EDGE_INSET*2, [FancyTabbar barHeight]+5); 
     tabbar.frame = barFrame; 
+    
 }
 
 
 
 -(void) viewWillAppear:(BOOL)animated
 {
-    selectedViewController.view.frame = self.view.bounds; 
+    self.selectedViewController.view.frame = self.view.bounds; 
     [super viewWillAppear:animated]; 
 }
 
@@ -157,30 +172,36 @@ FancyTabbarController* theInstance = nil;
 }
      
      
--(void) selectedItemDidChange:(int)selectedIndex
+-(void) selectedItemDidChange:(int)newIndex
 {
-    if (selectedIndex <0 || selectedIndex >= viewControllers.count)
+    if (newIndex <0 || newIndex >= viewControllers.count)
         return; 
     
     
     //remove the old selectedView if present 
-    if (selectedViewController)
+    if (self.selectedViewController)
     {
-        [selectedViewController.view removeFromSuperview]; 
+        [self.selectedViewController.view removeFromSuperview]; 
 
         // if selectedViewController is nil, it means its the first time, so we can't actually do this 
         if ([[autoHideArray objectAtIndex:selectedIndex] boolValue])
             [self hideBarWithAnimation:YES]; 
     }
     
-    
-    selectedViewController = [viewControllers objectAtIndex:selectedIndex]; 
-    selectedViewController.view.frame = self.view.bounds;            //fills the entire page 
-    [self.view insertSubview:selectedViewController.view atIndex:0]; 
-    
-    
+    previousSelectedIndex = selectedIndex; 
+    selectedIndex = newIndex; 
+    self.selectedViewController.view.frame = self.view.bounds;            //fills the entire page 
+    [self.view insertSubview:self.selectedViewController.view atIndex:0]; 
 }
 
+-(void) gotoPreviousPage
+{
+    if (previousSelectedIndex<0)
+        return ; 
+    
+    
+    tabbar.selectedIndex = previousSelectedIndex; 
+}
 
 -(void) showBarWithAnimation:(BOOL)animation
 {

@@ -12,6 +12,26 @@
 #import "FlickrAccountUIViewController.h"
 
 @implementation AccountsUIViewController
+@synthesize closeBtn=_closeBtn; 
+@synthesize fancyTabbarController=_fancyTabbarController; 
+
+-(UIBarButtonItem*) closeBtn
+{
+    
+    if (!_closeBtn)
+    {
+        _closeBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(closePage:)]; 
+    }
+    
+    return _closeBtn; 
+}
+
+
+-(void) closePage:(id)sender
+{
+    if (self.fancyTabbarController)
+        [self.fancyTabbarController gotoPreviousPage]; 
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,6 +51,13 @@
 }
 
 #pragma mark - View lifecycle
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated]; 
+    
+    self.navigationItem.title = @"Settings"; 
+    self.navigationItem.rightBarButtonItem = self.closeBtn; 
+}
 
 - (void)viewDidLoad
 {
@@ -41,7 +68,7 @@
 
 - (void)viewDidUnload
 {
-    
+    [_closeBtn release]; 
     [tableView release];
     tableView = nil;
     [super viewDidUnload];
@@ -207,6 +234,7 @@
     
     if (detailViewController) 
     {
+        self.navigationItem.rightBarButtonItem = nil; 
         [self.navigationController pushViewController:detailViewController animated:YES];
         [detailViewController release];
     }

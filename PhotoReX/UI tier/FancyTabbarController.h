@@ -14,7 +14,9 @@
 {
     NSMutableArray* viewControllers;    //array of UIViewController
     NSMutableArray* autoHideArray;      //array of BOOL (does each page need the tabbar to autohide when selected) 
-    UIViewController* selectedViewController; 
+    
+    int selectedIndex;                  //the index of the current selected page 
+    int previousSelectedIndex;         //the index of the previous page (-1 means N/A)
     
     BOOL _isShowing;                 //are we showing the tabbar 
     FancyTabbar* tabbar; 
@@ -23,7 +25,7 @@
 -(void) setupGestures; 
 -(void) setupViewControllers; 
 -(void) selectedItemDidChange:(int) selectedIndex; 
-
+-(void) gotoPreviousPage; 
 
 -(void) showBarWithAnimation:(BOOL) animation; 
 -(void) hideBarWithAnimation:(BOOL) animation; 
@@ -32,6 +34,7 @@
 -(void) handleTabbarGesture:(UISwipeGestureRecognizer *)gestureRecognizer; 
 
 @property (readonly) BOOL isShowing; 
+@property (readonly) UIViewController* selectedViewController; 
 
 +(FancyTabbarController*) getInstance;        //the singleton pattern (we never have two tabbars, right?) 
 

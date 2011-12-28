@@ -8,6 +8,7 @@
 
 #import "ImageFlickrDataProvider.h"
 #import "NetworkActivityIndicatorController.h"
+#import "AccountManager.h" 
 
 @interface FlickrImageDataConnectionDetails : NSObject {
     id<DataDownloadObserver> observer; 
@@ -64,10 +65,63 @@
     if (self) {
         // Initialization code here.
         connections = [[NSMutableDictionary alloc] init ]; 
+        detailRequests = [[NSMutableDictionary alloc] initWithCapacity:5]; 
+        favoriteRequest = [[NSMutableDictionary alloc] initWithCapacity:5]; 
     }
     
     return self;
 }
+
+
+
+-(void) fillInDetailForPictureInfo:(PictureInfo *)pictureInfo
+{
+    FlickrAccount* acc = [[AccountManager standardAccountManager] flickrAccount]; 
+    FlickrPictureInfo* info = (FlickrPictureInfo*) pictureInfo.info; 
+    OFFlickrAPIContext* context = acc.apiContext; 
+    OFFlickrAPIRequest* request; 
+    
+    
+    if (!info)      //TODO: how about register for notification to know when this does get available 
+        return; 
+    
+    request = [[OFFlickrAPIRequest alloc] initWithAPIContext:context]; 
+    request.delegate = self; 
+
+    // add the request to the list of outstanding ones 
+    [detailRequests setValue:pictureInfo forKey:request.description]; 
+    
+    NSMutableDictionary* args = [[NSMutableDictionary alloc] initWithCapacity:2]; 
+    [args setValue:acc.api_key forKey:@"api_key"]; 
+    [args setValue:info.picID forKey:@"photo_id"]; 
+    [request callAPIMethodWithGET:@"flickr.photos.getInfo" arguments:args]; //will get notified as delegate about the progress 
+}
+
+
+-(BOOL) setFavorite:(BOOL)fav forPictureInfo:(PictureInfo *)pictureInfo
+{
+    FlickrAccount* acc = [[AccountManager standardAccountManager] flickrAccount]; 
+    FlickrPictureInfo* info = (FlickrPictureInfo*) pictureInfo.info; 
+    OFFlickrAPIContext* context = acc.apiContext; 
+    OFFlickrAPIRequest* request; 
+    
+    
+    if (!info)      //TODO: how about register for notification to know when this does get available 
+        return NO;  
+    
+    request = [[OFFlickrAPIRequest alloc] initWithAPIContext:context]; 
+    request.delegate = self; 
+    
+    // add the request to the list of outstanding ones 
+    [favoriteRequest setValue:pictureInfo forKey:request.description]; 
+    
+    NSMutableDictionary* args = [[NSMutableDictionary alloc] initWithCapacity:2]; 
+    [args setValue:acc.api_key forKey:@"api_key"]; 
+    [args setValue:info.picID forKey:@"photo_id"]; 
+    [request callAPIMethodWithPOST:@"flickr.favorites.add" arguments:args]; //will get notified as delegate about the progress 
+    return YES; 
+}
+
 
 
 -(void) getDataForPicture:(PictureInfo *)pictureInfo withResolution:(ImageResolution)resolution withObserver:(id<DataDownloadObserver>)observer
@@ -96,6 +150,9 @@
 -(void) dealloc
 {
     [connections release]; 
+    [detailRequests release]; 
+    [favoriteRequest release]; 
+    [super dealloc]; 
 }
 
 
@@ -228,6 +285,54 @@
     
     return result; 
 }	
+
+
+#pragma mark- objective flickr delegate 
+
+-(void) flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
+{
+    PictureInfo* pic = [detailRequests valueForKey:inRequest.description]; 
+
+    
+    //remove the request from the outstanding list 
+    [detailRequests removeObjectForKey:inRequest.description]; 
+    [favoriteRequest removeObjectForKey:inRequest.description]; 
+    
+    if (!pic)           
+        return; 
+    
+
+    FlickrPictureInfo* info = (FlickrPictureInfo*) pic.info; 
+    NSDictionary* photo = [inResponseDictionary valueForKey:@"photo"]; 
+    
+    if (!photo) 
+        return; 
+    
+    NSDictionary* owner = [photo valueForKey:@"owner"]; 
+    if (owner) 
+        info.author = [owner valueForKey:@"username"]; 
+    
+    NSDictionary* title = [photo valueForKey:@"title"]; 
+    if (title) 
+        info.title = [title valueForKey:@"_text"]; 
+    
+    info.numberOfVisits = [[photo valueForKey:@"views"] intValue]; 
+    info.isFavorite = [[photo valueForKey:@"isfavorite"] boolValue]; 
+    
+    NSDictionary* comments = [photo valueForKey:@"comments"]; 
+    if (comments) 
+        info.numberOfComments = [[comments valueForKey:@"_text"] intValue]; 
+
+}
+
+
+
+-(void) flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
+{
+    //remove the request from outstanding list 
+    [detailRequests removeObjectForKey:inRequest.description]; 
+}
+
 
 
 

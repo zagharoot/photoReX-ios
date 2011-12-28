@@ -6,16 +6,26 @@
 //  Copyright 2011 Rutgers. All rights reserved.
 //
 
-#import "ImageDataProvider.h"
+#import "ImageDataProviderManager.h"
 #import "ImageFlickrDataProvider.h"
 #import "ImageInstagramDataProvider.h"
 #import "ImageFiveHundredPXDataProvider.h"
 //WEBSITE: 
 
+static ImageDataProviderManager* theProvider=nil; 
 
-static ImageDataProvider* theProvider=nil; 
 
-@implementation ImageDataProvider
+@implementation ImageDataProvider 
+
+-(BOOL) setFavorite:(BOOL)fav forPictureInfo:(PictureInfo *)pictureInfo
+{
+    return NO; 
+}
+
+@end
+
+
+@implementation ImageDataProviderManager
 
 @synthesize cachedProvider = _cachedProvider; 
 @synthesize flickrProvider = _flickrProvider; 
@@ -23,10 +33,10 @@ static ImageDataProvider* theProvider=nil;
 @synthesize fiveHundredPXProvider=_fiveHundredPXDataProvider; 
 //WEBSITE: 
 
-+(ImageDataProvider*) mainDataProvider
++(ImageDataProviderManager*) mainDataProvider
 {
     if (theProvider==nil)
-        theProvider = [[ImageDataProvider alloc] init]; 
+        theProvider = [[ImageDataProviderManager alloc] init]; 
 
     return theProvider; 
 }
@@ -35,6 +45,7 @@ static ImageDataProvider* theProvider=nil;
 - (id)init
 {
     self = [super init];
+
     if (self) {
         // Initialization code here.
         _flickrProvider = [[ImageFlickrDataProvider alloc] init]; 
@@ -48,9 +59,37 @@ static ImageDataProvider* theProvider=nil;
 }
 
 
+-(ImageDataProvider*) dataProviderForPictureInfo:(PictureInfo *)pictureInfo
+{
+    switch (pictureInfo.info.website) {
+        case FLICKR_INDEX:
+            return self.flickrProvider; 
+        case INSTAGRAM_INDEX:
+            return self.instagramProvider; 
+        case FIVEHUNDREDPX_INDEX:
+            return self.fiveHundredPXProvider; 
+        default:
+            return nil; 
+    }
+    //WEBSITE: 
+
+}
+
+
+-(void) fillInDetailForPictureInfo:(PictureInfo*) pictureInfo
+{
+    [[self dataProviderForPictureInfo:pictureInfo] fillInDetailForPictureInfo:pictureInfo]; 
+}
+
+-(BOOL) setFavorite:(BOOL)fav forPictureInfo:(PictureInfo *)pictureInfo
+{
+    return [[self dataProviderForPictureInfo:pictureInfo] setFavorite:fav forPictureInfo:pictureInfo]; 
+}
+
 -(void) getDataForPicture:(PictureInfo *)pictureInfo  withResolution:(ImageResolution) resolution withObserver:(id<DataDownloadObserver>)observer
 {
     NSData* result; 
+    
     
     //already in cache    
     if ( (result= [self.cachedProvider getDataForPicture:pictureInfo withResolution:resolution]))
@@ -60,26 +99,8 @@ static ImageDataProvider* theProvider=nil;
         return; 
     }
     
-    if (pictureInfo.info.website == FLICKR_INDEX)
-    {
-        [self.flickrProvider getDataForPicture:pictureInfo withResolution:resolution withObserver:observer]; 
-        return; 
-    }
     
-    
-    if (pictureInfo.info.website == INSTAGRAM_INDEX)
-    {
-        [self.instagramProvider getDataForPicture:pictureInfo withResolution:resolution withObserver:observer];
-        return; 
-    }
-    
-    
-    if (pictureInfo.info.website == FIVEHUNDREDPX_INDEX)
-    {
-        [self.fiveHundredPXProvider getDataForPicture:pictureInfo withResolution:resolution withObserver:observer]; 
-        return; 
-    }
-        //WEBSITE: add code for other websites
+    [[self dataProviderForPictureInfo:pictureInfo] getDataForPicture:pictureInfo withResolution:resolution withObserver:observer]; 
 }
 
 -(void) addImageToCache:(UIImage *)img forPictureInfo:(PictureInfo *)pictureInfo andResolution:(ImageResolution)resolution

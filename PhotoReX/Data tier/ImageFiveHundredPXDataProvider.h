@@ -6,8 +6,8 @@
 //  Copyright (c) 2011 Rutgers. All rights reserved.
 //
 
-#import "ImageDataProvider.h"
+#import "ImageDataProviderManager.h"
 
-@interface ImageFiveHundredPXDataProvider : NSObject
+@interface ImageFiveHundredPXDataProvider : ImageDataProvider
 
 @end

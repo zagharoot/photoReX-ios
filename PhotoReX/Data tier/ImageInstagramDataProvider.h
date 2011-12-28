@@ -7,17 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ImageDataProvider.h"
+#import "ImageDataProviderManager.h"
 
 
-@interface ImageInstagramDataProvider : NSObject <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
+@interface ImageInstagramDataProvider : ImageDataProvider <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 {
     NSMutableDictionary* connections; //this is a dictionary from NSURLConnection to observers.
-    
 }
 
 -(id) init; 
 
--(void) getDataForPicture:(PictureInfo*) pictureInfo  withResolution:(ImageResolution) resolution withObserver:(id<DataDownloadObserver>) observer; 
 
 @end

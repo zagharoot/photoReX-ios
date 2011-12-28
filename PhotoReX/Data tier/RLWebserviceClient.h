@@ -12,9 +12,9 @@
 //#define SERVER_ADDRESS   @"http://192.168.10.106/rlimage/imagerecommendationservice.asmx/recommend"
 #define SERVER_ADDRESS   @"http://68.45.157.225"
 
-#define SERVICE_RECOMMEND   @"/rlimage/imagerecommendationservice.asmx/recommend" 
-#define SERVICE_IMAGEVIEWED     @"/rlimage/imagerecommendationservice.asmx/updateModel"
-#define SERVICE_REGISTER_ACCOUNT  @"/rlimage/imagerecommendationservice.asmx/registerAccount"
+#define SERVICE_RECOMMEND           @"/rlimage/imagerecommendationservice.asmx/recommend" 
+#define SERVICE_IMAGEVIEWED         @"/rlimage/imagerecommendationservice.asmx/updateModel"
+#define SERVICE_REGISTER_ACCOUNT    @"/rlimage/imagerecommendationservice.asmx/registerAccount"
 #define SERVICE_DEREGISTER_ACCOUNT  @"/rlimage/imagerecommendationservice.asmx/deregisterAccount"
 #define SERVICE_CREATE_USER         @"/rlimage/imagerecommendationservice.asmx/createUser"
 

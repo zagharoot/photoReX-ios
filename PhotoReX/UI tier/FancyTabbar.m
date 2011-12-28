@@ -126,7 +126,7 @@
     // Drawing code
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextSetLineWidth(context, 1);
+    CGContextSetLineWidth(context, 0.5);
     CGContextSetFillColorWithColor(context,fillColor.CGColor);
     CGContextSetStrokeColorWithColor(context, strokeColor.CGColor);
     

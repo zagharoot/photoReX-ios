@@ -10,6 +10,7 @@
 #import "AccountManager.h"
 #import "AccountTableViewCell.h"
 #import "FlickrAccountUIViewController.h"
+#import "FancyTabbarController.h" 
 
 @implementation AccountsUIViewController
 @synthesize closeBtn=_closeBtn; 
@@ -57,6 +58,7 @@
     
     self.navigationItem.title = @"Settings"; 
     self.navigationItem.rightBarButtonItem = self.closeBtn; 
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlackOpaque; 
 }
 
 - (void)viewDidLoad
@@ -93,12 +95,20 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [AccountManager standardAccountManager].NUMBER_OF_ACCOUNTS; 
+    switch (section ) {
+        case 0:
+            return [AccountManager standardAccountManager].NUMBER_OF_ACCOUNTS; 
+            break;
+        case 1:         //ui section 
+            return 0; 
+        default:
+            return 0; 
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableViewLocal cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -122,7 +132,7 @@
         [accountCells setValue:cell forKey:[NSString stringWithFormat:@"%d", indexPath.row]]; 
         
         return cell;
-    } else if (indexPath.section==1) //this is the configs section
+    } else if (indexPath.section==1) //this is the UI config section 
     {
         return nil; 
         
@@ -176,16 +186,22 @@
 
 -(CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AccountTableViewCell* cell = [accountCells objectForKey:[NSString stringWithFormat:@"%d", indexPath.row]]; 
+    if (indexPath.section ==0)      //the account section 
+    {
+        AccountTableViewCell* cell = [accountCells objectForKey:[NSString stringWithFormat:@"%d", indexPath.row]]; 
+        
+        if (!cell) 
+            return 60; 
+        
+        
+        if (cell.status == ACCOUNTCELL_ACTIVE_EXPANDED)
+            return 130; 
+        else
+            return 60; 
+    }
+
     
-    if (!cell) 
-        return 60; 
-    
-    
-    if (cell.status == ACCOUNTCELL_ACTIVE_EXPANDED)
-        return 130; 
-    else
-        return 60; 
+    return 44;      //the default
 }
 
 -(void) reevaluateHeights
@@ -196,48 +212,53 @@
 
 - (void)tableView:(UITableView *)tableViewLocal didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //don't do anything if the account is already active
-    if ([[AccountManager standardAccountManager] getAccountAtIndex:indexPath.row].isActive)
+    
+    if (indexPath.section==0)       //it's an account 
     {
-        [self reevaluateHeights]; 
-        return; 
-    }
+        //don't do anything if the account is already active
+        if ([[AccountManager standardAccountManager] getAccountAtIndex:indexPath.row].isActive)
+        {
+            [self reevaluateHeights]; 
+            return; 
+        }
     
     
-    // Navigation logic may go here. Create and push another view controller.
+        // Navigation logic may go here. Create and push another view controller.
     
-    UIViewController* detailViewController=nil; 
+        UIViewController* detailViewController=nil; 
     
-    //WEBSITE: 
-    switch (indexPath.row) {
-        case FLICKR_INDEX:
-            detailViewController = [[FlickrAccountUIViewController alloc] initWithNibName:@"FlickrAccountUIViewController" bundle:[NSBundle mainBundle]];
+        //WEBSITE: 
+        switch (indexPath.row) {
+            case FLICKR_INDEX:
+                detailViewController = [[FlickrAccountUIViewController alloc] initWithNibName:@"FlickrAccountUIViewController" bundle:[NSBundle mainBundle]];
             
-            FlickrAccount* fa = [[AccountManager standardAccountManager] flickrAccount]; 
-            fa.apiContext.OAuthToken = nil; 
-            fa.apiContext.OAuthTokenSecret = nil; 
+                FlickrAccount* fa = [[AccountManager standardAccountManager] flickrAccount]; 
+                fa.apiContext.OAuthToken = nil; 
+                fa.apiContext.OAuthTokenSecret = nil; 
             
-            ((FlickrAccountUIViewController*)detailViewController).theAccount = [[AccountManager standardAccountManager] flickrAccount] ; 
+                ((FlickrAccountUIViewController*)detailViewController).theAccount = [[AccountManager    standardAccountManager] flickrAccount] ; 
             
-            break;
+                break;
         
-        case INSTAGRAM_INDEX: 
+            case INSTAGRAM_INDEX: 
             
-            break; 
-        case FIVEHUNDREDPX_INDEX: 
+                break; 
+            case FIVEHUNDREDPX_INDEX: 
            
             
-            break;
-        default:
-            break;
-    }
+                break;
+            default:
+                break;
+        }
     
-    if (detailViewController) 
-    {
-        self.navigationItem.rightBarButtonItem = nil; 
-        [self.navigationController pushViewController:detailViewController animated:YES];
-        [detailViewController release];
-    }
+        if (detailViewController) 
+        {
+            self.navigationItem.rightBarButtonItem = nil; 
+            [self.navigationController pushViewController:detailViewController animated:YES];
+            [detailViewController release];
+        }
+        
+    }//an account 
     
 }
 
@@ -246,7 +267,8 @@
     switch (section) {
         case 0:
             return @"Accounts"; 
-            break;
+        case 1:
+            return @"User Interface"; 
             
         default:
             break;

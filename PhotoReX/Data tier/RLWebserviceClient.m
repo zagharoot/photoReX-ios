@@ -42,6 +42,10 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
 
 -(void) loadUserid
 {
+    //TODO: remove this
+    return; 
+    
+    
     //---------- read user defaults for the master account ID 
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
     NSString* masterID = [ud valueForKey:@"masterAccountID"]; 
@@ -68,10 +72,11 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
     [request  addValue:@"application/json" forHTTPHeaderField:@"content-type"]; 
     [request  addValue:@"utf8" forHTTPHeaderField:@"charset"]; 
         
-
-    //TODO: remove this
+    
+    //TODO: remove this 
     self.userid = uuid; 
     return; 
+    
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
          ^(NSURLResponse* response, NSData* data, NSError* error)
@@ -268,6 +273,7 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
     [request  addValue:@"application/json" forHTTPHeaderField:@"content-type"]; 
     [request  addValue:@"utf8" forHTTPHeaderField:@"charset"]; 
     
+    
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
      ^(NSURLResponse* response, NSData* data, NSError* error)
      {
@@ -326,6 +332,7 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
     self.userid = nil; 
     [_requestRecommend release]; 
     [_requestImageViewed release]; 
+    [super dealloc]; 
 }
 
 @end

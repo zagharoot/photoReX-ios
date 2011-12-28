@@ -131,6 +131,7 @@ FancyTabbarController* theInstance = nil;
 {
     [super viewDidLoad];
     self.wantsFullScreenLayout = YES; 
+    self.view.frame = [[UIScreen mainScreen] applicationFrame]; 
     tabbar.selectedIndex = 0; 
 
     CGSize s = [[UIScreen mainScreen] applicationFrame].size; 
@@ -184,8 +185,8 @@ FancyTabbarController* theInstance = nil;
         [self.selectedViewController.view removeFromSuperview]; 
 
         // if selectedViewController is nil, it means its the first time, so we can't actually do this 
-        if ([[autoHideArray objectAtIndex:selectedIndex] boolValue])
-            [self hideBarWithAnimation:YES]; 
+        if ([[autoHideArray objectAtIndex:newIndex] boolValue])
+            [self performSelector:@selector(hideBarWithAnimation:) withObject:[autoHideArray objectAtIndex:newIndex] afterDelay:0.8]; 
     }
     
     previousSelectedIndex = selectedIndex; 

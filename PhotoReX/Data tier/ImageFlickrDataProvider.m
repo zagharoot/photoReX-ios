@@ -21,7 +21,7 @@
 
 @property long totalBytes; 
 @property long receivedBytes; 
-@property (assign) id<DataDownloadObserver> observer; 
+@property (retain) id<DataDownloadObserver> observer; 
 @property (assign) NSMutableData* data; 
 
 @end
@@ -48,6 +48,7 @@
 
 -(void) dealloc
 {
+    self.observer = nil; 
     [data release]; 
     [super dealloc]; 
 }
@@ -228,7 +229,7 @@
                 [det.observer imageFailedToLoad:[error description]]; 
             
             
-            [connections removeObjectForKey:connection ];
+            [connections removeObjectForKey:connection.currentRequest.URL.description ];
         }
     }else   //error? 
     {
@@ -259,7 +260,7 @@
             
             
             //remove the stuff from the dictionary
-            [connections removeObjectForKey:connection]; 
+            [connections removeObjectForKey:connection.currentRequest.URL.description]; 
         }
     }else   //error? 
     {

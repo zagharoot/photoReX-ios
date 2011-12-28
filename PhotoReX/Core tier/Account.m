@@ -8,6 +8,8 @@
 
 #import "Account.h"
 #import "RLWebserviceClient.h" 
+#import "PictureInfo.h" 
+
 
 @implementation Account
 @synthesize userIconImage=_userIconImage; 
@@ -61,6 +63,19 @@
     return _logoImage; 
 }
 
+-(UIImage*) iconImage
+{
+    if (_iconImage != nil)
+        return _iconImage; 
+    
+    
+    //first time use, create it: 
+    NSString* path = [NSString stringWithFormat:@"%@Icon", self.accountName ]; 
+    _iconImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:path ofType:@"png"]]; 
+    
+    return _iconImage; 
+}
+
 - (id)init
 {
     self = [super init];
@@ -77,6 +92,11 @@
     _logoImage = nil;       //we can lazily recreate this later! 
 }
 
+
+-(BOOL) supportsFavorite
+{
+    return NO; 
+}
 
 -(NSString*) accountName
 {
@@ -115,6 +135,7 @@
 {
     return NO; 
 }
+
 
 -(void) dealloc
 {

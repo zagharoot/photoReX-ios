@@ -88,8 +88,7 @@
 
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didObtainOAuthRequestToken:(NSString *)inRequestToken secret:(NSString *)inSecret
 {
-    self.theAccount.requestToken = inRequestToken; 
-    self.theAccount.requestSecret = inSecret; 
+    [self.theAccount setRequestToken:inRequestToken withSecret:inSecret]; 
     
     NSURL *authURL = [self.theAccount.apiContext userAuthorizationURLWithRequestToken:inRequestToken requestedPermission:OFFlickrWritePermission];
 
@@ -104,7 +103,7 @@
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didObtainOAuthAccessToken:(NSString *)inAccessToken secret:(NSString *)inSecret userFullName:(NSString *)inFullName userName:(NSString *)inUserName userNSID:(NSString *)inNSID
 {
     //update the flickr account 
-    [self.theAccount activate:inUserName accessToken:inAccessToken accessSecret:inSecret]; 
+    [self.theAccount activate:inUserName nsid:inNSID accessToken:inAccessToken accessSecret:inSecret]; 
     
     [self closePage]; 
 }

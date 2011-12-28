@@ -8,7 +8,7 @@
 
 #import "UINetImageView.h"
 #import "AccountManager.h"
-#import "ImageDataProvider.h"
+#import "ImageDataProviderManager.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -144,7 +144,7 @@
     
     loadStartTime = [[NSDate date] timeIntervalSince1970]; 
     
-    [[ImageDataProvider mainDataProvider] getDataForPicture:self.pictureInfo withResolution:[PictureInfo CGSizeToImageResolution:self.frame.size] withObserver:self]; 
+    [[ImageDataProviderManager mainDataProvider] getDataForPicture:self.pictureInfo withResolution:[PictureInfo CGSizeToImageResolution:self.frame.size] withObserver:self]; 
 
     
     [self imageActivityStatusDidChange:nil]; 

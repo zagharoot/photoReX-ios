@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PictureInfo.h"
-#import "ImageDataProvider.h"
+#import "ImageDataProviderManager.h"
 #import "UnavailableImageHandler.h"
 #import "ImageStatusOverlayView.h"
 

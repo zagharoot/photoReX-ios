@@ -7,14 +7,21 @@
 //
 
 #import "PhotoViewController.h"
+#import "AccountManager.h"
+#import "ImageDataProviderManager.h" 
 
 @implementation PhotoViewController
 
 @synthesize pictureInfo=_pictureInfo; 
+@synthesize websiteIconImageView;
 @synthesize closeBtn;
 @synthesize navBar = _navBar;
 @synthesize scrollView=_scrollView; 
-
+@synthesize detailOverlayView=_detailOverlayView; 
+@synthesize imageTitleLabel;
+@synthesize imageAuthorLabel;
+@synthesize imageNumberOfVisitsLabel;
+@synthesize favoriteBtn;
 
 - (IBAction)dismissView:(id)sender {
     [self dismissModalViewControllerAnimated:YES]; 
@@ -50,6 +57,11 @@
     [imageView release];
     [_navBar release];
     [closeBtn release];
+    [websiteIconImageView release];
+    [imageTitleLabel release];
+    [imageAuthorLabel release];
+    [imageNumberOfVisitsLabel release];
+    [favoriteBtn release];
     [super dealloc];
 }
 
@@ -66,15 +78,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self.view addSubview:self.scrollView]; 
 
-/*    
-    //move self under the statusbar 
-    CGRect myFrame = [[UIScreen mainScreen] applicationFrame]; 
-    myFrame.origin.y -= 20; 
-    myFrame.size.height += 20; 
-*/        
+    [self.view addSubview:self.scrollView]; 
+    [self.view addSubview:self.detailOverlayView]; 
+    [self.detailOverlayView setHidden:YES]; 
+    self.detailOverlayView.pictureInfo = self.pictureInfo; 
+
   
     //TODO: depending on the device, we should modify this
     CGRect myFrame = CGRectMake(0, 0, 320, 320); 
@@ -93,8 +102,7 @@
     
     gr.numberOfTapsRequired = 1; 
     [self.scrollView addGestureRecognizer:gr]; 
-    [gr release]; 
-    
+    [gr release];     
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -104,10 +112,6 @@
 }
 
 
--(void) viewDidAppear:(BOOL)animated
-{
-}
-
 - (void)viewDidUnload
 {
     self.pictureInfo = nil; 
@@ -115,6 +119,11 @@
 
     [self setNavBar:nil];
     [self setCloseBtn:nil];
+    [self setWebsiteIconImageView:nil];
+    [self setImageTitleLabel:nil];
+    [self setImageAuthorLabel:nil];
+    [self setImageNumberOfVisitsLabel:nil];
+    [self setFavoriteBtn:nil];
     [super viewDidUnload];
 }
 
@@ -145,7 +154,6 @@
             [self performSelector:@selector(toggleStatusbar) withObject:nil afterDelay:0.35]; 
         }
     }
-    
 }
 
 
@@ -157,20 +165,30 @@
     BOOL curVal =  [UIApplication sharedApplication].statusBarHidden; 
 
     [UIApplication sharedApplication].statusBarHidden = !curVal; 
-    self.navBar.hidden = !curVal;  
+//    self.navBar.hidden = !curVal;  
+    [self.detailOverlayView setHidden:!curVal]; 
+    
+    if (curVal)
+    {
+        self.imageTitleLabel.text = self.pictureInfo.info.title; 
+        self.imageAuthorLabel.text = [NSString stringWithFormat:@"By %@", self.pictureInfo.info.author]; 
+        if ([self.pictureInfo.info respondsToSelector:@selector(numberOfVisits) ])
+            self.imageNumberOfVisitsLabel.text = [NSString stringWithFormat:@"Viewed %d times", [self.pictureInfo.info performSelector:@selector(numberOfVisits)] ]; 
+    }
 }
 
 -(void) hideStatusBar
 {
     [UIApplication sharedApplication].statusBarHidden = YES;     
-    self.navBar.hidden = YES;  
+//    self.navBar.hidden = YES;  
+    [self.detailOverlayView setHidden:YES]; 
 }
 
 -(void) imageBecameAvailableForView:(UINetImageView *)view
 {
     [self hideStatusBar]; 
+    [self.navBar setHidden:YES]; 
     self.closeBtn.title = @"Close"; 
-    
     
     
     CGSize windowSize = [[UIScreen mainScreen] applicationFrame].size; 
@@ -219,6 +237,25 @@
     
     //change the status of the pictureInfo 
     [self.pictureInfo visit]; 
+    
+    
+    //set the detail description of the im
+    Account* acc = [AccountManager getAccountFromPictureInfo:self.pictureInfo]; 
+    [self.websiteIconImageView setImage:acc.iconImage]; 
+    [self.websiteIconImageView sizeToFit]; 
+
+    if (acc.isActive && [acc supportsFavorite])
+    {
+        [self.favoriteBtn setHidden:NO]; 
+        if (self.pictureInfo.info.isFavorite)
+            [self.favoriteBtn setImage:[UIImage imageNamed:@"favoriteBtnSelected.png"] forState:UIControlStateNormal]; 
+        else
+            [self.favoriteBtn setImage:[UIImage imageNamed:@"favoriteBtn.png"] forState:UIControlStateNormal]; 
+        
+    }
+    else 
+        [self.favoriteBtn setHidden:YES]; 
+
 }
 
 
@@ -235,4 +272,18 @@
 }
 
 
+- (IBAction)toggleFavorite:(id)sender 
+{
+
+    ImageDataProviderManager* provider = [ImageDataProviderManager mainDataProvider]; 
+    if (self.pictureInfo.info.isFavorite)
+    {
+        [self.favoriteBtn setImage:[UIImage imageNamed:@"favoriteBtn.png"] forState:UIControlStateNormal]; 
+        [provider setFavorite:NO forPictureInfo:self.pictureInfo]; 
+    }else 
+    {
+        [self.favoriteBtn setImage:[UIImage imageNamed:@"favoriteBtnSelected.png"] forState:UIControlStateNormal]; 
+        [provider setFavorite:YES forPictureInfo:self.pictureInfo]; 
+    }
+}
 @end

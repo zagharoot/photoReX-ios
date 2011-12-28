@@ -76,6 +76,7 @@
 -(void) dealloc
 {
     [_imageView release]; 
+    [super dealloc]; 
 }
 
 -(void) pushdown

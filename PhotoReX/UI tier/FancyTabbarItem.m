@@ -94,6 +94,7 @@
 {
     self.textLabel = nil; 
     
+    [super dealloc]; 
 }
 
 

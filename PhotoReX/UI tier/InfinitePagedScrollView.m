@@ -194,6 +194,7 @@ static CGFloat CENTER_POSITION; //the x position of the page in the middle (the 
     [reusablePages dealloc]; 
     [activePages dealloc]; 
     
+    [super dealloc]; 
 }
 
 

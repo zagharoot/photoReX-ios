@@ -79,6 +79,7 @@ const int CACHED_PAGES  =  1;           //number of pages retrieved in advance
 -(void) dealloc
 {
     self.pages = nil; 
+    [super dealloc]; 
 }
 
 

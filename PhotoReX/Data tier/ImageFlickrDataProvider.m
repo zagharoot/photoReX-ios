@@ -65,8 +65,7 @@
     if (self) {
         // Initialization code here.
         connections = [[NSMutableDictionary alloc] init ]; 
-        detailRequests = [[NSMutableDictionary alloc] initWithCapacity:5]; 
-        favoriteRequest = [[NSMutableDictionary alloc] initWithCapacity:5]; 
+        requests = [[NSMutableDictionary alloc] initWithCapacity:5]; 
     }
     
     return self;
@@ -87,9 +86,10 @@
     
     request = [[OFFlickrAPIRequest alloc] initWithAPIContext:context]; 
     request.delegate = self; 
+    request.sessionInfo = FLICKR_DETAIL_REQUEST; 
 
     // add the request to the list of outstanding ones 
-    [detailRequests setValue:pictureInfo forKey:request.description]; 
+    [requests setValue:pictureInfo forKey:request.description]; 
     
     NSMutableDictionary* args = [[NSMutableDictionary alloc] initWithCapacity:2]; 
     [args setValue:acc.api_key forKey:@"api_key"]; 
@@ -112,13 +112,24 @@
     request = [[OFFlickrAPIRequest alloc] initWithAPIContext:context]; 
     request.delegate = self; 
     
+    NSString* endPoint; 
+    if (fav) 
+    {
+        request.sessionInfo = FLICKR_FAVORITE_REQUEST; 
+        endPoint = @"flickr.favorites.add"; 
+        
+    }else {
+        request.sessionInfo = FLICKR_UNFAVORITE_REQUEST; 
+        endPoint = @"flickr.favorites.remove"; 
+    }
+    
     // add the request to the list of outstanding ones 
-    [favoriteRequest setValue:pictureInfo forKey:request.description]; 
+    [requests setValue:pictureInfo forKey:request.description]; 
     
     NSMutableDictionary* args = [[NSMutableDictionary alloc] initWithCapacity:2]; 
     [args setValue:acc.api_key forKey:@"api_key"]; 
     [args setValue:info.picID forKey:@"photo_id"]; 
-    [request callAPIMethodWithPOST:@"flickr.favorites.add" arguments:args]; //will get notified as delegate about the progress 
+    [request callAPIMethodWithPOST:endPoint arguments:args]; //will get notified as delegate about the progress 
     return YES; 
 }
 
@@ -150,8 +161,7 @@
 -(void) dealloc
 {
     [connections release]; 
-    [detailRequests release]; 
-    [favoriteRequest release]; 
+    [requests release]; 
     [super dealloc]; 
 }
 
@@ -291,38 +301,44 @@
 
 -(void) flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
 {
-    PictureInfo* pic = [detailRequests valueForKey:inRequest.description]; 
+    PictureInfo* pic = [requests valueForKey:inRequest.description]; 
 
+    
+    //decide what to do based on the type of request 
+
+    if (inRequest.sessionInfo == FLICKR_DETAIL_REQUEST) 
+    {
+        FlickrPictureInfo* info = (FlickrPictureInfo*) pic.info; 
+        NSDictionary* photo = [inResponseDictionary valueForKey:@"photo"]; 
+        
+        if (!photo) 
+            return; 
+        
+        NSDictionary* owner = [photo valueForKey:@"owner"]; 
+        if (owner) 
+            info.author = [owner valueForKey:@"username"]; 
+        
+        NSDictionary* title = [photo valueForKey:@"title"]; 
+        if (title) 
+            info.title = [title valueForKey:@"_text"]; 
+        
+        info.numberOfVisits = [[photo valueForKey:@"views"] intValue]; 
+        info.isFavorite = [[photo valueForKey:@"isfavorite"] boolValue]; 
+        
+        NSDictionary* comments = [photo valueForKey:@"comments"]; 
+        if (comments) 
+            info.numberOfComments = [[comments valueForKey:@"_text"] intValue]; 
+        
+    }else if (inRequest.sessionInfo == FLICKR_FAVORITE_REQUEST) 
+    {
+        [pic.info setIsFavorite:YES]; 
+    }else if (inRequest.sessionInfo == FLICKR_UNFAVORITE_REQUEST)
+    {
+        [pic.info setIsFavorite:NO]; 
+    }
     
     //remove the request from the outstanding list 
-    [detailRequests removeObjectForKey:inRequest.description]; 
-    [favoriteRequest removeObjectForKey:inRequest.description]; 
-    
-    if (!pic)           
-        return; 
-    
-
-    FlickrPictureInfo* info = (FlickrPictureInfo*) pic.info; 
-    NSDictionary* photo = [inResponseDictionary valueForKey:@"photo"]; 
-    
-    if (!photo) 
-        return; 
-    
-    NSDictionary* owner = [photo valueForKey:@"owner"]; 
-    if (owner) 
-        info.author = [owner valueForKey:@"username"]; 
-    
-    NSDictionary* title = [photo valueForKey:@"title"]; 
-    if (title) 
-        info.title = [title valueForKey:@"_text"]; 
-    
-    info.numberOfVisits = [[photo valueForKey:@"views"] intValue]; 
-    info.isFavorite = [[photo valueForKey:@"isfavorite"] boolValue]; 
-    
-    NSDictionary* comments = [photo valueForKey:@"comments"]; 
-    if (comments) 
-        info.numberOfComments = [[comments valueForKey:@"_text"] intValue]; 
-
+    [requests removeObjectForKey:inRequest.description]; 
 }
 
 
@@ -330,11 +346,8 @@
 -(void) flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
 {
     //remove the request from outstanding list 
-    [detailRequests removeObjectForKey:inRequest.description]; 
+    [requests removeObjectForKey:inRequest.description]; 
 }
-
-
-
 
 @end
 

@@ -13,15 +13,17 @@
 #import "ObjectiveFlickr.h" 
 
 
+#define FLICKR_DETAIL_REQUEST   @"FLICKR_DETAIL_REQUEST"
+#define FLICKR_FAVORITE_REQUEST @"FLICKR_FAVORITE_REQUEST"
+#define FLICKR_UNFAVORITE_REQUEST @"FLICKR_UNFAVORITE_REQUEST"
+
 //This is a wrapper class that retrieved the actual image data given a pictureInfo from flickr
 @interface ImageFlickrDataProvider : ImageDataProvider <NSURLConnectionDelegate, NSURLConnectionDataDelegate, OFFlickrAPIRequestDelegate> 
 {
     NSMutableDictionary* connections; //this is a dictionary from NSURLConnection to observers.
     
     
-    NSMutableDictionary* detailRequests;   //this is a dictionary from OFFFlickrRequests to pictureInfo for outstanding connections 
-    
-    NSMutableDictionary* favoriteRequest; //this is a dictionary from OFFlickrRequests to pictureInfo for outstanding connections 
+    NSMutableDictionary* requests;   //this is a dictionary from OFFFlickrRequests to pictureInfo for outstanding requests waiting for completion 
     
 }
 

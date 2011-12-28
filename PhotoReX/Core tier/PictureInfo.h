@@ -41,9 +41,21 @@ enum ACCOUNT_INDEX  //WEBSITE: add the website here
 //information should be kept. 
 @interface PictureInfoDetails : NSObject {
     enum ACCOUNT_INDEX _website; 
+    
+    NSString* _author; 
+    NSString* _title; 
+    NSString* _subtitle; 
+
+    BOOL _isFavorite; 
 }
 -(NSDictionary*) getDictionaryRepresentation; 
 @property enum ACCOUNT_INDEX website; 
+
+@property (nonatomic, copy) NSString* author; 
+@property (nonatomic, copy) NSString* title; 
+@property (nonatomic, copy) NSString* subtitle; 
+@property (nonatomic) BOOL isFavorite; 
+
 @end //-----------------------------------
 
 
@@ -96,6 +108,11 @@ enum ACCOUNT_INDEX  //WEBSITE: add the website here
     NSString* _server; 
     NSString* _farm; 
     NSString* _secret; 
+    
+    
+    //image related stuff 
+    int _numberOfVisits;
+    int _numberOfComments; 
 }
 
 
@@ -107,6 +124,10 @@ enum ACCOUNT_INDEX  //WEBSITE: add the website here
 @property (readonly, copy) NSString* server; 
 @property (readonly, copy) NSString* farm; 
 @property (readonly, copy) NSString* secret; 
+
+
+@property (nonatomic) int numberOfVisits; 
+@property (nonatomic) int numberOfComments; 
 
 
 @end

@@ -7,11 +7,16 @@
 //
 
 #import "PictureInfo.h"
+#import "AccountManager.h"
+#import "ImageDataProviderManager.h"
 
 @implementation PictureInfoDetails
 
 @synthesize website=_website; 
-
+@synthesize title=_title; 
+@synthesize subtitle=_subtitle; 
+@synthesize author=_author; 
+@synthesize isFavorite=_isFavorite; 
 
 -(NSDictionary*) getDictionaryRepresentation
 {
@@ -82,6 +87,10 @@
 //    [self.delegate imageDataDidChange]; 
     //post this to the notification center 
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PictureInfoImageDataDidChange" object:self]; 
+    
+    
+    //now that the info about the picture is available, let's try to get the details (such as title, author ...) from the website too 
+    [[ImageDataProviderManager mainDataProvider] fillInDetailForPictureInfo:self]; 
 }
 
 
@@ -170,7 +179,8 @@
 @synthesize farm = _farm; 
 @synthesize secret = _secret; 
 
-
+@synthesize numberOfVisits=_numberOfVisits; 
+@synthesize numberOfComments=_numberOfComments; 
 
 -(id) initWithID:(NSString *)picID andServer:(NSString *)server andFarm:(NSString *)farm andSecret:(NSString *)secret
 {
@@ -182,6 +192,9 @@
         _farm = [farm copy]; 
         _secret = [secret copy];
         
+        _numberOfComments=0; 
+        _numberOfVisits=0; 
+        _isFavorite = NO; 
     }
     return self; 
 }

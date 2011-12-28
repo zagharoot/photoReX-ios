@@ -18,37 +18,41 @@
     NSString* _signature; 
  
     
-    //dynamic stuff 
+    //dynamic stuff  (the weird thing is that both requestTokena dn accessToken map to context.OAuthToken) so we need to be careful
+    //we don't store requestToken as it is temporary. 
     NSString* _requestToken; 
     NSString* _requestSecret; 
     NSString* _accessToken; 
     NSString* _accessSecret; 
+
+    NSString* _nsid;                    //this is nsid in flickr
     
     OFFlickrAPIContext* _apiContext; 
     
-    //personal stuff 
-    OFFlickrAPIRequest* _apiRequest;        //used to obtain nsid from username 
 }
 
 
 -(void) setApiKey:(NSString*) key andSignature:(NSString*) signature; 
 
 -(BOOL) isActive; 
--(void) activate:(NSString*) username accessToken:(NSString*) at accessSecret:(NSString*) as; 
+-(void) activate:(NSString*) username nsid:(NSString*) nsid accessToken:(NSString*) at accessSecret:(NSString*) as; 
 
 
 //write access through designated method 
 @property (nonatomic, readonly) NSString* api_key; 
 @property (nonatomic, readonly) NSString* signature; 
 
-@property (nonatomic, copy) NSString* requestToken; 
-@property (nonatomic, copy) NSString* requestSecret; 
-@property (nonatomic, copy) NSString* accessToken; 
-@property (nonatomic, copy) NSString* accessSecret; 
+//access methods are provided in pairs 
+@property (nonatomic, readonly) NSString* requestToken; 
+@property (nonatomic, readonly) NSString* requestSecret; 
+@property (nonatomic, readonly) NSString* accessToken; 
+@property (nonatomic, readonly) NSString* accessSecret; 
+@property (nonatomic, copy) NSString* nsid; 
+-(void) setRequestToken:(NSString *)requestToken withSecret:(NSString*) requestSecret; 
+-(void) setAccessToken:(NSString *)accessToken   withSecret:(NSString*) accessSecret; 
 
 //objective flickr stuff 
 @property (nonatomic, retain) OFFlickrAPIContext* apiContext; 
-@property (nonatomic, retain) OFFlickrAPIRequest* apiRequest; 
 
 @end
 

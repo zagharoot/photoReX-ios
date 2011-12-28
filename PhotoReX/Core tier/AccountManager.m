@@ -30,6 +30,10 @@ static AccountManager* theAccountManager;
 {
     NSString* className = [[pictureInfo class] description]; 
     
+
+    return [[AccountManager standardAccountManager].accounts objectAtIndex:pictureInfo.info.website]; 
+    
+    
     
     if ([className isEqualToString:@"FlickrPictureInfo"])   //picture is from flickr
     {
@@ -49,9 +53,6 @@ static AccountManager* theAccountManager;
     //WEBSITE: handle other websites here 
     return nil; //couldn't find the downloader 
 }
-
-
-
 
 
 -(int) NUMBER_OF_ACCOUNTS
@@ -102,7 +103,7 @@ static AccountManager* theAccountManager;
 -(void) dealloc
 {
     [_accounts release]; 
-    
+    [super dealloc]; 
 }
 
 -(Account*) getAccountAtIndex:(int)index

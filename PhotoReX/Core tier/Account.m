@@ -40,11 +40,11 @@
     
     
     NSData *dataObj = UIImageJPEGRepresentation(self.userIconImage, 1.0);
-    [account setValue:dataObj forKey:@"userIconImage"]; 
+    [account setValue:dataObj?dataObj:[NSNull null]  forKey:@"userIconImage"]; 
     
-    [account setValue:self.username forKey:@"username"]; 
+    [account setValue:self.username?self.username:[NSNull null]  forKey:@"username"]; 
     
-    [ud setValue:account forKey:self.accountName]; 
+    [ud setValue:account?account:[NSNull null]  forKey:self.accountName]; 
     
     [self broadcastChange]; 
 }

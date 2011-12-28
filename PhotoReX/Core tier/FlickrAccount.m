@@ -17,8 +17,7 @@
 @synthesize requestSecret=_requestSecret; 
 @synthesize accessToken=_accessToken; 
 @synthesize accessSecret=_accessSecret; 
-@synthesize apiRequest=_apiRequest; 
-
+@synthesize nsid=_nsid; 
 
 -(OFFlickrAPIContext*) apiContext
 {
@@ -43,62 +42,36 @@
     self.apiContext = [[[OFFlickrAPIContext alloc] initWithAPIKey:self.api_key sharedSecret:self.signature] autorelease];
 }
 
-
-
-//copy    //TODO: are there other methods we need to relay to api context? 
--(void) setRequestToken:(NSString *)requestToken
+-(void) setRequestToken:(NSString *)requestToken withSecret:(NSString *)requestSecret
 {
-    [_requestToken release]; 
+    [_requestToken release];  _requestToken = nil; 
+    [_requestSecret release]; _requestSecret = nil; 
+
     _requestToken = [requestToken copy]; 
-    
-
-    if (_apiContext)        //don't use the property here or otherwise we'll create obj if nil 
-        _apiContext.OAuthToken = _requestToken; 
-}
-
-
--(void) setRequestSecret:(NSString *)requestSecret
-{
-    [_requestSecret release]; 
     _requestSecret = [requestSecret copy]; 
     
-    if (_apiContext)        //don't use the property here or otherwise we'll create obj if nil 
-        _apiContext.OAuthTokenSecret = _requestSecret; 
+    self.apiContext.OAuthToken = _requestToken; 
+    self.apiContext.OAuthTokenSecret = _requestSecret; 
+        
 }
 
-
-
-//lazily create the object 
--(OFFlickrAPIRequest*) apiRequest
+-(void) setAccessToken:(NSString *)accessToken withSecret:(NSString *)accessSecret
 {
-    if (!_apiRequest)
-    {
-        _apiRequest = [[OFFlickrAPIRequest alloc] initWithAPIContext:self.apiContext]; 
-        _apiRequest.delegate = self; 
-    }
-    return _apiRequest; 
-}
+    [_accessToken release]; _accessToken = nil; 
+    [_accessSecret release]; _accessSecret = nil; 
 
-
-//this is a copy property. overridden so we can update our buddy icon 
--(void) setUsername:(NSString *)username
-{
-    [_username release]; 
-    self.userIconImage = nil; 
+    _accessToken = [accessToken copy]; 
+    _accessSecret = [accessSecret copy]; 
     
-    
-    if (username) 
+    //dont need the requestToken any more as it was temporary
+    if (accessToken)
     {
-        _username = [username copy]; 
-        
-        NSDictionary* args = [NSDictionary dictionaryWithObjectsAndKeys:self.api_key, @"api_key", _username, @"username", nil]; 
-        
-        [self.apiRequest callAPIMethodWithGET:@"flickr.people.findByUsername" arguments:args]; 
-    }else
-    {
-        _username = nil; 
+        [_requestToken release];  _requestToken = nil; 
+        [_requestSecret release]; _requestSecret = nil; 
     }
     
+    self.apiContext.OAuthToken = _accessToken; 
+    self.apiContext.OAuthTokenSecret = _accessSecret; 
 }
 
 
@@ -140,11 +113,9 @@
     if (!flickr) 
         return; 
     
-    self.requestToken = [flickr objectForKey:@"requestToken"]; 
-    self.requestSecret = [flickr objectForKey:@"requestSecret"]; 
-    self.accessToken = [flickr objectForKey:@"accessToken"]; 
-    self.accessSecret = [flickr objectForKey:@"accessSecret"]; 
-    
+    //remember we don't store the requestToken, just the accessTOken
+    [self setAccessToken:[flickr objectForKey:@"accessToken"] withSecret:[flickr objectForKey:@"accessSecret"]]; 
+
     //the rest is taken care of by the super
     [super loadSettings]; 
     
@@ -158,10 +129,8 @@
 
     NSMutableDictionary* flickr = [NSMutableDictionary dictionaryWithDictionary:prevSettings]; 
     
-    [flickr setValue:self.requestToken forKey:@"requestToken"]; 
-    [flickr setValue:self.requestSecret forKey:@"requestSecret"]; 
-    [flickr setValue:self.accessToken forKey:@"accessToken"]; 
-    [flickr setValue:self.accessSecret forKey:@"accessSecret"]; 
+    [flickr setValue:self.accessToken?self.accessToken:[NSNull null]  forKey:@"accessToken"]; 
+    [flickr setValue:self.accessSecret?self.accessSecret:[NSNull null]  forKey:@"accessSecret"]; 
     
     [ud setValue:flickr forKey:self.accountName]; 
     
@@ -181,12 +150,12 @@
 {
     NSMutableDictionary* result = [NSMutableDictionary dictionaryWithCapacity:5]; 
     
-    [result setValue:self.accountName forKey:@"accountName"]; 
-    [result setValue:self.username forKey:@"username"]; 
-    [result setValue:self.requestToken forKey:@"requestToken"]; 
-    [result setValue:self.requestSecret forKey:@"requestSecret"]; 
-    [result setValue:self.accessToken forKey:@"accessToken"]; 
-    [result setValue:self.accessSecret forKey:@"accessSecret"]; 
+    [result setValue:self.accountName?self.accountName:[NSNull null] forKey:@"accountName"]; 
+    [result setValue:self.username?self.username:[NSNull null]  forKey:@"username"]; 
+    [result setValue:self.requestToken?self.requestToken:[NSNull null]  forKey:@"requestToken"]; 
+    [result setValue:self.requestSecret?self.requestSecret:[NSNull null]  forKey:@"requestSecret"]; 
+    [result setValue:self.accessToken?self.accessToken:[NSNull null]  forKey:@"accessToken"]; 
+    [result setValue:self.accessSecret?self.accessSecret:[NSNull null]  forKey:@"accessSecret"]; 
     
     
     return result; 
@@ -198,12 +167,11 @@
     return result; 
 }
 
--(void) activate:(NSString *)username accessToken:(id)at accessSecret:(NSString *)as
+-(void) activate:(NSString *)username nsid:(NSString*) nsid accessToken:(id)at accessSecret:(NSString *)as
 {
     self.username = username; 
-    self.accessToken = at; 
-    self.accessSecret = as; 
-    
+    self.nsid = nsid; 
+    [self setAccessToken:at withSecret:as]; 
     
     [super activate];       //this should be called last 
     [self saveSettings]; 
@@ -213,52 +181,42 @@
 {    
     [super deactivate];     //this should be called first 
 
-    self.accessToken = nil; 
-    self.accessSecret = nil; 
-    self.requestToken = nil; 
-    self.requestSecret = nil;     
+    [self setAccessToken:nil withSecret:nil]; 
+    [self setRequestToken:nil withSecret:nil]; 
     self.apiContext = nil; 
     
     [self saveSettings]; 
 }
 
+-(BOOL) supportsFavorite
+{
+    return YES; 
+}
 
 -(void) dealloc
 {
-    self.requestToken = nil; 
-    self.requestSecret = nil; 
-    self.accessToken = nil; 
-    self.accessSecret = nil; 
+    
+    [self setAccessToken:nil withSecret:nil]; 
+    [self setRequestToken:nil withSecret:nil]; 
     self.apiContext = nil; 
     
     [super dealloc]; 
 }
 
 
-#pragma mark- flickr request delegate 
-- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
+-(void) setNsid:(NSString *)nsid
 {
-    //NSLog(@"response from flickr: %@\n", inResponseDictionary); 
-    
-    NSDictionary* user = [inResponseDictionary objectForKey:@"user"]; 
-    
-    
-    if (user) 
+    [_nsid release]; 
+    _nsid =[nsid copy]; 
+
+    if (nsid) 
     {
-        NSString* nsid = [user objectForKey:@"nsid"]; 
         NSString* url = [NSString stringWithFormat:@"http://flickr.com/buddyicons/%@.jpg", nsid ]; 
         NSData* iconData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url] options:NSDataReadingMapped error:nil]; 
         self.userIconImage = [UIImage imageWithData:iconData];
-        [self saveSettings]; 
+    }else {
+        self.userIconImage = nil; 
     }
-    
-    self.apiRequest = nil; //don't really need this anymore 
+    [self saveSettings]; 
 }
-
-
-- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
-{
-    //don't need to do anything here. We couldn't get the nsid, so no update for buddy icon !!!
-}
-
 @end

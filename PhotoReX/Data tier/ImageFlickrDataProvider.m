@@ -10,6 +10,55 @@
 #import "NetworkActivityIndicatorController.h"
 #import "AccountManager.h" 
 
+enum FLICKR_REQUEST_TYPE {
+    FLICKR_DETAIL_REQUEST = 1,
+    FLICKR_FAVORITE_REQUEST = 2 , 
+    FLICKR_UNFAVORITE_REQUEST = 3
+    };
+
+@interface ObjectiveFlickrRequestInfo : NSObject
+{
+    PictureInfo* _pictureInfo; 
+}
+
++(ObjectiveFlickrRequestInfo*) requestInfoWithPictureInfo:(PictureInfo*) p andRequestType:(enum FLICKR_REQUEST_TYPE) r; 
+-(id) initWithPictureInfo:(PictureInfo*) p andRequestType:(enum FLICKR_REQUEST_TYPE) r; 
+@property (nonatomic, retain) PictureInfo* pictureInfo; 
+@property enum FLICKR_REQUEST_TYPE requestType; 
+@end
+
+@implementation ObjectiveFlickrRequestInfo
+@synthesize requestType; 
+@synthesize pictureInfo=_pictureInfo; 
+
++(ObjectiveFlickrRequestInfo*) requestInfoWithPictureInfo:(PictureInfo *)p andRequestType:(enum FLICKR_REQUEST_TYPE)r
+{
+    ObjectiveFlickrRequestInfo* result = [[ObjectiveFlickrRequestInfo alloc] initWithPictureInfo:p andRequestType:r]; 
+    
+    return [result autorelease]; 
+}
+
+-(id) initWithPictureInfo:(PictureInfo *)p andRequestType:(enum FLICKR_REQUEST_TYPE)r
+{
+    self = [super init]; 
+    if (self)
+    {
+        self.requestType = r; 
+        self.pictureInfo = p; 
+    }
+    return self; 
+}
+
+
+-(void) dealloc
+{
+    self.pictureInfo = nil; 
+    [super dealloc]; 
+}
+
+@end 
+
+
 @interface FlickrImageDataConnectionDetails : NSObject {
     id<DataDownloadObserver> observer; 
     long totalBytes; 
@@ -87,10 +136,11 @@
     
     request = [[OFFlickrAPIRequest alloc] initWithAPIContext:context]; 
     request.delegate = self; 
-    request.sessionInfo = FLICKR_DETAIL_REQUEST; 
+    request.sessionInfo = [ObjectiveFlickrRequestInfo requestInfoWithPictureInfo:pictureInfo andRequestType:FLICKR_DETAIL_REQUEST]; 
 
     // add the request to the list of outstanding ones 
-    [requests setValue:pictureInfo forKey:request.description]; 
+    [requests setValue:request forKey:request.description]; 
+    [request release]; 
     
     NSMutableDictionary* args = [[[NSMutableDictionary alloc] initWithCapacity:2] autorelease]; 
     [args setValue:acc.api_key forKey:@"api_key"]; 
@@ -116,16 +166,17 @@
     NSString* endPoint; 
     if (fav) 
     {
-        request.sessionInfo = FLICKR_FAVORITE_REQUEST; 
+        request.sessionInfo = [ObjectiveFlickrRequestInfo requestInfoWithPictureInfo:pictureInfo andRequestType:FLICKR_FAVORITE_REQUEST]; 
         endPoint = @"flickr.favorites.add"; 
         
     }else {
-        request.sessionInfo = FLICKR_UNFAVORITE_REQUEST; 
+        request.sessionInfo = [ObjectiveFlickrRequestInfo requestInfoWithPictureInfo:pictureInfo andRequestType:FLICKR_UNFAVORITE_REQUEST]; 
         endPoint = @"flickr.favorites.remove"; 
     }
     
     // add the request to the list of outstanding ones 
-    [requests setValue:pictureInfo forKey:request.description]; 
+    [requests setValue:request forKey:request.description]; 
+    [request release]; 
     
     NSMutableDictionary* args = [[[NSMutableDictionary alloc] initWithCapacity:2] autorelease]; 
     [args setValue:acc.api_key forKey:@"api_key"]; 
@@ -302,40 +353,51 @@
 
 -(void) flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
 {
-    PictureInfo* pic = [requests valueForKey:inRequest.description]; 
 
+    ObjectiveFlickrRequestInfo* sessionInfo = (ObjectiveFlickrRequestInfo*) inRequest.sessionInfo; 
     
-    //decide what to do based on the type of request 
+    if (!sessionInfo)
+        return; 
 
-    if (inRequest.sessionInfo == FLICKR_DETAIL_REQUEST) 
-    {
-        FlickrPictureInfo* info = (FlickrPictureInfo*) pic.info; 
-        NSDictionary* photo = [inResponseDictionary valueForKey:@"photo"]; 
-        
-        if (!photo) 
-            return; 
-        
-        NSDictionary* owner = [photo valueForKey:@"owner"]; 
-        if (owner) 
-            info.author = [owner valueForKey:@"username"]; 
-        
-        NSDictionary* title = [photo valueForKey:@"title"]; 
-        if (title) 
-            info.title = [title valueForKey:@"_text"]; 
-        
-        info.numberOfVisits = [[photo valueForKey:@"views"] intValue]; 
-        info.isFavorite = [[photo valueForKey:@"isfavorite"] boolValue]; 
-        
-        NSDictionary* comments = [photo valueForKey:@"comments"]; 
-        if (comments) 
-            info.numberOfComments = [[comments valueForKey:@"_text"] intValue]; 
-        
-    }else if (inRequest.sessionInfo == FLICKR_FAVORITE_REQUEST) 
-    {
-        [pic.info setIsFavorite:YES]; 
-    }else if (inRequest.sessionInfo == FLICKR_UNFAVORITE_REQUEST)
-    {
-        [pic.info setIsFavorite:NO]; 
+    PictureInfo* pic = sessionInfo.pictureInfo;     
+    FlickrPictureInfo* info = (FlickrPictureInfo*) pic.info; 
+    NSDictionary *photo, *owner, *title;  
+    
+    
+    switch (sessionInfo.requestType) {
+        case FLICKR_DETAIL_REQUEST:
+            photo = [inResponseDictionary valueForKey:@"photo"]; 
+            
+            if (!photo) 
+                return; 
+            
+            owner = [photo valueForKey:@"owner"]; 
+            if (owner) 
+                info.author = [owner valueForKey:@"username"]; 
+            
+            title = [photo valueForKey:@"title"]; 
+            if (title) 
+                info.title = [title valueForKey:@"_text"]; 
+            
+            info.numberOfVisits = [[photo valueForKey:@"views"] intValue]; 
+            info.isFavorite = [[photo valueForKey:@"isfavorite"] boolValue]; 
+            
+            NSDictionary* comments = [photo valueForKey:@"comments"]; 
+            if (comments) 
+                info.numberOfComments = [[comments valueForKey:@"_text"] intValue]; 
+            
+            break;
+        case FLICKR_FAVORITE_REQUEST:
+            
+            [pic.info setIsFavorite:YES]; 
+            break;
+            
+        case FLICKR_UNFAVORITE_REQUEST:
+            
+            [pic.info setIsFavorite:NO]; 
+            break;
+        default:
+            break;
     }
     
     //remove the request from the outstanding list 

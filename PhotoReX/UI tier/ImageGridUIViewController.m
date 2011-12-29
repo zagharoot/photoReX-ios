@@ -17,7 +17,6 @@
 
 @implementation ImageGridUIViewController
 @synthesize imageSource   = _imageSource; 
-@synthesize images = _images; 
 @synthesize delegate=_delegate; 
 
 -(void) setup
@@ -28,13 +27,6 @@
     [self loadImages]; 
 }
                 
--(NSMutableArray*) images
-{
-    if (_images == nil)
-        _images = [[NSMutableArray alloc] initWithCapacity:numberOfRows*numberOfColumns]; 
-    
-        return _images; 
-}
 
 -(void) loadImages 
 {
@@ -51,7 +43,6 @@
         [btn addTarget:self action:@selector(showImageDetail:) forControlEvents:UIControlEventTouchUpInside]; 
         
         [self.view addSubview:btn];        
-        [self.images addObject:img]; 
         [img release];                  //the array has a retain on it, so we are good
         [btn release]; 
     }

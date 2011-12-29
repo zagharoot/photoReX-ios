@@ -28,7 +28,6 @@
     
     int numberOfRows; 
     int numberOfColumns; 
-    NSMutableArray* _images;
     PictureInfoCollection* _imageSource; 
     id<ImageGridUIActivityDelegate> _delegate;      //for notification of user activity
 }
@@ -45,6 +44,5 @@
 -(void) showImageDetail:(UIImageButton*) imgBtn; 
 
 @property (nonatomic, retain) PictureInfoCollection* imageSource; 
-@property (nonatomic, retain) NSMutableArray* images; 
 @property (nonatomic, assign) id<ImageGridUIActivityDelegate> delegate; 
 @end

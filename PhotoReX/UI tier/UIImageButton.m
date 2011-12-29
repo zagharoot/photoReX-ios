@@ -75,7 +75,8 @@
 
 -(void) dealloc
 {
-    [_imageView release]; 
+    //the imageview is stored in subview so it'll be freed automatically 
+    
     [super dealloc]; 
 }
 

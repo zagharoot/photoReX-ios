@@ -178,18 +178,18 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
          } else         //success
          {
              
-            // NSString* datastr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]; 
-             //NSLog(@"received data as %@\n", datastr); 
+//             NSString* datastr = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]; 
+//             NSLog(@"received data as %@\n", datastr); 
              
              
              //use the data and extract the array of pictureID's
              
              SBJsonParser* parser = [[SBJsonParser alloc] init]; 
              
-             parser.maxDepth = 4; 
+             parser.maxDepth = 6; 
              
              NSDictionary* d1 = [parser objectWithData:data]; 
-             
+                          
              if (d1 == nil) { NSLog(@"the data from webservice was not formatted correctly"); theBlock(nil, nil); [parser release]; return;}
              
              

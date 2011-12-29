@@ -22,6 +22,15 @@ static ImageDataProviderManager* theProvider=nil;
     return NO; 
 }
 
+-(void) getDataForPicture:(PictureInfo*) pictureInfo  withResolution:(ImageResolution) resolution withObserver:(id<DataDownloadObserver>) observer
+{
+}
+
+-(void) fillInDetailForPictureInfo:(PictureInfo*) pictureInfo
+{
+}
+
+
 @end
 
 

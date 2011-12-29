@@ -862,11 +862,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/Data tier/ImageDataProviderManager.m"
-         timestampString = "346522319.304735"
+         timestampString = "346870384.832248"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "82"
-         endingLineNumber = "82"
+         startingLineNumber = "91"
+         endingLineNumber = "91"
          landmarkName = "-fillInDetailForPictureInfo:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -875,11 +875,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/Data tier/ImageDataProviderManager.m"
-         timestampString = "346522319.304735"
+         timestampString = "346870384.832248"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "81"
-         endingLineNumber = "81"
+         startingLineNumber = "90"
+         endingLineNumber = "90"
          landmarkName = "-fillInDetailForPictureInfo:"
          landmarkType = "5">
       </FileBreakpoint>

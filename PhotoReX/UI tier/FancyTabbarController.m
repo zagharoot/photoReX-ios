@@ -160,7 +160,8 @@ FancyTabbarController* theInstance = nil;
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    
+ 
+    self.view = nil; 
     [viewControllers release]; 
     [tabbar release]; 
     

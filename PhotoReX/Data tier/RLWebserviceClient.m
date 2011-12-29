@@ -324,6 +324,8 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
                  //TODO: do we need to actually do an ack here? 
              }
          }]; 
+    
+    [jsonWriter release]; 
 }
 
 

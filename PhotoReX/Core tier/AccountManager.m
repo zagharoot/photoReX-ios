@@ -28,30 +28,7 @@ static AccountManager* theAccountManager;
 
 +(Account*) getAccountFromPictureInfo:(PictureInfo *)pictureInfo
 {
-    NSString* className = [[pictureInfo class] description]; 
-    
-
     return [[AccountManager standardAccountManager].accounts objectAtIndex:pictureInfo.info.website]; 
-    
-    
-    
-    if ([className isEqualToString:@"FlickrPictureInfo"])   //picture is from flickr
-    {
-        return [[AccountManager standardAccountManager] flickrAccount]; 
-    }
-
-    if ([className isEqualToString:@"InstagramPictureInfo"]) //picture is from instagram
-    {
-        return [[AccountManager standardAccountManager] instagramAccount]; 
-    }
-    
-    if ([className isEqualToString:@"FiveHundredPXAccount"]) //picture is from 500px
-    {
-        return [[AccountManager standardAccountManager] fiveHundredPXAccount]; 
-    }
-    
-    //WEBSITE: handle other websites here 
-    return nil; //couldn't find the downloader 
 }
 
 

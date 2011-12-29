@@ -82,6 +82,7 @@
         tap.numberOfTouchesRequired = 1; 
         
         [self addGestureRecognizer:tap]; 
+        [tap release]; 
         
         
         isHandlingFlickDown = NO; 

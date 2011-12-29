@@ -717,7 +717,7 @@ static NSData *NSDataFromOAuthPreferredWebForm(NSDictionary *formDictionary)
         }
     }
     else {
-        NSString* deleteme = [[NSString alloc] initWithData:[request receivedData] encoding:NSUTF8StringEncoding]; 
+//        NSString* deleteme = [[NSString alloc] initWithData:[request receivedData] encoding:NSUTF8StringEncoding]; 
         NSDictionary *responseDictionary = [OFXMLMapper dictionaryMappedFromXMLData:[request receivedData]];	
         NSDictionary *rsp = [responseDictionary objectForKey:@"rsp"];
         NSString *stat = [rsp objectForKey:@"stat"];

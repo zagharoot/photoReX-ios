@@ -92,7 +92,7 @@
     // add the request to the list of outstanding ones 
     [requests setValue:pictureInfo forKey:request.description]; 
     
-    NSMutableDictionary* args = [[NSMutableDictionary alloc] initWithCapacity:2]; 
+    NSMutableDictionary* args = [[[NSMutableDictionary alloc] initWithCapacity:2] autorelease]; 
     [args setValue:acc.api_key forKey:@"api_key"]; 
     [args setValue:info.picID forKey:@"photo_id"]; 
     [request callAPIMethodWithGET:@"flickr.photos.getInfo" arguments:args]; //will get notified as delegate about the progress 
@@ -127,7 +127,7 @@
     // add the request to the list of outstanding ones 
     [requests setValue:pictureInfo forKey:request.description]; 
     
-    NSMutableDictionary* args = [[NSMutableDictionary alloc] initWithCapacity:2]; 
+    NSMutableDictionary* args = [[[NSMutableDictionary alloc] initWithCapacity:2] autorelease]; 
     [args setValue:acc.api_key forKey:@"api_key"]; 
     [args setValue:info.picID forKey:@"photo_id"]; 
     [request callAPIMethodWithPOST:endPoint arguments:args]; //will get notified as delegate about the progress 

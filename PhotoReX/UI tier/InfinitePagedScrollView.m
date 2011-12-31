@@ -62,7 +62,7 @@ static CGFloat CENTER_POSITION; //the x position of the page in the middle (the 
     self.showsVerticalScrollIndicator = NO; 
     
     
-    self.bounces = NO; 
+    self.bounces = YES; 
     
     float hudwidth = 150; 
     float hudheight = 150; 
@@ -72,6 +72,19 @@ static CGFloat CENTER_POSITION; //the x position of the page in the middle (the 
     pageIndicator.hidden = YES; 
     
     
+    //TODO: remove this 
+    CGRect af = CGRectMake(-20-PAGE_HEIGHT/2, PAGE_HEIGHT/2 -10, PAGE_HEIGHT, 30); 
+    UILabel* alaki = [[UILabel alloc] initWithFrame:af]; 
+    alaki.backgroundColor = [UIColor clearColor]; 
+    UIFont* font = [UIFont fontWithName:@"copperplate" size:30];
+    alaki.font = font; 
+    alaki.text = @"At the Beginning"; 
+    alaki.textAlignment = UITextAlignmentCenter; 
+    CGAffineTransform swingTransform = CGAffineTransformIdentity;
+    swingTransform = CGAffineTransformRotate(swingTransform, -M_PI_2);
+    alaki.transform = swingTransform;
+    
+    [self addSubview:alaki]; 
     
 }
 
@@ -110,6 +123,18 @@ static CGFloat CENTER_POSITION; //the x position of the page in the middle (the 
 -(void) recenterIfNecessary:(NSRange) range
 {
     CGFloat xoff = self.contentOffset.x; 
+    
+    
+    //for bouncing: don't allow it to scroll way too much to the left of the first page(cosmetic code only) 
+    if (xoff <-60)
+    {
+        CGPoint p = self.contentOffset; 
+        p.x = -60 + (p.x+60)/3; 
+        [self setContentOffset:p]; 
+        return; 
+    }
+    
+    
     
     if ( (xoff >= self.contentSize.width - 2*PAGE_WIDTH)                    //if we reach the page before last one
         || (xoff <= PAGE_WIDTH && offsetDiff>0)  )                          //if we reach the second page and we can scroll back
@@ -201,7 +226,7 @@ static CGFloat CENTER_POSITION; //the x position of the page in the middle (the 
 -(void) updatePageLocationVariables
 {
     CGFloat xpos = self.contentOffset.x; 
-    int pmin = floor(xpos/PAGE_WIDTH); 
+    int pmin = MAX(0,floor(xpos/PAGE_WIDTH)); 
     int pmax = ceil(1+xpos/PAGE_WIDTH); 
     
     

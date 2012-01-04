@@ -24,6 +24,11 @@
 @synthesize tmpImage=_tmpImage; 
 
 
+-(BOOL) failedToLoad
+{
+    return self.percentageDataAvailable <0;         //we set it to -1 when error occurs
+}
+
 -(ImageStatusOverlayView*) imageStatusOverlayView
 {
     if (! _imageStatusOverlayView)
@@ -63,7 +68,7 @@
     [super drawRect:rect]; 
     
     //draw progress bar indicator 
-    if( self.percentageDataAvailable < 1.0)
+    if(self.percentageDataAvailable>=0 &&  self.percentageDataAvailable < 1.0)
     {
         [self.unavailableImageHandler drawRect:rect]; 
     }
@@ -148,6 +153,7 @@
 
     
     [self imageActivityStatusDidChange:nil]; 
+    [self.unavailableImageHandler setNeedsDisplay]; 
  }
 
 
@@ -164,7 +170,7 @@
 //        self.image = [UINetImageView getUnavailableImage4x3]; 
   //  [self sizeToFit]; 
     
-    
+    self.unavailableImageHandler.frame = self.bounds; 
     [self addSubview:self.unavailableImageHandler]; 
     
 }
@@ -207,10 +213,18 @@
 }
 
 
-
+-(void) imageFailedToLoad:(NSString *)reason
+{
+    _percentageDataAvailable = -1; 
+}
 
 -(void) imageDidBecomeAvailable:(UIImage *)theImage
 {
+    //TODO: remove this
+//    [self imageFailedToLoad:@"alaki"]; 
+//    return; 
+    
+    
     if (self.clipToBound)
     {
         //want to grab a clipping area from the picture. based on the size of the displayable area, we need to grab enough pixels from the actual image (taking into account that iphone4 can display two points per pixel). 

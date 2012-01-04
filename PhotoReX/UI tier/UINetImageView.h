@@ -60,6 +60,8 @@
 @property (nonatomic, retain) UnavailableImageHandler* unavailableImageHandler; 
 @property (nonatomic, readonly) ImageStatusOverlayView* imageStatusOverlayView; 
 @property (nonatomic, retain) UIImage* tmpImage; 
+
+@property (nonatomic, readonly) BOOL failedToLoad; 
 @end
 
 

@@ -38,6 +38,7 @@
 		08A19B8414A2D2FB00E49E58 /* settingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 08A19B8114A2D2FB00E49E58 /* settingsIcon.png */; };
 		08A19B8514A2D2FB00E49E58 /* settingsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08A19B8214A2D2FB00E49E58 /* settingsIcon@2x.png */; };
 		08A19B8614A2D2FB00E49E58 /* tableCellIndicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08A19B8314A2D2FB00E49E58 /* tableCellIndicator@2x.png */; };
+		08A8D38414AF9283005FFAC4 /* warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 08A8D38314AF9283005FFAC4 /* warning.png */; };
 		08B6BF65149F833E002CD986 /* libObjectiveFlickr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08B6BF64149F833E002CD986 /* libObjectiveFlickr.a */; };
 		08B6BF67149F836B002CD986 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08B6BF66149F836B002CD986 /* CFNetwork.framework */; };
 		08B6BF71149F83DD002CD986 /* ObjectiveFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B6BF6B149F83DD002CD986 /* ObjectiveFlickr.m */; };
@@ -161,6 +162,7 @@
 		08A19B8114A2D2FB00E49E58 /* settingsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingsIcon.png; sourceTree = "<group>"; };
 		08A19B8214A2D2FB00E49E58 /* settingsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingsIcon@2x.png"; sourceTree = "<group>"; };
 		08A19B8314A2D2FB00E49E58 /* tableCellIndicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tableCellIndicator@2x.png"; sourceTree = "<group>"; };
+		08A8D38314AF9283005FFAC4 /* warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = warning.png; sourceTree = "<group>"; };
 		08B6BF64149F833E002CD986 /* libObjectiveFlickr.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveFlickr.a; path = libs/objectiveFlickr/libObjectiveFlickr.a; sourceTree = "<group>"; };
 		08B6BF66149F836B002CD986 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		08B6BF6A149F83DD002CD986 /* ObjectiveFlickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveFlickr.h; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 		08F152501481316000CF7BD9 /* pics */ = {
 			isa = PBXGroup;
 			children = (
+				08A8D38314AF9283005FFAC4 /* warning.png */,
 				0897EEF614A6777E002C7820 /* favoriteBtn.png */,
 				0897EEF714A6777E002C7820 /* favoriteBtn@2x.png */,
 				0897EEF814A6777E002C7820 /* favoriteBtnSelected.png */,
@@ -665,6 +668,7 @@
 				0897EEFD14A6777E002C7820 /* favoriteBtn@2x.png in Resources */,
 				0897EEFE14A6777E002C7820 /* favoriteBtnSelected.png in Resources */,
 				0897EEFF14A6777E002C7820 /* favoriteBtnSelected@2x.png in Resources */,
+				08A8D38414AF9283005FFAC4 /* warning.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

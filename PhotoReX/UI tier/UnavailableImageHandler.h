@@ -17,6 +17,7 @@
 @interface UnavailableImageHandler : UIView
 {
     UINetImageView* _imageView; 
+    
 }
 
 // a function to retrieve a UIImage for unavailable images (cached for fast retrieval and good memory management) 
@@ -26,7 +27,7 @@
 - (void)drawRect:(CGRect)rect; 
 
 @property (nonatomic, assign) UINetImageView* imageView; 
-
+@property (nonatomic) BOOL failedFlag; 
 @end
 
 
@@ -39,4 +40,5 @@
 //shows a simple image and doesn't respond to download progress
 @interface UnavailableImageHandler4x3 : UnavailableImageHandler {
 }
+
 @end

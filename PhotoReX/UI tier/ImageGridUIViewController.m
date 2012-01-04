@@ -151,14 +151,21 @@
 
 -(void) showImageDetail:(UIImageButton *)imgBtn
 {    
+    //if the image has failed, try to reload it insead of showing the details 
+    if (imgBtn.imageView.failedToLoad)
+    {
+        [imgBtn.imageView loadPicture]; 
+        return; 
+    }
+    
+    
+    
+    
     PhotoViewController* pvc = [[[PhotoViewController alloc] initWithPictureInfo:imgBtn.imageView.pictureInfo]  autorelease]; 
     
     pvc.modalPresentationStyle = UIModalPresentationFullScreen; 
     pvc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve; 
     
-    CGRect f = self.view.frame; 
-    NSLog(@"cur page: (%f,%f) (%f,%f) \n", f.origin.x, f.origin.y, f.size.width, f.size.height); 
-
     //present the picture modally using the tabbar (the root of all view controllers, so nothing intercepts) 
     [[FancyTabbarController getInstance] presentViewController:pvc animated:YES completion:nil];  
  //   [self presentModalViewController:pvc animated:YES]; 

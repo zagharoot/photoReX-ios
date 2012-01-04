@@ -15,7 +15,7 @@ static UIImage* unavailableImageLandscape;
 
 
 @implementation UnavailableImageHandler
-
+@synthesize failedFlag=_failedFlag; 
 @synthesize imageView=_imageView; 
 
 -(id) initWithImageView:(UINetImageView *)image
@@ -98,11 +98,27 @@ static UIImage* unavailableImageLandscape;
 @implementation UnavailableImageHandler4x3
 
 
+-(void) drawRect:(CGRect)rect
+{
+    
+    if (self.imageView.failedToLoad)
+    {
+//        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGRect b = self.bounds; 
+        CGRect rect = CGRectMake((b.size.width-48)/2, (b.size.height-48)/2, 48, 48);
+        [[UIImage imageNamed:@"warning.png"] drawInRect:rect];     
+    }
+    
+    [super drawRect:rect]; 
+    
+}
+
+
 -(UIImage*) getUnavailableImage
 {
     if (unavailableImage4x3 == nil) 
     {
-        unavailableImage4x3 = [[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"noimage4x3" ofType:@"png"]  ] retain]; 
+       unavailableImage4x3 = [[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"noimage4x3" ofType:@"png"]  ] retain]; 
     }
     return unavailableImage4x3; 
 }

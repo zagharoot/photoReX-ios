@@ -27,6 +27,7 @@ static double _applicationStartTime=0;
 @synthesize managedObjectContext = __managedObjectContext;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
+@synthesize userOrientation=_userOrientation; 
 
 - (void)dealloc
 {
@@ -86,6 +87,27 @@ static double _applicationStartTime=0;
     [self showSplashScreenOnView:ftc ];
 
         
+    //initialize user orientation: 
+    _userOrientation = UserOrientationUnknown; 
+    switch ( [[UIApplication sharedApplication] statusBarOrientation])
+    {
+    case UIInterfaceOrientationPortrait: 
+    case UIInterfaceOrientationPortraitUpsideDown: 
+        _userOrientation = UserOrientationStanding; 
+        break; 
+        
+    case UIInterfaceOrientationLandscapeLeft: 
+        _userOrientation = UserOrientationLyingLeft; 
+        break;
+        
+    case UIInterfaceOrientationLandscapeRight:
+        _userOrientation = UserOrientationLyingRight; 
+        break;
+    }
+    
+    
+
+
     return YES;
 }
 

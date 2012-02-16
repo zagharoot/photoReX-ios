@@ -10,6 +10,7 @@
 #import "AccountManager.h"
 #import "ImageDataProviderManager.h"
 #import <QuartzCore/QuartzCore.h>
+#import "AppDelegate.h"
 
 
 @implementation UINetImageView
@@ -22,7 +23,8 @@
 @synthesize percentageDataAvailable=_percentageDataAvailable; 
 @synthesize unavailableImageHandler=_unavailableImageHandler; 
 @synthesize tmpImage=_tmpImage; 
-
+@synthesize originalOrientation=_originalOrientation; 
+@synthesize currentOrientation= _currentOrientation; 
 
 -(BOOL) failedToLoad
 {
@@ -56,6 +58,7 @@
         // Initialization code
         _drawUserActivityStatus = NO;       //this is the default (dont use the property here, look at set)
         _percentageDataAvailable = 0;       //no data is available yet 
+        _originalOrientation = _currentOrientation = UIInterfaceOrientationPortrait; 
     }
     return self;
 }
@@ -255,8 +258,19 @@
         //is it better to rotate the picture or leave it as is. 
         //TODO: make this more sophisticated 
         
-        if (theImage.size.width > theImage.size.height) 
+        if (theImage.size.width > theImage.size.height) //image is landscape
+        {
+            _originalOrientation = UIInterfaceOrientationLandscapeRight; 
+            
+            
+            
+            
+            
             theImage = [UIImage imageWithCGImage:[theImage CGImage] scale:1.0 orientation:UIImageOrientationRight]; 
+        }
+        
+        
+        
     }
 
     self.tmpImage = theImage; 

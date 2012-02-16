@@ -26,6 +26,11 @@
 
     PictureInfo* _pictureInfo; 
     CGSize _originalResolution;             //this is the resolution of the picture coming from the net. (0,0) means don't have the data yet.
+    
+    UIInterfaceOrientation _originalOrientation;    //was it portrait or landscape orientation originally (using right as landscape)
+    UIInterfaceOrientation _currentOrientation;      //how is it presented now
+    
+    
     UnavailableImageHandler* _unavailableImageHandler; 
     ImageStatusOverlayView* _imageStatusOverlayView; 
     
@@ -60,6 +65,11 @@
 @property (nonatomic, retain) UnavailableImageHandler* unavailableImageHandler; 
 @property (nonatomic, readonly) ImageStatusOverlayView* imageStatusOverlayView; 
 @property (nonatomic, retain) UIImage* tmpImage; 
+
+@property (nonatomic, readonly) UIInterfaceOrientation originalOrientation; 
+@property (nonatomic, readonly) UIInterfaceOrientation currentOrientation; 
+
+
 
 @property (nonatomic, readonly) BOOL failedToLoad; 
 @end

@@ -9,6 +9,7 @@
 #import "PhotoViewController.h"
 #import "AccountManager.h"
 #import "ImageDataProviderManager.h" 
+#import "AppDelegate.h"
 
 @implementation PhotoViewController
 
@@ -21,9 +22,42 @@
 @synthesize imageTitleLabel;
 @synthesize imageAuthorLabel;
 @synthesize imageNumberOfVisitsLabel;
-@synthesize favoriteBtn;
+@synthesize favoriteBtnTB;
+@synthesize rotateBtnTB;
+@synthesize shareBtnTB;
+@synthesize commentBtnTB;
 
-- (IBAction)dismissView:(id)sender {
+
+-(UIButton*) floatingRotateBtn
+{
+    if (! _floatingRotateBtn)
+    {
+        _floatingRotateBtn = [[UIButton alloc] initWithFrame:CGRectMake(200,300,36,36)]; 
+        _floatingRotateBtn = [[UIButton buttonWithType:UIButtonTypeInfoLight] retain]; 
+        [self.view addSubview:_floatingRotateBtn];
+        [_floatingRotateBtn addTarget:self action:@selector(rotatePictureToIdentityBySender:) forControlEvents:UIControlEventTouchUpInside]; 
+        _floatingRotateBtn.hidden = YES; 
+    }
+    
+    return _floatingRotateBtn; 
+}
+
+
+-(void) setFloatingRotateBtn:(UIButton *)floatingRotateBtn
+{
+    [_floatingRotateBtn removeFromSuperview]; 
+    [_floatingRotateBtn release]; 
+    _floatingRotateBtn = [floatingRotateBtn retain]; 
+    
+    [self.view addSubview:_floatingRotateBtn]; 
+    _floatingRotateBtn.hidden = YES; 
+}
+
+
+
+
+- (IBAction)dismissView:(id)sender 
+{    
     [self dismissModalViewControllerAnimated:YES]; 
 }
 
@@ -39,7 +73,6 @@
         //some initializations
         self.wantsFullScreenLayout = YES;
         doubleTapFlag = NO; 
-        
     }
     
     
@@ -61,7 +94,11 @@
     [imageTitleLabel release];
     [imageAuthorLabel release];
     [imageNumberOfVisitsLabel release];
-    [favoriteBtn release];
+    [favoriteBtnTB release];
+    self.floatingRotateBtn = nil; 
+    [rotateBtnTB release];
+    [shareBtnTB release];
+    [commentBtnTB release];
     [super dealloc];
 }
 
@@ -103,6 +140,20 @@
     gr.numberOfTapsRequired = 1; 
     [self.scrollView addGestureRecognizer:gr]; 
     [gr release];     
+    
+    
+    //start getting orientation change notification
+    deviceGeneratedOrientationNotificationFlag =  [UIDevice currentDevice].isGeneratingDeviceOrientationNotifications; 
+
+    if (! deviceGeneratedOrientationNotificationFlag)
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications]; 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(respondToOrientationChange) name:UIDeviceOrientationDidChangeNotification object:nil]; 
+    
+    //defaults: 
+    didAutoOrientationChange = NO; 
+    didUserHateAutoOrientationChange = NO; 
+    
+    
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -112,29 +163,126 @@
 }
 
 
+-(void) showRotateButton
+{
+    
+    CGRect b = self.view.bounds; 
+    self.floatingRotateBtn.frame = CGRectMake(b.size.width-20-36, b.size.height-20-36, 36, 36); 
+    
+    self.floatingRotateBtn.alpha = 0.0; 
+    self.floatingRotateBtn.hidden = NO; 
+    
+    [UIView animateWithDuration:0.5 delay:1.0 options:UIViewAnimationCurveEaseInOut animations:^{
+        self.floatingRotateBtn.alpha = 1.0; 
+    }//animation
+    completion:^(BOOL finished) {
+        [self performSelector:@selector(hideRotateButton) withObject:self afterDelay:6.0]; 
+    }];
+}
+
+-(void) hideRotateButton{ [self hideRotateButtonAnimation:YES]; } 
+-(void) hideRotateButtonAnimation:(BOOL)animated
+{
+    if (!animated)
+    {
+        self.floatingRotateBtn.hidden = YES; 
+        return; 
+    }
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.floatingRotateBtn.alpha = 0.0; 
+    }completion:^(BOOL finished) {
+        self.floatingRotateBtn.hidden = YES; 
+    }]; 
+}
+
+
+
 - (void)viewDidUnload
 {
     self.pictureInfo = nil; 
     [imageView release]; 
 
+    
+    //turn notification generation if noone is using it
+    if (! deviceGeneratedOrientationNotificationFlag)
+        [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications]; 
+    [[NSNotificationCenter defaultCenter] removeObserver:self]; 
+    
     [self setNavBar:nil];
     [self setCloseBtn:nil];
     [self setWebsiteIconImageView:nil];
     [self setImageTitleLabel:nil];
     [self setImageAuthorLabel:nil];
     [self setImageNumberOfVisitsLabel:nil];
-    [self setFavoriteBtn:nil];
+    [self setFavoriteBtnTB:nil];
+    
+    [self setFloatingRotateBtn:nil]; 
+    
+    [self setRotateBtnTB:nil];
+    [self setShareBtnTB:nil];
+    [self setCommentBtnTB:nil];
     [super viewDidUnload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    //remove me
-    return YES; 
-    
-    // Return YES for supported orientations
+{   
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+
+- (void) respondToOrientationChange
+{
+//    [UIDevice currentDevice].orientation
+    
+    
+}
+
+
+-(void) rotatePictureToIdentityBySender:(UIButton *)sender
+{
+    [UIView animateWithDuration:0.4 animations:^{
+        self.scrollView.transform = CGAffineTransformIdentity; 
+        self.scrollView.bounds = CGRectMake(0, 0, self.scrollView.bounds.size.height, self.scrollView.bounds.size.width); 
+    }]; 
+
+    [self hideRotateButton]; 
+    
+    didUserHateAutoOrientationChange = YES; 
+ 
+
+    //change the target action for the rotate buttons 
+    [self.rotateBtnTB removeTarget:self action:@selector(rotatePictureToIdentityBySender:) forControlEvents:UIControlEventTouchUpInside];
+    [self.rotateBtnTB addTarget:self action:@selector(rotatePictureToAutoBySender:) forControlEvents:UIControlEventTouchUpInside]; 
+
+    [self.floatingRotateBtn addTarget:self action:@selector(rotatePictureToAutoBySender:) forControlEvents:UIControlEventTouchUpInside]; 
+    [self.floatingRotateBtn removeTarget:self action:@selector(rotatePictureToIdentityBySender:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+
+-(void) rotatePictureToAutoBySender:(UIButton *)sender
+{
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft) 
+            self.scrollView.transform = CGAffineTransformMakeRotation(-M_PI_2); 
+        else
+            self.scrollView.transform = CGAffineTransformMakeRotation(M_PI_2); 
+            
+        self.scrollView.bounds = CGRectMake(0, 0, self.scrollView.bounds.size.height, self.scrollView.bounds.size.width); 
+    }]; 
+
+
+    didUserHateAutoOrientationChange = NO; 
+
+    //change the target action for the rotate buttons 
+    [self.rotateBtnTB removeTarget:self action:@selector(rotatePictureToAutoBySender:) forControlEvents:UIControlEventTouchUpInside]; 
+    [self.rotateBtnTB addTarget:self action:@selector(rotatePictureToIdentityBySender:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.floatingRotateBtn removeTarget:self action:@selector(rotatePictureToAutoBySender:) forControlEvents:UIControlEventTouchUpInside]; 
+    [self.floatingRotateBtn addTarget:self action:@selector(rotatePictureToIdentityBySender:) forControlEvents:UIControlEventTouchUpInside];
+}
+
 
 
 -(UIView*) viewForZoomingInScrollView:(UIScrollView *)scrollView
@@ -177,6 +325,9 @@
         self.imageAuthorLabel.text = [NSString stringWithFormat:@"By %@", self.pictureInfo.info.author]; 
         if ([self.pictureInfo.info respondsToSelector:@selector(numberOfVisits) ])
             self.imageNumberOfVisitsLabel.text = [NSString stringWithFormat:@"Viewed %d times", [self.pictureInfo.info performSelector:@selector(numberOfVisits)] ]; 
+        
+        [self hideRotateButtonAnimation:NO]; 
+        
     }
 }
 
@@ -193,14 +344,26 @@
     [self.navBar setHidden:YES]; 
     self.closeBtn.title = @"Close"; 
     
+
     
-    CGSize windowSize = [[UIScreen mainScreen] applicationFrame].size; 
+    CGSize windowSize = self.scrollView.bounds.size; //  [[UIScreen mainScreen] applicationFrame].size; 
     
     
     CGRect frame = view.frame; 
     CGSize size = frame.size; 
 
 
+    if (view.imageOrientation == UIInterfaceOrientationLandscapeRight ) //image is landscape 
+    {
+        self.scrollView.transform = CGAffineTransformMakeRotation(M_PI_2); 
+        self.scrollView.bounds = CGRectMake(0, 0, self.scrollView.bounds.size.height, self.scrollView.bounds.size.width); 
+        didAutoOrientationChange = YES; 
+        
+        //TODO: let user know about the auto rotate by the optional rotate back button
+        [self showRotateButton]; 
+    }
+    
+    
     if (size.width<windowSize.width)
     {
         size.width = windowSize.width; 
@@ -247,17 +410,31 @@
     [self.websiteIconImageView setImage:acc.iconImage]; 
     [self.websiteIconImageView sizeToFit]; 
 
+
+    //----- set up toolbar buttons based on the picture 
+    //favorite button: 
     if (acc.isActive && [acc supportsFavorite])
     {
-        [self.favoriteBtn setHidden:NO]; 
+        [self.favoriteBtnTB setHidden:NO]; 
         if (self.pictureInfo.info.isFavorite)
-            [self.favoriteBtn setImage:[UIImage imageNamed:@"favoriteBtnSelected.png"] forState:UIControlStateNormal]; 
+            [self.favoriteBtnTB setImage:[UIImage imageNamed:@"favoriteBtnSelected.png"] forState:UIControlStateNormal]; 
         else
-            [self.favoriteBtn setImage:[UIImage imageNamed:@"favoriteBtn.png"] forState:UIControlStateNormal]; 
+            [self.favoriteBtnTB setImage:[UIImage imageNamed:@"favoriteBtn.png"] forState:UIControlStateNormal]; 
         
     }
     else 
-        [self.favoriteBtn setHidden:YES]; 
+        [self.favoriteBtnTB setHidden:YES]; 
+    
+    //rotate button
+    self.rotateBtnTB.hidden = !didAutoOrientationChange; 
+    [self.rotateBtnTB removeTarget:self action:@selector(rotatePictureToAutoBySender:) forControlEvents:UIControlEventTouchUpInside]; 
+    [self.rotateBtnTB addTarget:self action:@selector(rotatePictureToIdentityBySender:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //share button: it's always available?
+    self.shareBtnTB.hidden = NO; 
+    
+    //comment button: it's invisible for now
+    self.commentBtnTB.hidden = YES;
 
 }
 
@@ -281,11 +458,11 @@
     ImageDataProviderManager* provider = [ImageDataProviderManager mainDataProvider]; 
     if (self.pictureInfo.info.isFavorite)
     {
-        [self.favoriteBtn setImage:[UIImage imageNamed:@"favoriteBtn.png"] forState:UIControlStateNormal]; 
+        [self.favoriteBtnTB setImage:[UIImage imageNamed:@"favoriteBtn.png"] forState:UIControlStateNormal]; 
         [provider setFavorite:NO forPictureInfo:self.pictureInfo]; 
     }else 
     {
-        [self.favoriteBtn setImage:[UIImage imageNamed:@"favoriteBtnSelected.png"] forState:UIControlStateNormal]; 
+        [self.favoriteBtnTB setImage:[UIImage imageNamed:@"favoriteBtnSelected.png"] forState:UIControlStateNormal]; 
         [provider setFavorite:YES forPictureInfo:self.pictureInfo]; 
     }
 }

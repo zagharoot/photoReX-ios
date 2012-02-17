@@ -23,8 +23,15 @@
 @synthesize percentageDataAvailable=_percentageDataAvailable; 
 @synthesize unavailableImageHandler=_unavailableImageHandler; 
 @synthesize tmpImage=_tmpImage; 
-@synthesize originalOrientation=_originalOrientation; 
-@synthesize currentOrientation= _currentOrientation; 
+
+
+-(UIInterfaceOrientation) imageOrientation
+{
+    if (self.bounds.size.width > self.bounds.size.height)
+        return UIInterfaceOrientationLandscapeRight; 
+    else
+        return UIInterfaceOrientationPortrait; 
+}
 
 -(BOOL) failedToLoad
 {
@@ -58,7 +65,6 @@
         // Initialization code
         _drawUserActivityStatus = NO;       //this is the default (dont use the property here, look at set)
         _percentageDataAvailable = 0;       //no data is available yet 
-        _originalOrientation = _currentOrientation = UIInterfaceOrientationPortrait; 
     }
     return self;
 }
@@ -253,26 +259,10 @@
         // or use the UIImage wherever you like
         theImage = [UIImage imageWithCGImage:imageRef scale:factor orientation:UIImageOrientationUp]; 
         CGImageRelease(imageRef);
-    } else
-    {
-        //is it better to rotate the picture or leave it as is. 
-        //TODO: make this more sophisticated 
-        
-        if (theImage.size.width > theImage.size.height) //image is landscape
-        {
-            _originalOrientation = UIInterfaceOrientationLandscapeRight; 
-            
-            
-            
-            
-            
-            theImage = [UIImage imageWithCGImage:[theImage CGImage] scale:1.0 orientation:UIImageOrientationRight]; 
-        }
-        
-        
-        
-    }
-
+    } 
+    
+    
+    
     self.tmpImage = theImage; 
     
     double loadDelay = 0; 

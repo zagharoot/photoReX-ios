@@ -64,5 +64,5 @@
 
 -(void) rotatePictureToIdentityBySender:(UIButton*) sender;            //undoes the auto rotate to original image orientation
 -(void) rotatePictureToAutoBySender:(UIButton*) sender;                //automatically transforms the image to best fit the screen 
-
+-(void) rotatePictureToDegree:(double) degree; 
 @end

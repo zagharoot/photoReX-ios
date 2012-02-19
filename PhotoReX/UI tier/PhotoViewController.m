@@ -233,23 +233,84 @@
 
 - (void) respondToOrientationChange
 {
-//    [UIDevice currentDevice].orientation
+
+    //picture is locked because we auto rotated and he hasn't counter acted it. 
+    if (didAutoOrientationChange && !didUserHateAutoOrientationChange)
+        return; 
+    
+    enum UserOrientation userOrientation =  ((AppDelegate*) [UIApplication sharedApplication].delegate).userOrientation; 
+    UIDeviceOrientation orientation      =  [UIDevice currentDevice].orientation; 
+    double degree = 0; 
     
     
+    switch (orientation) {
+        case UIDeviceOrientationPortrait:
+            break;
+            
+        case UIDeviceOrientationLandscapeLeft:
+            
+            if (userOrientation == UserOrientationStanding || userOrientation == UserOrientationUnknown)
+                degree = M_PI_2; 
+            break;
+        case UIDeviceOrientationLandscapeRight:
+            if (userOrientation == UserOrientationStanding || userOrientation == UserOrientationUnknown)
+                degree = -M_PI_2; 
+            
+            break;
+        default:
+            break;
+    }
+
+
+    [self rotatePictureToDegree:degree]; 
 }
 
 
--(void) rotatePictureToIdentityBySender:(UIButton *)sender
+-(void) rotatePictureToDegree:(double)degree
 {
+    CGAffineTransform transform = CGAffineTransformMakeRotation(degree); 
+    
+    //no need to do anything 
+    if (CGAffineTransformEqualToTransform(transform, self.scrollView.transform))
+        return; 
+    
+    
     [UIView animateWithDuration:0.4 animations:^{
-        self.scrollView.transform = CGAffineTransformIdentity; 
-        self.scrollView.bounds = CGRectMake(0, 0, self.scrollView.bounds.size.height, self.scrollView.bounds.size.width); 
+        self.scrollView.transform = transform; 
     }]; 
 
-    [self hideRotateButton]; 
+    //correct the bounds 
+    CGSize b = self.scrollView.bounds.size; 
+    if (degree==0 && b.width > b.height)                                //portrait mode
+        self.scrollView.bounds = CGRectMake(0, 0, b.height, b.width); 
+    else if (degree!= 0 && b.width < b.height)                          //landscape mode 
+        self.scrollView.bounds = CGRectMake(0, 0, b.height, b.width); 
     
+    //rezoom to fit the screen 
+    self.scrollView.minimumZoomScale = 0.1; 
+    [self.scrollView zoomToRect:defaultZoom animated:NO]; 
+    self.scrollView.minimumZoomScale = self.scrollView.zoomScale; 
+}
+
+-(void) rotatePictureToIdentityBySender:(UIButton *)sender
+{
+
+//    [UIView animateWithDuration:0.4 animations:^{
+//        self.scrollView.transform = CGAffineTransformIdentity; 
+//    }]; 
+//    self.scrollView.bounds = CGRectMake(0, 0, self.scrollView.bounds.size.height, self.scrollView.bounds.size.width); 
+//
+//
+//    //rezoom to fit the screen 
+//    self.scrollView.minimumZoomScale = 0.1; 
+//    [self.scrollView zoomToRect:defaultZoom animated:NO]; 
+//    self.scrollView.minimumZoomScale = self.scrollView.zoomScale; 
+
+    [self rotatePictureToDegree:0]; 
+    
+    [self hideRotateButton]; 
     didUserHateAutoOrientationChange = YES; 
- 
+    
 
     //change the target action for the rotate buttons 
     [self.rotateBtnTB removeTarget:self action:@selector(rotatePictureToIdentityBySender:) forControlEvents:UIControlEventTouchUpInside];
@@ -262,19 +323,29 @@
 
 -(void) rotatePictureToAutoBySender:(UIButton *)sender
 {
+    double degree = M_PI_2; 
+    if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight) 
+        degree = -M_PI_2; 
+
+    [self rotatePictureToDegree:degree]; 
     
-    [UIView animateWithDuration:0.4 animations:^{
-        if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeLeft) 
-            self.scrollView.transform = CGAffineTransformMakeRotation(-M_PI_2); 
-        else
-            self.scrollView.transform = CGAffineTransformMakeRotation(M_PI_2); 
-            
-        self.scrollView.bounds = CGRectMake(0, 0, self.scrollView.bounds.size.height, self.scrollView.bounds.size.width); 
-    }]; 
-
-
+//    [UIView animateWithDuration:0.4 animations:^{
+//        if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight) 
+//            self.scrollView.transform = CGAffineTransformMakeRotation(-M_PI_2); 
+//        else
+//            self.scrollView.transform = CGAffineTransformMakeRotation(M_PI_2); 
+//            
+//    }]; 
+//    self.scrollView.bounds = CGRectMake(0, 0, self.scrollView.bounds.size.height, self.scrollView.bounds.size.width); 
+//
+//    //rezoom to fit the screen 
+//    self.scrollView.minimumZoomScale = 0.1; 
+//    [self.scrollView zoomToRect:defaultZoom animated:NO]; 
+//    self.scrollView.minimumZoomScale = self.scrollView.zoomScale; 
+//    
+    
     didUserHateAutoOrientationChange = NO; 
-
+    
     //change the target action for the rotate buttons 
     [self.rotateBtnTB removeTarget:self action:@selector(rotatePictureToAutoBySender:) forControlEvents:UIControlEventTouchUpInside]; 
     [self.rotateBtnTB addTarget:self action:@selector(rotatePictureToIdentityBySender:) forControlEvents:UIControlEventTouchUpInside];
@@ -355,7 +426,11 @@
 
     if (view.imageOrientation == UIInterfaceOrientationLandscapeRight ) //image is landscape 
     {
-        self.scrollView.transform = CGAffineTransformMakeRotation(M_PI_2); 
+        if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight) 
+            self.scrollView.transform = CGAffineTransformMakeRotation(-M_PI_2); 
+        else
+            self.scrollView.transform = CGAffineTransformMakeRotation(M_PI_2); 
+
         self.scrollView.bounds = CGRectMake(0, 0, self.scrollView.bounds.size.height, self.scrollView.bounds.size.width); 
         didAutoOrientationChange = YES; 
         

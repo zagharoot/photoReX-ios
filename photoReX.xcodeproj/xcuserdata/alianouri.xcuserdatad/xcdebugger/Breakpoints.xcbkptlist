@@ -1122,11 +1122,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/UI tier/PhotoViewController.m"
-         timestampString = "351185762.183605"
+         timestampString = "351361793.864068"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "244"
-         endingLineNumber = "244"
+         startingLineNumber = "297"
+         endingLineNumber = "297"
          landmarkName = "-rotatePictureToIdentityBySender:"
          landmarkType = "5">
          <Locations>
@@ -1161,39 +1161,39 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/UI tier/PhotoViewController.m"
-         timestampString = "351186284.400346"
+         timestampString = "351362035.033828"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "266"
-         endingLineNumber = "266"
-         landmarkName = "-rotatePictureToAutoBySender:"
+         startingLineNumber = "252"
+         endingLineNumber = "252"
+         landmarkName = "-respondToOrientationChange"
          landmarkType = "5">
-         <Locations>
-            <Location
-               shouldBeEnabled = "No"
-               ignoreCount = "0"
-               continueAfterRunningActions = "No"
-               symbolName = "-[PhotoViewController rotatePictureToAutoBySender:]"
-               urlString = "file://localhost/Users/alianouri/research/codes/ios/photoReX/PhotoReX/UI%20tier/PhotoViewController.m"
-               timestampString = "351186304.101929"
-               startingColumnNumber = "9223372036854775807"
-               endingColumnNumber = "9223372036854775807"
-               startingLineNumber = "266"
-               endingLineNumber = "266">
-            </Location>
-            <Location
-               shouldBeEnabled = "No"
-               ignoreCount = "0"
-               continueAfterRunningActions = "No"
-               symbolName = "__51-[PhotoViewController rotatePictureToAutoBySender:]_block_invoke_0"
-               urlString = "file://localhost/Users/alianouri/research/codes/ios/photoReX/PhotoReX/UI%20tier/PhotoViewController.m"
-               timestampString = "351186304.102212"
-               startingColumnNumber = "9223372036854775807"
-               endingColumnNumber = "9223372036854775807"
-               startingLineNumber = "266"
-               endingLineNumber = "266">
-            </Location>
-         </Locations>
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/AppDelegate.m"
+         timestampString = "351362069.345433"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "91"
+         endingLineNumber = "91"
+         landmarkName = "-application:didFinishLaunchingWithOptions:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/AppDelegate.m"
+         timestampString = "351362266.433939"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "111"
+         endingLineNumber = "111"
+         landmarkName = "-application:didFinishLaunchingWithOptions:"
+         landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

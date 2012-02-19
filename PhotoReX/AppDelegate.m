@@ -105,6 +105,22 @@ static double _applicationStartTime=0;
         break;
     }
     
+
+    UIDeviceOrientation o = [UIDevice currentDevice].orientation; 
+    
+    switch ([UIDevice currentDevice].orientation) {
+        case UIDeviceOrientationLandscapeLeft:
+            _userOrientation = UserOrientationLyingLeft; 
+            break;
+            
+        case UIDeviceOrientationLandscapeRight:
+            _userOrientation = UserOrientationLyingRight; 
+            break;
+            
+        default:
+            _userOrientation = UserOrientationStanding; 
+            break;
+    }
     
 
 

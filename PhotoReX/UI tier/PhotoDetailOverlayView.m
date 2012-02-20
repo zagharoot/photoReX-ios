@@ -54,7 +54,7 @@
     CGContextDrawPath(context, kCGPathFillStroke);
     
     CGPoint start = CGPointMake(100, 0  ); 
-    CGPoint end = CGPointMake(100, topLineHeight+20);
+    CGPoint end = CGPointMake(100, topLineHeight+40);
     CGContextDrawLinearGradient(context, gradientRef, start, end, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
 
     start = CGPointMake(100, b.size.height  ); 

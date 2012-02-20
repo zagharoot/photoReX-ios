@@ -26,7 +26,6 @@
     BOOL didAutoOrientationChange;                      //whether we automatically changed the orientation of the picture 
     BOOL didUserHateAutoOrientationChange;              //true when auto change applied and user didn't like it (did rotation to counter act it)
 
-    UIButton* _floatingRotateBtn;                         //shown when auto rotate is applied. let user undo autorotate
 
 }
 @property (retain, nonatomic) IBOutlet UIBarButtonItem *closeBtn;
@@ -42,9 +41,8 @@
 @property (retain, nonatomic) IBOutlet UIButton *shareBtnTB;
 @property (retain, nonatomic) IBOutlet UIButton *commentBtnTB;
 
+@property (retain, nonatomic) IBOutlet UIButton *floatingRotateBtn;
 
-
-@property (retain, nonatomic)          UIButton *floatingRotateBtn; 
 
 - (IBAction)toggleFavorite:(id)sender;
 @property (retain) PictureInfo* pictureInfo; 
@@ -61,8 +59,9 @@
 -(void) showRotateButton; 
 -(void) hideRotateButton;       //automatically calls the animated one
 -(void) hideRotateButtonAnimation:(BOOL) animated;
+- (IBAction)rotatePictureToIdentityBySender:(UIButton *)sender;
 
--(void) rotatePictureToIdentityBySender:(UIButton*) sender;            //undoes the auto rotate to original image orientation
+//-(void) rotatePictureToIdentityBySender:(UIButton*) sender;            //undoes the auto rotate to original image orientation
 -(void) rotatePictureToAutoBySender:(UIButton*) sender;                //automatically transforms the image to best fit the screen 
 -(void) rotatePictureToDegree:(double) degree; 
 @end

@@ -1122,11 +1122,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/UI tier/PhotoViewController.m"
-         timestampString = "351405773.627626"
+         timestampString = "351450502.848464"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "307"
-         endingLineNumber = "307"
+         startingLineNumber = "312"
+         endingLineNumber = "312"
          landmarkName = "-rotatePictureToIdentityBySender:"
          landmarkType = "5">
          <Locations>
@@ -1161,11 +1161,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/UI tier/PhotoViewController.m"
-         timestampString = "351404256.986188"
+         timestampString = "351450502.848464"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "253"
-         endingLineNumber = "253"
+         startingLineNumber = "258"
+         endingLineNumber = "258"
          landmarkName = "-respondToOrientationChange"
          landmarkType = "5">
       </FileBreakpoint>

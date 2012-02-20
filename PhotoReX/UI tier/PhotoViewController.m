@@ -26,35 +26,7 @@
 @synthesize rotateBtnTB;
 @synthesize shareBtnTB;
 @synthesize commentBtnTB;
-
-
--(UIButton*) floatingRotateBtn
-{
-    if (! _floatingRotateBtn)
-    {
-        _floatingRotateBtn = [[UIButton alloc] initWithFrame:CGRectMake(200,300,27,26)]; 
-        _floatingRotateBtn = [[UIButton buttonWithType:UIButtonTypeCustom] retain]; 
-        [_floatingRotateBtn setBackgroundImage: [UIImage imageNamed:@"rotateToPortrait.png"] forState:UIControlStateNormal]; 
-        [self.view addSubview:_floatingRotateBtn];
-        [_floatingRotateBtn addTarget:self action:@selector(rotatePictureToIdentityBySender:) forControlEvents:UIControlEventTouchUpInside]; 
-        _floatingRotateBtn.hidden = YES; 
-    }
-    
-    return _floatingRotateBtn; 
-}
-
-
--(void) setFloatingRotateBtn:(UIButton *)floatingRotateBtn
-{
-    [_floatingRotateBtn removeFromSuperview]; 
-    [_floatingRotateBtn release]; 
-    _floatingRotateBtn = [floatingRotateBtn retain]; 
-    
-    [self.view addSubview:_floatingRotateBtn]; 
-    _floatingRotateBtn.hidden = YES; 
-}
-
-
+@synthesize floatingRotateBtn;
 
 
 - (IBAction)dismissView:(id)sender 
@@ -96,10 +68,10 @@
     [imageAuthorLabel release];
     [imageNumberOfVisitsLabel release];
     [favoriteBtnTB release];
-    self.floatingRotateBtn = nil; 
     [rotateBtnTB release];
     [shareBtnTB release];
     [commentBtnTB release];
+    [floatingRotateBtn release];
     [super dealloc];
 }
 
@@ -117,8 +89,9 @@
 {
     [super viewDidLoad];
 
-    [self.view addSubview:self.scrollView]; 
-    [self.view addSubview:self.detailOverlayView]; 
+    [self.view insertSubview:self.detailOverlayView belowSubview:self.floatingRotateBtn]; 
+    [self.view insertSubview:self.scrollView belowSubview:self.detailOverlayView]; 
+    
     [self.detailOverlayView setHidden:YES]; 
     self.detailOverlayView.pictureInfo = self.pictureInfo; 
 
@@ -218,11 +191,11 @@
     [self setImageNumberOfVisitsLabel:nil];
     [self setFavoriteBtnTB:nil];
     
-    [self setFloatingRotateBtn:nil]; 
     
     [self setRotateBtnTB:nil];
     [self setShareBtnTB:nil];
     [self setCommentBtnTB:nil];
+    [self setFloatingRotateBtn:nil];
     [super viewDidUnload];
 }
 
@@ -302,19 +275,8 @@
     self.scrollView.minimumZoomScale = self.scrollView.zoomScale; 
 }
 
--(void) rotatePictureToIdentityBySender:(UIButton *)sender
+-(IBAction) rotatePictureToIdentityBySender:(UIButton *)sender
 {
-
-//    [UIView animateWithDuration:0.4 animations:^{
-//        self.scrollView.transform = CGAffineTransformIdentity; 
-//    }]; 
-//    self.scrollView.bounds = CGRectMake(0, 0, self.scrollView.bounds.size.height, self.scrollView.bounds.size.width); 
-//
-//
-//    //rezoom to fit the screen 
-//    self.scrollView.minimumZoomScale = 0.1; 
-//    [self.scrollView zoomToRect:defaultZoom animated:NO]; 
-//    self.scrollView.minimumZoomScale = self.scrollView.zoomScale; 
 
     [self rotatePictureToDegree:0]; 
     
@@ -325,9 +287,6 @@
     //change the target action for the rotate buttons 
     [self.rotateBtnTB removeTarget:self action:@selector(rotatePictureToIdentityBySender:) forControlEvents:UIControlEventTouchUpInside];
     [self.rotateBtnTB addTarget:self action:@selector(rotatePictureToAutoBySender:) forControlEvents:UIControlEventTouchUpInside]; 
-
-    [self.floatingRotateBtn addTarget:self action:@selector(rotatePictureToAutoBySender:) forControlEvents:UIControlEventTouchUpInside]; 
-    [self.floatingRotateBtn removeTarget:self action:@selector(rotatePictureToIdentityBySender:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 
@@ -339,29 +298,12 @@
 
     [self rotatePictureToDegree:degree]; 
     
-//    [UIView animateWithDuration:0.4 animations:^{
-//        if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight) 
-//            self.scrollView.transform = CGAffineTransformMakeRotation(-M_PI_2); 
-//        else
-//            self.scrollView.transform = CGAffineTransformMakeRotation(M_PI_2); 
-//            
-//    }]; 
-//    self.scrollView.bounds = CGRectMake(0, 0, self.scrollView.bounds.size.height, self.scrollView.bounds.size.width); 
-//
-//    //rezoom to fit the screen 
-//    self.scrollView.minimumZoomScale = 0.1; 
-//    [self.scrollView zoomToRect:defaultZoom animated:NO]; 
-//    self.scrollView.minimumZoomScale = self.scrollView.zoomScale; 
-//    
-    
     didUserHateAutoOrientationChange = NO; 
 
     //change the target action for the rotate buttons 
     [self.rotateBtnTB removeTarget:self action:@selector(rotatePictureToAutoBySender:) forControlEvents:UIControlEventTouchUpInside]; 
     [self.rotateBtnTB addTarget:self action:@selector(rotatePictureToIdentityBySender:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.floatingRotateBtn removeTarget:self action:@selector(rotatePictureToAutoBySender:) forControlEvents:UIControlEventTouchUpInside]; 
-    [self.floatingRotateBtn addTarget:self action:@selector(rotatePictureToIdentityBySender:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 
@@ -447,7 +389,7 @@
         
         [self.rotateBtnTB setBackgroundImage:[UIImage imageNamed:@"rotateToPortrait.png"] forState:UIControlStateNormal ]; 
         
-        //TODO: let user know about the auto rotate by the optional rotate back button
+        //let user know about the auto rotate by the optional rotate back button
         [self showRotateButton]; 
     }
     

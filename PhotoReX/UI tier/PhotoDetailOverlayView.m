@@ -22,7 +22,7 @@
         CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
         CGFloat colors[] =
         {
-            0.0f, 0.0f, 0.0f, 0.42f,
+            0.0f, 0.0f, 0.0f, 0.5f,
             0.0f, 0.0f, 0.0f, 0.0f,
         };
         gradientRef = CGGradientCreateWithColorComponents(rgb, colors, NULL, sizeof(colors) / (sizeof(colors[0]) * 4));

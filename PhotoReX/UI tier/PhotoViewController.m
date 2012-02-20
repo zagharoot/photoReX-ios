@@ -32,8 +32,9 @@
 {
     if (! _floatingRotateBtn)
     {
-        _floatingRotateBtn = [[UIButton alloc] initWithFrame:CGRectMake(200,300,36,36)]; 
-        _floatingRotateBtn = [[UIButton buttonWithType:UIButtonTypeInfoLight] retain]; 
+        _floatingRotateBtn = [[UIButton alloc] initWithFrame:CGRectMake(200,300,27,26)]; 
+        _floatingRotateBtn = [[UIButton buttonWithType:UIButtonTypeCustom] retain]; 
+        [_floatingRotateBtn setBackgroundImage: [UIImage imageNamed:@"rotateToPortrait.png"] forState:UIControlStateNormal]; 
         [self.view addSubview:_floatingRotateBtn];
         [_floatingRotateBtn addTarget:self action:@selector(rotatePictureToIdentityBySender:) forControlEvents:UIControlEventTouchUpInside]; 
         _floatingRotateBtn.hidden = YES; 
@@ -167,7 +168,7 @@
 {
     
     CGRect b = self.view.bounds; 
-    self.floatingRotateBtn.frame = CGRectMake(b.size.width-20-36, b.size.height-20-36, 36, 36); 
+    self.floatingRotateBtn.frame = CGRectMake(b.size.width-50-27, b.size.height-50-26, 27, 26); 
     
     self.floatingRotateBtn.alpha = 0.0; 
     self.floatingRotateBtn.hidden = NO; 
@@ -286,6 +287,15 @@
     else if (degree!= 0 && b.width < b.height)                          //landscape mode 
         self.scrollView.bounds = CGRectMake(0, 0, b.height, b.width); 
     
+    
+    //change the image of the toolbar button 
+    if (degree != 0)
+        [self.rotateBtnTB setBackgroundImage:[UIImage imageNamed:@"rotateToPortrait.png"] forState:UIControlStateNormal ]; 
+    else
+        [self.rotateBtnTB setBackgroundImage:[UIImage imageNamed:@"rotateToLandscape.png"] forState:UIControlStateNormal ]; 
+    
+    [self.rotateBtnTB setNeedsDisplay]; 
+    
     //rezoom to fit the screen 
     self.scrollView.minimumZoomScale = 0.1; 
     [self.scrollView zoomToRect:defaultZoom animated:NO]; 
@@ -345,7 +355,7 @@
 //    
     
     didUserHateAutoOrientationChange = NO; 
-    
+
     //change the target action for the rotate buttons 
     [self.rotateBtnTB removeTarget:self action:@selector(rotatePictureToAutoBySender:) forControlEvents:UIControlEventTouchUpInside]; 
     [self.rotateBtnTB addTarget:self action:@selector(rotatePictureToIdentityBySender:) forControlEvents:UIControlEventTouchUpInside];
@@ -433,6 +443,9 @@
 
         self.scrollView.bounds = CGRectMake(0, 0, self.scrollView.bounds.size.height, self.scrollView.bounds.size.width); 
         didAutoOrientationChange = YES; 
+
+        
+        [self.rotateBtnTB setBackgroundImage:[UIImage imageNamed:@"rotateToPortrait.png"] forState:UIControlStateNormal ]; 
         
         //TODO: let user know about the auto rotate by the optional rotate back button
         [self showRotateButton]; 
@@ -509,7 +522,7 @@
     self.shareBtnTB.hidden = NO; 
     
     //comment button: it's invisible for now
-    self.commentBtnTB.hidden = YES;
+    self.commentBtnTB.hidden = NO;
 
 }
 

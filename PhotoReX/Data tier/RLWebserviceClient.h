@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "SBJsonParser.h"
 
-//#define SERVER_ADDRESS   @"http://192.168.10.106/rlimage/imagerecommendationservice.asmx/recommend"
 #define SERVER_ADDRESS   @"http://68.45.157.225"
+//#define SERVER_ADDRESS      @"http://localhost:3000"
 
 #define SERVICE_RECOMMEND           @"/rlimage/imagerecommendationservice.asmx/recommend" 
 #define SERVICE_IMAGEVIEWED         @"/rlimage/imagerecommendationservice.asmx/updateModel"
@@ -27,6 +27,8 @@
     NSMutableURLRequest* _requestImageViewed; 
     
     NSString* _userid; 
+    NSString* _signature; 
+
 }
 
 
@@ -49,5 +51,6 @@
 @property (retain, readonly) NSMutableURLRequest* requestRecommend;
 @property (retain, readonly) NSMutableURLRequest* requestImageViewed; 
 @property (nonatomic, copy) NSString* userid; 
+@property (nonatomic, copy) NSString* signature; 
 
 @end

@@ -685,7 +685,7 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "346426917.547024"
+         timestampString = "351632092.125292"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "117"
@@ -755,7 +755,7 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "346812372.287224"
+         timestampString = "351632092.125292"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "260"
@@ -769,7 +769,7 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "346812372.287224"
+         timestampString = "351632092.125292"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "255"
@@ -795,22 +795,8 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         isPathRelative = "1"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "346426917.547024"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "84"
-         endingLineNumber = "84"
-         landmarkName = "-registerAsNewAccount"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "346445741.733129"
+         timestampString = "351632092.125292"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "114"
@@ -1016,7 +1002,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "346812372.287224"
+         timestampString = "351632092.125292"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "216"
@@ -1029,7 +1015,7 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "346811130.484206"
+         timestampString = "351632092.125292"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "187"
@@ -1127,7 +1113,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "312"
          endingLineNumber = "312"
-         landmarkName = "-rotatePictureToIdentityBySender:"
+         landmarkName = "-viewForZoomingInScrollView:"
          landmarkType = "5">
          <Locations>
             <Location
@@ -1166,7 +1152,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "258"
          endingLineNumber = "258"
-         landmarkName = "-respondToOrientationChange"
+         landmarkName = "-rotatePictureToDegree:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -1193,6 +1179,19 @@
          startingLineNumber = "111"
          endingLineNumber = "111"
          landmarkName = "-application:didFinishLaunchingWithOptions:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
+         timestampString = "351632092.125292"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "87"
+         endingLineNumber = "87"
+         landmarkName = "-registerAsNewAccount"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

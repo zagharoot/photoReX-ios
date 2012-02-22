@@ -19,7 +19,7 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
 @synthesize requestImageViewed=_requestImageViewed; 
 
 @synthesize userid = _userid; 
-
+@synthesize signature=_signature; 
 
 +(RLWebserviceClient*) standardClient
 {
@@ -39,6 +39,17 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
     [ud setValue:_userid   forKey:@"masterAccountID"];     
 }
 
+//this is a copy property
+-(void) setSignature:(NSString *)signature
+{
+    [_signature release]; 
+    _signature = [signature copy]; 
+    
+    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
+    [ud setValue:_signature forKey:@"masterAccountSignature"]; 
+}
+
+
 
 -(void) loadUserid
 {
@@ -49,12 +60,13 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
     //---------- read user defaults for the master account ID 
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
     NSString* masterID = [ud valueForKey:@"masterAccountID"]; 
+    NSString* sig = [ud valueForKey:@"masterAccountSignature"] ;
     
     if (masterID) 
-    {
         _userid = [masterID copy] ;     //don't call the setter method here 
-        return; 
-    }
+    
+    if (sig)
+        _signature = [sig copy];        //don't call the setter method here 
 }
 
 
@@ -73,8 +85,8 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
         
     
     //TODO: remove this 
-    self.userid = uuid; 
-    return; 
+//    self.userid = uuid; 
+//    return; 
     
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
@@ -85,7 +97,7 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
              } else         //success
              {
                  NSString* datastr = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]; 
-                 //NSLog(@"received data for new user  as %@\n", datastr); 
+                 NSLog(@"received data for new user  as %@\n", datastr); 
                  
                  
                  SBJsonParser* parser = [[[SBJsonParser alloc] init] autorelease]; 
@@ -95,7 +107,8 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
                  if (d1 == nil) { NSLog(@"wrong username format: %@\n ", datastr);return;}
                  
                  
-                 NSDictionary* d2 = [parser objectWithString:[d1 objectForKey:@"d"]]; 
+//                 NSDictionary* d2 = [parser objectWithString:[d1 objectForKey:@"d"]]; 
+                 NSDictionary* d2 = [d1 objectForKey:@"d"]; 
                  
                  if (d2 == nil) { NSLog(@"wrong username format: %@\n", datastr); return;}
                  
@@ -103,7 +116,10 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
                  NSString* usernameStr = [d2 objectForKey:@"masterAcountID"];     //use the setter to save to default
                  
                  if (usernameStr.length>0)
+                 {
                      self.userid = usernameStr; 
+                     self.signature = uuid; 
+                 }
              }
         }];    
 }

@@ -63,12 +63,11 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
     CFUUIDRef uuidRef =  CFUUIDCreate(NULL); 
     NSString* uuid = (NSString*) CFUUIDCreateString(NULL, uuidRef); 
     NSString* body = [NSString stringWithFormat:@"{\"uuid\":\"%@\"}", uuid]; 
-    //get a new one from the website 
-    [self.requestImageViewed setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]]; 
         
     NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_CREATE_USER]]; 
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url]; 
     [request setHTTPMethod:@"POST"]; 
+    [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]]; 
     [request  addValue:@"application/json" forHTTPHeaderField:@"content-type"]; 
     [request  addValue:@"utf8" forHTTPHeaderField:@"charset"]; 
         

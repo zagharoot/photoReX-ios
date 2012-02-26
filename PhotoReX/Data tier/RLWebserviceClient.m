@@ -54,7 +54,7 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
 -(void) loadUserid
 {
     //TODO: remove this
-    return; 
+//    return; 
     
     
     //---------- read user defaults for the master account ID 
@@ -74,7 +74,7 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
 {
     CFUUIDRef uuidRef =  CFUUIDCreate(NULL); 
     NSString* uuid = (NSString*) CFUUIDCreateString(NULL, uuidRef); 
-    NSString* body = [NSString stringWithFormat:@"{\"uuid\":\"%@\"}", uuid]; 
+    NSString* body = [NSString stringWithFormat:@"{\"secret\":\"%@\"}", uuid]; 
         
     NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_CREATE_USER]]; 
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url]; 
@@ -113,7 +113,7 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
                  if (d2 == nil) { NSLog(@"wrong username format: %@\n", datastr); return;}
                  
                  
-                 NSString* usernameStr = [d2 objectForKey:@"masterAcountID"];     //use the setter to save to default
+                 NSString* usernameStr = [[d2 objectForKey:@"masterAcountID"] description];     //use the setter to save to default
                  
                  if (usernameStr.length>0)
                  {
@@ -265,6 +265,7 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
 
 -(void) registerAccountAsync:(NSDictionary *)account
 {
+    //TODO: call createnewuser and have this be called back upon success
     if (!self.userid)
         return; 
     
@@ -275,7 +276,6 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
     NSString *body = [jsonWriter stringWithObject:message];
     
     
-    [self.requestImageViewed setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]]; 
 
     NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_REGISTER_ACCOUNT]]; 
     
@@ -284,6 +284,7 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
     
     //set parameters of the request except for the body: 
     [request setHTTPMethod:@"POST"]; 
+    [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]]; 
     
     [request  addValue:@"application/json" forHTTPHeaderField:@"content-type"]; 
     [request  addValue:@"utf8" forHTTPHeaderField:@"charset"]; 
@@ -297,7 +298,7 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
              //TODO: we need to save to disk to try again later 
          } else         //success
          {
-             //TODO: do we need to actually do an ack here? 
+             //TODO: we might have been linked to another account. update the userid/signature if necessary 
          }
      }]; 
 }
@@ -315,7 +316,6 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
         NSString *body = [jsonWriter stringWithObject:message];
         
         
-        [self.requestImageViewed setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]]; 
         
         NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_DEREGISTER_ACCOUNT]]; 
         
@@ -324,6 +324,7 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
         
         //set parameters of the request except for the body: 
         [request setHTTPMethod:@"POST"]; 
+        [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]]; 
         
         [request  addValue:@"application/json" forHTTPHeaderField:@"content-type"]; 
         [request  addValue:@"utf8" forHTTPHeaderField:@"charset"]; 

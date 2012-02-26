@@ -148,10 +148,9 @@
 
 -(NSDictionary*) dictionaryRepresentation
 {
-    NSMutableDictionary* result = [NSMutableDictionary dictionaryWithCapacity:5]; 
+    NSMutableDictionary* result = [NSMutableDictionary dictionaryWithDictionary:[super dictionaryRepresentation]];  
     
     [result setValue:self.accountName?self.accountName:[NSNull null] forKey:@"accountName"]; 
-    [result setValue:self.username?self.username:[NSNull null]  forKey:@"username"]; 
     [result setValue:self.requestToken?self.requestToken:[NSNull null]  forKey:@"requestToken"]; 
     [result setValue:self.requestSecret?self.requestSecret:[NSNull null]  forKey:@"requestSecret"]; 
     [result setValue:self.accessToken?self.accessToken:[NSNull null]  forKey:@"accessToken"]; 

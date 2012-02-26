@@ -105,7 +105,9 @@
 
 -(NSDictionary*) dictionaryRepresentation
 {
-    return nil; 
+    NSMutableDictionary* result = [NSMutableDictionary dictionaryWithCapacity:8]; 
+    [result setValue:self.username?self.username:[NSNull null]  forKey:@"username"]; 
+    return result; 
 }
 
 -(void) deactivate

@@ -42,10 +42,10 @@ static NSString* SERVICE_CREATE_USER        = @"createUser";
                 SERVER_ADDRESS = @"http://68.45.157.225/rlimage/imagerecommendationservice.asmx/";
             break;
         case RLWEBSERVICE_MAC:
-                SERVER_ADDRESS = @"http://localhost:3000/ws/"; 
+                SERVER_ADDRESS = @"http://192.168.10.102:3000/ws/"; 
             break;
         case RLWEBSERVICE_AMAZON: 
-                SERVER_ADDRESS = @"http://localhost:3000/ws/"; 
+                SERVER_ADDRESS = @"http://192.168.10.102:3000/ws/"; 
             break;
     }
     

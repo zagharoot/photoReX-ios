@@ -9,17 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "SBJsonParser.h"
 
-#define SERVER_ADDRESS   @"http://68.45.157.225"
-//#define SERVER_ADDRESS      @"http://localhost:3000"
-
-#define SERVICE_RECOMMEND           @"/rlimage/imagerecommendationservice.asmx/recommend" 
-#define SERVICE_IMAGEVIEWED         @"/rlimage/imagerecommendationservice.asmx/updateModel"
-#define SERVICE_REGISTER_ACCOUNT    @"/rlimage/imagerecommendationservice.asmx/registerAccount"
-#define SERVICE_DEREGISTER_ACCOUNT  @"/rlimage/imagerecommendationservice.asmx/deregisterAccount"
-#define SERVICE_CREATE_USER         @"/rlimage/imagerecommendationservice.asmx/createUser"
 
 // This class takes care of receiving information from our own web server (image recommendations). 
 // 
+
+
+
+enum WebServiceLocation {
+    RLWEBSERVICE_LAPTOP = 0,
+    RLWEBSERVICE_MAC = 1, 
+    RLWEBSERVICE_AMAZON = 2
+    };
 
 @interface RLWebserviceClient : NSObject
 {
@@ -28,15 +28,15 @@
     
     NSString* _userid; 
     NSString* _signature; 
-
+    enum WebServiceLocation _webServiceLocation; 
 }
 
-
+-(void) setWebServiceLocation:(enum WebServiceLocation) location; 
 +(RLWebserviceClient*) standardClient;      //returns the onl object we hve for this class 
 
 -(void) registerAsNewAccount; 
--(void) loadUserid; 
-
+-(void) loadSettings; 
+-(void) saveSettings; 
 
 //picInfoData is actually an array of json data that can be used to generated pictureInfos
 -(void) getPageFromServerAsync:(int) howMany andRunBlock:(void (^)(NSString* pageid, NSArray* picInfoData)) theBlock ; 
@@ -52,5 +52,6 @@
 @property (retain, readonly) NSMutableURLRequest* requestImageViewed; 
 @property (nonatomic, copy) NSString* userid; 
 @property (nonatomic, copy) NSString* signature; 
+@property (nonatomic) enum WebServiceLocation webServiceLocation; 
 
 @end

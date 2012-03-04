@@ -13,18 +13,61 @@
 
 static RLWebserviceClient* _rlWebServiceClient= nil; 
 
+
 @implementation RLWebserviceClient
+
+
+static NSString* SERVER_ADDRESS =   @"";
+
+static NSString* SERVICE_RECOMMEND          = @"recommend" ;
+static NSString* SERVICE_IMAGEVIEWED        = @"updateModel";
+static NSString* SERVICE_REGISTER_ACCOUNT   = @"registerAccount";
+static NSString* SERVICE_DEREGISTER_ACCOUNT = @"deregisterAccount";
+static NSString* SERVICE_CREATE_USER        = @"createUser";
+
 
 @synthesize requestRecommend=_requestRecommend;
 @synthesize requestImageViewed=_requestImageViewed; 
 
 @synthesize userid = _userid; 
 @synthesize signature=_signature; 
+@synthesize webServiceLocation=_webServiceLocation; 
+
+
+-(void) setWebServiceLocation:(enum WebServiceLocation)location
+{
+    _webServiceLocation = location; 
+    switch (location) {
+        case RLWEBSERVICE_LAPTOP:
+                SERVER_ADDRESS = @"http://68.45.157.225/rlimage/imagerecommendationservice.asmx/";
+            break;
+        case RLWEBSERVICE_MAC:
+                SERVER_ADDRESS = @"http://localhost:3000/ws/"; 
+            break;
+        case RLWEBSERVICE_AMAZON: 
+                SERVER_ADDRESS = @"http://localhost:3000/ws/"; 
+            break;
+    }
+    
+    
+    //update the url of the request objects: 
+    
+    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_RECOMMEND]]; 
+    _requestRecommend.URL = url; 
+    
+    url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_IMAGEVIEWED]]; 
+    _requestImageViewed.URL = url; 
+    
+
+}
+
 
 +(RLWebserviceClient*) standardClient
 {
     if (!_rlWebServiceClient)
+    {
         _rlWebServiceClient = [[RLWebserviceClient alloc] init]; 
+    }
     
     return _rlWebServiceClient; 
 }
@@ -33,10 +76,7 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
 -(void) setUserid:(NSString *)userid
 {
     [_userid release]; 
-    _userid = [userid copy];
-    
-    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
-    [ud setValue:_userid   forKey:@"masterAccountID"];     
+    _userid = [userid copy];    
 }
 
 //this is a copy property
@@ -45,28 +85,54 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
     [_signature release]; 
     _signature = [signature copy]; 
     
-    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
-    [ud setValue:_signature forKey:@"masterAccountSignature"]; 
 }
 
 
-
--(void) loadUserid
+-(void) saveSettings 
 {
-    //TODO: remove this
-//    return; 
+    NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
+    
+    NSDictionary* webservice = [ud valueForKey:@"webservice"]; 
+    NSMutableDictionary* mwebservice; 
+    if (webservice)
+        mwebservice = [NSMutableDictionary dictionaryWithDictionary:webservice]; 
+    else
+        mwebservice = [NSMutableDictionary dictionaryWithCapacity:3]; 
+    
+    [mwebservice setValue:self.userid forKey:@"masterAccountID"]; 
+    [mwebservice setValue:[NSNumber numberWithInt:self.webServiceLocation] forKey:@"location"]; 
+    [mwebservice setValue:self.signature forKey:@"masterAccountSignature"]; 
+    
+    [ud setValue:mwebservice forKey:@"webservice"]; 
+}
+
+
+-(void) loadSettings
+{
     
     
     //---------- read user defaults for the master account ID 
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
-    NSString* masterID = [ud valueForKey:@"masterAccountID"]; 
-    NSString* sig = [ud valueForKey:@"masterAccountSignature"] ;
     
-    if (masterID) 
-        _userid = [masterID copy] ;     //don't call the setter method here 
+    NSDictionary* webservice = [ud valueForKey:@"webservice"]; 
     
-    if (sig)
-        _signature = [sig copy];        //don't call the setter method here 
+    if (webservice)
+    {
+        NSString* masterID = [webservice valueForKey:@"masterAccountID"]; 
+        NSString* sig = [webservice valueForKey:@"masterAccountSignature"] ;
+        NSNumber* location = [webservice valueForKey:@"location"]; 
+        
+        if (masterID) 
+            _userid = [masterID copy] ;     //don't call the setter method here 
+        
+        if (sig)
+            _signature = [sig copy];        //don't call the setter method here 
+        
+        if (location)
+            self.webServiceLocation = location.intValue; 
+        else
+            self.webServiceLocation = RLWEBSERVICE_LAPTOP; 
+    }
 }
 
 
@@ -129,14 +195,15 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
     self = [super init];
     if (self) {
         
-        [self loadUserid]; 
+        [self loadSettings]; 
         if (! self.userid)
             [self registerAsNewAccount]; 
         
         //create the request: only the body part of the request remains to be created on the fly at each call
         NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_RECOMMEND]]; 
         _requestRecommend = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLCacheStorageAllowedInMemoryOnly timeoutInterval:60]; 
-        
+ 
+            
         //set parameters of the request except for the body: 
         [self.requestRecommend setHTTPMethod:@"POST"]; 
         
@@ -193,8 +260,8 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
          } else         //success
          {
              
-//             NSString* datastr = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]; 
-//             NSLog(@"received data as %@\n", datastr); 
+             NSString* datastr = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]; 
+             NSLog(@"received data as %@\n", datastr); 
              
              
              //use the data and extract the array of pictureID's
@@ -347,6 +414,7 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
 
 -(void) dealloc
 {
+    [self saveSettings]; 
     self.userid = nil; 
     [_requestRecommend release]; 
     [_requestImageViewed release]; 

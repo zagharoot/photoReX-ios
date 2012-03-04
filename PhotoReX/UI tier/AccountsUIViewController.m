@@ -11,6 +11,7 @@
 #import "AccountTableViewCell.h"
 #import "FlickrAccountUIViewController.h"
 #import "FancyTabbarController.h" 
+#import "RLWebserviceClient.h"
 
 @implementation AccountsUIViewController
 @synthesize closeBtn=_closeBtn; 
@@ -104,8 +105,8 @@
         case 0:
             return [AccountManager standardAccountManager].NUMBER_OF_ACCOUNTS; 
             break;
-        case 1:         //ui section 
-            return 0; 
+        case 1:         //web service location 
+            return 3; 
         default:
             return 0; 
     }
@@ -132,10 +133,32 @@
         [accountCells setValue:cell forKey:[NSString stringWithFormat:@"%d", indexPath.row]]; 
         
         return cell;
-    } else if (indexPath.section==1) //this is the UI config section 
+    } else if (indexPath.section==1) //this is the web service location 
     {
-        return nil; 
+        UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil]; 
+        [cell autorelease]; 
         
+        switch (indexPath.row) {
+            case RLWEBSERVICE_LAPTOP: 
+                cell.textLabel.text = @"Laptop"; 
+                break;
+                
+            case RLWEBSERVICE_MAC: 
+                cell.textLabel.text = @"Mac"; 
+                break;
+                
+            case RLWEBSERVICE_AMAZON:
+                cell.textLabel.text = @"Amazon"; 
+                break; 
+                
+            default:
+                break;
+        }
+        
+        if (indexPath.row == [RLWebserviceClient standardClient].webServiceLocation)
+            cell.accessoryType = UITableViewCellAccessoryCheckmark; 
+        
+        return cell; 
     }
     
     
@@ -259,6 +282,12 @@
         }
         
     }//an account 
+    else if (indexPath.section == 1) //service location
+    {
+        [RLWebserviceClient standardClient].webServiceLocation = indexPath.row; 
+        
+        [tableView reloadData]; 
+    }
     
 }
 
@@ -268,7 +297,7 @@
         case 0:
             return @"Accounts"; 
         case 1:
-            return @"User Interface"; 
+            return @"Server Location"; 
             
         default:
             break;

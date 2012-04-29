@@ -21,7 +21,7 @@ typedef enum ImageActivityStatus
 {
     ImageActivityStatusUnknown =-1,
     ImageActivityStatusNotVisited=0, 
-    ImageActivityStatusVisited = 1, 
+    ImageActivityStatusViewed = 1, 
     ImageActivityStatusDisliked = 2
 } ImageActivityStatus;
 
@@ -41,6 +41,7 @@ enum ACCOUNT_INDEX  //WEBSITE: add the website here
 //information should be kept. 
 @interface PictureInfoDetails : NSObject {
     enum ACCOUNT_INDEX _website; 
+    NSString* _hash; 
     
     NSString* _author; 
     NSString* _title; 
@@ -55,6 +56,7 @@ enum ACCOUNT_INDEX  //WEBSITE: add the website here
 @property (nonatomic, copy) NSString* title; 
 @property (nonatomic, copy) NSString* subtitle; 
 @property (nonatomic) BOOL isFavorite; 
+@property (nonatomic, readonly) NSString* hash; 
 
 @end //-----------------------------------
 
@@ -88,7 +90,7 @@ enum ACCOUNT_INDEX  //WEBSITE: add the website here
 -(BOOL) isInfoDataAvailable;                                    //is the actual picture data available?
 -(void) createInfoFromJsonData:(NSDictionary*) data; 
 
--(void) visit; 
+-(void) makeViewed; 
 
 
 @property (nonatomic, retain) PictureInfoDetails* info; 
@@ -116,7 +118,7 @@ enum ACCOUNT_INDEX  //WEBSITE: add the website here
 }
 
 
--(id) initWithID:(NSString*) id andServer:(NSString*) server andFarm:(NSString*) farm andSecret:(NSString*) secret;
+-(id) initWithID:(NSString*) id andServer:(NSString*) server andFarm:(NSString*) farm andSecret:(NSString*) secret andHash:(NSString*) hash;
 
 +(FlickrPictureInfo*) infoFromJsonData:(NSDictionary*) data; 
 

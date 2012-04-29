@@ -17,6 +17,7 @@
 @synthesize subtitle=_subtitle; 
 @synthesize author=_author; 
 @synthesize isFavorite=_isFavorite; 
+@synthesize hash=_hash; 
 
 -(NSDictionary*) getDictionaryRepresentation
 {
@@ -35,7 +36,6 @@
 
 @synthesize info=_info; 
 @synthesize userActivityStatus=_userActivityStatus; 
-
 
 
 -(void) setUserActivityStatus:(ImageActivityStatus)userActivityStatus
@@ -114,8 +114,15 @@
     
     NSString* website = [picData objectForKey:@"website"]; 
     
+    
     if (website == nil){NSLog(@"ERROR: website data invalid createInfoFromJsonData\n"); return; }
 
+    
+    NSNumber* viewed = [picData objectForKey:@"isViewed"]; 
+    
+
+    if (viewed && viewed.boolValue) 
+        self.userActivityStatus = ImageActivityStatusViewed; 
     
     if ([website isEqualToString:@"flickr"])
         [self setInfo:[FlickrPictureInfo infoFromJsonData:picData]]; 
@@ -124,10 +131,7 @@
     else if ([website isEqualToString:@"fiveHundredPX"])
         [self setInfo:[FiveHundredPXPictureInfo infoFromJsonData:picData]]; 
     
-    
-    
     //WEBSITE: add code for other websites 
-    
 }
 
 -(NSDictionary*) dictionaryRepresentation
@@ -148,11 +152,11 @@
 
 
 //change the status to visited unless the user has already marked it as disliked
--(void) visit
+-(void) makeViewed
 {
     if (self.userActivityStatus != ImageActivityStatusDisliked)
     {
-        self.userActivityStatus = ImageActivityStatusVisited; 
+        self.userActivityStatus = ImageActivityStatusViewed; 
     }
 }
 
@@ -182,7 +186,7 @@
 @synthesize numberOfVisits=_numberOfVisits; 
 @synthesize numberOfComments=_numberOfComments; 
 
--(id) initWithID:(NSString *)picID andServer:(NSString *)server andFarm:(NSString *)farm andSecret:(NSString *)secret
+-(id) initWithID:(NSString *)picID andServer:(NSString *)server andFarm:(NSString *)farm andSecret:(NSString *)secret andHash:(NSString *)hash
 {
     _website = FLICKR_INDEX; 
     if (self = [super init])
@@ -191,6 +195,7 @@
         _server = [server copy]; 
         _farm = [farm copy]; 
         _secret = [secret copy];
+        _hash   = [hash copy]; 
         
         _numberOfComments=0; 
         _numberOfVisits=0; 
@@ -207,6 +212,7 @@
     NSString* sr = [data objectForKey:@"server"]; 
     NSString* f = [data objectForKey:@"farm"]; 
     NSString* sc = [data objectForKey:@"secret"]; 
+    NSString* h = [data objectForKey:@"hash"]; 
     
     
     if (p== nil || sr==nil || f==nil || sc==nil)
@@ -215,7 +221,7 @@
         return nil; 
     }
     
-    return [[[FlickrPictureInfo alloc] initWithID:p andServer:sr andFarm:f andSecret:sc] autorelease]; 
+    return [[[FlickrPictureInfo alloc] initWithID:p andServer:sr andFarm:f andSecret:sc andHash:h] autorelease]; 
 }
 
 

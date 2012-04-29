@@ -42,7 +42,7 @@ enum WebServiceLocation {
 -(void) getPageFromServerAsync:(int) howMany andRunBlock:(void (^)(NSString* pageid, NSArray* picInfoData)) theBlock ; 
 
 //sends user activity to the server (guarantees receive on the server side) 
--(void) sendPageActivityAsync:(NSString*) pageid pictureIndex:(int) index; 
+-(void) sendPageActivityAsync:(NSString*) pageid pictureHash:(NSString*) hash; 
 
 -(void) registerAccountAsync:(NSDictionary*) account;            //given a dictionary representation of an account, registers it with the website 
 -(void) deregsiterAccountAsync:(NSDictionary*) account; 

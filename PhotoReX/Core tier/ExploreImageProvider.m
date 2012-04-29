@@ -72,7 +72,10 @@ const int CACHED_PAGES  =  1;           //number of pages retrieved in advance
 
 -(void) userVisitsImageAtIndex:(int)indx inPictureInfoCollection:(PictureInfoCollection *)picCollection
 {
-    [webservice sendPageActivityAsync:picCollection.uniqueID pictureIndex:indx]; 
+    PictureInfo* p = [picCollection getPictureInfoAtLocation:indx]; 
+    
+    NSString* hash = [picCollection getPictureInfoAtLocation:indx].info.hash; 
+    [webservice sendPageActivityAsync:picCollection.uniqueID pictureHash: hash]; 
 }
 
 

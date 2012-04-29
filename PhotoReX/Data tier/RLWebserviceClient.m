@@ -45,7 +45,7 @@ static NSString* SERVICE_CREATE_USER        = @"createUser";
                 SERVER_ADDRESS = @"http://192.168.10.102:3000/ws/"; 
             break;
         case RLWEBSERVICE_AMAZON: 
-                SERVER_ADDRESS = @"http://192.168.10.102:3000/ws/"; 
+                SERVER_ADDRESS = @"http://23.21.119.56:3000/ws/"; 
             break;
     }
     
@@ -115,6 +115,7 @@ static NSString* SERVICE_CREATE_USER        = @"createUser";
     NSUserDefaults* ud = [NSUserDefaults standardUserDefaults]; 
     
     NSDictionary* webservice = [ud valueForKey:@"webservice"]; 
+    self.webServiceLocation = RLWEBSERVICE_MAC; 
     
     if (webservice)
     {
@@ -131,7 +132,7 @@ static NSString* SERVICE_CREATE_USER        = @"createUser";
         if (location)
             self.webServiceLocation = location.intValue; 
         else
-            self.webServiceLocation = RLWEBSERVICE_LAPTOP; 
+            self.webServiceLocation = RLWEBSERVICE_MAC; 
     }
 }
 
@@ -261,33 +262,31 @@ static NSString* SERVICE_CREATE_USER        = @"createUser";
          {
              
              NSString* datastr = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]; 
-             NSLog(@"received data as %@\n", datastr); 
+           //  NSLog(@"received data as %@\n", datastr); 
              
-             
-             //use the data and extract the array of pictureID's
              
              SBJsonParser* parser = [[SBJsonParser alloc] init]; 
-             
              parser.maxDepth = 6; 
              
+
              NSDictionary* d1 = [parser objectWithData:data]; 
-                          
              if (d1 == nil) { NSLog(@"the data from webservice was not formatted correctly"); theBlock(nil, nil); [parser release]; return;}
-             
-             
-             //NSString* datastr = [d1 objectForKey:@"d"]; 
-       //      NSLog(@"stripped data %@\n", datastr); 
-             
-             NSDictionary* d2 = [parser objectWithString:[d1 objectForKey:@"d"]]; 
-//             NSDictionary* d2 = [d1 objectForKey:@"d"];         //for some reason, this is always present (all the data is wrapped in a d field)
+                          
 
              
-             
-             if (d2 == nil) { NSLog(@"the data from webservice was not formatted correctly"); theBlock(nil, nil); [parser release]; return;}
+             NSDictionary* d2; 
+             if (self.webServiceLocation == RLWEBSERVICE_LAPTOP)
+             {
+                 //getting from ASP.NET ---------
+                 d2 = [parser objectWithString:[d1 objectForKey:@"d"]]; 
+                 if (d2 == nil) { NSLog(@"the data from webservice was not formatted correctly"); theBlock(nil, nil); [parser release]; return;
+                 }
+             }else
+                 d2 = d1; 
              
              
              NSString* pageid = [d2 objectForKey:@"pageid"]; 
-             NSArray*  pages  = [d2 objectForKey:@"pages"]; 
+             NSArray*  pages  = [d2 objectForKey:@"pics"]; 
              
              if (pageid==nil || pages == nil) { NSLog(@"the data from webservice was not formatted correctly"); theBlock(nil, nil); [parser release]; return;}
              
@@ -305,12 +304,12 @@ static NSString* SERVICE_CREATE_USER        = @"createUser";
 }
 
 
--(void) sendPageActivityAsync:(NSString *)pageid pictureIndex:(int)index
+-(void) sendPageActivityAsync:(NSString *)pageid pictureHash:(NSString*) hash
 {    
     if (!self.userid) 
         return; 
 
-    NSString* body = [NSString stringWithFormat:@"{\"userid\":\"%@\",\"collectionID\":\"%@\",\"picIndex\":\"%d\"}", self.userid, pageid, index]; 
+    NSString* body = [NSString stringWithFormat:@"{\"userid\":\"%@\",\"collectionID\":\"%@\",\"picHash\":\"%@\"}", self.userid, pageid, hash]; 
     
     [self.requestImageViewed setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]]; 
     

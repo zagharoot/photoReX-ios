@@ -15,6 +15,7 @@
 @interface PhotoViewController : UIViewController <UIScrollViewDelegate, UINetImageViewDelegate> {
     PictureInfo* _pictureInfo; 
     UINetImageView* imageView; 
+    UIImageView* _blurredImageView; 
     PhotoScrollView* _scrollView; 
     PhotoDetailOverlayView* _detailOverlayView; 
     
@@ -40,7 +41,7 @@
 @property (retain, nonatomic) IBOutlet UIButton *rotateBtnTB;
 @property (retain, nonatomic) IBOutlet UIButton *shareBtnTB;
 @property (retain, nonatomic) IBOutlet UIButton *commentBtnTB;
-
+@property (retain, nonatomic) IBOutlet UIImageView* blurredImageView; 
 @property (retain, nonatomic) IBOutlet UIButton *floatingRotateBtn;
 
 
@@ -58,8 +59,13 @@
 -(void) respondToOrientationChange; 
 -(void) showRotateButton; 
 -(void) hideRotateButton;       //automatically calls the animated one
+- (IBAction)commentBtnPressed:(id)sender;
+- (IBAction)sharePressed:(id)sender;
+@property (retain, nonatomic) IBOutlet UIButton *commentBtnPressed;
 -(void) hideRotateButtonAnimation:(BOOL) animated;
 - (IBAction)rotatePictureToIdentityBySender:(UIButton *)sender;
+
+-(void) blurTheImage:(BOOL) blur; 
 
 //-(void) rotatePictureToIdentityBySender:(UIButton*) sender;            //undoes the auto rotate to original image orientation
 -(void) rotatePictureToAutoBySender:(UIButton*) sender;                //automatically transforms the image to best fit the screen 

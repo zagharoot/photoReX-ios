@@ -391,11 +391,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/Core tier/ExploreImageProvider.m"
-         timestampString = "344313404.260909"
+         timestampString = "356926455.748248"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "78"
-         endingLineNumber = "78"
+         startingLineNumber = "81"
+         endingLineNumber = "81"
          landmarkName = "@implementation ExploreImageProvider"
          landmarkType = "3">
       </FileBreakpoint>
@@ -447,11 +447,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/UI tier/UINetImageView.m"
-         timestampString = "351044410.649501"
+         timestampString = "357315312.255986"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "113"
-         endingLineNumber = "113"
+         startingLineNumber = "114"
+         endingLineNumber = "114"
          landmarkName = "-imageActivityStatusDidChange:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -685,11 +685,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "352567814.130837"
+         timestampString = "352576895.283806"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "198"
-         endingLineNumber = "198"
+         startingLineNumber = "199"
+         endingLineNumber = "199"
          landmarkName = "-init"
          landmarkType = "5">
       </FileBreakpoint>
@@ -755,11 +755,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "352567814.130837"
+         timestampString = "352907456.288166"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "343"
-         endingLineNumber = "343"
+         startingLineNumber = "342"
+         endingLineNumber = "342"
          landmarkName = "-registerAccountAsync:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -769,11 +769,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "352567814.130837"
+         timestampString = "352907456.288166"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "338"
-         endingLineNumber = "338"
+         startingLineNumber = "337"
+         endingLineNumber = "337"
          landmarkName = "-registerAccountAsync:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -783,11 +783,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "352567814.130837"
+         timestampString = "352576895.283806"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "141"
-         endingLineNumber = "141"
+         startingLineNumber = "142"
+         endingLineNumber = "142"
          landmarkName = "-registerAsNewAccount"
          landmarkType = "5">
       </FileBreakpoint>
@@ -796,11 +796,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "352567814.130837"
+         timestampString = "352576895.283806"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "195"
-         endingLineNumber = "195"
+         startingLineNumber = "196"
+         endingLineNumber = "196"
          landmarkName = "-init"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1002,24 +1002,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "352567814.130837"
+         timestampString = "352907456.288166"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "298"
-         endingLineNumber = "298"
-         landmarkName = "-getPageFromServerAsync:andRunBlock:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "352567814.130837"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "269"
-         endingLineNumber = "269"
+         startingLineNumber = "297"
+         endingLineNumber = "297"
          landmarkName = "-getPageFromServerAsync:andRunBlock:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1108,11 +1095,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/UI tier/PhotoViewController.m"
-         timestampString = "351450502.848464"
+         timestampString = "357337603.477802"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "312"
-         endingLineNumber = "312"
+         startingLineNumber = "378"
+         endingLineNumber = "378"
          landmarkName = "-viewForZoomingInScrollView:"
          landmarkType = "5">
          <Locations>
@@ -1147,11 +1134,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/UI tier/PhotoViewController.m"
-         timestampString = "351450502.848464"
+         timestampString = "357337603.477802"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "258"
-         endingLineNumber = "258"
+         startingLineNumber = "324"
+         endingLineNumber = "324"
          landmarkName = "-rotatePictureToDegree:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1186,11 +1173,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "352567814.130837"
+         timestampString = "352576895.283806"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "165"
-         endingLineNumber = "165"
+         startingLineNumber = "166"
+         endingLineNumber = "166"
          landmarkName = "-registerAsNewAccount"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1212,11 +1199,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "352567814.130837"
+         timestampString = "352576895.283806"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "182"
-         endingLineNumber = "182"
+         startingLineNumber = "183"
+         endingLineNumber = "183"
          landmarkName = "-registerAsNewAccount"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1225,11 +1212,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "352567814.130837"
+         timestampString = "352576895.283806"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "150"
-         endingLineNumber = "150"
+         startingLineNumber = "151"
+         endingLineNumber = "151"
          landmarkName = "-registerAsNewAccount"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1238,11 +1225,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "352567814.130837"
+         timestampString = "352907456.288166"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "336"
-         endingLineNumber = "336"
+         startingLineNumber = "335"
+         endingLineNumber = "335"
          landmarkName = "-registerAccountAsync:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1251,11 +1238,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "352567814.130837"
+         timestampString = "352907456.288166"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "363"
-         endingLineNumber = "363"
+         startingLineNumber = "362"
+         endingLineNumber = "362"
          landmarkName = "-registerAccountAsync:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1264,11 +1251,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "352567814.130837"
+         timestampString = "352576895.283806"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "264"
-         endingLineNumber = "264"
+         startingLineNumber = "265"
+         endingLineNumber = "265"
          landmarkName = "-getPageFromServerAsync:andRunBlock:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1277,11 +1264,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "352567814.130837"
+         timestampString = "352576895.283806"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "236"
-         endingLineNumber = "236"
+         startingLineNumber = "237"
+         endingLineNumber = "237"
          landmarkName = "-getPageFromServerAsync:andRunBlock:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1290,11 +1277,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "352567814.130837"
+         timestampString = "352907456.288166"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "417"
-         endingLineNumber = "417"
+         startingLineNumber = "416"
+         endingLineNumber = "416"
          landmarkName = "-dealloc"
          landmarkType = "5">
       </FileBreakpoint>
@@ -1351,16 +1338,172 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
+         timestampString = "352576895.283806"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "162"
+         endingLineNumber = "162"
+         landmarkName = "-registerAsNewAccount"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/Core tier/PictureInfo.m"
+         timestampString = "352576188.881208"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "99"
+         endingLineNumber = "99"
+         landmarkName = "-createInfoFromJsonData:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
+         timestampString = "352576895.283806"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "257"
+         endingLineNumber = "257"
+         landmarkName = "-getPageFromServerAsync:andRunBlock:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/UI tier/UINetImageView.m"
+         timestampString = "357315312.255986"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "158"
+         endingLineNumber = "158"
+         landmarkName = "-loadPicture"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/Data tier/ImageFlickrDataProvider.m"
+         timestampString = "352577140.959669"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "193"
+         endingLineNumber = "193"
+         landmarkName = "-getDataForPicture:withResolution:withObserver:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/Core tier/PictureInfoCollection.m"
+         timestampString = "355524731.124977"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "71"
+         endingLineNumber = "71"
+         landmarkName = "-loadPicturesWithData:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/Core tier/ExploreImageProvider.m"
+         timestampString = "356926455.748248"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "78"
+         endingLineNumber = "78"
+         landmarkName = "-userVisitsImageAtIndex:inPictureInfoCollection:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/Core tier/PictureInfo.m"
+         timestampString = "356926625.118539"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "115"
+         endingLineNumber = "115"
+         landmarkName = "-createInfoFromJsonData:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/Core tier/PictureInfo.m"
+         timestampString = "357004128.052644"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "121"
+         endingLineNumber = "121"
+         landmarkName = "-createInfoFromJsonData:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/UI tier/PhotoViewController.m"
+         timestampString = "357337603.477802"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "442"
+         endingLineNumber = "442"
+         landmarkName = "-imageBecameAvailableForView:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
-         timestampString = "352568338.069388"
+         timestampString = "357336767.527668"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "161"
-         endingLineNumber = "161"
-         landmarkName = "-registerAsNewAccount"
+         startingLineNumber = "273"
+         endingLineNumber = "273"
+         landmarkName = "-getPageFromServerAsync:andRunBlock:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
+         timestampString = "357336770.819862"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "282"
+         endingLineNumber = "282"
+         landmarkName = "-getPageFromServerAsync:andRunBlock:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/Data tier/RLWebserviceClient.m"
+         timestampString = "357336776.129784"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "291"
+         endingLineNumber = "291"
+         landmarkName = "-getPageFromServerAsync:andRunBlock:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -14,9 +14,12 @@
     CGGradientRef gradientRef; 
     
     PictureInfo* _pictureInfo; 
+    
+    BOOL _isModalVisible;            //whether one of the toolbar buttons (share, comments,...) is visible
 }
 
 
 @property (nonatomic, assign) PictureInfo* pictureInfo; 
+@property (nonatomic) BOOL isModalVisible; 
 
 @end

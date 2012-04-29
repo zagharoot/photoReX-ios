@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		080757E1154995D4003130EF /* UIImage+StackBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = 080757E0154995D4003130EF /* UIImage+StackBlur.m */; };
 		083915BB14617577005C42D8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083915BA14617577005C42D8 /* UIKit.framework */; };
 		083915BD14617577005C42D8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083915BC14617577005C42D8 /* Foundation.framework */; };
 		083915BF14617577005C42D8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083915BE14617577005C42D8 /* CoreGraphics.framework */; };
@@ -27,6 +28,12 @@
 		0839DBBB149CDAF900043178 /* tableCellIndicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 0839DBBA149CDAF900043178 /* tableCellIndicator.png */; };
 		0839DBC1149D08E200043178 /* AccountSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0839DBC0149D08E200043178 /* AccountSettings.plist */; };
 		0839DBC3149D459D00043178 /* defaultIconImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 0839DBC2149D459D00043178 /* defaultIconImage.png */; };
+		0860C4271544DE4A003A7234 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0860C4251544DE4A003A7234 /* icon.png */; };
+		0860C4281544DE4A003A7234 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0860C4261544DE4A003A7234 /* icon@2x.png */; };
+		0860C42E1544E1B9003A7234 /* icon-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0860C42A1544E1B9003A7234 /* icon-ipad.png */; };
+		0860C42F1544E1B9003A7234 /* icon-ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0860C42B1544E1B9003A7234 /* icon-ipad@2x.png */; };
+		0860C4301544E1B9003A7234 /* icon-search.png in Resources */ = {isa = PBXBuildFile; fileRef = 0860C42C1544E1B9003A7234 /* icon-search.png */; };
+		0860C4311544E1B9003A7234 /* icon-search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0860C42D1544E1B9003A7234 /* icon-search@2x.png */; };
 		0886EE6714FAC3E00045C6C1 /* AccountsUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0886EE6314FAC3E00045C6C1 /* AccountsUIViewController.m */; };
 		0886EE6814FAC3E00045C6C1 /* AccountsUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0886EE6414FAC3E00045C6C1 /* AccountsUIViewController.xib */; };
 		0886EE6914FAC3E00045C6C1 /* AccountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0886EE6614FAC3E00045C6C1 /* AccountTableViewCell.m */; };
@@ -66,6 +73,8 @@
 		08CE517314A23741004C1916 /* FancyTabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE517214A23740004C1916 /* FancyTabbarController.m */; };
 		08CE517714A23763004C1916 /* FancyTabbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE517614A23763004C1916 /* FancyTabbar.m */; };
 		08CE517A14A23ABA004C1916 /* FancyTabbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CE517914A23ABA004C1916 /* FancyTabbarItem.m */; };
+		08D885601544D9FD00410841 /* viewed.png in Resources */ = {isa = PBXBuildFile; fileRef = 08D8855E1544D9FD00410841 /* viewed.png */; };
+		08D885611544D9FD00410841 /* viewed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08D8855F1544D9FD00410841 /* viewed@2x.png */; };
 		08E71F3C148D773F00845199 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 08E71F3B148D773F00845199 /* Settings.bundle */; };
 		08F1528C1481316100CF7BD9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F1522D1481316000CF7BD9 /* AppDelegate.m */; };
 		08F1528D1481316100CF7BD9 /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 08F152301481316000CF7BD9 /* Account.m */; };
@@ -123,6 +132,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		080757DF154995D4003130EF /* UIImage+StackBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+StackBlur.h"; sourceTree = "<group>"; };
+		080757E0154995D4003130EF /* UIImage+StackBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+StackBlur.m"; sourceTree = "<group>"; };
 		083915B614617577005C42D8 /* photoRex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = photoRex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		083915BA14617577005C42D8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		083915BC14617577005C42D8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -159,6 +170,12 @@
 		0839DBBA149CDAF900043178 /* tableCellIndicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tableCellIndicator.png; sourceTree = "<group>"; };
 		0839DBC0149D08E200043178 /* AccountSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AccountSettings.plist; sourceTree = "<group>"; };
 		0839DBC2149D459D00043178 /* defaultIconImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defaultIconImage.png; sourceTree = "<group>"; };
+		0860C4251544DE4A003A7234 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		0860C4261544DE4A003A7234 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		0860C42A1544E1B9003A7234 /* icon-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-ipad.png"; sourceTree = "<group>"; };
+		0860C42B1544E1B9003A7234 /* icon-ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-ipad@2x.png"; sourceTree = "<group>"; };
+		0860C42C1544E1B9003A7234 /* icon-search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-search.png"; sourceTree = "<group>"; };
+		0860C42D1544E1B9003A7234 /* icon-search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-search@2x.png"; sourceTree = "<group>"; };
 		0886EE6214FAC3E00045C6C1 /* AccountsUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AccountsUIViewController.h; path = "PhotoReX/UI tier/AccountsUIViewController.h"; sourceTree = SOURCE_ROOT; };
 		0886EE6314FAC3E00045C6C1 /* AccountsUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AccountsUIViewController.m; path = "PhotoReX/UI tier/AccountsUIViewController.m"; sourceTree = SOURCE_ROOT; };
 		0886EE6414FAC3E00045C6C1 /* AccountsUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountsUIViewController.xib; path = "PhotoReX/UI tier/AccountsUIViewController.xib"; sourceTree = SOURCE_ROOT; };
@@ -213,6 +230,8 @@
 		08CE517614A23763004C1916 /* FancyTabbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FancyTabbar.m; sourceTree = "<group>"; };
 		08CE517814A23AB9004C1916 /* FancyTabbarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FancyTabbarItem.h; sourceTree = "<group>"; };
 		08CE517914A23ABA004C1916 /* FancyTabbarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FancyTabbarItem.m; sourceTree = "<group>"; };
+		08D8855E1544D9FD00410841 /* viewed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = viewed.png; sourceTree = "<group>"; };
+		08D8855F1544D9FD00410841 /* viewed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viewed@2x.png"; sourceTree = "<group>"; };
 		08E71F3B148D773F00845199 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		08F1522C1481316000CF7BD9 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		08F1522D1481316000CF7BD9 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -354,6 +373,8 @@
 		0839160D14619A89005C42D8 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				080757DF154995D4003130EF /* UIImage+StackBlur.h */,
+				080757E0154995D4003130EF /* UIImage+StackBlur.m */,
 				08F738F714A0D4DE006987A3 /* DiscreteNotificationBar */,
 				08B6BF68149F83DD002CD986 /* objectiveFlickr */,
 				0839161214619A89005C42D8 /* JSON */,
@@ -519,6 +540,14 @@
 		08F152501481316000CF7BD9 /* pics */ = {
 			isa = PBXGroup;
 			children = (
+				0860C42A1544E1B9003A7234 /* icon-ipad.png */,
+				0860C42B1544E1B9003A7234 /* icon-ipad@2x.png */,
+				0860C42C1544E1B9003A7234 /* icon-search.png */,
+				0860C42D1544E1B9003A7234 /* icon-search@2x.png */,
+				0860C4251544DE4A003A7234 /* icon.png */,
+				0860C4261544DE4A003A7234 /* icon@2x.png */,
+				08D8855E1544D9FD00410841 /* viewed.png */,
+				08D8855F1544D9FD00410841 /* viewed@2x.png */,
 				08917DA314F1FEA000F4C795 /* comments.png */,
 				08917DA414F1FEA000F4C795 /* comments@2x.png */,
 				08917D9714F1FDA700F4C795 /* rotatePhone.png */,
@@ -709,6 +738,14 @@
 				08917DA614F1FEA000F4C795 /* comments@2x.png in Resources */,
 				0886EE6814FAC3E00045C6C1 /* AccountsUIViewController.xib in Resources */,
 				0886EE6E14FAC40F0045C6C1 /* FlickrAccountUIViewController.xib in Resources */,
+				08D885601544D9FD00410841 /* viewed.png in Resources */,
+				08D885611544D9FD00410841 /* viewed@2x.png in Resources */,
+				0860C4271544DE4A003A7234 /* icon.png in Resources */,
+				0860C4281544DE4A003A7234 /* icon@2x.png in Resources */,
+				0860C42E1544E1B9003A7234 /* icon-ipad.png in Resources */,
+				0860C42F1544E1B9003A7234 /* icon-ipad@2x.png in Resources */,
+				0860C4301544E1B9003A7234 /* icon-search.png in Resources */,
+				0860C4311544E1B9003A7234 /* icon-search@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -776,6 +813,7 @@
 				0886EE6714FAC3E00045C6C1 /* AccountsUIViewController.m in Sources */,
 				0886EE6914FAC3E00045C6C1 /* AccountTableViewCell.m in Sources */,
 				0886EE6D14FAC40F0045C6C1 /* FlickrAccountUIViewController.m in Sources */,
+				080757E1154995D4003130EF /* UIImage+StackBlur.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

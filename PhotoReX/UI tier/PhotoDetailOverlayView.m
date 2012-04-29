@@ -10,8 +10,15 @@
 
 @implementation PhotoDetailOverlayView
 @synthesize pictureInfo=_pictureInfo; 
+@synthesize isModalVisible=_isModalVisible; 
 
 
+-(void) setIsModalVisible:(BOOL)isModalVisible
+{
+    _isModalVisible = isModalVisible; 
+    
+    [self setNeedsDisplay]; 
+}
 
 -(id) initWithCoder:(NSCoder *)aDecoder
 {
@@ -27,6 +34,8 @@
         };
         gradientRef = CGGradientCreateWithColorComponents(rgb, colors, NULL, sizeof(colors) / (sizeof(colors[0]) * 4));
         CGColorSpaceRelease(rgb);
+        
+        self.isModalVisible = NO; 
     }
     return self; 
 }
@@ -48,19 +57,23 @@
     CGContextMoveToPoint(context, lineMargin , topLineHeight);
     CGContextAddLineToPoint(context, b.size.width-lineMargin, topLineHeight); 
     
-    
-    CGContextMoveToPoint(context, lineMargin, bottomLineHeight);
-    CGContextAddLineToPoint(context, b.size.width-lineMargin, bottomLineHeight); 
-    CGContextDrawPath(context, kCGPathFillStroke);
-    
     CGPoint start = CGPointMake(100, 0  ); 
     CGPoint end = CGPointMake(100, topLineHeight+40);
     CGContextDrawLinearGradient(context, gradientRef, start, end, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
-
-    start = CGPointMake(100, b.size.height  ); 
-    end = CGPointMake(100, bottomLineHeight-50);
-    CGContextDrawLinearGradient(context, gradientRef, start, end, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
     
+
+    if (! self.isModalVisible)
+    {
+        CGContextMoveToPoint(context, lineMargin, bottomLineHeight);
+        CGContextAddLineToPoint(context, b.size.width-lineMargin, bottomLineHeight); 
+    
+        start = CGPointMake(100, b.size.height  ); 
+        end = CGPointMake(100, bottomLineHeight-50);
+        CGContextDrawLinearGradient(context, gradientRef, start, end, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
+    }
+    
+    
+    CGContextDrawPath(context, kCGPathFillStroke);
     [super drawRect:rect]; 
 }
 

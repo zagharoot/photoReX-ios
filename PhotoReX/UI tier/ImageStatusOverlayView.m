@@ -17,7 +17,7 @@
 
 -(id) initWithPictureInfo:(PictureInfo *)p andParentFrame:(CGRect)f
 {
-    CGRect frame = CGRectMake(0, 0, f.size.width, 20); 
+    CGRect frame = CGRectMake(0, 0, f.size.width+2, 20); 
     self = [super initWithFrame:frame]; 
     if (self)
     {
@@ -48,15 +48,23 @@
     
     UIGraphicsPopContext(); 
     
-    if (pictureInfo.userActivityStatus == ImageActivityStatusVisited)
+    if (pictureInfo.userActivityStatus == ImageActivityStatusViewed)
     {
-        CGContextSetLineWidth(context, 1);
+/*        CGContextSetLineWidth(context, 1);
         CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
 
         CGRect rect = CGRectMake(curX, 5, 10, 10); 
         UIBezierPath*    p = [UIBezierPath bezierPathWithOvalInRect:rect]; 
         
         [p fill]; 
+    
+ */
+        
+        CGRect rect = CGRectMake(curX, 5, 13, 10); 
+        UIImage* img = [UIImage imageNamed:@"viewed.png"]; 
+        CGContextDrawImage(context, rect, img.CGImage); 
+        
+        
     }
 
 

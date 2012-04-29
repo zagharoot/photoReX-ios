@@ -10,8 +10,10 @@
 #import "AccountManager.h"
 #import "ImageDataProviderManager.h" 
 #import "AppDelegate.h"
+#import "UIImage+StackBlur.h"
 
 @implementation PhotoViewController
+@synthesize commentBtnPressed;
 
 @synthesize pictureInfo=_pictureInfo; 
 @synthesize websiteIconImageView;
@@ -27,13 +29,29 @@
 @synthesize shareBtnTB;
 @synthesize commentBtnTB;
 @synthesize floatingRotateBtn;
-
+@synthesize blurredImageView=_blurredImageView; 
 
 - (IBAction)dismissView:(id)sender 
 {    
     [self dismissModalViewControllerAnimated:YES]; 
 }
 
+
+-(UIImageView*) blurredImageView
+{
+    if (_blurredImageView)
+        return _blurredImageView; 
+    
+    
+    _blurredImageView = [[UIImageView alloc] initWithFrame:imageView.frame]; 
+    
+    [_blurredImageView setHidden:YES];  
+    _blurredImageView.alpha = 0.0; 
+    
+    [self.scrollView addSubview:_blurredImageView]; 
+    
+    return _blurredImageView; 
+}
 
 //this is the designated initializer 
 -(id) initWithPictureInfo:(PictureInfo *)pic 
@@ -61,6 +79,7 @@
 {
     [_pictureInfo release]; 
     [imageView release];
+    [_blurredImageView release]; 
     [_navBar release];
     [closeBtn release];
     [websiteIconImageView release];
@@ -72,6 +91,7 @@
     [shareBtnTB release];
     [commentBtnTB release];
     [floatingRotateBtn release];
+    [commentBtnPressed release];
     [super dealloc];
 }
 
@@ -155,6 +175,50 @@
 }
 
 -(void) hideRotateButton{ [self hideRotateButtonAnimation:YES]; } 
+
+
+- (IBAction)commentBtnPressed:(id)sender {
+    [self blurTheImage:self.blurredImageView.hidden];  
+}
+
+- (IBAction)sharePressed:(id)sender {
+
+    [self blurTheImage:self.blurredImageView.hidden];  
+}
+
+
+-(void) blurTheImage:(BOOL)blur{
+    
+    if (! self.blurredImageView.image)
+        blur = NO; 
+    
+
+    [UIView animateWithDuration:0.2 animations:^{
+        if (blur)
+            self.blurredImageView.hidden = !blur; 
+        self.blurredImageView.alpha = (double) blur; 
+        self.detailOverlayView.isModalVisible = blur; 
+        self.imageTitleLabel.hidden = blur; 
+        self.imageAuthorLabel.hidden = blur; 
+        self.imageNumberOfVisitsLabel.hidden = blur; 
+        self.websiteIconImageView.hidden = blur; 
+        
+        self.detailOverlayView.isModalVisible = blur; 
+        
+    } completion:^(BOOL fin){
+        if (!blur)
+            self.blurredImageView.hidden = !blur; 
+    }];
+    
+    if (self.blurredImageView.image && blur ) 
+        [self.blurredImageView setFrame:imageView.frame]; 
+    
+}
+
+
+
+
+
 -(void) hideRotateButtonAnimation:(BOOL)animated
 {
     if (!animated)
@@ -176,6 +240,7 @@
 {
     self.pictureInfo = nil; 
     [imageView release]; 
+    [_blurredImageView release]; 
 
     
     //turn notification generation if noone is using it
@@ -196,6 +261,7 @@
     [self setShareBtnTB:nil];
     [self setCommentBtnTB:nil];
     [self setFloatingRotateBtn:nil];
+    [self setCommentBtnPressed:nil];
     [super viewDidUnload];
 }
 
@@ -324,8 +390,12 @@
             [self toggleZoomToContentWithAnimation:YES]; 
         }else   //this is the first tap
         {
-            doubleTapFlag = YES; 
-            [self performSelector:@selector(toggleStatusbar) withObject:nil afterDelay:0.35]; 
+            if (self.blurredImageView.hidden)
+            {    
+                doubleTapFlag = YES; 
+                [self performSelector:@selector(toggleStatusbar) withObject:nil afterDelay:0.35]; 
+            }else
+                [self blurTheImage:NO]; 
         }
     }
 }
@@ -429,10 +499,16 @@
     }    
 
     
+    //make the blurred version of the image in a separate thread so it doesn't block 
+    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.blurredImageView.image = [imageView.image stackBlur:30]; 
+    }); 
+    
+    
     self.scrollView.minimumZoomScale = self.scrollView.zoomScale; 
     
     //change the status of the pictureInfo 
-    [self.pictureInfo visit]; 
+    [self.pictureInfo makeViewed]; 
     
     
     //set the detail description of the im

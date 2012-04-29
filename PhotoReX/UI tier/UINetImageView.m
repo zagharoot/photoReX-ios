@@ -42,7 +42,8 @@
 {
     if (! _imageStatusOverlayView)
     {
-        _imageStatusOverlayView = [[ImageStatusOverlayView alloc] initWithPictureInfo:self.pictureInfo andParentFrame:self.frame]; 
+        _imageStatusOverlayView = [[ImageStatusOverlayView alloc] initWithPictureInfo:self.pictureInfo andParentFrame:self.frame];
+        _imageStatusOverlayView.alpha = 0.0;            //initially it's invisible until the actual data arrives 
         [self addSubview:_imageStatusOverlayView]; 
     }
 
@@ -297,6 +298,10 @@
 
     [self.delegate imageBecameAvailableForView:self];     
 
+    
+    if (self.drawUserActivityStatus)
+        self.imageStatusOverlayView.alpha = 1.0; 
+    
 }
 
 

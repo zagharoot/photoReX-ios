@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		080757E1154995D4003130EF /* UIImage+StackBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = 080757E0154995D4003130EF /* UIImage+StackBlur.m */; };
+		0818B445154E290800B54DB8 /* fiveHundredPXAccountIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0818B441154E290800B54DB8 /* fiveHundredPXAccountIcon.png */; };
+		0818B446154E290800B54DB8 /* fivehundredpxAccountIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0818B442154E290800B54DB8 /* fivehundredpxAccountIcon@2x.png */; };
+		0818B447154E290800B54DB8 /* fiveHundredPXTableCell.png in Resources */ = {isa = PBXBuildFile; fileRef = 0818B443154E290800B54DB8 /* fiveHundredPXTableCell.png */; };
+		0818B448154E290800B54DB8 /* fiveHundredPXTableCell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0818B444154E290800B54DB8 /* fiveHundredPXTableCell@2x.png */; };
+		0818B44D154E2B7D00B54DB8 /* fiveHundredPXAccountUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0818B44B154E2B7D00B54DB8 /* fiveHundredPXAccountUIViewController.m */; };
+		0818B44E154E2B7D00B54DB8 /* fiveHundredPXAccountUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0818B44C154E2B7D00B54DB8 /* fiveHundredPXAccountUIViewController.xib */; };
 		083915BB14617577005C42D8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083915BA14617577005C42D8 /* UIKit.framework */; };
 		083915BD14617577005C42D8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083915BC14617577005C42D8 /* Foundation.framework */; };
 		083915BF14617577005C42D8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083915BE14617577005C42D8 /* CoreGraphics.framework */; };
@@ -134,6 +140,13 @@
 /* Begin PBXFileReference section */
 		080757DF154995D4003130EF /* UIImage+StackBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+StackBlur.h"; sourceTree = "<group>"; };
 		080757E0154995D4003130EF /* UIImage+StackBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+StackBlur.m"; sourceTree = "<group>"; };
+		0818B441154E290800B54DB8 /* fiveHundredPXAccountIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fiveHundredPXAccountIcon.png; sourceTree = "<group>"; };
+		0818B442154E290800B54DB8 /* fivehundredpxAccountIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fivehundredpxAccountIcon@2x.png"; sourceTree = "<group>"; };
+		0818B443154E290800B54DB8 /* fiveHundredPXTableCell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fiveHundredPXTableCell.png; sourceTree = "<group>"; };
+		0818B444154E290800B54DB8 /* fiveHundredPXTableCell@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fiveHundredPXTableCell@2x.png"; sourceTree = "<group>"; };
+		0818B44A154E2B7D00B54DB8 /* fiveHundredPXAccountUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fiveHundredPXAccountUIViewController.h; path = "PhotoReX/UI tier/fiveHundredPXAccountUIViewController.h"; sourceTree = SOURCE_ROOT; };
+		0818B44B154E2B7D00B54DB8 /* fiveHundredPXAccountUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = fiveHundredPXAccountUIViewController.m; path = "PhotoReX/UI tier/fiveHundredPXAccountUIViewController.m"; sourceTree = SOURCE_ROOT; };
+		0818B44C154E2B7D00B54DB8 /* fiveHundredPXAccountUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = fiveHundredPXAccountUIViewController.xib; path = "PhotoReX/UI tier/fiveHundredPXAccountUIViewController.xib"; sourceTree = SOURCE_ROOT; };
 		083915B614617577005C42D8 /* photoRex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = photoRex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		083915BA14617577005C42D8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		083915BC14617577005C42D8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -428,6 +441,9 @@
 				0886EE6414FAC3E00045C6C1 /* AccountsUIViewController.xib */,
 				0886EE6514FAC3E00045C6C1 /* AccountTableViewCell.h */,
 				0886EE6614FAC3E00045C6C1 /* AccountTableViewCell.m */,
+				0818B44A154E2B7D00B54DB8 /* fiveHundredPXAccountUIViewController.h */,
+				0818B44B154E2B7D00B54DB8 /* fiveHundredPXAccountUIViewController.m */,
+				0818B44C154E2B7D00B54DB8 /* fiveHundredPXAccountUIViewController.xib */,
 			);
 			path = "Account Management";
 			sourceTree = "<group>";
@@ -540,6 +556,10 @@
 		08F152501481316000CF7BD9 /* pics */ = {
 			isa = PBXGroup;
 			children = (
+				0818B441154E290800B54DB8 /* fiveHundredPXAccountIcon.png */,
+				0818B442154E290800B54DB8 /* fivehundredpxAccountIcon@2x.png */,
+				0818B443154E290800B54DB8 /* fiveHundredPXTableCell.png */,
+				0818B444154E290800B54DB8 /* fiveHundredPXTableCell@2x.png */,
 				0860C42A1544E1B9003A7234 /* icon-ipad.png */,
 				0860C42B1544E1B9003A7234 /* icon-ipad@2x.png */,
 				0860C42C1544E1B9003A7234 /* icon-search.png */,
@@ -746,6 +766,11 @@
 				0860C42F1544E1B9003A7234 /* icon-ipad@2x.png in Resources */,
 				0860C4301544E1B9003A7234 /* icon-search.png in Resources */,
 				0860C4311544E1B9003A7234 /* icon-search@2x.png in Resources */,
+				0818B445154E290800B54DB8 /* fiveHundredPXAccountIcon.png in Resources */,
+				0818B446154E290800B54DB8 /* fivehundredpxAccountIcon@2x.png in Resources */,
+				0818B447154E290800B54DB8 /* fiveHundredPXTableCell.png in Resources */,
+				0818B448154E290800B54DB8 /* fiveHundredPXTableCell@2x.png in Resources */,
+				0818B44E154E2B7D00B54DB8 /* fiveHundredPXAccountUIViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -814,6 +839,7 @@
 				0886EE6914FAC3E00045C6C1 /* AccountTableViewCell.m in Sources */,
 				0886EE6D14FAC40F0045C6C1 /* FlickrAccountUIViewController.m in Sources */,
 				080757E1154995D4003130EF /* UIImage+StackBlur.m in Sources */,
+				0818B44D154E2B7D00B54DB8 /* fiveHundredPXAccountUIViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -150,9 +150,26 @@ enum ACCOUNT_INDEX  //WEBSITE: add the website here
 @interface FiveHundredPXPictureInfo : PictureInfoDetails {
 @private
     
+    NSString* _picID; 
+    NSString* _baseURL; 
+
+    
+    //image related stuff 
+    int _numberOfVisits;
+    int _numberOfComments; 
+    
 }
 
+@property (readonly, copy) NSString* picID; 
+
+@property (nonatomic) int numberOfVisits; 
+@property (nonatomic) int numberOfComments; 
+@property (readonly, copy) NSString* baseURL; 
+
+
 +(FiveHundredPXPictureInfo*) infoFromJsonData:(NSDictionary*) data; 
+-(id) initWithID:(NSString*) ID andBaseURL:(NSString*) bu andHash:(NSString*) hash;
+
 @end
 
 

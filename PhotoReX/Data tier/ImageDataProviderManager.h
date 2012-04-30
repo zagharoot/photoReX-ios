@@ -23,12 +23,32 @@
 //WEBSITE: 
 
 
+// An abstract class for providing data for each service
 @interface ImageDataProvider  : NSObject
 -(void) getDataForPicture:(PictureInfo*) pictureInfo  withResolution:(ImageResolution) resolution withObserver:(id<DataDownloadObserver>) observer; 
 
 -(void) fillInDetailForPictureInfo:(PictureInfo*) pictureInfo; 
 -(BOOL) setFavorite:(BOOL) fav forPictureInfo:(PictureInfo*) pictureInfo; 
 @end
+
+
+// This class contains information about one download of an image 
+@interface ImageDataConnectionDetails : NSObject {
+    id<DataDownloadObserver> observer; 
+    long totalBytes; 
+    long receivedBytes; 
+    NSMutableData* data; 
+}
+
+-(id) initWithObserver:(id<DataDownloadObserver>) obs; 
+
+@property long totalBytes; 
+@property long receivedBytes; 
+@property (retain) id<DataDownloadObserver> observer; 
+@property (assign) NSMutableData* data; 
+
+@end
+
 
 
 //This is a wrapper class that contains different providers that actually retrieve data in different ways. 

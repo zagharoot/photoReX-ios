@@ -59,52 +59,6 @@ enum FLICKR_REQUEST_TYPE {
 @end 
 
 
-@interface FlickrImageDataConnectionDetails : NSObject {
-    id<DataDownloadObserver> observer; 
-    long totalBytes; 
-    long receivedBytes; 
-    NSMutableData* data; 
-}
-
--(id) initWithObserver:(id<DataDownloadObserver>) obs; 
-
-@property long totalBytes; 
-@property long receivedBytes; 
-@property (retain) id<DataDownloadObserver> observer; 
-@property (assign) NSMutableData* data; 
-
-@end
-
-@implementation FlickrImageDataConnectionDetails
-
-@synthesize totalBytes; 
-@synthesize receivedBytes; 
-@synthesize observer; 
-@synthesize data; 
-
--(id) initWithObserver:(id<DataDownloadObserver>)obs
-{
-    self = [super init]; 
-    if (self)
-    {
-        self.observer = obs; 
-        data = [[NSMutableData alloc] init ];
-    }
-    
-    return self;  
-}
-
-
--(void) dealloc
-{
-    self.observer = nil; 
-    [data release]; 
-    [super dealloc]; 
-}
-
-@end
-
-
 
 @implementation ImageFlickrDataProvider
 
@@ -202,7 +156,7 @@ enum FLICKR_REQUEST_TYPE {
     NSURLConnection* conn = [NSURLConnection connectionWithRequest:req delegate:self];
     
     //add the connection to the dictionary
-    FlickrImageDataConnectionDetails* det = [[[FlickrImageDataConnectionDetails alloc] initWithObserver:observer] autorelease]; 
+    ImageDataConnectionDetails* det = [[[ImageDataConnectionDetails alloc] initWithObserver:observer] autorelease]; 
     [connections setObject:det forKey:conn.currentRequest.URL.description];  
     
     //increment network activity 
@@ -223,7 +177,8 @@ enum FLICKR_REQUEST_TYPE {
 
 -(void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
-    FlickrImageDataConnectionDetails* det = [connections objectForKey:connection.currentRequest.URL.description]; 
+    
+    ImageDataConnectionDetails* det = [connections objectForKey:connection.currentRequest.URL.description]; 
     
     if (det) //found the details for this connection
     {
@@ -241,7 +196,7 @@ enum FLICKR_REQUEST_TYPE {
 
 -(void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    FlickrImageDataConnectionDetails* det = [connections objectForKey:connection.currentRequest.URL.description]; 
+    ImageDataConnectionDetails* det = [connections objectForKey:connection.currentRequest.URL.description]; 
     
     if (det) //found the details for this connection
     {
@@ -270,7 +225,7 @@ enum FLICKR_REQUEST_TYPE {
 
 -(void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    FlickrImageDataConnectionDetails* det = [connections objectForKey:connection.currentRequest.URL.description]; 
+    ImageDataConnectionDetails* det = [connections objectForKey:connection.currentRequest.URL.description]; 
     
     if (det) //found the details for this connection
     {
@@ -296,7 +251,7 @@ enum FLICKR_REQUEST_TYPE {
 
 -(void) connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    FlickrImageDataConnectionDetails* det = [connections objectForKey:connection.currentRequest.URL.description]; 
+    ImageDataConnectionDetails* det = [connections objectForKey:connection.currentRequest.URL.description]; 
     
     if (det) //found the details for this connection
     {

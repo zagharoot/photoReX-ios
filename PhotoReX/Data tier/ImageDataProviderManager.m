@@ -34,6 +34,41 @@ static ImageDataProviderManager* theProvider=nil;
 @end
 
 
+
+
+@implementation ImageDataConnectionDetails
+
+@synthesize totalBytes; 
+@synthesize receivedBytes; 
+@synthesize observer; 
+@synthesize data; 
+
+-(id) initWithObserver:(id<DataDownloadObserver>)obs
+{
+    self = [super init]; 
+    if (self)
+    {
+        self.observer = obs; 
+        data = [[NSMutableData alloc] init ];
+    }
+    
+    return self;  
+}
+
+
+-(void) dealloc
+{
+    self.observer = nil; 
+    [data release]; 
+    [super dealloc]; 
+}
+
+@end
+
+
+
+
+
 @implementation ImageDataProviderManager
 
 @synthesize cachedProvider = _cachedProvider; 

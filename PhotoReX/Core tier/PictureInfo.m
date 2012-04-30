@@ -27,6 +27,7 @@
 -(void) dealloc
 {
     self.website = NOT_AVAILABLE; 
+    [_hash release]; 
     [super dealloc]; 
 }
 @end
@@ -215,7 +216,7 @@
     NSString* h = [data objectForKey:@"hash"]; 
     
     
-    if (p== nil || sr==nil || f==nil || sc==nil)
+    if (p== nil || sr==nil || f==nil || sc==nil || h==nil)
     {
         NSLog(@"ERROR: couldn't parse the data in FlickrPictureCreation"); 
         return nil; 
@@ -227,13 +228,14 @@
 
 -(NSDictionary*) getDictionaryRepresentation
 {
-    NSMutableDictionary* result = [[NSMutableDictionary alloc] initWithCapacity:5]; // we need only 4, have one for reserve :) 
+    NSMutableDictionary* result = [[NSMutableDictionary alloc] initWithCapacity:6]; // we need only 5, have one for reserve :) 
     
     
     [result setValue:self.picID forKey:@"id"]; 
     [result setValue:self.server forKey:@"server"] ;
     [result setValue:self.farm forKey:@"farm"]; 
     [result setValue:self.secret forKey:@"secret"]; 
+    [result setValue:self.hash forKey:@"hash"]; 
     
     
     NSDictionary* ret = [NSDictionary dictionaryWithDictionary:result]; 
@@ -283,14 +285,70 @@
 
 //---------------------------------------
 @implementation FiveHundredPXPictureInfo
+@synthesize picID=_picID; 
+
+@synthesize numberOfVisits=_numberOfVisits; 
+@synthesize numberOfComments=_numberOfComments; 
+
+
+-(id) initWithID:(NSString *)ID andBaseURL:(NSString *)bu andHash:(NSString *)hash
+{
+    _website = FIVEHUNDREDPX_INDEX; 
+    if (self = [super init])
+    {
+        _picID = [ID copy]; 
+        _baseURL = [bu copy]; 
+        _hash   = [hash copy]; 
+        
+        _numberOfComments=0; 
+        _numberOfVisits=0; 
+        _isFavorite = NO; 
+    }
+    return self; 
+}
 
 
 +(FiveHundredPXPictureInfo*) infoFromJsonData:(NSDictionary *)data
 {
-    //TODO: incomplete 
-    return nil; 
+    NSString* p = [data objectForKey:@"id"]; 
+    NSString* bu = [data objectForKey:@"baseURL"]; 
+    NSString* h = [data objectForKey:@"hash"]; 
+    
+    
+    if (p== nil || h==nil || bu==nil)
+    {
+        NSLog(@"ERROR: couldn't parse the data in 500Pix picture creation"); 
+        return nil; 
+    }
+    
+    return [[[FiveHundredPXPictureInfo alloc] initWithID:p andBaseURL:bu andHash:h] autorelease]; 
+}
+
+-(NSDictionary*) getDictionaryRepresentation
+{
+    NSMutableDictionary* result = [[NSMutableDictionary alloc] initWithCapacity:5]; // we need only 4, have one for reserve :) 
+    
+    
+    [result setValue:self.picID forKey:@"id"]; 
+    [result setValue:self.baseURL forKey:@"baseURL"]; 
+    [result setValue:self.hash forKey:@"hash"]; 
+    
+    
+    NSDictionary* ret = [NSDictionary dictionaryWithDictionary:result]; 
+    
+    [result release]; 
+    return ret; 
+}
+
+-(void) dealloc
+{
+    [_picID release];  
+    [_baseURL release]; 
+    
+    [super dealloc]; 
     
 }
+
 
 @end
 

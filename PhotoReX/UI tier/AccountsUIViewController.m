@@ -267,8 +267,14 @@
             
                 break; 
             case FIVEHUNDREDPX_INDEX: 
+                detailViewController = [[FiveHundredPXUIViewController alloc] initWithNibName:@"FiveHundredPXUIViewController" bundle:[NSBundle mainBundle]];
+                
+                FiveHundredPXAccount* fha = [[AccountManager standardAccountManager] fiveHundredPXAccount]; 
+                fha.apiContext.OAuthToken = nil; 
+                fha.apiContext.OAuthTokenSecret = nil; 
+                
+                ((FiveHundredPXUIViewController*)detailViewController).theAccount = [[AccountManager    standardAccountManager] fiveHundredPXAccount] ; 
            
-            
                 break;
             default:
                 break;

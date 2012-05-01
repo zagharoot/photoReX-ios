@@ -99,7 +99,11 @@ enum FLICKR_REQUEST_TYPE {
     NSMutableDictionary* args = [[[NSMutableDictionary alloc] initWithCapacity:2] autorelease]; 
     [args setValue:acc.api_key forKey:@"api_key"]; 
     [args setValue:info.picID forKey:@"photo_id"]; 
-    [request callAPIMethodWithGET:@"flickr.photos.getInfo" arguments:args]; //will get notified as delegate about the progress 
+    
+    //flickr requires method to be passed as argument and all be called on the same base url: 
+    [args setValue:@"flickr.photos.getInfo" forKey:@"method"]; 
+    
+    [request callAPIMethodWithGET:context.RESTAPIEndpoint arguments:args]; //will get notified as delegate about the progress 
 }
 
 
@@ -135,7 +139,10 @@ enum FLICKR_REQUEST_TYPE {
     NSMutableDictionary* args = [[[NSMutableDictionary alloc] initWithCapacity:2] autorelease]; 
     [args setValue:acc.api_key forKey:@"api_key"]; 
     [args setValue:info.picID forKey:@"photo_id"]; 
-    [request callAPIMethodWithPOST:endPoint arguments:args]; //will get notified as delegate about the progress 
+    [args setValue:endPoint forKey:@"method"]; 
+    
+    
+    [request callAPIMethodWithPOST:context.RESTAPIEndpoint arguments:args]; //will get notified as delegate about the progress 
     return YES; 
 }
 

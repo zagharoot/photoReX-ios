@@ -18,6 +18,7 @@
     UIImage* _iconImage;            //static icon of the account (32X32) 
     UIImage* _userIconImage;        //dynamic icon of the username
     NSString* _username; 
+    NSString* _userid; 
     
 }
 
@@ -43,6 +44,7 @@
 @property (readonly, nonatomic) UIImage* iconImage; 
 @property (nonatomic, retain) UIImage* userIconImage; 
 @property (nonatomic, copy) NSString* username; 
+@property (nonatomic, copy) NSString* userid; 
 @end
 
 

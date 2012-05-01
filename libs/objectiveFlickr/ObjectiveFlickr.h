@@ -46,23 +46,20 @@ extern NSString *const OFFlickrDeletePermission;
     NSString *authToken;
     
     NSString *RESTAPIEndpoint;
-	NSString *photoSource;
-	NSString *photoWebPageSource;
 	NSString *authEndpoint;
-    NSString *uploadEndpoint;
     
     NSString *oauthToken;
     NSString *oauthTokenSecret;
+    
+    NSString* _messageType;         //what is the response format from the website: JSON, XML
 }
-- (id)initWithAPIKey:(NSString *)inKey sharedSecret:(NSString *)inSharedSecret;
+- (id)initWithAPIKey:(NSString *)inKey sharedSecret:(NSString *)inSharedSecret authEndPoint:(NSString*) authEndPoint restEndPoint:(NSString*) rep;  
 
 // OAuth URL
 - (NSURL *)userAuthorizationURLWithRequestToken:(NSString *)inRequestToken requestedPermission:(NSString *)inPermission;
 
 
 // URL provisioning
-- (NSURL *)photoSourceURLFromDictionary:(NSDictionary *)inDictionary size:(NSString *)inSizeModifier;
-- (NSURL *)photoWebPageURLFromDictionary:(NSDictionary *)inDictionary;
 - (NSURL *)loginURLFromFrobDictionary:(NSDictionary *)inFrob requestedPermission:(NSString *)inPermission;
 
 // API endpoints
@@ -73,13 +70,11 @@ extern NSString *const OFFlickrDeletePermission;
 @property (nonatomic, retain) NSString *authToken;
 
 @property (nonatomic, retain) NSString *RESTAPIEndpoint;
-@property (nonatomic, retain) NSString *photoSource;
-@property (nonatomic, retain) NSString *photoWebPageSource;
 @property (nonatomic, retain) NSString *authEndpoint;
-@property (nonatomic, retain) NSString *uploadEndpoint;
 
 @property (nonatomic, retain) NSString *OAuthToken;
 @property (nonatomic, retain) NSString *OAuthTokenSecret;
+@property (nonatomic, copy) NSString* messageType; 
 #else
 
 - (void)setAuthToken:(NSString *)inAuthToken;
@@ -89,14 +84,10 @@ extern NSString *const OFFlickrDeletePermission;
 - (void)setRESTAPIEndpoint:(NSString *)inEndpoint;
 - (NSString *)RESTAPIEndpoint;
 
-- (void)setPhotoSource:(NSString *)inSource;
-- (NSString *)photoSource;
 
 - (void)setAuthEndpoint:(NSString *)inEndpoint;
 - (NSString *)authEndpoint;
 
-- (void)setUploadEndpoint:(NSString *)inEndpoint;
-- (NSString *)uploadEndpoint;
 
 - (void)setOAuthToken:(NSString *)inToken;
 - (NSString *)OAuthToken;
@@ -145,7 +136,8 @@ extern NSString *const OFFetchOAuthAccessTokenSession;
 #endif
 
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didObtainOAuthRequestToken:(NSString *)inRequestToken secret:(NSString *)inSecret;
-- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didObtainOAuthAccessToken:(NSString *)inAccessToken secret:(NSString *)inSecret userFullName:(NSString *)inFullName userName:(NSString *)inUserName userNSID:(NSString *)inNSID;
+
+-(void) flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didObtainOAuthAccessToken:(NSDictionary*) params; 
 
 @end
 
@@ -182,11 +174,9 @@ typedef id OFFlickrAPIRequestDelegateType;
 
 
 // elementary methods
-- (BOOL)callAPIMethodWithGET:(NSString *)inMethodName arguments:(NSDictionary *)inArguments;
-- (BOOL)callAPIMethodWithPOST:(NSString *)inMethodName arguments:(NSDictionary *)inArguments;
+- (BOOL)callAPIMethodWithGET:(NSString *)baseURL arguments:(NSDictionary *)inArguments;
+- (BOOL)callAPIMethodWithPOST:(NSString *)baseURL arguments:(NSDictionary *)inArguments;
 
-// image upload—we use NSInputStream here because we want to have flexibity; with this you can upload either a file or NSData from NSImage
-- (BOOL)uploadImageStream:(NSInputStream *)inImageStream suggestedFilename:(NSString *)inFilename MIMEType:(NSString *)inType arguments:(NSDictionary *)inArguments;
 
 #if MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_4
 @property (nonatomic, readonly) OFFlickrAPIContext *context;

@@ -7,8 +7,10 @@
 //
 
 #import "Account.h"
+#import "ObjectiveFlickr.h" 
+#import "ImageDataProviderManager.h" 
 
-@interface FiveHundredPXAccount : Account
+@interface FiveHundredPXAccount : Account <DataDownloadObserver>
 {
     //static stuff 
     NSString* _api_key; 
@@ -19,12 +21,15 @@
     NSString* _requestSecret; 
     NSString* _accessToken; 
     NSString* _accessSecret; 
+
+    OFFlickrAPIContext* _apiContext; 
     
 }
 
 -(void) setApiKey:(NSString*) key andSignature:(NSString*) signature; 
--(void) activate:(NSString*) username accessToken:(NSString*) at accessSecret:(NSString*) as; 
 
+//this activates the account and retrieves the user information from the website based on tokens, it then broadcasts the result so observers can adopt
+-(void) activateWithAccessToken:(NSString*) at accessSecret:(NSString*) ats; 
 
 //write access through designated method 
 @property (nonatomic, readonly) NSString* api_key; 
@@ -34,5 +39,13 @@
 @property (nonatomic, copy) NSString* requestSecret; 
 @property (nonatomic, copy) NSString* accessToken; 
 @property (nonatomic, copy) NSString* accessSecret; 
+
+
+-(void) setRequestToken:(NSString *)requestToken withSecret:(NSString*) requestSecret; 
+-(void) setAccessToken:(NSString *)accessToken   withSecret:(NSString*) accessSecret; 
+
+//objective flickr stuff 
+@property (nonatomic, retain) OFFlickrAPIContext* apiContext; 
+
 
 @end

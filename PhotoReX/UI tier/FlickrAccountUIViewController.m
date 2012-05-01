@@ -100,10 +100,21 @@
 }
 
 
-- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didObtainOAuthAccessToken:(NSString *)inAccessToken secret:(NSString *)inSecret userFullName:(NSString *)inFullName userName:(NSString *)inUserName userNSID:(NSString *)inNSID
+- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didObtainOAuthAccessToken:(NSDictionary *)params
 {
+    NSString *fn = [params objectForKey:@"fullname"];
+    NSString *oat = [params objectForKey:@"oauth_token"];
+    NSString *oats = [params objectForKey:@"oauth_token_secret"];
+    NSString *nsid = [params objectForKey:@"user_nsid"];
+    NSString *un = [params objectForKey:@"username"];
+    if (!fn || !oat || !oats || !nsid || !un) {
+        NSError *error = [NSError errorWithDomain:OFFlickrAPIRequestErrorDomain code:OFFlickrAPIRequestOAuthError userInfo:params];            
+        [self flickrAPIRequest:inRequest didFailWithError:error];  
+        return; 
+    }
+
     //update the flickr account 
-    [self.theAccount activate:inUserName nsid:inNSID accessToken:inAccessToken accessSecret:inSecret]; 
+    [self.theAccount activate:un userid:nsid accessToken:oat accessSecret:oats]; 
     
     [self closePage]; 
 }

@@ -11,10 +11,13 @@
 #import "ImageCachedDataProvider.h"
 
 @protocol DataDownloadObserver <NSObject>
--(void) imageDidBecomeAvailable:(UIImage*) img; 
 @optional
+-(void) imageDidBecomeAvailable:(UIImage*) img; 
 -(void) imageFailedToLoad:(NSString*) reason; 
 -(void) percentDataBecameAvailable:(double) percentage; 
+-(void) didGetUserDetails:(NSDictionary*) result; 
+//-(void) didGetCommentsForImage; 
+-(void) operationFailed:(id) operation withError:(NSError*) err; 
 @end
 
 @class ImageFlickrDataProvider; 
@@ -29,6 +32,8 @@
 
 -(void) fillInDetailForPictureInfo:(PictureInfo*) pictureInfo; 
 -(BOOL) setFavorite:(BOOL) fav forPictureInfo:(PictureInfo*) pictureInfo; 
+-(void) getUserInfoForObserver: (id<DataDownloadObserver>) observer;            //retrieves the current authenticated user info 
+
 @end
 
 

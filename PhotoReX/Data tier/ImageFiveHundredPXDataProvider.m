@@ -9,6 +9,94 @@
 #import "ImageFiveHundredPXDataProvider.h"
 #import "NetworkActivityIndicatorController.h"
 #import "AccountManager.h" 
+#import "ObjectiveFlickr.h" 
+
+
+enum FIVEHUNDREDPX_REQUEST_TYPE {
+    FIVEHUNDREDPX_USER_REQUEST = 1,
+    FIVEHUNDREDPX_FAVORITE_REQUEST = 2 , 
+    FIVEHUNDREDPX_UNFAVORITE_REQUEST = 3
+};
+
+
+@interface FiveHundredPXRequestInfo : NSObject
+{
+    PictureInfo* _pictureInfo; 
+    id<DataDownloadObserver> _delegate; 
+}
+
++(FiveHundredPXRequestInfo*) requestInfoWithPictureInfo:(PictureInfo*) p andRequestType:(enum FIVEHUNDREDPX_REQUEST_TYPE) r; 
+
++(FiveHundredPXRequestInfo*) requestUserInfo:(id<DataDownloadObserver>) observer ;
+
+-(id) initWithPictureInfo:(PictureInfo*) p andRequestType:(enum FIVEHUNDREDPX_REQUEST_TYPE) r; 
+-(id) initWithObserver:(id<DataDownloadObserver>) _delegate andRequestType:(enum FIVEHUNDREDPX_REQUEST_TYPE) r ;
+
+@property (nonatomic, retain) PictureInfo* pictureInfo; 
+@property enum FIVEHUNDREDPX_REQUEST_TYPE requestType; 
+@property (nonatomic, assign) id<DataDownloadObserver> delegate; 
+@end
+
+@implementation FiveHundredPXRequestInfo
+@synthesize requestType; 
+@synthesize pictureInfo=_pictureInfo; 
+@synthesize delegate=_delegate; 
+
++(FiveHundredPXRequestInfo*) requestInfoWithPictureInfo:(PictureInfo *)p andRequestType:(enum FIVEHUNDREDPX_REQUEST_TYPE)r
+{
+    FiveHundredPXRequestInfo* result = [[FiveHundredPXRequestInfo alloc] initWithPictureInfo:p andRequestType:r]; 
+    
+    return [result autorelease]; 
+}
+
+
++(FiveHundredPXRequestInfo*) requestUserInfo:(id<DataDownloadObserver>)observer
+{
+    FiveHundredPXRequestInfo* result = [[FiveHundredPXRequestInfo alloc] initWithObserver:observer andRequestType:FIVEHUNDREDPX_USER_REQUEST]; 
+                                        
+    return [result autorelease];     
+}
+
+
+-(id) initWithPictureInfo:(PictureInfo *)p andRequestType:(enum FIVEHUNDREDPX_REQUEST_TYPE)r
+{
+    self = [super init]; 
+    if (self)
+    {
+        self.requestType = r; 
+        self.pictureInfo = p; 
+    }
+    return self; 
+}
+
+-(id) initWithObserver:(id<DataDownloadObserver>)d andRequestType:(enum FIVEHUNDREDPX_REQUEST_TYPE)r
+{
+    self = [super init]; 
+    if (self) 
+    {
+        self.requestType = r; 
+        self.delegate = d; 
+    }
+    
+    return self; 
+}
+
+
+-(void) dealloc
+{
+    self.pictureInfo = nil; 
+    [super dealloc]; 
+}
+
+@end 
+
+
+
+
+
+
+
+
 
 @implementation ImageFiveHundredPXDataProvider
 
@@ -248,5 +336,68 @@
 	NSString* result = [NSString stringWithFormat:@"%@/%d.%@", baseURL, resID, fileType]; 
     return result; 
 }	
+
+-(void) getUserInfoForObserver:(id<DataDownloadObserver>)observer
+{
+    FiveHundredPXAccount* acc = [[AccountManager standardAccountManager] fiveHundredPXAccount]; 
+    OFFlickrAPIContext* context = acc.apiContext; 
+    OFFlickrAPIRequest* request; 
+        
+    request = [[OFFlickrAPIRequest alloc] initWithAPIContext:context]; 
+    request.delegate = self; 
+    
+    NSString* endPoint = [NSString stringWithFormat:@"%@users", context.RESTAPIEndpoint];      
+    request.sessionInfo = [FiveHundredPXRequestInfo requestUserInfo:observer]; 
+    
+    
+    
+    // add the request to the list of outstanding ones 
+    [requests setValue:request forKey:request.description]; 
+    [request release]; 
+    
+    NSMutableDictionary* args = [[[NSMutableDictionary alloc] initWithCapacity:2] autorelease]; 
+    [args setValue:acc.api_key forKey:@"api_key"]; 
+    [request callAPIMethodWithGET:endPoint arguments:args]; 
+}
+
+
+
+#pragma mark- objective flickr delegate 
+
+-(void) flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
+{
+    
+    FiveHundredPXRequestInfo* sessionInfo = (FiveHundredPXRequestInfo*) inRequest.sessionInfo; 
+    
+    if (!sessionInfo)
+        return; 
+    
+//    PictureInfo* pic = sessionInfo.pictureInfo;     
+    id<DataDownloadObserver> observer = sessionInfo.delegate; 
+    //    NSDictionary *photo, *owner, *title;  
+    
+    
+    switch (sessionInfo.requestType) {
+        case FIVEHUNDREDPX_USER_REQUEST: 
+            [observer didGetUserDetails:inResponseDictionary]; 
+            break; 
+        default:
+            break;
+    }
+    
+    //remove the request from the outstanding list 
+    [requests removeObjectForKey:inRequest.description]; 
+}
+
+
+
+-(void) flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
+{
+    //remove the request from outstanding list 
+    //TODO: call theBlock with the error 
+    [requests removeObjectForKey:inRequest.description]; 
+}
+
+
 
 @end

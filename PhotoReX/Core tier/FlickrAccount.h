@@ -24,8 +24,6 @@
     NSString* _requestSecret; 
     NSString* _accessToken; 
     NSString* _accessSecret; 
-
-    NSString* _nsid;                    //this is nsid in flickr
     
     OFFlickrAPIContext* _apiContext; 
     
@@ -35,7 +33,7 @@
 -(void) setApiKey:(NSString*) key andSignature:(NSString*) signature; 
 
 -(BOOL) isActive; 
--(void) activate:(NSString*) username nsid:(NSString*) nsid accessToken:(NSString*) at accessSecret:(NSString*) as; 
+-(void) activate:(NSString*) username userid:(NSString*) userid accessToken:(NSString*) at accessSecret:(NSString*) as; 
 
 
 //write access through designated method 
@@ -47,7 +45,6 @@
 @property (nonatomic, readonly) NSString* requestSecret; 
 @property (nonatomic, readonly) NSString* accessToken; 
 @property (nonatomic, readonly) NSString* accessSecret; 
-@property (nonatomic, copy) NSString* nsid; 
 -(void) setRequestToken:(NSString *)requestToken withSecret:(NSString*) requestSecret; 
 -(void) setAccessToken:(NSString *)accessToken   withSecret:(NSString*) accessSecret; 
 

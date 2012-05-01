@@ -14,6 +14,7 @@
 @implementation Account
 @synthesize userIconImage=_userIconImage; 
 @synthesize username=_username; 
+@synthesize userid=_userid; 
 
 -(void) loadSettings
 {
@@ -30,6 +31,7 @@
 
     
     _username = [[account objectForKey:@"username"] copy]; 
+    _userid = [[account objectForKey:@"userid"] copy]; 
 }
 
 -(void) saveSettings
@@ -40,9 +42,21 @@
     
     
     NSData *dataObj = UIImageJPEGRepresentation(self.userIconImage, 1.0);
-    [account setValue:dataObj?dataObj:[NSNull null]  forKey:@"userIconImage"]; 
     
-    [account setValue:self.username?self.username:[NSNull null]  forKey:@"username"]; 
+    if (dataObj)
+        [account setValue:dataObj  forKey:@"userIconImage"]; 
+    else
+        [account removeObjectForKey:@"userIconImage"]; 
+    
+    if (self.username)
+        [account setValue:self.username  forKey:@"username"]; 
+    else
+        [account removeObjectForKey:@"username"]; 
+    
+    if (self.userid)
+        [account setValue:self.userid  forKey:@"userid"]; 
+    else
+        [account removeObjectForKey:@"userid"]; 
     
     [ud setValue:account?account:[NSNull null]  forKey:self.accountName]; 
     
@@ -117,7 +131,9 @@
     
     self.username = nil; 
     self.userIconImage = nil; 
-    [self saveSettings]; 
+    self.userid = nil; 
+    self.userIconImage = nil; 
+//    [self saveSettings]; 
 }
 
 -(void) activate

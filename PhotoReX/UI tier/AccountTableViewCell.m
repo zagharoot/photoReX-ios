@@ -264,6 +264,8 @@
     {
         if (self.theAccount.username)
             self.usernameLabel.text = self.theAccount.username; 
+        
+        self.userIconImage = nil; 
     }
     
     

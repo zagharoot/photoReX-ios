@@ -17,14 +17,19 @@
 @synthesize requestSecret=_requestSecret; 
 @synthesize accessToken=_accessToken; 
 @synthesize accessSecret=_accessSecret; 
-@synthesize nsid=_nsid; 
+
+
+#define kDefaultFlickrRESTAPIEndpoint		@"http://api.flickr.com/services/rest/"
+#define kDefaultFlickrAuthEndpoint			@"http://www.flickr.com/services/oauth/"
+
+
 
 -(OFFlickrAPIContext*) apiContext
 {
     if (!_apiContext)
     {
         if (self.api_key && self.signature)
-            _apiContext = [[OFFlickrAPIContext alloc] initWithAPIKey:self.api_key sharedSecret:self.signature]; 
+            _apiContext = [[OFFlickrAPIContext alloc] initWithAPIKey:self.api_key sharedSecret:self.signature authEndPoint:kDefaultFlickrAuthEndpoint restEndPoint:kDefaultFlickrRESTAPIEndpoint]; 
     }
     
     return _apiContext; 
@@ -39,7 +44,7 @@
     _signature = [signature copy]; 
     
     //update the context 
-    self.apiContext = [[[OFFlickrAPIContext alloc] initWithAPIKey:self.api_key sharedSecret:self.signature] autorelease];
+    self.apiContext = [[[OFFlickrAPIContext alloc] initWithAPIKey:self.api_key sharedSecret:self.signature authEndPoint:kDefaultFlickrAuthEndpoint restEndPoint:kDefaultFlickrRESTAPIEndpoint] autorelease];
 }
 
 -(void) setRequestToken:(NSString *)requestToken withSecret:(NSString *)requestSecret
@@ -129,8 +134,15 @@
 
     NSMutableDictionary* flickr = [NSMutableDictionary dictionaryWithDictionary:prevSettings]; 
     
-    [flickr setValue:self.accessToken?self.accessToken:[NSNull null]  forKey:@"accessToken"]; 
-    [flickr setValue:self.accessSecret?self.accessSecret:[NSNull null]  forKey:@"accessSecret"]; 
+    if (self.accessToken)     
+        [flickr setValue:self.accessToken forKey:@"accessToken"]; 
+    else 
+        [flickr removeObjectForKey:@"accessToken"]; 
+    
+    if (self.accessSecret)
+        [flickr setValue:self.accessSecret  forKey:@"accessSecret"]; 
+    else
+        [flickr removeObjectForKey:@"accessSecret"]; 
     
     [ud setValue:flickr forKey:self.accountName]; 
     
@@ -166,10 +178,10 @@
     return result; 
 }
 
--(void) activate:(NSString *)username nsid:(NSString*) nsid accessToken:(id)at accessSecret:(NSString *)as
+-(void) activate:(NSString *)username userid:(NSString*) userid accessToken:(id)at accessSecret:(NSString *)as
 {
     self.username = username; 
-    self.nsid = nsid; 
+    self.userid = userid; 
     [self setAccessToken:at withSecret:as]; 
     
     [super activate];       //this should be called last 
@@ -203,14 +215,14 @@
 }
 
 
--(void) setNsid:(NSString *)nsid
+-(void) setUserid:(NSString *)userid
 {
-    [_nsid release]; 
-    _nsid =[nsid copy]; 
+    [_userid release]; 
+    _userid =[userid copy]; 
 
-    if (nsid) 
+    if (userid) 
     {
-        NSString* url = [NSString stringWithFormat:@"http://flickr.com/buddyicons/%@.jpg", nsid ]; 
+        NSString* url = [NSString stringWithFormat:@"http://flickr.com/buddyicons/%@.jpg", userid ]; 
         NSData* iconData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url] options:NSDataReadingMapped error:nil]; 
         self.userIconImage = [UIImage imageWithData:iconData];
     }else {

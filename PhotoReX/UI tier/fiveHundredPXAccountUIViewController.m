@@ -68,7 +68,7 @@
     [self.navigationController popViewControllerAnimated:YES]; 
 }
 
--(void) flickrAPIRequest:(OAuthProviderRequest *)inRequest didFailWithError:(NSError *)inError
+-(void) OAuthRequest:(OAuthProviderRequest *)inRequest didFailWithError:(NSError *)inError
 {
     NSLog(@"500Px api error: %@\n", inError.description); 
     
@@ -78,7 +78,7 @@
     [self performSelector:@selector(closePage) withObject:self afterDelay:2]; 
 }
 
-- (void)flickrAPIRequest:(OAuthProviderRequest *)inRequest didObtainOAuthRequestToken:(NSString *)inRequestToken secret:(NSString *)inSecret
+- (void)OAuthRequest:(OAuthProviderRequest *)inRequest didObtainOAuthRequestToken:(NSString *)inRequestToken secret:(NSString *)inSecret
 {
     [self.theAccount setRequestToken:inRequestToken withSecret:inSecret]; 
     
@@ -92,13 +92,13 @@
 }
 
 
-- (void) flickrAPIRequest:(OAuthProviderRequest *)inRequest didObtainOAuthAccessToken:(NSDictionary *)params
+- (void) OAuthRequest:(OAuthProviderRequest *)inRequest didObtainOAuthAccessToken:(NSDictionary *)params
 {
     NSString *oat = [params objectForKey:@"oauth_token"];
     NSString *oats = [params objectForKey:@"oauth_token_secret"];
     if (!oat || !oats) {
         NSError *error = [NSError errorWithDomain:OAuthRequestErrorDomain code:-1 userInfo:params];            
-        [self flickrAPIRequest:inRequest didFailWithError:error];  
+        [self OAuthRequest:inRequest didFailWithError:error];  
         return; 
     }
     
@@ -115,7 +115,7 @@
         [self closePage]; 
     } else if ([notification.name isEqualToString:@"AccountDetailFailed"])
     {
-        [self flickrAPIRequest:nil didFailWithError:nil]; 
+        [self OAuthRequest:nil didFailWithError:nil]; 
     }
 }
 

@@ -84,12 +84,12 @@ extern NSString *const OFFetchOAuthAccessTokenSession;
 
 @protocol OAuthRequestDelegate <NSObject>
 @optional
-- (void)flickrAPIRequest:(OAuthProviderRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary;
-- (void)flickrAPIRequest:(OAuthProviderRequest *)inRequest didFailWithError:(NSError *)inError;
-- (void)flickrAPIRequest:(OAuthProviderRequest *)inRequest imageUploadSentBytes:(NSUInteger)inSentBytes totalBytes:(NSUInteger)inTotalBytes;
-- (void)flickrAPIRequest:(OAuthProviderRequest *)inRequest didObtainOAuthRequestToken:(NSString *)inRequestToken secret:(NSString *)inSecret;
+- (void)OAuthRequest:(OAuthProviderRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary;
+- (void)OAuthRequest:(OAuthProviderRequest *)inRequest didFailWithError:(NSError *)inError;
+- (void)OAuthRequest:(OAuthProviderRequest *)inRequest imageUploadSentBytes:(NSUInteger)inSentBytes totalBytes:(NSUInteger)inTotalBytes;
+- (void)OAuthRequest:(OAuthProviderRequest *)inRequest didObtainOAuthRequestToken:(NSString *)inRequestToken secret:(NSString *)inSecret;
 
--(void) flickrAPIRequest:(OAuthProviderRequest *)inRequest didObtainOAuthAccessToken:(NSDictionary*) params; 
+-(void) OAuthRequest:(OAuthProviderRequest *)inRequest didObtainOAuthAccessToken:(NSDictionary*) params; 
 @end
 
 typedef id<OAuthRequestDelegate> OFFlickrAPIRequestDelegateType;

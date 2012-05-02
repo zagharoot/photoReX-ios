@@ -458,12 +458,12 @@ static NSData *NSDataFromOAuthPreferredWebForm(NSDictionary *formDictionary)
         if (!oat || !oats) {
             NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:response, OAuthErrorUserInfoKey, nil];
             NSError *error = [NSError errorWithDomain:OAuthRequestErrorDomain code:-1 userInfo:userInfo];            
-            [delegate flickrAPIRequest:self didFailWithError:error];                
+            [delegate OAuthRequest:self didFailWithError:error];                
         }
         else {
-            NSAssert([delegate respondsToSelector:@selector(flickrAPIRequest:didObtainOAuthRequestToken:secret:)], @"Delegate must implement the method -flickrAPIRequest:didObtainOAuthRequestToken:secret: to handle OAuth request token callback");
+            NSAssert([delegate respondsToSelector:@selector(OAuthRequest:didObtainOAuthRequestToken:secret:)], @"Delegate must implement the method -OAuthRequest:didObtainOAuthRequestToken:secret: to handle OAuth request token callback");
             
-            [delegate flickrAPIRequest:self didObtainOAuthRequestToken:oat secret:oats];
+            [delegate OAuthRequest:self didObtainOAuthRequestToken:oat secret:oats];
         }
     }
     else if ([request sessionInfo] == OFFetchOAuthAccessTokenSession) {
@@ -472,9 +472,9 @@ static NSData *NSDataFromOAuthPreferredWebForm(NSDictionary *formDictionary)
         NSString *response = [[[NSString alloc] initWithData:[request receivedData] encoding:NSUTF8StringEncoding] autorelease];
         NSDictionary *params = OFExtractURLQueryParameter(response);
         
-        NSAssert([delegate respondsToSelector:@selector(flickrAPIRequest:didObtainOAuthAccessToken:)], @"Delegate must implement -flickrAPIRequest:didObtainOAuthAccessToken: to handle the obtained access token");
+        NSAssert([delegate respondsToSelector:@selector(OAuthRequest:didObtainOAuthAccessToken:)], @"Delegate must implement -OAuthRequest:didObtainOAuthAccessToken: to handle the obtained access token");
          
-        [delegate flickrAPIRequest:self didObtainOAuthAccessToken:params]; 
+        [delegate OAuthRequest:self didObtainOAuthAccessToken:params]; 
     }
     else {  //regular call 
         
@@ -501,14 +501,14 @@ static NSData *NSDataFromOAuthPreferredWebForm(NSDictionary *formDictionary)
                     toDelegateError = [NSError errorWithDomain:OAuthRequestErrorDomain code:-1 userInfo:nil];
                 }
                 
-                if ([delegate respondsToSelector:@selector(flickrAPIRequest:didFailWithError:)]) {
-                    [delegate flickrAPIRequest:self didFailWithError:toDelegateError];        
+                if ([delegate respondsToSelector:@selector(OAuthRequest:didFailWithError:)]) {
+                    [delegate OAuthRequest:self didFailWithError:toDelegateError];        
                 }
                 return;
             }
             
-            if ([delegate respondsToSelector:@selector(flickrAPIRequest:didCompleteWithResponse:)]) {
-                [delegate flickrAPIRequest:self didCompleteWithResponse:rsp];
+            if ([delegate respondsToSelector:@selector(OAuthRequest:didCompleteWithResponse:)]) {
+                [delegate OAuthRequest:self didCompleteWithResponse:rsp];
             }    
         } else if ([context.messageType isEqualToString:@"JSON"])
         {            
@@ -518,8 +518,8 @@ static NSData *NSDataFromOAuthPreferredWebForm(NSDictionary *formDictionary)
             
             NSDictionary* responseDic = [parser objectWithData:request.receivedData]; 
             
-            if ([delegate respondsToSelector:@selector(flickrAPIRequest:didCompleteWithResponse:)])
-                [delegate flickrAPIRequest:self didCompleteWithResponse:responseDic];
+            if ([delegate respondsToSelector:@selector(OAuthRequest:didCompleteWithResponse:)])
+                [delegate OAuthRequest:self didCompleteWithResponse:responseDic];
         }
 
     }//regular call 
@@ -538,15 +538,15 @@ static NSData *NSDataFromOAuthPreferredWebForm(NSDictionary *formDictionary)
 		toDelegateError = [NSError errorWithDomain:OAuthRequestErrorDomain code:-1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Unknown error", NSLocalizedFailureReasonErrorKey, nil]];
     }
     
-    if ([delegate respondsToSelector:@selector(flickrAPIRequest:didFailWithError:)]) {
-        [delegate flickrAPIRequest:self didFailWithError:toDelegateError];        
+    if ([delegate respondsToSelector:@selector(OAuthRequest:didFailWithError:)]) {
+        [delegate OAuthRequest:self didFailWithError:toDelegateError];        
     }
 }
 
 - (void)httpRequest:(LFHTTPRequest *)request sentBytes:(NSUInteger)bytesSent total:(NSUInteger)total
 {
-    if (uploadTempFilename && [delegate respondsToSelector:@selector(flickrAPIRequest:imageUploadSentBytes:totalBytes:)]) {
-        [delegate flickrAPIRequest:self imageUploadSentBytes:bytesSent totalBytes:total];
+    if (uploadTempFilename && [delegate respondsToSelector:@selector(OAuthRequest:imageUploadSentBytes:totalBytes:)]) {
+        [delegate OAuthRequest:self imageUploadSentBytes:bytesSent totalBytes:total];
     }
 }
 @end

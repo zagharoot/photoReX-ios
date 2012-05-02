@@ -364,7 +364,7 @@ enum FIVEHUNDREDPX_REQUEST_TYPE {
 
 #pragma mark- objective flickr delegate 
 
--(void) flickrAPIRequest:(OAuthProviderRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
+-(void) OAuthRequest:(OAuthProviderRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
 {
     
     FiveHundredPXRequestInfo* sessionInfo = (FiveHundredPXRequestInfo*) inRequest.sessionInfo; 
@@ -391,7 +391,7 @@ enum FIVEHUNDREDPX_REQUEST_TYPE {
 
 
 
--(void) flickrAPIRequest:(OAuthProviderRequest *)inRequest didFailWithError:(NSError *)inError
+-(void) OAuthRequest:(OAuthProviderRequest *)inRequest didFailWithError:(NSError *)inError
 {
     //remove the request from outstanding list 
     //TODO: call theBlock with the error 

@@ -30,19 +30,13 @@
 #import "OFXMLMapper.h"
 #import "SBJson.h" 
 
-NSString *const OFFlickrSmallSquareSize = @"s";
-NSString *const OFFlickrThumbnailSize = @"t";
-NSString *const OFFlickrSmallSize = @"m";
-NSString *const OFFlickrMediumSize = nil;
-NSString *const OFFlickrLargeSize = @"b";
-
 NSString *const OFFlickrReadPermission = @"read";
 NSString *const OFFlickrWritePermission = @"write";
 NSString *const OFFlickrDeletePermission = @"delete";
 
-NSString *const OFFlickrUploadTempFilenamePrefix = @"org.lukhnos.ObjectiveFlickr.upload";
-NSString *const OFFlickrAPIReturnedErrorDomain = @"com.flickr";
-NSString *const OFFlickrAPIRequestErrorDomain = @"org.lukhnos.ObjectiveFlickr";
+ 
+ NSString *const OFFlickrAPIReturnedErrorDomain = @"com.webservice";
+NSString *const OFFlickrAPIRequestErrorDomain = @"edu.nouri.photoReX";
 
 NSString *const OFFlickrAPIRequestOAuthErrorUserInfoKey = @"OAuthError";
 NSString *const OFFetchOAuthRequestTokenSession = @"FetchOAuthRequestToken";
@@ -60,9 +54,6 @@ typedef unsigned int NSUInteger;
 - (NSArray *)signedArgumentComponentsFromArguments:(NSDictionary *)inArguments useURIEscape:(BOOL)inUseEscape;
 - (NSString *)signedQueryFromArguments:(NSDictionary *)inArguments;
 @end
-
-#define kDefaultFlickrRESTAPIEndpoint		@"http://api.flickr.com/services/rest/"
-//#define kDefaultFlickrAuthEndpoint			@"http://flickr.com/services/auth/"
 
 @implementation OFFlickrAPIContext
 - (void)dealloc
@@ -117,15 +108,6 @@ restEndPoint:(NSString *)rep
     
     NSString *URLString = [NSString stringWithFormat:@"%@authorize?oauth_token=%@%@",self.authEndpoint, inRequestToken, perms];
     return [NSURL URLWithString:URLString];
-}
-
-
-- (NSURL *)loginURLFromFrobDictionary:(NSDictionary *)inFrob requestedPermission:(NSString *)inPermission
-{
-	NSString *frob = [[inFrob objectForKey:@"frob"] objectForKey:OFXMLTextContentKey];
-    NSDictionary *argDict = [frob length] ? [NSDictionary dictionaryWithObjectsAndKeys:frob, @"frob", inPermission, @"perms", nil] : [NSDictionary dictionaryWithObjectsAndKeys:inPermission, @"perms", nil];
-	NSString *URLString = [NSString stringWithFormat:@"%@?%@", authEndpoint, [self signedQueryFromArguments:argDict]];
-	return [NSURL URLWithString:URLString];
 }
 
 - (void)setRESTAPIEndpoint:(NSString *)inEndpoint
@@ -290,18 +272,12 @@ restEndPoint:(NSString *)rep
 }
 @end
 
-@interface OFFlickrAPIRequest (PrivateMethods)
-- (void)cleanUpTempFile;
-@end            
-
 @implementation OFFlickrAPIRequest
 - (void)dealloc
 {
     [context release];
     [HTTPRequest release];
     [sessionInfo release];
-    
-    [self cleanUpTempFile];
     
     [super dealloc];
 }
@@ -363,7 +339,6 @@ restEndPoint:(NSString *)rep
 - (void)cancel
 {
     [HTTPRequest cancelWithoutDelegateMessage];
-    [self cleanUpTempFile];
 }
 
 - (BOOL)fetchOAuthRequestTokenWithCallbackURL:(NSURL *)inCallbackURL
@@ -532,7 +507,6 @@ static NSData *NSDataFromOAuthPreferredWebForm(NSDictionary *formDictionary)
                 return;
             }
             
-            [self cleanUpTempFile];
             if ([delegate respondsToSelector:@selector(flickrAPIRequest:didCompleteWithResponse:)]) {
                 [delegate flickrAPIRequest:self didCompleteWithResponse:rsp];
             }    
@@ -564,7 +538,6 @@ static NSData *NSDataFromOAuthPreferredWebForm(NSDictionary *formDictionary)
 		toDelegateError = [NSError errorWithDomain:OFFlickrAPIRequestErrorDomain code:OFFlickrAPIRequestUnknownError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Unknown error", NSLocalizedFailureReasonErrorKey, nil]];
     }
     
-    [self cleanUpTempFile];
     if ([delegate respondsToSelector:@selector(flickrAPIRequest:didFailWithError:)]) {
         [delegate flickrAPIRequest:self didFailWithError:toDelegateError];        
     }
@@ -578,26 +551,3 @@ static NSData *NSDataFromOAuthPreferredWebForm(NSDictionary *formDictionary)
 }
 @end
 
-@implementation OFFlickrAPIRequest (PrivateMethods)
-- (void)cleanUpTempFile
-
-{
-    if (uploadTempFilename) {
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if ([fileManager fileExistsAtPath:uploadTempFilename]) {
-			BOOL __unused removeResult = NO;
-#if MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_4                
-			removeResult = [fileManager removeFileAtPath:uploadTempFilename handler:nil];
-#else
-			NSError *error = nil;
-			removeResult = [fileManager removeItemAtPath:uploadTempFilename error:&error];
-#endif
-			
-			NSAssert(removeResult, @"Should be able to remove temp file");
-        }
-        
-        [uploadTempFilename release];
-        uploadTempFilename = nil;
-    }
-}
-@end

@@ -29,15 +29,12 @@
 #import "OFUtilities.h"
 #import "OFXMLMapper.h"
 
-extern NSString *const OFFlickrSmallSquareSize;		// "s" - 75x75
-extern NSString *const OFFlickrThumbnailSize;		// "t" - 100 on longest side
-extern NSString *const OFFlickrSmallSize;			// "m" - 240 on longest side
-extern NSString *const OFFlickrMediumSize;			// (no size modifier) - 500 on longest side
-extern NSString *const OFFlickrLargeSize;			// "b" - 1024 on longest side
 
 extern NSString *const OFFlickrReadPermission;
 extern NSString *const OFFlickrWritePermission;
 extern NSString *const OFFlickrDeletePermission;
+
+
 
 @interface OFFlickrAPIContext : NSObject
 {
@@ -57,10 +54,6 @@ extern NSString *const OFFlickrDeletePermission;
 
 // OAuth URL
 - (NSURL *)userAuthorizationURLWithRequestToken:(NSString *)inRequestToken requestedPermission:(NSString *)inPermission;
-
-
-// URL provisioning
-- (NSURL *)loginURLFromFrobDictionary:(NSDictionary *)inFrob requestedPermission:(NSString *)inPermission;
 
 // API endpoints
 

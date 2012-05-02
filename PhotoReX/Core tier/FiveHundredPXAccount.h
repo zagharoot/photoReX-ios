@@ -22,7 +22,7 @@
     NSString* _accessToken; 
     NSString* _accessSecret; 
 
-    OFFlickrAPIContext* _apiContext; 
+    OAuthProviderContext* _apiContext; 
     
 }
 
@@ -45,7 +45,7 @@
 -(void) setAccessToken:(NSString *)accessToken   withSecret:(NSString*) accessSecret; 
 
 //objective flickr stuff 
-@property (nonatomic, retain) OFFlickrAPIContext* apiContext; 
+@property (nonatomic, retain) OAuthProviderContext* apiContext; 
 
 
 @end

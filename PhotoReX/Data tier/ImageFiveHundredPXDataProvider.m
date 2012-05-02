@@ -340,7 +340,7 @@ enum FIVEHUNDREDPX_REQUEST_TYPE {
 -(void) getUserInfoForObserver:(id<DataDownloadObserver>)observer
 {
     FiveHundredPXAccount* acc = [[AccountManager standardAccountManager] fiveHundredPXAccount]; 
-    OFFlickrAPIContext* context = acc.apiContext; 
+    OAuthProviderContext* context = acc.apiContext; 
     OFFlickrAPIRequest* request; 
         
     request = [[OFFlickrAPIRequest alloc] initWithAPIContext:context]; 

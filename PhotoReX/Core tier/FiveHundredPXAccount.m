@@ -38,13 +38,13 @@
 }
 
 
--(OFFlickrAPIContext*) apiContext
+-(OAuthProviderContext*) apiContext
 {
     if (!_apiContext)
     {
         if (self.api_key && self.signature)
         {
-            _apiContext = [[OFFlickrAPIContext alloc] initWithAPIKey:self.api_key sharedSecret:self.signature authEndPoint:k500PXAuthEndPoint restEndPoint:k500PXRESTEndPoint]; 
+            _apiContext = [[OAuthProviderContext alloc] initWithAPIKey:self.api_key sharedSecret:self.signature authEndPoint:k500PXAuthEndPoint restEndPoint:k500PXRESTEndPoint]; 
             _apiContext.messageType = @"JSON"; 
         }
     }
@@ -61,7 +61,7 @@
     _signature = [signature copy]; 
     
     //update the context 
-    self.apiContext = [[[OFFlickrAPIContext alloc] initWithAPIKey:self.api_key sharedSecret:self.signature authEndPoint:k500PXAuthEndPoint restEndPoint:k500PXRESTEndPoint] autorelease];
+    self.apiContext = [[[OAuthProviderContext alloc] initWithAPIKey:self.api_key sharedSecret:self.signature authEndPoint:k500PXAuthEndPoint restEndPoint:k500PXRESTEndPoint] autorelease];
     self.apiContext.messageType = @"JSON"; 
 
 }

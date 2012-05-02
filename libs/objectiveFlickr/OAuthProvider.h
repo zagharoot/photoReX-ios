@@ -36,7 +36,7 @@ extern NSString *const OFFlickrDeletePermission;
 
 
 
-@interface OFFlickrAPIContext : NSObject
+@interface OAuthProviderContext : NSObject
 {
     NSString *key;
     NSString *sharedSecret;
@@ -142,7 +142,7 @@ typedef id OFFlickrAPIRequestDelegateType;
 
 @interface OFFlickrAPIRequest : NSObject
 {
-    OFFlickrAPIContext *context;
+    OAuthProviderContext *context;
     LFHTTPRequest *HTTPRequest;
     
     OFFlickrAPIRequestDelegateType delegate;
@@ -152,8 +152,8 @@ typedef id OFFlickrAPIRequestDelegateType;
     
     id oauthState;
 }
-- (id)initWithAPIContext:(OFFlickrAPIContext *)inContext;
-- (OFFlickrAPIContext *)context;
+- (id)initWithAPIContext:(OAuthProviderContext *)inContext;
+- (OAuthProviderContext *)context;
 
 
 - (NSTimeInterval)requestTimeoutInterval;
@@ -172,7 +172,7 @@ typedef id OFFlickrAPIRequestDelegateType;
 
 
 #if MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_4
-@property (nonatomic, readonly) OFFlickrAPIContext *context;
+@property (nonatomic, readonly) OAuthProviderContext *context;
 @property (nonatomic, assign) OFFlickrAPIRequestDelegateType delegate;
 @property (nonatomic, retain) id sessionInfo;
 @property (nonatomic, assign) NSTimeInterval requestTimeoutInterval;

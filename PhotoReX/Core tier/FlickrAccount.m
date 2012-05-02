@@ -24,12 +24,12 @@
 
 
 
--(OFFlickrAPIContext*) apiContext
+-(OAuthProviderContext*) apiContext
 {
     if (!_apiContext)
     {
         if (self.api_key && self.signature)
-            _apiContext = [[OFFlickrAPIContext alloc] initWithAPIKey:self.api_key sharedSecret:self.signature authEndPoint:kDefaultFlickrAuthEndpoint restEndPoint:kDefaultFlickrRESTAPIEndpoint]; 
+            _apiContext = [[OAuthProviderContext alloc] initWithAPIKey:self.api_key sharedSecret:self.signature authEndPoint:kDefaultFlickrAuthEndpoint restEndPoint:kDefaultFlickrRESTAPIEndpoint]; 
     }
     
     return _apiContext; 
@@ -44,7 +44,7 @@
     _signature = [signature copy]; 
     
     //update the context 
-    self.apiContext = [[[OFFlickrAPIContext alloc] initWithAPIKey:self.api_key sharedSecret:self.signature authEndPoint:kDefaultFlickrAuthEndpoint restEndPoint:kDefaultFlickrRESTAPIEndpoint] autorelease];
+    self.apiContext = [[[OAuthProviderContext alloc] initWithAPIKey:self.api_key sharedSecret:self.signature authEndPoint:kDefaultFlickrAuthEndpoint restEndPoint:kDefaultFlickrRESTAPIEndpoint] autorelease];
 }
 
 -(void) setRequestToken:(NSString *)requestToken withSecret:(NSString *)requestSecret

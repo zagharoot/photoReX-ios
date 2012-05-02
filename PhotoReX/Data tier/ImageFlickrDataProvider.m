@@ -81,7 +81,7 @@ enum FLICKR_REQUEST_TYPE {
 {
     FlickrAccount* acc = [[AccountManager standardAccountManager] flickrAccount]; 
     FlickrPictureInfo* info = (FlickrPictureInfo*) pictureInfo.info; 
-    OFFlickrAPIContext* context = acc.apiContext; 
+    OAuthProviderContext* context = acc.apiContext; 
     OFFlickrAPIRequest* request; 
     
     
@@ -111,7 +111,7 @@ enum FLICKR_REQUEST_TYPE {
 {
     FlickrAccount* acc = [[AccountManager standardAccountManager] flickrAccount]; 
     FlickrPictureInfo* info = (FlickrPictureInfo*) pictureInfo.info; 
-    OFFlickrAPIContext* context = acc.apiContext; 
+    OAuthProviderContext* context = acc.apiContext; 
     OFFlickrAPIRequest* request; 
     
     

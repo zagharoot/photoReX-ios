@@ -50,12 +50,12 @@ static NSString *const kEscapeChars = @"`~!@#$^&*()=+[]\\{}|;':\",/<>?";
 typedef unsigned int NSUInteger;
 #endif
 
-@interface OFFlickrAPIContext (PrivateMethods)
+@interface OAuthProviderContext (PrivateMethods)
 - (NSArray *)signedArgumentComponentsFromArguments:(NSDictionary *)inArguments useURIEscape:(BOOL)inUseEscape;
 - (NSString *)signedQueryFromArguments:(NSDictionary *)inArguments;
 @end
 
-@implementation OFFlickrAPIContext
+@implementation OAuthProviderContext
 - (void)dealloc
 {
     [key release];
@@ -167,7 +167,7 @@ restEndPoint:(NSString *)rep
 #endif
 @end
 
-@implementation OFFlickrAPIContext (PrivateMethods)
+@implementation OAuthProviderContext (PrivateMethods)
 - (NSArray *)signedArgumentComponentsFromArguments:(NSDictionary *)inArguments useURIEscape:(BOOL)inUseEscape
 {
     NSMutableDictionary *newArgs = [NSMutableDictionary dictionaryWithDictionary:inArguments];
@@ -282,7 +282,7 @@ restEndPoint:(NSString *)rep
     [super dealloc];
 }
 
-- (id)initWithAPIContext:(OFFlickrAPIContext *)inContext
+- (id)initWithAPIContext:(OAuthProviderContext *)inContext
 {
     if ((self = [super init])) {
         context = [inContext retain];
@@ -294,7 +294,7 @@ restEndPoint:(NSString *)rep
     return self;
 }
 
-- (OFFlickrAPIContext *)context
+- (OAuthProviderContext *)context
 {
 	return context;
 }

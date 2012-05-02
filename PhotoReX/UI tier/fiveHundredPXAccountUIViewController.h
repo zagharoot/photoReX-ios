@@ -12,7 +12,7 @@
 #import "GCDiscreetNotificationView.h"
 #import "OAuthProvider.h"
 
-@interface fiveHundredPXAccountUIViewController : UIViewController <UIWebViewDelegate, OFFlickrAPIRequestDelegate>
+@interface fiveHundredPXAccountUIViewController : UIViewController <UIWebViewDelegate, OAuthRequestDelegate>
 {
     FiveHundredPXAccount* _theAccount; 
     GCDiscreetNotificationView* _notificationView; 

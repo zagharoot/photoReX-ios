@@ -14,7 +14,7 @@
 
 
 //This is a wrapper class that retrieved the actual image data given a pictureInfo from flickr
-@interface ImageFlickrDataProvider : ImageDataProvider <NSURLConnectionDelegate, NSURLConnectionDataDelegate, OFFlickrAPIRequestDelegate> 
+@interface ImageFlickrDataProvider : ImageDataProvider <NSURLConnectionDelegate, NSURLConnectionDataDelegate, OAuthRequestDelegate> 
 {
     NSMutableDictionary* connections; //this is a dictionary from NSURLConnection to observers.
     

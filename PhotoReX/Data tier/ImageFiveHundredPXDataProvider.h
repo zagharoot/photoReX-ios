@@ -12,7 +12,7 @@
 
 #import "OAuthProvider.h" 
 
-@interface ImageFiveHundredPXDataProvider : ImageDataProvider <NSURLConnectionDelegate, NSURLConnectionDataDelegate, OFFlickrAPIRequestDelegate> 
+@interface ImageFiveHundredPXDataProvider : ImageDataProvider <NSURLConnectionDelegate, NSURLConnectionDataDelegate, OAuthRequestDelegate> 
 
 {
     NSMutableDictionary* connections; //this is a dictionary from NSURLConnection to observers.

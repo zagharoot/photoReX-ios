@@ -115,7 +115,7 @@ extern NSString *const OFFetchOAuthAccessTokenSession;
 @class OFFlickrAPIRequest;
 
 #if MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_4
-@protocol OFFlickrAPIRequestDelegate <NSObject>
+@protocol OAuthRequestDelegate <NSObject>
 @optional
 #else
 @interface NSObject (OFFlickrAPIRequestDelegateCategory)
@@ -135,7 +135,7 @@ extern NSString *const OFFetchOAuthAccessTokenSession;
 @end
 
 #if MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_4
-typedef id<OFFlickrAPIRequestDelegate> OFFlickrAPIRequestDelegateType;
+typedef id<OAuthRequestDelegate> OFFlickrAPIRequestDelegateType;
 #else
 typedef id OFFlickrAPIRequestDelegateType;
 #endif

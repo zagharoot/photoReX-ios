@@ -12,7 +12,7 @@
 #import "OAuthProvider.h"
 #import "GCDiscreetNotificationView.h"
 
-@interface FlickrAccountUIViewController : UIViewController <UIWebViewDelegate, OFFlickrAPIRequestDelegate>
+@interface FlickrAccountUIViewController : UIViewController <UIWebViewDelegate, OAuthRequestDelegate>
 {    
     UIWebView *m_webView;
     FlickrAccount* _theAccount; 

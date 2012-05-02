@@ -11,7 +11,7 @@
 #import "OAuthProvider.h" 
 
 
-@interface FlickrAccount: Account <OFFlickrAPIRequestDelegate> 
+@interface FlickrAccount: Account <OAuthRequestDelegate> 
 {    
     //static stuff 
     NSString* _api_key; 

@@ -90,7 +90,7 @@
 {
     [self.theAccount setRequestToken:inRequestToken withSecret:inSecret]; 
     
-    NSURL *authURL = [self.theAccount.apiContext userAuthorizationURLWithRequestToken:inRequestToken requestedPermission:OFFlickrWritePermission];
+    NSURL *authURL = [self.theAccount.apiContext userAuthorizationURLWithRequestToken:inRequestToken requestedPermission:OAuthWritePermission];
 
 
     NSURLRequest* urlRequest = [NSURLRequest requestWithURL:authURL]; 
@@ -108,7 +108,7 @@
     NSString *nsid = [params objectForKey:@"user_nsid"];
     NSString *un = [params objectForKey:@"username"];
     if (!fn || !oat || !oats || !nsid || !un) {
-        NSError *error = [NSError errorWithDomain:OFFlickrAPIRequestErrorDomain code:OFFlickrAPIRequestOAuthError userInfo:params];            
+        NSError *error = [NSError errorWithDomain:OAuthRequestErrorDomain code:-1 userInfo:params];            
         [self flickrAPIRequest:inRequest didFailWithError:error];  
         return; 
     }

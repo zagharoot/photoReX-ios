@@ -30,15 +30,15 @@
 #import "OFXMLMapper.h"
 #import "SBJson.h" 
 
-NSString *const OFFlickrReadPermission = @"read";
-NSString *const OFFlickrWritePermission = @"write";
-NSString *const OFFlickrDeletePermission = @"delete";
+NSString *const OAuthReadPermission = @"read";
+NSString *const OAuthWritePermission = @"write";
+NSString *const OAuthDeletePermission = @"delete";
 
  
- NSString *const OFFlickrAPIReturnedErrorDomain = @"com.webservice";
-NSString *const OFFlickrAPIRequestErrorDomain = @"edu.nouri.photoReX";
+ NSString *const OAuthReturnedErrorDomain = @"com.webservice";
+NSString *const OAuthRequestErrorDomain = @"edu.nouri.photoReX";
 
-NSString *const OFFlickrAPIRequestOAuthErrorUserInfoKey = @"OAuthError";
+NSString *const OAuthErrorUserInfoKey = @"OAuthError";
 NSString *const OFFetchOAuthRequestTokenSession = @"FetchOAuthRequestToken";
 NSString *const OFFetchOAuthAccessTokenSession = @"FetchOAuthAccessToken";
 
@@ -456,8 +456,8 @@ static NSData *NSDataFromOAuthPreferredWebForm(NSDictionary *formDictionary)
         NSString *oat = [params objectForKey:@"oauth_token"];
         NSString *oats = [params objectForKey:@"oauth_token_secret"];
         if (!oat || !oats) {
-            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:response, OFFlickrAPIRequestOAuthErrorUserInfoKey, nil];
-            NSError *error = [NSError errorWithDomain:OFFlickrAPIRequestErrorDomain code:OFFlickrAPIRequestOAuthError userInfo:userInfo];            
+            NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:response, OAuthErrorUserInfoKey, nil];
+            NSError *error = [NSError errorWithDomain:OAuthRequestErrorDomain code:-1 userInfo:userInfo];            
             [delegate flickrAPIRequest:self didFailWithError:error];                
         }
         else {
@@ -495,10 +495,10 @@ static NSData *NSDataFromOAuthPreferredWebForm(NSDictionary *formDictionary)
                 NSError *toDelegateError;
                 if ([code length]) {
                     // intValue for 10.4-compatibility
-                    toDelegateError = [NSError errorWithDomain:OFFlickrAPIReturnedErrorDomain code:[code intValue] userInfo:[msg length] ? [NSDictionary dictionaryWithObjectsAndKeys:msg, NSLocalizedFailureReasonErrorKey, nil] : nil];				
+                    toDelegateError = [NSError errorWithDomain:OAuthReturnedErrorDomain code:[code intValue] userInfo:[msg length] ? [NSDictionary dictionaryWithObjectsAndKeys:msg, NSLocalizedFailureReasonErrorKey, nil] : nil];				
                 }
                 else {
-                    toDelegateError = [NSError errorWithDomain:OFFlickrAPIRequestErrorDomain code:OFFlickrAPIRequestFaultyXMLResponseError userInfo:nil];
+                    toDelegateError = [NSError errorWithDomain:OAuthRequestErrorDomain code:-1 userInfo:nil];
                 }
                 
                 if ([delegate respondsToSelector:@selector(flickrAPIRequest:didFailWithError:)]) {
@@ -529,13 +529,13 @@ static NSData *NSDataFromOAuthPreferredWebForm(NSDictionary *formDictionary)
 {
     NSError *toDelegateError = nil;
     if ([error isEqualToString:LFHTTPRequestConnectionError]) {
-		toDelegateError = [NSError errorWithDomain:OFFlickrAPIRequestErrorDomain code:OFFlickrAPIRequestConnectionError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Network connection error", NSLocalizedFailureReasonErrorKey, nil]];
+		toDelegateError = [NSError errorWithDomain:OAuthRequestErrorDomain code:-1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Network connection error", NSLocalizedFailureReasonErrorKey, nil]];
     }
     else if ([error isEqualToString:LFHTTPRequestTimeoutError]) {
-		toDelegateError = [NSError errorWithDomain:OFFlickrAPIRequestErrorDomain code:OFFlickrAPIRequestTimeoutError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Request timeout", NSLocalizedFailureReasonErrorKey, nil]];
+		toDelegateError = [NSError errorWithDomain:OAuthRequestErrorDomain code:-1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Request timeout", NSLocalizedFailureReasonErrorKey, nil]];
     }
     else {
-		toDelegateError = [NSError errorWithDomain:OFFlickrAPIRequestErrorDomain code:OFFlickrAPIRequestUnknownError userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Unknown error", NSLocalizedFailureReasonErrorKey, nil]];
+		toDelegateError = [NSError errorWithDomain:OAuthRequestErrorDomain code:-1 userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"Unknown error", NSLocalizedFailureReasonErrorKey, nil]];
     }
     
     if ([delegate respondsToSelector:@selector(flickrAPIRequest:didFailWithError:)]) {

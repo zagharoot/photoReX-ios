@@ -112,7 +112,7 @@ extern NSString *const OFFetchOAuthRequestTokenSession;
 extern NSString *const OFFetchOAuthAccessTokenSession;
 
 
-@class OFFlickrAPIRequest;
+@class OAuthProviderRequest;
 
 #if MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_4
 @protocol OAuthRequestDelegate <NSObject>
@@ -120,17 +120,17 @@ extern NSString *const OFFetchOAuthAccessTokenSession;
 #else
 @interface NSObject (OFFlickrAPIRequestDelegateCategory)
 #endif
-- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary;
-- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError;
+- (void)flickrAPIRequest:(OAuthProviderRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary;
+- (void)flickrAPIRequest:(OAuthProviderRequest *)inRequest didFailWithError:(NSError *)inError;
 #if MAC_OS_X_VERSION_MAX_ALLOWED > MAC_OS_X_VERSION_10_4                
-- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest imageUploadSentBytes:(NSUInteger)inSentBytes totalBytes:(NSUInteger)inTotalBytes;
+- (void)flickrAPIRequest:(OAuthProviderRequest *)inRequest imageUploadSentBytes:(NSUInteger)inSentBytes totalBytes:(NSUInteger)inTotalBytes;
 #else
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest imageUploadSentBytes:(unsigned int)inSentBytes totalBytes:(unsigned int)inTotalBytes;
 #endif
 
-- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didObtainOAuthRequestToken:(NSString *)inRequestToken secret:(NSString *)inSecret;
+- (void)flickrAPIRequest:(OAuthProviderRequest *)inRequest didObtainOAuthRequestToken:(NSString *)inRequestToken secret:(NSString *)inSecret;
 
--(void) flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didObtainOAuthAccessToken:(NSDictionary*) params; 
+-(void) flickrAPIRequest:(OAuthProviderRequest *)inRequest didObtainOAuthAccessToken:(NSDictionary*) params; 
 
 @end
 
@@ -140,7 +140,7 @@ typedef id<OAuthRequestDelegate> OFFlickrAPIRequestDelegateType;
 typedef id OFFlickrAPIRequestDelegateType;
 #endif
 
-@interface OFFlickrAPIRequest : NSObject
+@interface OAuthProviderRequest : NSObject
 {
     OAuthProviderContext *context;
     LFHTTPRequest *HTTPRequest;

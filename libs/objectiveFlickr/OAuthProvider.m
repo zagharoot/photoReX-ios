@@ -272,7 +272,7 @@ restEndPoint:(NSString *)rep
 }
 @end
 
-@implementation OFFlickrAPIRequest
+@implementation OAuthProviderRequest
 - (void)dealloc
 {
     [context release];

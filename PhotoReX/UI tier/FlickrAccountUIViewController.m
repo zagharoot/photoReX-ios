@@ -54,7 +54,7 @@
     // Do any additional setup after loading the view from its nib
         
     
-    self.apiRequest = [[[OFFlickrAPIRequest alloc] initWithAPIContext:self.theAccount.apiContext] autorelease];
+    self.apiRequest = [[[OAuthProviderRequest alloc] initWithAPIContext:self.theAccount.apiContext] autorelease];
     self.apiRequest.delegate = self;
     self.apiRequest.requestTimeoutInterval = 60.0;
     
@@ -76,7 +76,7 @@
     [self.navigationController popViewControllerAnimated:YES]; 
 }
 
--(void) flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
+-(void) flickrAPIRequest:(OAuthProviderRequest *)inRequest didFailWithError:(NSError *)inError
 {
     NSLog(@"flickr api error: %@\n", inError.description); 
 
@@ -86,7 +86,7 @@
     [self performSelector:@selector(closePage) withObject:self afterDelay:2]; 
 }
 
-- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didObtainOAuthRequestToken:(NSString *)inRequestToken secret:(NSString *)inSecret
+- (void)flickrAPIRequest:(OAuthProviderRequest *)inRequest didObtainOAuthRequestToken:(NSString *)inRequestToken secret:(NSString *)inSecret
 {
     [self.theAccount setRequestToken:inRequestToken withSecret:inSecret]; 
     
@@ -100,7 +100,7 @@
 }
 
 
-- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didObtainOAuthAccessToken:(NSDictionary *)params
+- (void)flickrAPIRequest:(OAuthProviderRequest *)inRequest didObtainOAuthAccessToken:(NSDictionary *)params
 {
     NSString *fn = [params objectForKey:@"fullname"];
     NSString *oat = [params objectForKey:@"oauth_token"];

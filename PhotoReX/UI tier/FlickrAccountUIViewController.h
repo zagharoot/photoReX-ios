@@ -17,7 +17,7 @@
     UIWebView *m_webView;
     FlickrAccount* _theAccount; 
     
-    OFFlickrAPIRequest* _apiRequest; 
+    OAuthProviderRequest* _apiRequest; 
     GCDiscreetNotificationView* _notificationView; 
 }
 
@@ -28,7 +28,7 @@
 @property (nonatomic, retain) FlickrAccount* theAccount; 
 
 //objective flickr stuff 
-@property (nonatomic, retain) OFFlickrAPIRequest* apiRequest; 
+@property (nonatomic, retain) OAuthProviderRequest* apiRequest; 
 
 
 

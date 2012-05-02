@@ -16,7 +16,7 @@
 {
     FiveHundredPXAccount* _theAccount; 
     GCDiscreetNotificationView* _notificationView; 
-    OFFlickrAPIRequest* _apiRequest; 
+    OAuthProviderRequest* _apiRequest; 
 
 }
 @property (retain, nonatomic) IBOutlet UIWebView *m_webView;
@@ -26,7 +26,7 @@
 
 
 //objective flickr stuff 
-@property (nonatomic, retain) OFFlickrAPIRequest* apiRequest; 
+@property (nonatomic, retain) OAuthProviderRequest* apiRequest; 
 
 
 

@@ -82,13 +82,13 @@ enum FLICKR_REQUEST_TYPE {
     FlickrAccount* acc = [[AccountManager standardAccountManager] flickrAccount]; 
     FlickrPictureInfo* info = (FlickrPictureInfo*) pictureInfo.info; 
     OAuthProviderContext* context = acc.apiContext; 
-    OFFlickrAPIRequest* request; 
+    OAuthProviderRequest* request; 
     
     
     if (!info)      //TODO: how about register for notification to know when this does get available 
         return; 
     
-    request = [[OFFlickrAPIRequest alloc] initWithAPIContext:context]; 
+    request = [[OAuthProviderRequest alloc] initWithAPIContext:context]; 
     request.delegate = self; 
     request.sessionInfo = [ObjectiveFlickrRequestInfo requestInfoWithPictureInfo:pictureInfo andRequestType:FLICKR_DETAIL_REQUEST]; 
 
@@ -112,13 +112,13 @@ enum FLICKR_REQUEST_TYPE {
     FlickrAccount* acc = [[AccountManager standardAccountManager] flickrAccount]; 
     FlickrPictureInfo* info = (FlickrPictureInfo*) pictureInfo.info; 
     OAuthProviderContext* context = acc.apiContext; 
-    OFFlickrAPIRequest* request; 
+    OAuthProviderRequest* request; 
     
     
     if (!info)      //TODO: how about register for notification to know when this does get available 
         return NO;  
     
-    request = [[OFFlickrAPIRequest alloc] initWithAPIContext:context]; 
+    request = [[OAuthProviderRequest alloc] initWithAPIContext:context]; 
     request.delegate = self; 
     
     NSString* endPoint; 
@@ -313,7 +313,7 @@ enum FLICKR_REQUEST_TYPE {
 
 #pragma mark- objective flickr delegate 
 
--(void) flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
+-(void) flickrAPIRequest:(OAuthProviderRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
 {
 
     ObjectiveFlickrRequestInfo* sessionInfo = (ObjectiveFlickrRequestInfo*) inRequest.sessionInfo; 
@@ -368,7 +368,7 @@ enum FLICKR_REQUEST_TYPE {
 
 
 
--(void) flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
+-(void) flickrAPIRequest:(OAuthProviderRequest *)inRequest didFailWithError:(NSError *)inError
 {
     //remove the request from outstanding list 
     [requests removeObjectForKey:inRequest.description]; 

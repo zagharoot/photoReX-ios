@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Account.h"
-#import "ObjectiveFlickr.h" 
+#import "OAuthProvider.h" 
 
 
 @interface FlickrAccount: Account <OFFlickrAPIRequestDelegate> 

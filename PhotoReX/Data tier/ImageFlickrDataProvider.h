@@ -10,7 +10,7 @@
 #import "PictureInfo.h"
 #import "ImageDataProviderManager.h"
 
-#import "ObjectiveFlickr.h" 
+#import "OAuthProvider.h" 
 
 
 //This is a wrapper class that retrieved the actual image data given a pictureInfo from flickr

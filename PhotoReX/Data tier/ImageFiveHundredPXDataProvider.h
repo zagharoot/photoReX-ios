@@ -10,7 +10,7 @@
 #import "PictureInfo.h"
 #import "ImageDataProviderManager.h"
 
-#import "ObjectiveFlickr.h" 
+#import "OAuthProvider.h" 
 
 @interface ImageFiveHundredPXDataProvider : ImageDataProvider <NSURLConnectionDelegate, NSURLConnectionDataDelegate, OFFlickrAPIRequestDelegate> 
 

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FlickrAccount.h"
 #import "AccountTableViewCell.h"
-#import "ObjectiveFlickr.h"
+#import "OAuthProvider.h"
 #import "GCDiscreetNotificationView.h"
 
 @interface FlickrAccountUIViewController : UIViewController <UIWebViewDelegate, OFFlickrAPIRequestDelegate>

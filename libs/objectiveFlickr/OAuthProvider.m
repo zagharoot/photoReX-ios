@@ -25,7 +25,7 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#import "ObjectiveFlickr.h"
+#import "OAuthProvider.h"
 #import "OFUtilities.h"
 #import "OFXMLMapper.h"
 #import "SBJson.h" 

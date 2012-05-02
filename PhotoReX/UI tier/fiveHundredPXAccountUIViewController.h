@@ -10,7 +10,7 @@
 #import "FiveHundredPXAccount.h" 
 #import "AccountTableViewCell.h"
 #import "GCDiscreetNotificationView.h"
-#import "ObjectiveFlickr.h"
+#import "OAuthProvider.h"
 
 @interface fiveHundredPXAccountUIViewController : UIViewController <UIWebViewDelegate, OFFlickrAPIRequestDelegate>
 {

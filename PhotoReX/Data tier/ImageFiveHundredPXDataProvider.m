@@ -9,7 +9,7 @@
 #import "ImageFiveHundredPXDataProvider.h"
 #import "NetworkActivityIndicatorController.h"
 #import "AccountManager.h" 
-#import "ObjectiveFlickr.h" 
+#import "OAuthProvider.h" 
 
 
 enum FIVEHUNDREDPX_REQUEST_TYPE {

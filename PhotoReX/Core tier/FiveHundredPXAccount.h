@@ -7,7 +7,7 @@
 //
 
 #import "Account.h"
-#import "ObjectiveFlickr.h" 
+#import "OAuthProvider.h" 
 #import "ImageDataProviderManager.h" 
 
 @interface FiveHundredPXAccount : Account <DataDownloadObserver>

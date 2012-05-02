@@ -92,14 +92,14 @@ extern NSString *const OFFetchOAuthAccessTokenSession;
 -(void) OAuthRequest:(OAuthProviderRequest *)inRequest didObtainOAuthAccessToken:(NSDictionary*) params; 
 @end
 
-typedef id<OAuthRequestDelegate> OFFlickrAPIRequestDelegateType;
+typedef id<OAuthRequestDelegate> OAuthRequestDelegateType;
 
 @interface OAuthProviderRequest : NSObject
 {
     OAuthProviderContext *context;
     LFHTTPRequest *HTTPRequest;
     
-    OFFlickrAPIRequestDelegateType delegate;
+    OAuthRequestDelegateType delegate;
     id sessionInfo;
     
     NSString *uploadTempFilename;
@@ -126,7 +126,7 @@ typedef id<OAuthRequestDelegate> OFFlickrAPIRequestDelegateType;
 
 
 @property (nonatomic, readonly) OAuthProviderContext *context;
-@property (nonatomic, assign) OFFlickrAPIRequestDelegateType delegate;
+@property (nonatomic, assign) OAuthRequestDelegateType delegate;
 @property (nonatomic, retain) id sessionInfo;
 @property (nonatomic, assign) NSTimeInterval requestTimeoutInterval;
 

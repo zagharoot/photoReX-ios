@@ -20,19 +20,6 @@
          shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "PhotoReX/Core tier/FiveHundredPXAccount.m"
-         timestampString = "357608699.094606"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "219"
-         endingLineNumber = "219"
-         landmarkName = "-activateWithAccessToken:accessSecret:"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "No"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "libs/objectiveFlickr/ObjectiveFlickr.m"
          timestampString = "357596385.314382"
          startingColumnNumber = "9223372036854775807"
@@ -190,11 +177,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/Core tier/FiveHundredPXAccount.m"
-         timestampString = "357608699.094606"
+         timestampString = "357776853.65809"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "239"
-         endingLineNumber = "239"
+         startingLineNumber = "234"
+         endingLineNumber = "234"
          landmarkName = "-didGetUserDetails:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -225,7 +212,7 @@
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "PhotoReX/Core tier/FiveHundredPXAccount.m"
@@ -248,6 +235,45 @@
          startingLineNumber = "164"
          endingLineNumber = "164"
          landmarkName = "-saveSettings"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/Core tier/PictureInfo.m"
+         timestampString = "357683266.248451"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "221"
+         endingLineNumber = "221"
+         landmarkName = "+infoFromJsonData:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/Core tier/Account.m"
+         timestampString = "357778847.157266"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "143"
+         endingLineNumber = "143"
+         landmarkName = "-activate"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "PhotoReX/Core tier/FiveHundredPXAccount.m"
+         timestampString = "357779878.350515"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "248"
+         endingLineNumber = "248"
+         landmarkName = "-deactivate"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

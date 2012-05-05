@@ -304,5 +304,10 @@
     
 }
 
+-(BOOL) isPictureAvailable
+{
+    return self.percentageDataAvailable >= 1.0; 
+}
+
 
 @end

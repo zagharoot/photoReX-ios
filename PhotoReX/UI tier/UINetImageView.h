@@ -46,6 +46,7 @@
 -(id) initWithPictureInfo:(PictureInfo *)pictureInfo andFrame:(CGRect) frame shouldClipToBound:(BOOL) clip drawUserActivity:(BOOL) activity;
 -(void) loadAsUnavailableImage; 
 -(void) loadPicture; 
+-(BOOL) isPictureAvailable;             //returns true if the image is already downloaded and ready
 
 // get updates from the picture info 
 -(void) imageActivityStatusDidChange:(NSNotification*) notification; 

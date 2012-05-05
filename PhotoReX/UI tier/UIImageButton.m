@@ -111,6 +111,9 @@
 
 -(BOOL) beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
+    if (! [self.imageView isPictureAvailable])      //because we don't want to do anything if the image is not available
+        return false;  
+    
     if (!isPushedDown)
     {
         [self pushdown]; 

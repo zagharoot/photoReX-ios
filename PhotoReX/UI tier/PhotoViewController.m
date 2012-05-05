@@ -33,6 +33,7 @@
 
 - (IBAction)dismissView:(id)sender 
 {    
+    imageView.delegate = nil;       
     [self dismissModalViewControllerAnimated:YES]; 
 }
 

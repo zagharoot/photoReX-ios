@@ -262,7 +262,7 @@ static NSString* SERVICE_CREATE_USER        = @"createUser";
          {
              
              NSString* datastr = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]; 
-           //  NSLog(@"received data as %@\n", datastr); 
+             NSLog(@"received data as %@\n", datastr); 
              
              
              SBJsonParser* parser = [[SBJsonParser alloc] init]; 

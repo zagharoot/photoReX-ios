@@ -502,7 +502,11 @@
     
     //make the blurred version of the image in a separate thread so it doesn't block 
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.blurredImageView.image = [imageView.image stackBlur:30]; 
+        @try {
+            self.blurredImageView.image = [imageView.image stackBlur:30]; 
+        }
+        @catch (NSException *exception) {
+        }
     }); 
     
     

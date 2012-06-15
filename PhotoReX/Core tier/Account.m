@@ -84,8 +84,11 @@
     
     
     //first time use, create it: 
-    NSString* path = [NSString stringWithFormat:@"%@Icon", self.accountName ]; 
-    _iconImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:path ofType:@"png"]]; 
+    NSString* path = [NSString stringWithFormat:@"%@Icon.png", self.accountName ]; 
+//    _iconImage = [[UIImage alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:path ofType:@"png"]]; 
+    
+    _iconImage = [[UIImage imageNamed:path] retain];
+    
     
     return _iconImage; 
 }

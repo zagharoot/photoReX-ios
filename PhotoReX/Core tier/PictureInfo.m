@@ -129,7 +129,7 @@
         [self setInfo:[FlickrPictureInfo infoFromJsonData:picData]]; 
     else if ([website isEqualToString:@"instagram"])
         [self setInfo:[InstagramPictureInfo infoFromJsonData:picData]]; 
-    else if ([website isEqualToString:@"fiveHundredPX"])
+    else if ([website isEqualToString:@"500px"])
         [self setInfo:[FiveHundredPXPictureInfo infoFromJsonData:picData]]; 
     
     //WEBSITE: add code for other websites 
@@ -289,7 +289,7 @@
 
 @synthesize numberOfVisits=_numberOfVisits; 
 @synthesize numberOfComments=_numberOfComments; 
-
+@synthesize baseURL=_baseURL; 
 
 -(id) initWithID:(NSString *)ID andBaseURL:(NSString *)bu andHash:(NSString *)hash
 {
@@ -311,7 +311,7 @@
 +(FiveHundredPXPictureInfo*) infoFromJsonData:(NSDictionary *)data
 {
     NSString* p = [data objectForKey:@"id"]; 
-    NSString* bu = [data objectForKey:@"baseURL"]; 
+    NSString* bu = [data objectForKey:@"url"]; 
     NSString* h = [data objectForKey:@"hash"]; 
     
     
@@ -321,7 +321,15 @@
         return nil; 
     }
     
-    return [[[FiveHundredPXPictureInfo alloc] initWithID:p andBaseURL:bu andHash:h] autorelease]; 
+    FiveHundredPXPictureInfo* result =  [[[FiveHundredPXPictureInfo alloc] initWithID:p andBaseURL:bu andHash:h] autorelease];
+    
+    result.numberOfVisits = [[data objectForKey:@"timesViewed"] intValue];
+    result.numberOfComments= -1; //[[data objectForKey:@"timesCommented"] intValue];
+    result.author = [data objectForKey:@"userFullName"];
+    result.title = [data objectForKey:@"description"];
+    
+    
+    return result;
 }
 
 -(NSDictionary*) getDictionaryRepresentation

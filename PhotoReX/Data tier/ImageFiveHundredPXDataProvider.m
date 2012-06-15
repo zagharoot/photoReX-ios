@@ -186,8 +186,8 @@ enum FIVEHUNDREDPX_REQUEST_TYPE {
 -(void) getDataForPicture:(PictureInfo *)pictureInfo withResolution:(ImageResolution)resolution withObserver:(id<DataDownloadObserver>)observer
 {
 
-    NSString* urlString = [self urlStringForPhotoWithInfo:pictureInfo.dictionaryRepresentation withResolution:resolution]; 
-    
+    NSString* urlString = [self urlStringForPhotoWithInfo:(FiveHundredPXPictureInfo*) pictureInfo.info withResolution:resolution]; 
+ 
     NSURL* url = [NSURL URLWithString:urlString]; 
     
     //create the request 
@@ -318,11 +318,11 @@ enum FIVEHUNDREDPX_REQUEST_TYPE {
 }
 
 
--(NSString*) urlStringForPhotoWithInfo:(NSDictionary *)info withResolution:(ImageResolution)resolution
+-(NSString*) urlStringForPhotoWithInfo:(FiveHundredPXPictureInfo *)info withResolution:(ImageResolution)resolution
 {
 	NSString *fileType = @"jpg";
 
-	NSString* baseURL  = [info objectForKey:@"baseURL"];
+	NSString* baseURL  = info.baseURL; 
 	
 	if (!baseURL) return nil;
 	
@@ -333,7 +333,7 @@ enum FIVEHUNDREDPX_REQUEST_TYPE {
 	}
     
 
-	NSString* result = [NSString stringWithFormat:@"%@/%d.%@", baseURL, resID, fileType]; 
+	NSString* result = [NSString stringWithFormat:@"%@%d.%@", baseURL, resID, fileType]; 
     return result; 
 }	
 

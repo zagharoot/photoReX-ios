@@ -35,7 +35,6 @@ extern NSString *const OAuthDeletePermission;
 
 // API endpoints
 
-#if MAC_OS_X_VERSION_MIN_REQUIRED > MAC_OS_X_VERSION_10_4
 @property (nonatomic, copy) NSString *key;
 @property (nonatomic, copy) NSString *sharedSecret;
 @property (nonatomic, retain) NSString *authToken;
@@ -46,28 +45,6 @@ extern NSString *const OAuthDeletePermission;
 @property (nonatomic, retain) NSString *OAuthToken;
 @property (nonatomic, retain) NSString *OAuthTokenSecret;
 @property (nonatomic, copy) NSString* messageType; 
-#else
-
-- (void)setAuthToken:(NSString *)inAuthToken;
-- (NSString *)authToken;
-
-
-- (void)setRESTAPIEndpoint:(NSString *)inEndpoint;
-- (NSString *)RESTAPIEndpoint;
-
-
-- (void)setAuthEndpoint:(NSString *)inEndpoint;
-- (NSString *)authEndpoint;
-
-
-- (void)setOAuthToken:(NSString *)inToken;
-- (NSString *)OAuthToken;
-
-- (void)setOAuthTokenSecret:(NSString *)inTokenSecret;
-- (NSString *)OAuthTokenSecret;
-
-
-#endif
 @end
 
 extern NSString *const OAuthReturnedErrorDomain;

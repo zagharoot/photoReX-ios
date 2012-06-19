@@ -143,43 +143,45 @@ enum FIVEHUNDREDPX_REQUEST_TYPE {
 
 -(BOOL) setFavorite:(BOOL)fav forPictureInfo:(PictureInfo *)pictureInfo
 {
-    //TODO: we need to fill this. heres flickr implementation
-/*    
-    FlickrAccount* acc = [[AccountManager standardAccountManager] flickrAccount]; 
-    FlickrPictureInfo* info = (FlickrPictureInfo*) pictureInfo.info; 
-    OFFlickrAPIContext* context = acc.apiContext; 
-    OFFlickrAPIRequest* request; 
+    FiveHundredPXAccount* acc = [[AccountManager standardAccountManager] fiveHundredPXAccount];
+    FiveHundredPXPictureInfo* info = (FiveHundredPXPictureInfo*) pictureInfo.info;
+    OAuthProviderContext* context = acc.apiContext; 
+    OAuthProviderRequest* request; 
     
     
     if (!info)      //TODO: how about register for notification to know when this does get available 
         return NO;  
     
-    request = [[OFFlickrAPIRequest alloc] initWithAPIContext:context]; 
+    request = [[OAuthProviderRequest alloc] initWithAPIContext:context]; 
     request.delegate = self; 
     
     NSString* endPoint; 
     if (fav) 
     {
-        request.sessionInfo = [ObjectiveFlickrRequestInfo requestInfoWithPictureInfo:pictureInfo andRequestType:FLICKR_FAVORITE_REQUEST]; 
-        endPoint = @"flickr.favorites.add"; 
+        request.sessionInfo = [FiveHundredPXRequestInfo requestInfoWithPictureInfo:pictureInfo andRequestType:FIVEHUNDREDPX_FAVORITE_REQUEST];
         
     }else {
-        request.sessionInfo = [ObjectiveFlickrRequestInfo requestInfoWithPictureInfo:pictureInfo andRequestType:FLICKR_UNFAVORITE_REQUEST]; 
-        endPoint = @"flickr.favorites.remove"; 
+        request.sessionInfo = [FiveHundredPXRequestInfo requestInfoWithPictureInfo:pictureInfo andRequestType:FIVEHUNDREDPX_UNFAVORITE_REQUEST];
     }
+
+    endPoint = [NSString stringWithFormat:@"%@photos/%@/vote", context.RESTAPIEndpoint,  info.picID];
     
-    // add the request to the list of outstanding ones 
+    
+    // add the request to the list of outstanding ones
     [requests setValue:request forKey:request.description]; 
     [request release]; 
     
-    NSMutableDictionary* args = [[[NSMutableDictionary alloc] initWithCapacity:2] autorelease]; 
-    [args setValue:acc.api_key forKey:@"api_key"]; 
-    [args setValue:info.picID forKey:@"photo_id"]; 
-    [request callAPIMethodWithPOST:endPoint arguments:args]; //will get notified as delegate about the progress 
-    return YES; 
-*/
     
-    return false; 
+    NSMutableDictionary* args = [[[NSMutableDictionary alloc] initWithCapacity:2] autorelease];
+    
+    if (fav)
+        [args setValue:@"1" forKey:@"vote"];
+    else
+        [args setValue:@"0" forKey:@"vote"];
+
+    
+    [request callAPIMethodWithPOST:endPoint arguments:args]; //will get notified as delegate about the progress
+    return YES; 
 }
 
 
@@ -370,16 +372,22 @@ enum FIVEHUNDREDPX_REQUEST_TYPE {
     FiveHundredPXRequestInfo* sessionInfo = (FiveHundredPXRequestInfo*) inRequest.sessionInfo; 
     
     if (!sessionInfo)
-        return; 
+        return;
     
-//    PictureInfo* pic = sessionInfo.pictureInfo;     
-    id<DataDownloadObserver> observer = sessionInfo.delegate; 
-    //    NSDictionary *photo, *owner, *title;  
+    PictureInfo* pic = sessionInfo.pictureInfo;     
+    FiveHundredPXPictureInfo* info = (FiveHundredPXPictureInfo*) pic.info;
+    id<DataDownloadObserver> observer = sessionInfo.delegate;
     
     
     switch (sessionInfo.requestType) {
         case FIVEHUNDREDPX_USER_REQUEST: 
             [observer didGetUserDetails:inResponseDictionary]; 
+            break;
+        case FIVEHUNDREDPX_FAVORITE_REQUEST:
+            [info setIsFavorite:YES];
+            break;
+        case FIVEHUNDREDPX_UNFAVORITE_REQUEST:
+            [info setIsFavorite:NO];
             break; 
         default:
             break;

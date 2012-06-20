@@ -81,14 +81,14 @@ enum ACCOUNT_INDEX  //WEBSITE: add the website here
 {
     PictureInfoDetails* _info; 
     NSDictionary* _dictionaryRepresentation; 
-    
+    NSError* _errorMessage;                         //any error message generated while getting the image 
     ImageActivityStatus _userActivityStatus; 
 }
 
 +(ImageResolution) CGSizeToImageResolution:(CGSize) size; 
 
 -(BOOL) isInfoDataAvailable;                                    //is the actual picture data available?
--(void) createInfoFromJsonData:(NSDictionary*) data; 
+-(NSError*) createInfoFromJsonData:(NSDictionary*) data;
 
 -(void) makeViewed; 
 
@@ -96,7 +96,7 @@ enum ACCOUNT_INDEX  //WEBSITE: add the website here
 @property (nonatomic, retain) PictureInfoDetails* info; 
 @property (readonly) NSDictionary* dictionaryRepresentation; 
 @property (nonatomic) ImageActivityStatus userActivityStatus; 
-
+@property (nonatomic, retain) NSError* errorMessage; 
 @end
 
 

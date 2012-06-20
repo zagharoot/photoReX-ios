@@ -9,6 +9,9 @@
 #import "ImageGridUIViewController.h"
 #import "PhotoViewController.h"
 #import "FancyTabbarController.h" 
+#import "ErrorViewController.h"
+#import "TestViewController.h"
+
 
 #define EDGE_PADDING    13                      //the space around the pictures to the edge of the frame
 #define PICTURE_PADDING  8         //the space between pictures specified in percentage of the pic width
@@ -30,6 +33,15 @@
 
 -(void) loadImages 
 {
+    if (self.imageSource.errorMessage)
+    {
+        ErrorViewController* evc = [[[ErrorViewController alloc] initWithErrorMessage:self.imageSource.errorMessage] autorelease]; 
+        
+        [self addChildViewController:evc]; 
+        [self.view addSubview:evc.view]; 
+        return; 
+    }
+    
     
     for(int i=0; i < numberOfRows*numberOfColumns; i++)
     {
@@ -80,7 +92,6 @@
     // Do any additional setup after loading the view from its nib.
     
     [self setup]; 
-    
 }
 
 

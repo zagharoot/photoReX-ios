@@ -9,6 +9,7 @@
 #import "PictureInfo.h"
 #import "AccountManager.h"
 #import "ImageDataProviderManager.h"
+#import "NSError+Util.h"
 
 @implementation PictureInfoDetails
 
@@ -37,7 +38,7 @@
 
 @synthesize info=_info; 
 @synthesize userActivityStatus=_userActivityStatus; 
-
+@synthesize errorMessage=_errorMessage; 
 
 -(void) setUserActivityStatus:(ImageActivityStatus)userActivityStatus
 {
@@ -95,14 +96,22 @@
 }
 
 
--(void) createInfoFromJsonData:(NSDictionary *)data
+-(NSError*) createInfoFromJsonData:(NSDictionary *)data 
 {
-    if (data == nil){NSLog(@"ERROR: no data was passed to createInfoFromJsonData\n"); return; }
+    if (data == nil){
+        NSLog(@"ERROR: no data was passed to createInfoFromJsonData\n"); 
+        self.errorMessage = [NSError errorWithDomain:@"picwebsite" andMessage:@"No data was passed to createInfoFromJsonData"]; 
+        return self.errorMessage; 
+    }
     
     //the data contains two fields: "rectype" (a code that describes why this picture was chosen, ignored for now), "picture" (contains the data)
     
     NSDictionary* picData = [data objectForKey:@"picture"]; 
-    if (picData == nil){NSLog(@"ERROR: picture  data invalid createInfoFromJsonData\n"); return; }
+    if (picData == nil){
+        NSLog(@"ERROR: picture  data invalid createInfoFromJsonData\n"); 
+        self.errorMessage = [NSError errorWithDomain:@"picwebsite" code:0 userInfo:data]; 
+        return self.errorMessage; 
+    }
     
     
     NSNumber* userStatus = [picData objectForKey:@"userActivityStatus"]; 
@@ -116,7 +125,11 @@
     NSString* website = [picData objectForKey:@"website"]; 
     
     
-    if (website == nil){NSLog(@"ERROR: website data invalid createInfoFromJsonData\n"); return; }
+    if (website == nil){
+        NSLog(@"ERROR: website data invalid createInfoFromJsonData\n"); 
+        self.errorMessage = [NSError errorWithDomain:@"picwebsite" code:0 userInfo:data]; 
+        return self.errorMessage; 
+    }
 
     
     NSNumber* viewed = [picData objectForKey:@"isViewed"]; 
@@ -133,6 +146,10 @@
         [self setInfo:[FiveHundredPXPictureInfo infoFromJsonData:picData]]; 
     
     //WEBSITE: add code for other websites 
+
+
+    return nil; 
+
 }
 
 -(NSDictionary*) dictionaryRepresentation
@@ -165,7 +182,7 @@
 {
     [_info release]; 
     [_dictionaryRepresentation release]; 
-    
+    [_errorMessage release]; 
     
     [super dealloc]; 
 }

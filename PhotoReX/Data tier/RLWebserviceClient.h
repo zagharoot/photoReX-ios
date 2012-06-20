@@ -39,7 +39,7 @@ enum WebServiceLocation {
 -(void) saveSettings; 
 
 //picInfoData is actually an array of json data that can be used to generated pictureInfos
--(void) getPageFromServerAsync:(int) howMany andRunBlock:(void (^)(NSString* pageid, NSArray* picInfoData)) theBlock ; 
+-(void) getPageFromServerAsync:(int) howMany andRunBlock:(void (^)(NSString* pageid, NSArray* picInfoData, NSError* err)) theBlock ; 
 
 //sends user activity to the server (guarantees receive on the server side) 
 -(void) sendPageActivityAsync:(NSString*) pageid pictureHash:(NSString*) hash; 

@@ -37,10 +37,13 @@ const int CACHED_PAGES  =  1;           //number of pages retrieved in advance
     PictureInfoCollection* result = [[PictureInfoCollection alloc] initWithCount:howMany]; 
     
     [webservice getPageFromServerAsync:howMany andRunBlock:
-     ^(NSString* pageid, NSArray* picInfoData)
+     ^(NSString* pageid, NSArray* picInfoData, NSError* err)
      {
          result.uniqueID = pageid; 
-         [result loadPicturesWithData:picInfoData]; 
+         if (picInfoData && !err)
+             [result loadPicturesWithData:picInfoData]; 
+         else
+             result.errorMessage = err; 
      }]; 
     
     return [result autorelease]; 
@@ -72,7 +75,7 @@ const int CACHED_PAGES  =  1;           //number of pages retrieved in advance
 
 -(void) userVisitsImageAtIndex:(int)indx inPictureInfoCollection:(PictureInfoCollection *)picCollection
 {
-    PictureInfo* p = [picCollection getPictureInfoAtLocation:indx]; 
+//    PictureInfo* p = [picCollection getPictureInfoAtLocation:indx]; 
     
     NSString* hash = [picCollection getPictureInfoAtLocation:indx].info.hash; 
     [webservice sendPageActivityAsync:picCollection.uniqueID pictureHash: hash]; 

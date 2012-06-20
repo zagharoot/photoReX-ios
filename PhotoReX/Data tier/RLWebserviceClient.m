@@ -9,7 +9,7 @@
 #import "RLWebserviceClient.h"
 #import "NetworkActivityIndicatorController.h"
 #import "SBJsonWriter.h"
-
+#import "NSError+Util.h"
 
 static RLWebserviceClient* _rlWebServiceClient= nil; 
 
@@ -232,11 +232,13 @@ static NSString* SERVICE_CREATE_USER        = @"createUser";
 
 // retrieves some pages of pictureInfos from the rl webservice in the background. Once completed, the handle block is executed. 
 // if an error occurs, the block is called with nil arguments 
--(void) getPageFromServerAsync:(int)howMany andRunBlock:(void (^)(NSString *, NSArray *))theBlock
+-(void) getPageFromServerAsync:(int)howMany andRunBlock:(void (^)(NSString *, NSArray *, NSError* err))theBlock
 {
     if (!self.userid) 
+    {
+        theBlock(nil, nil, [NSError errorWithDomain:@"rlwebsite" andMessage:@"No userid is available"]);
         return; 
-    
+    }
     
     NSString* body = [NSString stringWithFormat:@"{\"userid\":\"%@\",\"howMany\":\"%d\"}", self.userid, howMany]; 
     
@@ -257,7 +259,7 @@ static NSString* SERVICE_CREATE_USER        = @"createUser";
          if (response == nil)       //error happened
          {
              NSLog(@"Error downloading data from RLService: %@\n", [error description]); 
-             theBlock(@"", nil); 
+             theBlock(@"", nil, error); 
          } else         //success
          {
              
@@ -270,16 +272,27 @@ static NSString* SERVICE_CREATE_USER        = @"createUser";
              
 
              NSDictionary* d1 = [parser objectWithData:data]; 
-             if (d1 == nil) { NSLog(@"the data from webservice was not formatted correctly"); theBlock(nil, nil); [parser release]; return;}
-                          
+             if (d1 == nil) { 
+                 NSLog(@"the data from webservice was not formatted correctly"); 
+                 NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys: @"data from rlwebservice was not formatted properly", @"message", datastr, @"data" , nil]; 
 
+                 theBlock(nil, nil, [NSError errorWithDomain:@"rlwebserver" code:0 userInfo:dic]);
+                [parser release]; 
+                 return;
+            }
              
              NSDictionary* d2; 
              if (self.webServiceLocation == RLWEBSERVICE_LAPTOP)
              {
                  //getting from ASP.NET ---------
                  d2 = [parser objectWithString:[d1 objectForKey:@"d"]]; 
-                 if (d2 == nil) { NSLog(@"the data from webservice was not formatted correctly"); theBlock(nil, nil); [parser release]; return;
+                 if (d2 == nil) { 
+                     NSLog(@"the data from webservice was not formatted correctly"); 
+                     NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys: @"data from rlwebservice was not formatted properly", @"message", datastr, @"data" , nil]; 
+                     
+                     theBlock(nil, nil, [NSError errorWithDomain:@"rlwebserver" code:0 userInfo:dic]);
+                     [parser release]; 
+                     return;
                  }
              }else
                  d2 = d1; 
@@ -288,11 +301,18 @@ static NSString* SERVICE_CREATE_USER        = @"createUser";
              NSString* pageid = [d2 objectForKey:@"pageid"]; 
              NSArray*  pages  = [d2 objectForKey:@"pics"]; 
              
-             if (pageid==nil || pages == nil) { NSLog(@"the data from webservice was not formatted correctly"); theBlock(nil, nil); [parser release]; return;}
+             if (pageid==nil || pages == nil) {
+                 NSLog(@"the data from webservice was not formatted correctly"); 
+                 NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys: @"data from rlwebservice was not formatted properly", @"message", datastr, @"data" , nil]; 
+                 
+                 theBlock(nil, nil, [NSError errorWithDomain:@"rlwebserver" code:0 userInfo:dic]);
+                 [parser release]; 
+                 return;
+             }
              
              
              //we finally have all the stuff we need. lets call the block: 
-             theBlock(pageid, pages); 
+             theBlock(pageid, pages, nil); 
 
              //cleanup 
              [parser release];

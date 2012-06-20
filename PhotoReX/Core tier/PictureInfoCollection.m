@@ -8,12 +8,14 @@
 
 #import "PictureInfoCollection.h"
 #import "PictureInfo.h"
+#import "NSError+Util.h"
 
 @implementation PictureInfoCollection
 
 @synthesize count = _count; 
 @synthesize images = _images; 
 @synthesize uniqueID=_uniqueID; 
+@synthesize errorMessage=_errorMessage; 
 
 - (id)initWithCount:(int) c
 {
@@ -60,7 +62,7 @@
 }
 
 
--(void) loadPicturesWithData:(NSArray *)data
+-(void) loadPicturesWithData:(NSArray *)data 
 {
     
     if (data== nil) 
@@ -69,12 +71,15 @@
     if (data.count < self.count)
     {
         NSLog(@"ERROR: received %d pictures in picCollection where needed %d\n", data.count, self.count); 
+        self.errorMessage = [NSError errorWithDomain:@"rlwebserver" andMessage:[NSString stringWithFormat:@"ERROR: received %d pictures in picCollection where needed %d\n", data.count, self.count]];
         return; 
     }
     
     for (int i=0; i< self.count; i++)
     {
-        [[self.images objectAtIndex:i] createInfoFromJsonData:[data objectAtIndex:i]]; 
+        NSError* err = [[self.images objectAtIndex:i] createInfoFromJsonData:[data objectAtIndex:i]]; 
+        if (err)
+            self.errorMessage = err; 
     }
 }
 
@@ -84,6 +89,7 @@
 {
     [_images release];  
     [_uniqueID release]; 
+    [_errorMessage release]; 
     
     [super dealloc]; 
 }

@@ -17,12 +17,13 @@
     NSString* _uniqueID;        //? 
     NSArray* _images;           //this is an array of PictureInfo 
     int _count;                 //how many picture inside 
+    NSError* _errorMessage;     //in case sth happened during data retrieval, we store it here
 }
 
 @property (retain) NSArray* images; 
 @property int count; 
 @property (copy) NSString* uniqueID; 
-
+@property (nonatomic, retain) NSError* errorMessage; 
 
 -(void) loadPicturesWithData:(NSArray*) data;               //after the data (which is an array of json data), call this function and the data of each pictureInfo is created/updated from the json data 
 -(id) initWithCount:(int) count; 

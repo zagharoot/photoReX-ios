@@ -20,5 +20,25 @@
 }
 
 
+-(void) show
+{
+    NSString* title = [NSString stringWithFormat:@"Error domain: %@", self.domain]; 
+    NSString* desc; 
+/*    
+    if ([self.userInfo objectForKey:@"message"])
+        desc = [NSString stringWithFormat:@"Message: %@", [self.userInfo objectForKey:@"message"]]; 
+    else
+*/
+    desc = [NSString stringWithFormat:@"Detail: %@", self.userInfo.description]; 
+    
+    
+    [YRDropdownView showDropdownInView:[[UIApplication sharedApplication] keyWindow]
+                                 title:title 
+                                detail:desc 
+                                 image:[UIImage imageNamed:@"dropdown-alert"]
+                              animated:YES
+                             hideAfter:0];
+    
+}
 
 @end

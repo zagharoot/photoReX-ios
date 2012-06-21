@@ -11,7 +11,7 @@
 #import "FancyTabbarController.h" 
 #import "ErrorViewController.h"
 #import "TestViewController.h"
-
+#import "NSError+Util.h"
 
 #define EDGE_PADDING    13                      //the space around the pictures to the edge of the frame
 #define PICTURE_PADDING  8         //the space between pictures specified in percentage of the pic width
@@ -21,6 +21,18 @@
 @implementation ImageGridUIViewController
 @synthesize imageSource   = _imageSource; 
 @synthesize delegate=_delegate; 
+
+
+-(void) setImageSource:(PictureInfoCollection *)imageSource
+{
+    if (_imageSource)
+        _imageSource.delegate = nil; 
+    
+    _imageSource = [imageSource retain]; 
+    
+    _imageSource.delegate = self; 
+}
+
 
 -(void) setup
 {
@@ -35,10 +47,12 @@
 {
     if (self.imageSource.errorMessage)
     {
-        ErrorViewController* evc = [[[ErrorViewController alloc] initWithErrorMessage:self.imageSource.errorMessage] autorelease]; 
+//        ErrorViewController* evc = [[[ErrorViewController alloc] initWithErrorMessage:self.imageSource.errorMessage] autorelease]; 
         
-        [self addChildViewController:evc]; 
-        [self.view addSubview:evc.view]; 
+//        [self addChildViewController:evc]; 
+//        [self.view addSubview:evc.view]; 
+        
+        [self.imageSource.errorMessage show]; 
         return; 
     }
     
@@ -101,7 +115,7 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
     
-    self.imageSource = nil; 
+    self.imageSource = nil;             //don't do [_imageSource release] because we've overriden the setter func
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -189,4 +203,12 @@
             [self.delegate imageAtIndex:indx  selectedInPictureInfoCollection:self.imageSource]; 
         }
 }
+
+
+-(void) imageSignaturesFailedToReceive:(NSError *)err
+{
+    [err show]; 
+}
+
+
 @end

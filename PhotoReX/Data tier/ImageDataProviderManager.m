@@ -30,6 +30,8 @@ static ImageDataProviderManager* theProvider=nil;
 {
 }
 
+-(void) getUserInfoForObserver:(id<DataDownloadObserver>)observer
+{}
 
 @end
 

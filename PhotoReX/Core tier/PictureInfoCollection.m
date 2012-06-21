@@ -16,6 +16,7 @@
 @synthesize images = _images; 
 @synthesize uniqueID=_uniqueID; 
 @synthesize errorMessage=_errorMessage; 
+@synthesize delegate=_delegate; 
 
 - (id)initWithCount:(int) c
 {

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "YRDropdownView.h"
 
 /*
         As a protocol, here are the domains we agree on error reporting: 
@@ -19,5 +19,8 @@
 @interface NSError (Util)
 
 +(NSError*) errorWithDomain:(NSString*) dom andMessage:(NSString*) msg; 
+
+
+-(void) show;           //shows the error in a popup in the current window
 
 @end

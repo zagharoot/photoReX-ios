@@ -106,7 +106,7 @@ static double _applicationStartTime=0;
     }
     
 
-    UIDeviceOrientation o = [UIDevice currentDevice].orientation; 
+//    UIDeviceOrientation o = [UIDevice currentDevice].orientation; 
     
     switch ([UIDevice currentDevice].orientation) {
         case UIDeviceOrientationLandscapeLeft:

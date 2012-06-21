@@ -41,9 +41,16 @@ const int CACHED_PAGES  =  1;           //number of pages retrieved in advance
      {
          result.uniqueID = pageid; 
          if (picInfoData && !err)
+         {
              [result loadPicturesWithData:picInfoData]; 
-         else
+             if ([result.delegate respondsToSelector:@selector(imageSignaturesReceivedFromWebServer)])
+                 [result.delegate imageSignaturesReceivedFromWebServer]; 
+         }else
+         {
              result.errorMessage = err; 
+             if ([result.delegate respondsToSelector:@selector(imageSignaturesFailedToReceive:)])
+                 [result.delegate imageSignaturesFailedToReceive:err]; 
+         }
      }]; 
     
     return [result autorelease]; 

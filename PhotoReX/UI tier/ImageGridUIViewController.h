@@ -23,7 +23,7 @@
 @end
 
 
-@interface ImageGridUIViewController : InfiniteScrollViewContent
+@interface ImageGridUIViewController : InfiniteScrollViewContent <PictureInfoCollectionDelegate>
 {
     
     int numberOfRows; 

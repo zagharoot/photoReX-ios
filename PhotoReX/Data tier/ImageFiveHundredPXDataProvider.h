@@ -26,7 +26,7 @@
 
 -(id) init; 
 -(NSString *)urlStringForPhotoWithInfo:(FiveHundredPXPictureInfo *) info withResolution:(ImageResolution) resolution; 
--(void) getCurrentUserInfoAndRunBlock:(void (^)(NSError* err, NSDictionary* params)) theBlock ;
+//-(void) getCurrentUserInfoAndRunBlock:(void (^)(NSError* err, NSDictionary* params)) theBlock ;
 
 
 @end

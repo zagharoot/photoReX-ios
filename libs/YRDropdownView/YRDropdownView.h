@@ -29,6 +29,7 @@ typedef void (^YRTapBlock)(void);
     
     YRTapBlock          _tapBlock;
     dispatch_queue_t    _tapQueue;
+    
 }
 
 @property (copy) NSString *titleText;
@@ -42,6 +43,8 @@ typedef void (^YRTapBlock)(void);
 @property (retain) UIColor *detailLabelColor;
 @property (nonatomic, assign) SEL onTouch;
 @property (assign) BOOL shouldAnimate;
+
+@property (nonatomic, retain) UIButton* sendMailBtn; 
 
 @property (nonatomic, copy) YRTapBlock  tapBlock;
 
@@ -99,6 +102,5 @@ typedef void (^YRTapBlock)(void);
 
 -(void)setTapBlock:(YRTapBlock)tapBlock
          withQueue:(dispatch_queue_t)dispatchQueue;
-
 
 @end

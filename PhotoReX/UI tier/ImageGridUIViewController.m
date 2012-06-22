@@ -23,6 +23,7 @@
 @synthesize delegate=_delegate; 
 
 
+
 -(void) setImageSource:(PictureInfoCollection *)imageSource
 {
     if (_imageSource)
@@ -53,6 +54,8 @@
 //        [self.view addSubview:evc.view]; 
         
         [self.imageSource.errorMessage show]; 
+        
+        [self showErrorButtons]; 
         return; 
     }
     
@@ -207,8 +210,66 @@
 
 -(void) imageSignaturesFailedToReceive:(NSError *)err
 {
+    //remove all the images if already added to the view 
+    NSArray* arr = [NSArray arrayWithArray:self.view.subviews]; 
+    for (UIView* v in arr) {
+        [v removeFromSuperview]; 
+    }
+    
+    [self showErrorButtons]; 
     [err show]; 
 }
 
+
+-(void) showErrorButtons
+{
+    if (! refreshBtn)
+    {
+        refreshBtn = [UIButton buttonWithType:UIButtonTypeCustom]; 
+        [refreshBtn setBackgroundImage:[UIImage imageNamed:@"shareBtn.png"] forState:UIControlStateNormal]  ; 
+        [refreshBtn sizeToFit]; 
+    }
+    
+    if (! errorBtn)
+    {
+        errorBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [errorBtn setBackgroundImage:[UIImage imageNamed:@"dropdown-alert.png"] forState:UIControlStateNormal]  ; 
+        [errorBtn sizeToFit]; 
+    }
+    
+    
+    [self.view addSubview:refreshBtn]; 
+    [self.view addSubview:errorBtn]; 
+    
+    CGPoint p = self.view.center; 
+    refreshBtn.center = CGPointMake(p.x - 20, p.y); 
+    errorBtn.center = CGPointMake(p.x+20,p.y); 
+    
+    [errorBtn addTarget:self action:@selector(showError) forControlEvents:UIControlEventTouchDown]; 
+    [refreshBtn addTarget:self action:@selector(regetPictures) forControlEvents:UIControlEventTouchDown]; 
+    
+}
+
+
+-(void) hideErrorButtons
+{
+    [refreshBtn removeFromSuperview]; 
+    [errorBtn removeFromSuperview]; 
+    
+    [refreshBtn release]; 
+    [errorBtn release]; 
+    
+}
+
+-(void) regetPictures
+{
+//    self.imageSource 
+}
+
+-(void) showError
+{
+    if (self.imageSource.errorMessage)
+        [self.imageSource.errorMessage show]; 
+}
 
 @end

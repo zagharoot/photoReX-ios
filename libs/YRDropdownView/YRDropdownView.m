@@ -8,6 +8,7 @@
 
 #import "YRDropdownView.h"
 #import <QuartzCore/QuartzCore.h>
+#import <MessageUI/MessageUI.h>
 
 @interface UILabel (YRDropdownView)
 - (void)sizeToFitFixedWidth:(CGFloat)fixedWidth;
@@ -45,6 +46,8 @@
 @synthesize titleLabelColor;
 @synthesize detailLabelColor;
 @synthesize tapBlock = _tapBlock;
+
+
 
 //Using this prevents two alerts to ever appear on the screen at the same time
 //TODO: Queue alerts, if multiple
@@ -133,6 +136,8 @@ static YRDropdownView *currentDropdown = nil;
         
         titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
         detailLabel = [[UILabel alloc] initWithFrame:self.bounds];
+        
+        
         backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
         backgroundImageView.image = [self.backgroundImage stretchableImageWithLeftCapWidth:1 topCapHeight:self.backgroundImage.size.height/2];
         backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -521,6 +526,8 @@ static YRDropdownView *currentDropdown = nil;
         _tapQueue = dispatch_get_main_queue();
     }
 }
+
+
 
 @end
 

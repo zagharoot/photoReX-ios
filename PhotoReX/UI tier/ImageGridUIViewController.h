@@ -30,6 +30,10 @@
     int numberOfColumns; 
     PictureInfoCollection* _imageSource; 
     id<ImageGridUIActivityDelegate> _delegate;      //for notification of user activity
+    
+    //for when error has happened: 
+    UIButton* refreshBtn; 
+    UIButton* errorBtn; 
 }
 
 -(void) setup; 
@@ -43,6 +47,14 @@
 
 -(void) showImageDetail:(UIImageButton*) imgBtn; 
 
+
+// showing and hiding the two buttons when an error happens 
+-(void) regetPictures; 
+-(void) showErrorButtons; 
+-(void) hideErrorButtons; 
+-(void) showError;              //displays the error view
+
 @property (nonatomic, retain) PictureInfoCollection* imageSource; 
 @property (nonatomic, assign) id<ImageGridUIActivityDelegate> delegate; 
+
 @end

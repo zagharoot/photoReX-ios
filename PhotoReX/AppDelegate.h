@@ -19,7 +19,6 @@ enum UserOrientation {
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {
     enum UserOrientation _userOrientation; 
-    
 }
 
 @property (strong, nonatomic) UIWindow *window;

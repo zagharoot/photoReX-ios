@@ -12,6 +12,8 @@
 @class ImageDataProviderManager; 
 
 //This is an abstract class to represent user account in a website
+// isActive means there's a username associated with this account 
+// isEnabled means we should retrieve pics from this account. they can be true/false independently
 @interface Account: NSObject 
 {
     UIImage* _logoImage;            //static logo of the account
@@ -20,9 +22,12 @@
     NSString* _username; 
     NSString* _userid; 
     
+    BOOL _enabled;                //true means we can show pictures from this account (different from isActive). 
+    
 }
 
--(BOOL) isActive;         //returns true if the account has been set up and ready to use
+-(BOOL) isActive;         //returns true if the account has been set up and ready to use (there's a username assoc with it)
+
 
 -(NSString*) accountName; 
 -(void) didReceiveMemoryWarning; 
@@ -45,6 +50,8 @@
 @property (nonatomic, retain) UIImage* userIconImage; 
 @property (nonatomic, copy) NSString* username; 
 @property (nonatomic, copy) NSString* userid; 
+
+@property (nonatomic) BOOL enabled; 
 @end
 
 

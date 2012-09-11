@@ -15,6 +15,11 @@
 @synthesize userIconImage=_userIconImage; 
 @synthesize username=_username; 
 @synthesize userid=_userid; 
+@synthesize enabled=_enabled; 
+
+
+
+
 
 -(void) loadSettings
 {
@@ -32,6 +37,12 @@
     
     _username = [[account objectForKey:@"username"] copy]; 
     _userid = [[account objectForKey:@"userid"] copy]; 
+    
+    if ([account objectForKey:@"enabled"]!=nil)
+        _enabled = [[account objectForKey:@"enabled"] boolValue]; 
+    else
+        _enabled = NO; 
+    
 }
 
 -(void) saveSettings
@@ -57,6 +68,8 @@
         [account setValue:self.userid  forKey:@"userid"]; 
     else
         [account removeObjectForKey:@"userid"]; 
+
+    [account setValue:[NSNumber numberWithBool:self.enabled]    forKey:@"enabled"]; 
     
     [ud setValue:account?account:[NSNull null]  forKey:self.accountName]; 
     
@@ -143,7 +156,22 @@
 {
     //tell the website
     [[RLWebserviceClient standardClient] registerAccountAsync:[self dictionaryRepresentation]]; 
+
+    //is this the right choice?
+    self.enabled = YES; 
+
 }
+
+
+-(void) setEnabled:(BOOL)enabled
+{
+    if (_enabled != enabled)
+    {
+        _enabled = enabled; 
+        [[RLWebserviceClient standardClient] setAccountEnabledAsync:self.accountName enabled:_enabled]; 
+    }
+}
+
 
 -(void) broadcastChange
 {

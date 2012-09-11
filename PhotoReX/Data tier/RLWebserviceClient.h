@@ -46,7 +46,7 @@ enum WebServiceLocation {
 
 -(void) registerAccountAsync:(NSDictionary*) account;            //given a dictionary representation of an account, registers it with the website 
 -(void) deregsiterAccountAsync:(NSDictionary*) account; 
-
+-(void) setAccountEnabledAsync:(NSString*) accountName enabled:(BOOL) enabled; 
 
 @property (retain, readonly) NSMutableURLRequest* requestRecommend;
 @property (retain, readonly) NSMutableURLRequest* requestImageViewed; 

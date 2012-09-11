@@ -23,7 +23,7 @@ enum ACCOUNTCELL_STATUS
 {
     NSString* imgPath; 
     UIImageView* _img;                  //account image logo 
-    UIImageView* _isActiveImage;        //is account active image on the left
+    UIButton* _isEnabledBtn;        //is account enabled image on the left
     Account* _account; 
     AccountsUIViewController* parent; 
     
@@ -39,7 +39,7 @@ enum ACCOUNTCELL_STATUS
 
 
 @property (nonatomic, retain) UIImageView* logoImageView; 
-@property (nonatomic, retain) UIImageView* isActiveImageView; 
+@property (nonatomic, retain) UIButton* isEnabledBtn; 
 @property (nonatomic, retain) Account* theAccount; 
 @property (nonatomic, retain) UIImageView* rightIndicator; 
 @property (nonatomic) enum ACCOUNTCELL_STATUS status; 
@@ -52,7 +52,10 @@ enum ACCOUNTCELL_STATUS
 
 -(void) accountDetailsDidChange:(NSNotification*) notification; 
 
--(void) updateActiveImage; 
+-(void) updateEnabledImage; 
 -(void) setStatus:(enum ACCOUNTCELL_STATUS)status animated:(BOOL) animated; 
 -(void) deactivateAccount:(id) sender; 
+
+-(void) toggleAccountEnabled:(id) sender; 
+
 @end

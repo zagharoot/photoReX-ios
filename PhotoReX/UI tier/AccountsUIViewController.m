@@ -128,7 +128,7 @@
     
         // Configure the cell...
         cell.theAccount = account; 
-        [cell updateActiveImage]; 
+        [cell updateEnabledImage]; 
    
         // add the cell to the account cell dictionary 
         [accountCells setValue:cell forKey:[NSString stringWithFormat:@"%d", indexPath.row]]; 

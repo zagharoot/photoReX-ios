@@ -24,7 +24,7 @@ static NSString* SERVICE_IMAGEVIEWED        = @"updateModel";
 static NSString* SERVICE_REGISTER_ACCOUNT   = @"registerAccount";
 static NSString* SERVICE_DEREGISTER_ACCOUNT = @"deregisterAccount";
 static NSString* SERVICE_CREATE_USER        = @"createUser";
-
+static NSString* SERVICE_SETENABLED_ACCOUNT = @"setEnabledAccount"; 
 
 @synthesize requestRecommend=_requestRecommend;
 @synthesize requestImageViewed=_requestImageViewed; 
@@ -429,6 +429,48 @@ static NSString* SERVICE_CREATE_USER        = @"createUser";
     
     [jsonWriter release]; 
 }
+
+
+-(void) setAccountEnabledAsync:(NSString *)accountName enabled:(BOOL)enabled
+{
+    if (!self.userid)
+        return; 
+    
+    //create the json string out of the dictionary 
+    
+    SBJsonWriter *jsonWriter = [SBJsonWriter new];
+    NSDictionary* message = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.userid, @"userid", accountName, @"account", enabled, @"enabled",  nil]; 
+    NSString *body = [jsonWriter stringWithObject:message];
+    
+    
+    
+    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_SETENABLED_ACCOUNT]]; 
+    
+    //create a request (dont have an ivar for this) 
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url]; 
+    
+    //set parameters of the request except for the body: 
+    [request setHTTPMethod:@"POST"]; 
+    [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]]; 
+    
+    [request  addValue:@"application/json" forHTTPHeaderField:@"content-type"]; 
+    [request  addValue:@"utf8" forHTTPHeaderField:@"charset"]; 
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
+     ^(NSURLResponse* response, NSData* data, NSError* error)
+     {
+         if (response == nil)       //error happened
+         {
+             //TODO: we need to save to disk to try again later 
+         } else         //success
+         {
+             //TODO: do we need to actually do an ack here? 
+         }
+     }]; 
+    
+    [jsonWriter release]; 
+}
+
 
 
 -(void) dealloc

@@ -12,7 +12,7 @@
 
 @implementation AccountTableViewCell
 @synthesize logoImageView=_img; 
-@synthesize isActiveImageView=_isActiveImage; 
+@synthesize isEnabledBtn=_isEnabledBtn; 
 @synthesize theAccount = _account; 
 @synthesize rightIndicator=_rightIndicator; 
 @synthesize status = _status; 
@@ -127,12 +127,17 @@
 }
 
 
--(UIImageView*) isActiveImageView
+-(UIButton*) isEnabledBtn
 {
-    if (_isActiveImage==nil)
-        _isActiveImage = [[UIImageView alloc] init]; 
+    if (_isEnabledBtn==nil)
+    {
+        _isEnabledBtn = [UIButton buttonWithType:UIButtonTypeCustom]; 
+        [_isEnabledBtn addTarget:self action:@selector(toggleAccountEnabled:) forControlEvents:UIControlEventTouchDown]; 
+        
+        [self updateEnabledImage]; 
+    }
     
-    return _isActiveImage; 
+    return _isEnabledBtn; 
 }
 
 
@@ -214,12 +219,12 @@
         UIImage* img = [UIImage imageNamed:@"tableCellIndicator.png"]; 
         self.rightIndicator.image = img; 
 
-        [self updateActiveImage]; 
+        [self updateEnabledImage]; 
 
         self.usernameLabel.text = @"[]"; 
         
         [self.contentView addSubview:self.logoImageView]; 
-        [self.contentView addSubview:self.isActiveImageView]; 
+        [self.contentView addSubview:self.isEnabledBtn]; 
         [self.contentView addSubview:self.rightIndicator]; 
 
         self.status = self.theAccount.isActive? ACCOUNTCELL_ACTIVE_COMPACT: ACCOUNTCELL_INACTIVE; 
@@ -247,17 +252,28 @@
     
     //deactivate the account 
     [self.theAccount deactivate]; 
+    //don't know if it's a good idea to disable the account as well here (remember they are independet)
+    self.theAccount.enabled = NO; 
+    
     
     //redraw table 
     [parent reevaluateHeights]; 
 
-    [self updateActiveImage]; 
+    [self updateEnabledImage]; 
 }
+
+
+-(void) toggleAccountEnabled:(id)sender
+{
+    self.theAccount.enabled = ! self.theAccount.enabled; 
+    [self updateEnabledImage]; 
+}
+
 
 -(void) accountDetailsDidChange:(NSNotification*) notification
 {
     self.status = self.theAccount.isActive? ACCOUNTCELL_ACTIVE_COMPACT: ACCOUNTCELL_INACTIVE; 
-    [self updateActiveImage]; 
+    [self updateEnabledImage]; 
     
     //update stuff inside the cell 
     if (self.theAccount.isActive)
@@ -272,10 +288,10 @@
     self.selected = NO; 
 }
 
--(void) updateActiveImage
+-(void) updateEnabledImage
 {
-    //create the activeIcon depending on whther the account is active or not
-    if ([self.theAccount isActive])
+    //create the account enabled Icon depending on whther the account is enabled or not
+    if ([self.theAccount enabled])
     {
         imgPath = [[NSBundle mainBundle] pathForResource:@"accountActive" ofType:@"png"]; 
     }else
@@ -285,7 +301,7 @@
     
     
     UIImage* img = [[[UIImage alloc] initWithContentsOfFile:imgPath] autorelease]; 
-    self.isActiveImageView.image = img; 
+    [self.isEnabledBtn setBackgroundImage:img forState:UIControlStateNormal];  
     
     [self setNeedsDisplay]; 
 }
@@ -299,7 +315,7 @@
     CGFloat boundsX = contentRect.origin.x;
     CGRect frame;
     frame= CGRectMake( boundsX+20 ,17, 25, 25);
-    self.isActiveImageView.frame = frame;
+    self.isEnabledBtn.frame = frame;
     
     frame= CGRectMake( boundsX+50 ,0, 250, 55);
     self.logoImageView.frame = frame;
@@ -330,7 +346,7 @@
 -(void) dealloc
 {
     self.logoImageView = nil; 
-    self.isActiveImageView = nil; 
+    self.isEnabledBtn = nil; 
     self.theAccount = nil; 
     self.rightIndicator = nil; 
     

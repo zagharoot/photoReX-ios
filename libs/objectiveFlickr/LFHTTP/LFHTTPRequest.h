@@ -40,6 +40,7 @@ extern NSString *const LFHTTPRequestWWWFormURLEncodedContentType;
 extern NSString *const LFHTTPRequestGETMethod;
 extern NSString *const LFHTTPRequestHEADMethod;
 extern NSString *const LFHTTPRequestPOSTMethod;
+extern NSString *const LFHTTPRequestDELETEMethod;
 
 @interface LFHTTPRequest : NSObject
 {

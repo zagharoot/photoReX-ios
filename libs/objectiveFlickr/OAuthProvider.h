@@ -100,6 +100,7 @@ typedef id<OAuthRequestDelegate> OAuthRequestDelegateType;
 // elementary methods
 - (BOOL)callAPIMethodWithGET:(NSString *)baseURL arguments:(NSDictionary *)inArguments;
 - (BOOL)callAPIMethodWithPOST:(NSString *)baseURL arguments:(NSDictionary *)inArguments;
+- (BOOL)callAPIMethodWithDELETE:(NSString *)baseURL arguments:(NSDictionary *)inArguments;
 
 
 @property (nonatomic, readonly) OAuthProviderContext *context;

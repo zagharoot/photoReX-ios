@@ -46,6 +46,7 @@ NSString *const LFHTTPRequestWWWFormURLEncodedContentType = @"application/x-www-
 NSString *const LFHTTPRequestGETMethod = @"GET";
 NSString *const LFHTTPRequestHEADMethod = @"HEAD";
 NSString *const LFHTTPRequestPOSTMethod = @"POST";
+NSString *const LFHTTPRequestDELETEMethod = @"DELETE";
 
 
 // internal defaults

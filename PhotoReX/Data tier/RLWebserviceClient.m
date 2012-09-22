@@ -438,8 +438,9 @@ static NSString* SERVICE_SETENABLED_ACCOUNT = @"setEnabledAccount";
     
     //create the json string out of the dictionary 
     
+    NSNumber* enabledObj = [NSNumber numberWithBool:enabled];
     SBJsonWriter *jsonWriter = [SBJsonWriter new];
-    NSDictionary* message = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.userid, @"userid", accountName, @"account", enabled, @"enabled",  nil]; 
+    NSDictionary* message = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.userid, @"userid", accountName, @"account", enabledObj, @"enabled",  nil];
     NSString *body = [jsonWriter stringWithObject:message];
     
     

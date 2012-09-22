@@ -164,7 +164,7 @@ enum FIVEHUNDREDPX_REQUEST_TYPE {
         request.sessionInfo = [FiveHundredPXRequestInfo requestInfoWithPictureInfo:pictureInfo andRequestType:FIVEHUNDREDPX_UNFAVORITE_REQUEST];
     }
 
-    endPoint = [NSString stringWithFormat:@"%@photos/%@/vote", context.RESTAPIEndpoint,  info.picID];
+    endPoint = [NSString stringWithFormat:@"%@photos/%@/favorite", context.RESTAPIEndpoint,  info.picID];
     
     
     // add the request to the list of outstanding ones
@@ -174,14 +174,20 @@ enum FIVEHUNDREDPX_REQUEST_TYPE {
     
     NSMutableDictionary* args = [[[NSMutableDictionary alloc] initWithCapacity:2] autorelease];
     
-    if (fav)
+/*    if (fav)
         [args setValue:@"1" forKey:@"vote"];
     else
         [args setValue:@"0" forKey:@"vote"];
+*/
+   
+    BOOL gg ;
+    if (fav)
+        gg = [request callAPIMethodWithPOST:endPoint arguments:args]; //will get notified as delegate about the progress
+    else
+        gg = [request callAPIMethodWithDELETE:endPoint arguments:args];
 
     
-    [request callAPIMethodWithPOST:endPoint arguments:args]; //will get notified as delegate about the progress
-    return YES; 
+    return YES;
 }
 
 

@@ -19,7 +19,10 @@
 static double _applicationStartTime=0; 
 #define SPLASH_SCREEN_DURATION 1           //number of seconds to show splash screen
 
-
+#define IS_IPHONE ( [[[UIDevice currentDevice] model] isEqualToString:@"iPhone"] )
+#define IS_IPOD   ( [[[UIDevice currentDevice ] model] isEqualToString:@"iPod touch"] )
+#define IS_HEIGHT_GTE_568 [[UIScreen mainScreen ] bounds].size.height >= 568.0f
+#define IS_IPHONE_5 ( IS_IPHONE && IS_HEIGHT_GTE_568 )
 
 @implementation AppDelegate
 
@@ -304,14 +307,24 @@ static double _applicationStartTime=0;
     if (duration < 0.5) 
         return; 
     
+    
+    
     UIViewController* splash = [[[UIViewController alloc] init ] autorelease]; 
-    UIImage* img = [UIImage imageNamed:@"splash-02.png"];
-    UIImageView* imgv = [[UIImageView alloc] initWithImage:img]; 
+    UIImage* img;
+    if (IS_IPHONE_5)
+        img = [UIImage imageNamed:@"splash-02-568.png"];                               
+    else
+        img = [UIImage imageNamed:@"splash-02.png"];
+    
+    UIImageView* imgv = [[UIImageView alloc] initWithImage:img];
     splash.view = imgv; 
     [imgv release]; 
     [v presentModalViewController:splash animated:NO]; 
     
-    [splash performSelector:@selector(dismissModalViewControllerAnimated:) withObject:nil afterDelay:duration]; 
+    [splash performSelector:@selector(dismissModalViewControllerAnimated:) withObject:nil afterDelay:duration];
+    
+    [UIApplication sharedApplication].statusBarHidden = NO;
+
 }
 
 

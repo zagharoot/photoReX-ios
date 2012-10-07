@@ -418,7 +418,7 @@
         self.imageTitleLabel.text = self.pictureInfo.info.title; 
         self.imageAuthorLabel.text = [NSString stringWithFormat:@"By %@", self.pictureInfo.info.author]; 
         if ([self.pictureInfo.info respondsToSelector:@selector(numberOfVisits) ])
-            self.imageNumberOfVisitsLabel.text = [NSString stringWithFormat:@"Viewed %d times", [self.pictureInfo.info performSelector:@selector(numberOfVisits)] ]; 
+            self.imageNumberOfVisitsLabel.text = [NSString stringWithFormat:@"Viewed %d times", [self.pictureInfo.info performSelector:@selector(numberOfVisits)] ];
         
         [self hideRotateButtonAnimation:NO]; 
         

@@ -130,8 +130,8 @@ FancyTabbarController* theInstance = nil;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.wantsFullScreenLayout = YES; 
-    self.view.frame = [[UIScreen mainScreen] applicationFrame]; 
+//    self.wantsFullScreenLayout = YES;
+//    self.view.frame = [[UIScreen mainScreen] applicationFrame];
     tabbar.selectedIndex = 0; 
 
     CGSize s = [[UIScreen mainScreen] applicationFrame].size; 

@@ -264,7 +264,7 @@ static NSString* SERVICE_SETENABLED_ACCOUNT = @"setEnabledAccount";
          {
              
              NSString* datastr = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]; 
-             NSLog(@"received data as %@\n", datastr); 
+             //NSLog(@"received data as %@\n", datastr);
              
              
              SBJsonParser* parser = [[SBJsonParser alloc] init]; 

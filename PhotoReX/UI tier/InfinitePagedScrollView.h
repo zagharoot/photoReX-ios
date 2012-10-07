@@ -23,8 +23,14 @@
 @interface InfiniteScrollViewContent: UIViewController
 {
     int _page;                          //what page am I in
+    CGSize _pageSize;                   //the size that the page fits into (because the page is not dynamic and doesn't change the layout of the images in it)
 }
+
 @property (nonatomic) int page; 
+@property (nonatomic) CGSize pageSize;
+
+-(id) initForPageSize:(CGSize) ps;
+
 @end
 
 //----------------------
@@ -67,6 +73,7 @@
 -(int) originalToVirtualPage:(int) p; 
 -(void) ensureViewExist:(NSRange) range;     //makes sure the specified pages are avaialbe in subview. If not, creates them
 -(InfiniteScrollViewContent*) dequeuePageWithKey:(NSString*) key;   //creates a content page initialized with page or retrieves one from the queue
+-(CGSize) getPageSize; 
 @end 
 
 

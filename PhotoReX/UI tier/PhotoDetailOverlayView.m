@@ -29,7 +29,7 @@
         CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
         CGFloat colors[] =
         {
-            0.0f, 0.0f, 0.0f, 0.5f,
+            0.0f, 0.0f, 0.0f, 0.7f,
             0.0f, 0.0f, 0.0f, 0.0f,
         };
         gradientRef = CGGradientCreateWithColorComponents(rgb, colors, NULL, sizeof(colors) / (sizeof(colors[0]) * 4));
@@ -58,7 +58,7 @@
     CGContextAddLineToPoint(context, b.size.width-lineMargin, topLineHeight); 
     
     CGPoint start = CGPointMake(100, 0  ); 
-    CGPoint end = CGPointMake(100, topLineHeight+40);
+    CGPoint end = CGPointMake(100, topLineHeight+(bottomLineHeight-topLineHeight)/2.5);
     CGContextDrawLinearGradient(context, gradientRef, start, end, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
     
 
@@ -68,7 +68,7 @@
         CGContextAddLineToPoint(context, b.size.width-lineMargin, bottomLineHeight); 
     
         start = CGPointMake(100, b.size.height  ); 
-        end = CGPointMake(100, bottomLineHeight-50);
+        end = CGPointMake(100, bottomLineHeight-(bottomLineHeight-topLineHeight)/2);
         CGContextDrawLinearGradient(context, gradientRef, start, end, kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
     }
     

@@ -38,7 +38,7 @@
 -(void) setup
 {
     numberOfRows = 4; 
-    numberOfColumns = 3; 
+    numberOfColumns = 2;
 
     [self loadImages]; 
 }
@@ -83,15 +83,6 @@
     _page = page; 
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        //self.page = 1; 
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)didReceiveMemoryWarning
 {
@@ -130,8 +121,8 @@
 
 -(CGSize) getPictureSize
 {
-    CGFloat totalWidth = self.view.bounds.size.width; 
-    CGFloat totalHeight = self.view.bounds.size.height; 
+    CGFloat totalWidth =  self.pageSize.width; // self.view.bounds.size.width;
+    CGFloat totalHeight = self.pageSize.height; //self.view.bounds.size.height;
     
     CGSize result; 
     result.width = (totalWidth - 2*EDGE_PADDING) - (numberOfColumns-1)*PICTURE_PADDING; 
@@ -141,6 +132,8 @@
     result.width = result.width / (numberOfColumns); 
     result.height = result.height / (numberOfRows); 
     
+    
+//    printf("pic size %f, %f\n", result.width, result.height);
     
     return result; 
 }

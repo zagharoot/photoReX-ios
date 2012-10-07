@@ -35,6 +35,7 @@ static CGFloat CENTER_POSITION; //the x position of the page in the middle (the 
 }
 
 
+
 -(void) setup 
 {
     self.pagingEnabled = YES; 
@@ -46,8 +47,10 @@ static CGFloat CENTER_POSITION; //the x position of the page in the middle (the 
     showHUDForLastPage = NO; 
     
     //TODO: we need to use self.bounds to compute these, but we also want to cache the value for fast access. How to do it? 
-    PAGE_WIDTH =  [[UIScreen mainScreen] bounds].size.width; 
-    PAGE_HEIGHT =  [[UIScreen mainScreen] bounds].size.height; 
+    //TODO: we need to find the height of the status bar automatically
+    CGFloat statusHeight = 20;
+    PAGE_WIDTH =  [[UIScreen mainScreen] bounds].size.width;
+    PAGE_HEIGHT =  [[UIScreen mainScreen] bounds].size.height - statusHeight ;
     CENTER_POSITION = ((int) (NUMBER_OF_PAGES / 2))*PAGE_WIDTH; 
     
     self.contentSize = CGSizeMake(PAGE_WIDTH*NUMBER_OF_PAGES, self.bounds.size.height);
@@ -122,6 +125,7 @@ static CGFloat CENTER_POSITION; //the x position of the page in the middle (the 
 // to the middle. 
 -(void) recenterIfNecessary:(NSRange) range
 {
+    
     CGFloat xoff = self.contentOffset.x; 
     
     
@@ -175,7 +179,7 @@ static CGFloat CENTER_POSITION; //the x position of the page in the middle (the 
     [self updatePageLocationVariables]; 
     NSRange currentRangeOriginal = infinitePageRange;   
     
-//    NSLog(@"pages from %d and length %d\n", currentRangeOriginal.location, currentRangeOriginal.length); 
+//    NSLog(@"pages from %d and length %d\n", currentRangeOriginal.location, currentRangeOriginal.length);
 
     //first, recycle pages that are not visible 
     [self recyclePagesNotInRange:currentRangeOriginal]; 
@@ -303,12 +307,13 @@ static CGFloat CENTER_POSITION; //the x position of the page in the middle (the 
             CGRect frame = CGRectMake(startX, 0, PAGE_WIDTH, PAGE_HEIGHT); 
             
             
-            [self addSubview:obj.view]; 
+            [self addSubview:obj.view];
+            [obj.view setFrame:frame];
             
-            [obj.view setFrame:frame]; 
             
             [activePages setObject:obj forKey:pageNumber]; 
-            pageIndicator.totalPage = [activePages count]; 
+            pageIndicator.totalPage = [activePages count];
+            
             
         }
     }
@@ -317,6 +322,7 @@ static CGFloat CENTER_POSITION; //the x position of the page in the middle (the 
 // This function removes pages that are not visible in the bounds from their super view and puts them in a set for recycling
 -(void) recyclePagesNotInRange:(NSRange)theRange
 {
+    
     int pmin = theRange.location; 
     int pmax = pmin+ theRange.length - 1; 
     
@@ -379,7 +385,10 @@ static CGFloat CENTER_POSITION; //the x position of the page in the middle (the 
     return result; 
 }
 
-
+-(CGSize) getPageSize
+{
+    return CGSizeMake(PAGE_WIDTH, PAGE_HEIGHT);
+}
 
 @end
 
@@ -389,6 +398,25 @@ static CGFloat CENTER_POSITION; //the x position of the page in the middle (the 
 @implementation InfiniteScrollViewContent
 
 @synthesize page=_page; 
+@synthesize pageSize = _pageSize;
+
+
+
+-(id) initForPageSize:(CGSize)ps
+{
+    self = [super initWithNibName:nil bundle:nil];
+    if (self)
+    {
+        self.pageSize = ps;
+    }
+    
+    return self;
+}
+
+-(id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil            //we dont allow this 
+{
+    return nil;
+}
 
 @end
 

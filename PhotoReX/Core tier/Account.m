@@ -19,8 +19,6 @@
 
 
 
-
-
 -(void) loadSettings
 {
     //---------- read user defaults for the frobKey
@@ -41,7 +39,7 @@
     if ([account objectForKey:@"enabled"]!=nil)
         _enabled = [[account objectForKey:@"enabled"] boolValue]; 
     else
-        _enabled = NO; 
+        _enabled = NO;
     
 }
 
@@ -170,6 +168,9 @@
         _enabled = enabled; 
         [[RLWebserviceClient standardClient] setAccountEnabledAsync:self.accountName enabled:_enabled]; 
     }
+    
+    
+    [self saveSettings]; 
 }
 
 

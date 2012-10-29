@@ -8,6 +8,16 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
+			<string>Always show the info band</string>
+			<key>Key</key>
+			<string>alwaysShowInfoBand</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
 			<string>Auto rotate images</string>
 			<key>Key</key>
 			<string>autoRotateImages</string>

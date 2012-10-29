@@ -23,7 +23,6 @@
 @synthesize delegate=_delegate; 
 
 
-
 -(void) setImageSource:(PictureInfoCollection *)imageSource
 {
     if (_imageSource)
@@ -43,6 +42,27 @@
     [self loadImages]; 
 }
                 
+-(void) dealloc
+{
+    if (_alwaysShowStatusBand)
+        [_alwaysShowStatusBand release];
+    
+    [super dealloc];
+}
+
+
+//returns true if we always show the info band on the pictures. 
+-(BOOL) alwaysShowStatusBand
+{
+    if (_alwaysShowStatusBand)
+        return _alwaysShowStatusBand.boolValue;
+    
+    //this is the first time. get it from the settings
+    NSUserDefaults *userDefaults =[NSUserDefaults standardUserDefaults];
+    _alwaysShowStatusBand = [[NSNumber alloc] initWithBool:[userDefaults boolForKey:@"alwaysShowInfoBand"]];
+    return _alwaysShowStatusBand.boolValue;
+}
+
 
 -(void) loadImages 
 {
@@ -67,6 +87,9 @@
         CGRect frame = [self getPictureFrameAtPosition:pos]; 
         UINetImageView* img = [[UINetImageView alloc] initWithPictureInfo:pictureInfo andFrame:frame shouldClipToBound:YES drawUserActivity:YES]; 
 //        img.drawUserActivityStatus = YES; 
+        
+        img.imageStatusOverlayView.alwaysShow = [self alwaysShowStatusBand];
+        
         
         UIImageButton* btn = [[UIImageButton alloc] initWithImage:img]; 
         [btn addTarget:self action:@selector(showImageDetail:) forControlEvents:UIControlEventTouchUpInside]; 

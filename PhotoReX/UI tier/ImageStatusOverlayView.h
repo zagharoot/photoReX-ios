@@ -16,10 +16,13 @@
 
 @interface ImageStatusOverlayView : UIView
 {
-    PictureInfo* pictureInfo; 
+    PictureInfo* pictureInfo;
+    BOOL _alwaysShow;
 }
 
 -(id) initWithPictureInfo:(PictureInfo*) p andParentFrame:(CGRect) frame; 
+
+@property (nonatomic) BOOL alwaysShow;
 
 @end
 

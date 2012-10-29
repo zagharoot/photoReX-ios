@@ -13,7 +13,7 @@
 
 
 @implementation ImageStatusOverlayView
-
+@synthesize alwaysShow=_alwaysShow;
 
 -(id) initWithPictureInfo:(PictureInfo *)p andParentFrame:(CGRect)f
 {
@@ -23,7 +23,8 @@
     {
         pictureInfo = p; 
         self.backgroundColor = [UIColor clearColor]; 
-        self.opaque = NO; 
+        self.opaque = NO;
+        self.alwaysShow = NO;
         
     }
     
@@ -33,41 +34,55 @@
 
 -(void) drawRect:(CGRect)rect
 {
-    if (pictureInfo.userActivityStatus == ImageActivityStatusNotVisited || 
-        pictureInfo.userActivityStatus == ImageActivityStatusUnknown)
+    if ( (! self.alwaysShow) && ( pictureInfo.userActivityStatus == ImageActivityStatusNotVisited ||
+        pictureInfo.userActivityStatus == ImageActivityStatusUnknown))
         return; 
     
-    
-    CGFloat curX = 5; 
-
+    //draw the band itself
+    CGFloat curX = 5;
     CGContextRef context = UIGraphicsGetCurrentContext();
     UIGraphicsPushContext(context); 
     CGContextSetFillColorWithColor(context, [UIColor colorWithHue:0.0 saturation:0.0 brightness:0 alpha:0.65].CGColor);
     CGContextFillRect(context, self.frame); 
     
-    
     UIGraphicsPopContext(); 
+
+    //------------------------- draw icons on the band
+
     
+    
+    // if it has been viewed, draw it.
     if (pictureInfo.userActivityStatus == ImageActivityStatusViewed)
     {
-/*        CGContextSetLineWidth(context, 1);
-        CGContextSetFillColorWithColor(context, [UIColor whiteColor].CGColor);
-
-        CGRect rect = CGRectMake(curX, 5, 10, 10); 
-        UIBezierPath*    p = [UIBezierPath bezierPathWithOvalInRect:rect]; 
-        
-        [p fill]; 
-    
- */
-        
         CGRect rect = CGRectMake(curX, 5, 13, 10); 
-        UIImage* img = [UIImage imageNamed:@"viewed.png"]; 
+        curX += 23;
+        UIImage* img = [UIImage imageNamed:@"viewed.png"];
         CGContextDrawImage(context, rect, img.CGImage); 
-        
-        
     }
 
 
+    //draw the provider
+    //website: 
+    NSString* iconName = @"";
+    switch (pictureInfo.info.website) {
+        case FLICKR_INDEX:
+            iconName = @"flickrIconInBand.png";
+            break;
+        case INSTAGRAM_INDEX:
+            iconName = @"instagramIconInBand.png";
+            break;
+        case FIVEHUNDREDPX_INDEX:
+            iconName = @"500pxIconInBand.png";
+            break;
+        default:
+            break;
+    }
+    CGRect providerRect = CGRectMake(curX, 5, 13, 10);
+    curX += 23;
+    UIImage* img = [UIImage imageNamed:iconName] ;
+    CGContextDrawImage(context, providerRect, img.CGImage);
+    
+    
 
 }
 

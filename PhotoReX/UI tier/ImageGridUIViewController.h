@@ -33,7 +33,9 @@
     
     //for when error has happened: 
     UIButton* refreshBtn; 
-    UIButton* errorBtn; 
+    UIButton* errorBtn;
+    
+    NSNumber* _alwaysShowStatusBand;
 }
 
 -(void) setup; 
@@ -46,7 +48,7 @@
 
 
 -(void) showImageDetail:(UIImageButton*) imgBtn; 
-
+-(BOOL) alwaysShowStatusBand; 
 
 // showing and hiding the two buttons when an error happens 
 -(void) regetPictures; 
@@ -55,6 +57,6 @@
 -(void) showError;              //displays the error view
 
 @property (nonatomic, retain) PictureInfoCollection* imageSource; 
-@property (nonatomic, assign) id<ImageGridUIActivityDelegate> delegate; 
+@property (nonatomic, assign) id<ImageGridUIActivityDelegate> delegate;
 
 @end

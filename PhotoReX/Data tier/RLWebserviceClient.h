@@ -48,6 +48,9 @@ enum WebServiceLocation {
 -(void) deregsiterAccountAsync:(NSDictionary*) account; 
 -(void) setAccountEnabledAsync:(NSString*) accountName enabled:(BOOL) enabled; 
 
+-(void) clearCache;             //clears the cache for the current user in the redis structure (user:[id]:queue)
+-(void) clearHistory;           //clears the entire visited history for the current user.
+
 @property (retain, readonly) NSMutableURLRequest* requestRecommend;
 @property (retain, readonly) NSMutableURLRequest* requestImageViewed; 
 @property (nonatomic, copy) NSString* userid; 

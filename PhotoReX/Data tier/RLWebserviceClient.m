@@ -24,7 +24,9 @@ static NSString* SERVICE_IMAGEVIEWED        = @"updateModel";
 static NSString* SERVICE_REGISTER_ACCOUNT   = @"registerAccount";
 static NSString* SERVICE_DEREGISTER_ACCOUNT = @"deregisterAccount";
 static NSString* SERVICE_CREATE_USER        = @"createUser";
-static NSString* SERVICE_SETENABLED_ACCOUNT = @"setEnabledAccount"; 
+static NSString* SERVICE_SETENABLED_ACCOUNT = @"setEnabledAccount";
+static NSString* SERVICE_CLEARCACHE         = @"clearCache";
+static NSString* SERVICE_CLEARHISTORY       = @"clearHistory"; 
 
 @synthesize requestRecommend=_requestRecommend;
 @synthesize requestImageViewed=_requestImageViewed; 
@@ -42,10 +44,11 @@ static NSString* SERVICE_SETENABLED_ACCOUNT = @"setEnabledAccount";
                 SERVER_ADDRESS = @"http://68.45.157.225/rlimage/imagerecommendationservice.asmx/";
             break;
         case RLWEBSERVICE_MAC:
-                SERVER_ADDRESS = @"http://192.168.10.102:3000/ws/"; 
+                SERVER_ADDRESS = @"http://192.168.10.107:3000/ws/"; 
             break;
         case RLWEBSERVICE_AMAZON: 
-                SERVER_ADDRESS = @"http://23.21.119.56:3000/ws/"; 
+//            SERVER_ADDRESS = @"http://23.21.119.56:3000/ws/";         //amazon zara instance (decommissioned)
+            SERVER_ADDRESS = @"http://23.21.51.119:3000/ws/";           //amazon ali instance 
             break;
     }
     
@@ -472,6 +475,83 @@ static NSString* SERVICE_SETENABLED_ACCOUNT = @"setEnabledAccount";
     [jsonWriter release]; 
 }
 
+-(void) clearCache
+{
+    if (!self.userid)
+        return;
+    
+    //create the json string out of the dictionary
+    
+    SBJsonWriter *jsonWriter = [SBJsonWriter new];
+    NSDictionary* message = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.userid, @"userid",  nil];
+    NSString *body = [jsonWriter stringWithObject:message];
+    
+    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_CLEARCACHE]];
+    
+    //create a request (dont have an ivar for this)
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
+    
+    //set parameters of the request except for the body:
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [request  addValue:@"application/json" forHTTPHeaderField:@"content-type"];
+    [request  addValue:@"utf8" forHTTPHeaderField:@"charset"];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
+     ^(NSURLResponse* response, NSData* data, NSError* error)
+     {
+         if (response == nil)       //error happened
+         {
+             //TODO: we need to save to disk to try again later
+         } else         //success
+         {
+             //TODO: do we need to actually do an ack here?
+         }
+     }];
+    
+    [jsonWriter release];
+    
+}
+
+
+-(void) clearHistory
+{
+    if (!self.userid)
+        return;
+    
+    //create the json string out of the dictionary
+    
+    SBJsonWriter *jsonWriter = [SBJsonWriter new];
+    NSDictionary* message = [NSMutableDictionary dictionaryWithObjectsAndKeys:self.userid, @"userid",  nil];
+    NSString *body = [jsonWriter stringWithObject:message];
+    
+    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_CLEARHISTORY]];
+    
+    //create a request (dont have an ivar for this)
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
+    
+    //set parameters of the request except for the body:
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [request  addValue:@"application/json" forHTTPHeaderField:@"content-type"];
+    [request  addValue:@"utf8" forHTTPHeaderField:@"charset"];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
+     ^(NSURLResponse* response, NSData* data, NSError* error)
+     {
+         if (response == nil)       //error happened
+         {
+             //TODO: we need to save to disk to try again later
+         } else         //success
+         {
+             //TODO: do we need to actually do an ack here?
+         }
+     }];
+    
+    [jsonWriter release];
+}
 
 
 -(void) dealloc

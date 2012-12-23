@@ -97,7 +97,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -107,7 +107,9 @@
             return [AccountManager standardAccountManager].NUMBER_OF_ACCOUNTS; 
             break;
         case 1:         //web service location 
-            return 3; 
+            return 3;
+        case 2:
+            return 2;   //remote server functions 
         default:
             return 0; 
     }
@@ -159,6 +161,23 @@
         if (indexPath.row == [RLWebserviceClient standardClient].webServiceLocation)
             cell.accessoryType = UITableViewCellAccessoryCheckmark; 
         
+        return cell; 
+    }else if (indexPath.section==2)     //this is the remote server functions
+    {
+        UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+        [cell autorelease];
+        
+        switch (indexPath.row) {
+            case 0:
+                cell.textLabel.text = @"Clear Cache";
+                break;
+            case 1:
+                cell.textLabel.text = @"Clear Entire History";
+                break;
+            default:
+                break;
+        }
+
         return cell; 
     }
     
@@ -294,6 +313,21 @@
         [RLWebserviceClient standardClient].webServiceLocation = indexPath.row; 
         
         [tableView reloadData]; 
+    }else if (indexPath.section == 2)   //remote server functions
+    {
+        switch (indexPath.row) {
+            case 0:     //clear cache
+                [[RLWebserviceClient standardClient] clearCache];
+                break;
+            case 1:     //clear entire history
+                [[RLWebserviceClient standardClient] clearHistory];
+                break;
+            default:
+                break;
+        }
+        
+        
+        [tableView reloadData];
     }
     
 }

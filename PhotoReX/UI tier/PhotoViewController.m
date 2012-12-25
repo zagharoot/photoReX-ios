@@ -8,9 +8,9 @@
 
 #import "PhotoViewController.h"
 #import "AccountManager.h"
-#import "ImageDataProviderManager.h" 
+#import "ImageDataProviderManager.h"
 #import "AppDelegate.h"
-#import "UIImage+StackBlur.h"
+#import "UIImageView+LBBlurredImage.h"
 
 @implementation PhotoViewController
 @synthesize commentBtnPressed;
@@ -499,15 +499,11 @@
         originalZoom = MAX( 0.75, MAX(wzoom, hzoom)); 
     }    
 
-    
-    //make the blurred version of the image in a separate thread so it doesn't block 
-    dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        @try {
-            self.blurredImageView.image = [imageView.image stackBlur:30]; 
-        }
-        @catch (NSException *exception) {
-        }
-    }); 
+    //create the blurred image in another thread
+    [self.blurredImageView setImageToBlur: imageView.image
+                        blurRadius:15.0
+                   completionBlock:^(NSError *error){
+                   }];
     
     
     self.scrollView.minimumZoomScale = self.scrollView.zoomScale; 

@@ -71,7 +71,7 @@
     if (content == nil) 
     {
 //        content = [[[ImageGridUIViewController alloc] initWithNibName:@"ImageGridUIViewController" bundle:[NSBundle mainBundle]] autorelease];
-        content = [[[ImageGridUIViewController alloc] initForPageSize:[scrollView getPageSize]] autorelease];
+        content = [[[ImageGridUIViewController alloc] initWithProvider:self andPageSize:[scrollView getPageSize] ] autorelease];                    
     }
     
     content.delegate = self; 

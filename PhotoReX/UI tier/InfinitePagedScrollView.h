@@ -18,28 +18,31 @@
 //-----------------------------------------------------
 
 @class InfinitePagedScrollView; 
+@class PagedNavigatorController;
 
 //This is the abstract class for the content of the pages
 @interface InfiniteScrollViewContent: UIViewController
 {
     int _page;                          //what page am I in
     CGSize _pageSize;                   //the size that the page fits into (because the page is not dynamic and doesn't change the layout of the images in it)
+    PagedNavigatorController* _provider;
 }
 
 @property (nonatomic) int page; 
 @property (nonatomic) CGSize pageSize;
-
--(id) initForPageSize:(CGSize) ps;
+@property (nonatomic, assign) PagedNavigatorController* provider; 
+-(id) initWithProvider:(PagedNavigatorController*) p andPageSize:(CGSize) ps;
 
 @end
 
 //----------------------
 
-
 @protocol InfiniteScrollDelegate <NSObject>
 
--(InfiniteScrollViewContent*) getContentAtPage:(int) page forScrollView:(InfinitePagedScrollView*) scrollView; 
+-(InfiniteScrollViewContent*) getContentAtPage:(int) page forScrollView:(InfinitePagedScrollView*) scrollView;
 @end
+
+
 
 
 

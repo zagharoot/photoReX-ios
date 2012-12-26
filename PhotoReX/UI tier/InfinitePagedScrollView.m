@@ -11,7 +11,7 @@
 @implementation InfinitePagedScrollView
 
 @synthesize infiniteScrollDelegate=_idelegate; 
-@synthesize activePages; 
+@synthesize activePages;
 /*
 Since some computations are done in each page rendering frame, we precompute some values that don't change in the followings: 
 */
@@ -399,14 +399,17 @@ static CGFloat CENTER_POSITION; //the x position of the page in the middle (the 
 
 @synthesize page=_page; 
 @synthesize pageSize = _pageSize;
+@synthesize provider=_provider;
 
 
 
--(id) initForPageSize:(CGSize)ps
+
+-(id) initWithProvider:(PagedNavigatorController *)p andPageSize:(CGSize)ps
 {
     self = [super initWithNibName:nil bundle:nil];
     if (self)
     {
+        self.provider = p;
         self.pageSize = ps;
     }
     

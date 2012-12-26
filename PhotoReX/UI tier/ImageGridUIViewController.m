@@ -12,6 +12,7 @@
 #import "ErrorViewController.h"
 #import "TestViewController.h"
 #import "NSError+Util.h"
+#import "PagedNavigatorController.h" 
 
 #define EDGE_PADDING    13                      //the space around the pictures to the edge of the frame
 #define PICTURE_PADDING  8         //the space between pictures specified in percentage of the pic width
@@ -279,7 +280,7 @@
 
 -(void) regetPictures
 {
-//    self.imageSource 
+    self.imageSource = [self.provider.contentProvider getContentAtPage:self.page];
 }
 
 -(void) showError

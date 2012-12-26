@@ -52,6 +52,8 @@
 - (IBAction)dismissView:(id)sender;
 -(id) initWithPictureInfo:(PictureInfo*) pic;  
 -(void) captureOneTouchTap:(UITapGestureRecognizer*) sender;
+-(void) captureSwipeGesture:(UISwipeGestureRecognizer*) sender;
+
 -(void) hideStatusBar; 
 -(void)  toggleStatusbar;  //toggles between showing/hiding the statusbar and the title bar 
 -(void) toggleZoomToContentWithAnimation:(BOOL) animation;  //toggles between zooming with scale 1.0 and picture-fit-screen scale

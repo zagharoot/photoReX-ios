@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
-		<int key="IBDocument.SystemTarget">1536</int>
-		<string key="IBDocument.SystemVersion">11E53</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2840</string>
-		<string key="IBDocument.AppKitVersion">1138.47</string>
+		<int key="IBDocument.SystemTarget">1552</int>
+		<string key="IBDocument.SystemVersion">11G63</string>
+		<string key="IBDocument.InterfaceBuilderVersion">3083</string>
+		<string key="IBDocument.AppKitVersion">1138.51</string>
 		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1926</string>
+			<string key="NS.object.0">2083</string>
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -50,6 +50,7 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{0, 18}, {320, 44}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="487376518"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -74,7 +75,7 @@
 						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{229, 394}, {50, 50}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:225</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="379198760">
 							<int key="NSColorSpace">3</int>
@@ -115,6 +116,7 @@
 				</object>
 				<string key="NSFrame">{{0, 20}, {320, 548}}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="412470041"/>
 				<object class="NSColor" key="IBUIBackgroundColor" id="167028096">
 					<int key="NSColorSpace">3</int>
@@ -149,7 +151,7 @@
 				<int key="NSvFlags">292</int>
 				<string key="NSFrameSize">{320, 568}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSNextKeyView"/>
+				<reference key="NSWindow"/>
 				<reference key="IBUIBackgroundColor" ref="167028096"/>
 				<reference key="IBUISimulatedDestinationMetrics" ref="213376938"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -164,6 +166,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 371}, {163, 82}}</string>
 						<reference key="NSSuperview" ref="145921678"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="193193085"/>
 						<string key="NSReuseIdentifierKey">_NS:328</string>
 						<reference key="IBUIBackgroundColor" ref="379198760"/>
@@ -198,6 +201,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{20, 513}, {32, 32}}</string>
 						<reference key="NSSuperview" ref="145921678"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="160953176"/>
 						<string key="NSReuseIdentifierKey">_NS:567</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -208,6 +212,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{60, 508}, {240, 21}}</string>
 						<reference key="NSSuperview" ref="145921678"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="551031345"/>
 						<string key="NSReuseIdentifierKey">_NS:328</string>
 						<bool key="IBUIOpaque">NO</bool>
@@ -236,7 +241,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{60, 527}, {240, 21}}</string>
 						<reference key="NSSuperview" ref="145921678"/>
-						<reference key="NSNextKeyView"/>
+						<reference key="NSWindow"/>
 						<string key="NSReuseIdentifierKey">_NS:328</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -267,6 +272,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{246, 25}, {59, 35}}</string>
 						<reference key="NSSuperview" ref="145921678"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="447091950"/>
 						<string key="NSReuseIdentifierKey">_NS:225</string>
 						<reference key="IBUIBackgroundColor" ref="379198760"/>
@@ -295,6 +301,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{13, 25}, {50, 35}}</string>
 						<reference key="NSSuperview" ref="145921678"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1055075723"/>
 						<string key="NSReuseIdentifierKey">_NS:225</string>
 						<reference key="IBUIBackgroundColor" ref="379198760"/>
@@ -318,6 +325,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{137, 29}, {27, 26}}</string>
 						<reference key="NSSuperview" ref="145921678"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="594738797"/>
 						<string key="NSReuseIdentifierKey">_NS:225</string>
 						<reference key="IBUIBackgroundColor" ref="379198760"/>
@@ -338,6 +346,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{66, 27}, {50, 35}}</string>
 						<reference key="NSSuperview" ref="145921678"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="166792458"/>
 						<string key="NSReuseIdentifierKey">_NS:225</string>
 						<reference key="IBUIBackgroundColor" ref="379198760"/>
@@ -361,6 +370,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{182, 25}, {50, 35}}</string>
 						<reference key="NSSuperview" ref="145921678"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="570680874"/>
 						<string key="NSReuseIdentifierKey">_NS:225</string>
 						<reference key="IBUIBackgroundColor" ref="379198760"/>
@@ -382,6 +392,7 @@
 				</object>
 				<string key="NSFrameSize">{320, 568}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="620124779"/>
 				<string key="NSReuseIdentifierKey">_NS:196</string>
 				<reference key="IBUIBackgroundColor" ref="379198760"/>
@@ -1888,12 +1899,224 @@
 			<nil key="sourceID"/>
 			<int key="maxID">174</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<object class="IBPartialClassDescription">
+					<string key="className">NSLayoutConstraint</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/NSLayoutConstraint.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PhotoDetailOverlayView</string>
+					<string key="superclassName">UIView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/PhotoDetailOverlayView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PhotoScrollView</string>
+					<string key="superclassName">UIScrollView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/PhotoScrollView.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PhotoViewController</string>
+					<string key="superclassName">UIViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>commentBtnPressed:</string>
+							<string>dismissView:</string>
+							<string>rotatePictureToIdentityBySender:</string>
+							<string>sharePressed:</string>
+							<string>toggleFavorite:</string>
+						</object>
+						<object class="NSArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+							<string>UIButton</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>commentBtnPressed:</string>
+							<string>dismissView:</string>
+							<string>rotatePictureToIdentityBySender:</string>
+							<string>sharePressed:</string>
+							<string>toggleFavorite:</string>
+						</object>
+						<object class="NSArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">commentBtnPressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">dismissView:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">rotatePictureToIdentityBySender:</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">sharePressed:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">toggleFavorite:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>blurredImageView</string>
+							<string>closeBtn</string>
+							<string>commentBtnPressed</string>
+							<string>commentBtnTB</string>
+							<string>detailOverlayView</string>
+							<string>favoriteBtnTB</string>
+							<string>floatingRotateBtn</string>
+							<string>imageAuthorLabel</string>
+							<string>imageNumberOfVisitsLabel</string>
+							<string>imageTitleLabel</string>
+							<string>navBar</string>
+							<string>rotateBtnTB</string>
+							<string>scrollView</string>
+							<string>shareBtnTB</string>
+							<string>websiteIconImageView</string>
+						</object>
+						<object class="NSArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UIImageView</string>
+							<string>UIBarButtonItem</string>
+							<string>UIButton</string>
+							<string>UIButton</string>
+							<string>PhotoDetailOverlayView</string>
+							<string>UIButton</string>
+							<string>UIButton</string>
+							<string>UILabel</string>
+							<string>UILabel</string>
+							<string>UILabel</string>
+							<string>UINavigationBar</string>
+							<string>UIButton</string>
+							<string>PhotoScrollView</string>
+							<string>UIButton</string>
+							<string>UIImageView</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>blurredImageView</string>
+							<string>closeBtn</string>
+							<string>commentBtnPressed</string>
+							<string>commentBtnTB</string>
+							<string>detailOverlayView</string>
+							<string>favoriteBtnTB</string>
+							<string>floatingRotateBtn</string>
+							<string>imageAuthorLabel</string>
+							<string>imageNumberOfVisitsLabel</string>
+							<string>imageTitleLabel</string>
+							<string>navBar</string>
+							<string>rotateBtnTB</string>
+							<string>scrollView</string>
+							<string>shareBtnTB</string>
+							<string>websiteIconImageView</string>
+						</object>
+						<object class="NSArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBToOneOutletInfo">
+								<string key="name">blurredImageView</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">closeBtn</string>
+								<string key="candidateClassName">UIBarButtonItem</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">commentBtnPressed</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">commentBtnTB</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">detailOverlayView</string>
+								<string key="candidateClassName">PhotoDetailOverlayView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">favoriteBtnTB</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">floatingRotateBtn</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">imageAuthorLabel</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">imageNumberOfVisitsLabel</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">imageTitleLabel</string>
+								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">navBar</string>
+								<string key="candidateClassName">UINavigationBar</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">rotateBtnTB</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">scrollView</string>
+								<string key="candidateClassName">PhotoScrollView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">shareBtnTB</string>
+								<string key="candidateClassName">UIButton</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">websiteIconImageView</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/PhotoViewController.h</string>
+					</object>
+				</object>
+			</object>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1536" key="NS.object.0"/>
+			<real value="1552" key="NS.object.0"/>
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.InterfaceBuilder3</string>
@@ -1919,6 +2142,6 @@
 			</object>
 		</object>
 		<bool key="IBDocument.UseAutolayout">YES</bool>
-		<string key="IBCocoaTouchPluginVersion">1926</string>
+		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>

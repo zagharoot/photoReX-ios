@@ -33,8 +33,19 @@
 
 - (IBAction)dismissView:(id)sender 
 {    
-    imageView.delegate = nil;       
-    [self dismissModalViewControllerAnimated:YES]; 
+    [UIApplication sharedApplication].statusBarHidden = NO; 
+    imageView.delegate = nil;
+
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveLinear
+                     animations:^{
+                         CGRect cf = self.scrollView.bounds ;
+                         CGRect nf = CGRectMake(cf.origin.x + cf.size.width/2-10, cf.origin.y + cf.size.height/2-10, 20, 20);
+                         self.scrollView.bounds = nf;
+                         self.scrollView.alpha = 0.2; 
+                     }
+                     completion:^(BOOL fin) {
+                         [self dismissModalViewControllerAnimated:NO];
+                     } ];
 }
 
 
@@ -125,16 +136,44 @@
     imageView = [[UINetImageView alloc] initWithPictureInfo:self.pictureInfo andFrame:myFrame shouldClipToBound:NO drawUserActivity:NO]; 
     imageView.delegate = self; 
     self.scrollView.delegate = self; 
-         
+    self.scrollView.scrollEnabled = NO; 
+    
     self.scrollView.imageView = imageView;              //this adds the image to the scroll view 
     self.scrollView.contentSize = myFrame.size;         //once the image is available, we update this
     
 
-    UITapGestureRecognizer* gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(captureOneTouchTap:)]; 
+    UISwipeGestureRecognizer* sr = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(captureSwipeGesture:)];
+    sr.delaysTouchesBegan = TRUE;
+    sr.direction = UISwipeGestureRecognizerDirectionDown;
+    [self.scrollView addGestureRecognizer:sr];
+    [sr release];
+    
+    sr = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(captureSwipeGesture:)];
+    sr.direction = UISwipeGestureRecognizerDirectionUp;
+    sr.delaysTouchesBegan = TRUE;
+    [self.scrollView addGestureRecognizer:sr];
+    [sr release];
+    
+    sr = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(captureSwipeGesture:)];
+    sr.direction = UISwipeGestureRecognizerDirectionLeft;
+    sr.delaysTouchesBegan = TRUE;
+    [self.scrollView addGestureRecognizer:sr];
+    [sr release];
+    
+    sr = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(captureSwipeGesture:)];
+    sr.direction = UISwipeGestureRecognizerDirectionRight;
+    sr.delaysTouchesBegan = TRUE;
+    [self.scrollView addGestureRecognizer:sr];
+    [sr release];
+    
+    UITapGestureRecognizer* gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(captureOneTouchTap:)];
     
     gr.numberOfTapsRequired = 1; 
     [self.scrollView addGestureRecognizer:gr]; 
     [gr release];     
+    
+    [self.scrollView delaysContentTouches];
+    
     
     
     //start getting orientation change notification
@@ -373,7 +412,15 @@
     
 }
 
-
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
+    if (scrollView.zoomScale!=1.0) {
+        // Zooming, enable scrolling
+        scrollView.scrollEnabled = TRUE;
+    } else {
+        // Not zoomed, disable scrolling so gestures get used instead
+        scrollView.scrollEnabled = FALSE;
+    }
+}
 
 -(UIView*) viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
@@ -402,6 +449,12 @@
 }
 
 
+-(void) captureSwipeGesture:(UISwipeGestureRecognizer *)sender
+{
+    [self dismissView:self];
+}
+
+
 -(void) toggleStatusbar
 {
     doubleTapFlag = NO; 
@@ -418,7 +471,7 @@
         self.imageTitleLabel.text = self.pictureInfo.info.title; 
         self.imageAuthorLabel.text = [NSString stringWithFormat:@"By %@", self.pictureInfo.info.author]; 
         if ([self.pictureInfo.info respondsToSelector:@selector(numberOfVisits) ])
-            self.imageNumberOfVisitsLabel.text = [NSString stringWithFormat:@"Viewed %d times", [self.pictureInfo.info performSelector:@selector(numberOfVisits)] ];
+            self.imageNumberOfVisitsLabel.text = [NSString stringWithFormat:@"Viewed %d times", (int) [self.pictureInfo.info performSelector:@selector(numberOfVisits)] ];
         
         [self hideRotateButtonAnimation:NO]; 
         

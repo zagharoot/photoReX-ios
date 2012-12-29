@@ -15,11 +15,6 @@
 @synthesize selectedIndex=_selectedIndex; 
 @synthesize parent=_parent; 
 
-#define BAR_TOP_MARGIN      5
-#define BAR_BOTTOM_MARGIN   3
-#define BAR_EDGE_INSET      20
-#define BAR_HANDLE_HEIGHT   6 
-
 
 -(void) setSelectedIndex:(int)selectedIndex
 {
@@ -141,7 +136,7 @@
     CGFloat miny = CGRectGetMinY(rrect)+ BAR_HANDLE_HEIGHT+1; 
     CGFloat maxy = CGRectGetMaxY(rrect);
     
-    CGFloat hw = 20;        //half the width of the handle 
+    CGFloat hw = 28;        //half the width of the handle
     CGFloat hh = BAR_HANDLE_HEIGHT;         //height of the handle 
 
 //    CGContextMoveToPoint(context, minx, maxy);
@@ -152,18 +147,34 @@
 //    CGContextDrawPath(context, kCGPathFillStroke);
 
     CGContextMoveToPoint(context, minx, maxy);
-    CGContextAddArcToPoint(context, minx, miny, midx-hw-5, miny, radius);   //5 is a small number 
+    CGContextAddArcToPoint(context, minx, miny, midx-hw, miny, radius);
+    CGContextAddLineToPoint(context, midx-hw, miny);
 
-    CGContextAddArcToPoint(context, midx-hw, miny, midx-hw+hh/2, miny-hh/2,3);
-    CGContextAddArcToPoint(context, midx-hw+6, miny-hh, midx, miny-hh,3);
-    CGContextAddArcToPoint(context, midx+hw-6, miny-hh, midx+hw-hh/2, miny-hh/2,3);
-    CGContextAddArcToPoint(context, midx+hw, miny, midx+hw+5, miny,3);
-
-    
+    CGContextAddArcToPoint(context, midx-hw, miny-hh, midx, miny-hh,3);
+    CGContextAddLineToPoint(context, midx, miny-hh);
+    CGContextAddArcToPoint(context, midx+hw, miny-hh, midx+hw, miny,3);
+    CGContextAddLineToPoint(context, midx+hw, miny);
     CGContextAddArcToPoint(context, maxx, miny, maxx, maxy, radius);
+        
     CGContextAddLineToPoint(context, maxx, maxy);
     CGContextClosePath(context);
     CGContextDrawPath(context, kCGPathFillStroke);
+    
+
+    UIColor* circleFill = [UIColor colorWithHue:0.0 saturation:0.0 brightness:0.3 alpha:0.8];
+    UIColor* circleStroke = [UIColor colorWithHue:0 saturation:0 brightness:0.4 alpha:0.6];
+    
+    CGContextSetFillColorWithColor(context, circleFill.CGColor);
+    CGContextSetStrokeColorWithColor(context, circleStroke.CGColor);
+
+    
+    CGContextAddArc(context, midx, miny-hh/2, hh/2-4, 0, 2*M_PI, 0);
+    CGContextDrawPath(context, kCGPathFillStroke);
+/*    CGContextAddArc(context, midx - hh, miny-hh/2, hh/2-4, 0, 2*M_PI, 0);
+    CGContextDrawPath(context, kCGPathFillStroke);
+    CGContextAddArc(context, midx + hh, miny-hh/2, hh/2-4, 0, 2*M_PI, 0);
+    CGContextDrawPath(context, kCGPathFillStroke);
+*/    
 
 }
 
@@ -217,10 +228,12 @@
 {
     //we allow the user to tap just a little above us if we're hidden (so we can show ourself by a tap) 
     if (!self.parent.isShowing)
+    {
         if (point.y>-9.5)
-            return self; 
+            return self;
         else
             return nil; 
+    }
     
     if ( [self pointInside:point withEvent:event])
         return self; 

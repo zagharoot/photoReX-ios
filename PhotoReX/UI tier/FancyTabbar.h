@@ -11,6 +11,14 @@
 
 @class FancyTabbarController; 
 
+#define BAR_TOP_MARGIN      5
+#define BAR_BOTTOM_MARGIN   3
+#define BAR_EDGE_INSET      20
+#define BAR_HANDLE_HEIGHT   14
+
+
+
+
 @interface FancyTabbar : UIView
 {
     int _selectedIndex; 

@@ -12,7 +12,7 @@
 #import "ExploreNavigatorController.h"
 #import "AccountsUIViewController.h"
 
-#define BAR_EDGE_INSET  6
+//#define BAR_EDGE_INSET  6
 
 FancyTabbarController* theInstance = nil; 
 
@@ -227,7 +227,7 @@ FancyTabbarController* theInstance = nil;
 	}
 	else {
         _isShowing = NO; 
-        tabbarFrame = CGRectMake(BAR_EDGE_INSET, b.size.height-5,b.size.width-BAR_EDGE_INSET*2, [FancyTabbar barHeight]+5); 
+        tabbarFrame = CGRectMake(BAR_EDGE_INSET, b.size.height-BAR_HANDLE_HEIGHT,b.size.width-BAR_EDGE_INSET*2, [FancyTabbar barHeight]);
 	}
     
     [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationCurveLinear 

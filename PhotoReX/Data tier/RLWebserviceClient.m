@@ -308,7 +308,7 @@ static NSString* SERVICE_CLEARHISTORY       = @"clearHistory";
                  NSLog(@"the data from webservice was not formatted correctly"); 
                  NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys: @"data from rlwebservice was not formatted properly", @"message", datastr, @"data" , nil]; 
                  
-                 theBlock(nil, nil, [NSError errorWithDomain:@"rlwebserver" code:0 userInfo:dic]);
+                 theBlock(pageid, pages, [NSError errorWithDomain:@"rlwebserver" code:0 userInfo:dic]);
                  [parser release]; 
                  return;
              }

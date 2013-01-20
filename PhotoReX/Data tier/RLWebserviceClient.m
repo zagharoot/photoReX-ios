@@ -20,6 +20,7 @@ static RLWebserviceClient* _rlWebServiceClient= nil;
 static NSString* SERVER_ADDRESS =   @"";
 
 static NSString* SERVICE_RECOMMEND          = @"recommend" ;
+static NSString* SERVICE_RECOMMEND_BYID     = @"recommendByID" ;
 static NSString* SERVICE_IMAGEVIEWED        = @"updateModel";
 static NSString* SERVICE_REGISTER_ACCOUNT   = @"registerAccount";
 static NSString* SERVICE_DEREGISTER_ACCOUNT = @"deregisterAccount";
@@ -29,7 +30,8 @@ static NSString* SERVICE_CLEARCACHE         = @"clearCache";
 static NSString* SERVICE_CLEARHISTORY       = @"clearHistory"; 
 
 @synthesize requestRecommend=_requestRecommend;
-@synthesize requestImageViewed=_requestImageViewed; 
+@synthesize requestRecommendByID=_requestRecommendByID;
+@synthesize requestImageViewed=_requestImageViewed;
 
 @synthesize userid = _userid; 
 @synthesize signature=_signature; 
@@ -57,6 +59,10 @@ static NSString* SERVICE_CLEARHISTORY       = @"clearHistory";
     
     NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_RECOMMEND]]; 
     _requestRecommend.URL = url; 
+
+    url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_RECOMMEND_BYID]];
+    _requestRecommendByID.URL = url;
+    
     
     url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_IMAGEVIEWED]]; 
     _requestImageViewed.URL = url; 
@@ -214,6 +220,17 @@ static NSString* SERVICE_CLEARHISTORY       = @"clearHistory";
         [self.requestRecommend addValue:@"application/json" forHTTPHeaderField:@"content-type"]; 
         [self.requestRecommend addValue:@"utf8" forHTTPHeaderField:@"charset"]; 
         
+        //do the same for recommendByID
+        NSURL* url2 = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_RECOMMEND_BYID]];
+        _requestRecommendByID = [[NSMutableURLRequest alloc] initWithURL:url2 cachePolicy:NSURLCacheStorageAllowedInMemoryOnly timeoutInterval:60];
+        
+        
+        //set parameters of the request except for the body:
+        [self.requestRecommendByID setHTTPMethod:@"POST"];
+        
+        [self.requestRecommendByID addValue:@"application/json" forHTTPHeaderField:@"content-type"];
+        [self.requestRecommendByID addValue:@"utf8" forHTTPHeaderField:@"charset"];
+        
         //--------------------
         
         url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", SERVER_ADDRESS, SERVICE_IMAGEVIEWED]]; 
@@ -233,97 +250,124 @@ static NSString* SERVICE_CLEARHISTORY       = @"clearHistory";
 }
 
 
-// retrieves some pages of pictureInfos from the rl webservice in the background. Once completed, the handle block is executed. 
-// if an error occurs, the block is called with nil arguments 
+// retrieves some pages of pictureInfos from the rl webservice in the background. Once completed, the handle block is executed.
+// if an error occurs, the block is called with nil arguments
 -(void) getPageFromServerAsync:(int)howMany andRunBlock:(void (^)(NSString *, NSArray *, NSError* err))theBlock
 {
-    if (!self.userid) 
+    if (!self.userid)
     {
         theBlock(nil, nil, [NSError errorWithDomain:@"rlwebsite" andMessage:@"No userid is available"]);
-        return; 
+        return;
     }
     
-    NSString* body = [NSString stringWithFormat:@"{\"userid\":\"%@\",\"howMany\":\"%d\"}", self.userid, howMany]; 
+    NSString* body = [NSString stringWithFormat:@"{\"userid\":\"%@\",\"howMany\":\"%d\"}", self.userid, howMany];
     
-    [self.requestRecommend setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]]; 
+    [self.requestRecommend setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
     
     
     //increment network activity
-    [NetworkActivityIndicatorController incrementNetworkConnections]; 
+    [NetworkActivityIndicatorController incrementNetworkConnections];
+    
+    [self downloadRecommendByRequest:self.requestRecommend andRundBlock:theBlock];
+    
+}
+
+
+
+-(void) getPageFromServerByIDAsync:(NSString *)uniqueID andRunBlock:(void (^)(NSString *, NSArray *, NSError *))theBlock
+{
+    if (!self.userid)
+    {
+        theBlock(nil, nil, [NSError errorWithDomain:@"rlwebsite" andMessage:@"No userid is available"]);
+        return;
+    }
+    
+    NSString* body = [NSString stringWithFormat:@"{\"userid\":\"%@\",\"uniqueID\":\"%@\"}", self.userid, uniqueID];
+    
+    [self.requestRecommendByID setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
     
     
-    [NSURLConnection sendAsynchronousRequest:self.requestRecommend queue:[NSOperationQueue mainQueue] completionHandler:
-    ^(NSURLResponse* response, NSData* data, NSError* error)
+    //increment network activity
+    [NetworkActivityIndicatorController incrementNetworkConnections];
+    
+    [self downloadRecommendByRequest:self.requestRecommendByID andRundBlock:theBlock];
+}
+
+-(void) downloadRecommendByRequest:(NSMutableURLRequest*) request andRundBlock:(void (^)(NSString *, NSArray *, NSError* err))theBlock
+{
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:
+     ^(NSURLResponse* response, NSData* data, NSError* error)
      {
          //decrement network activity
-         [NetworkActivityIndicatorController decrementNetworkConnections]; 
-        
-//         NSLog(@"i'm here -------------\n"); 
+         [NetworkActivityIndicatorController decrementNetworkConnections];
+         
+         //         NSLog(@"i'm here -------------\n");
          if (response == nil)       //error happened
          {
-             NSLog(@"Error downloading data from RLService: %@\n", [error description]); 
-             theBlock(@"", nil, error); 
+             NSLog(@"Error downloading data from RLService: %@\n", [error description]);
+             theBlock(@"", nil, error);
          } else         //success
          {
              
-             NSString* datastr = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]; 
+             NSString* datastr = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
              //NSLog(@"received data as %@\n", datastr);
              
              
-             SBJsonParser* parser = [[SBJsonParser alloc] init]; 
-             parser.maxDepth = 6; 
+             SBJsonParser* parser = [[SBJsonParser alloc] init];
+             parser.maxDepth = 6;
              
-
-             NSDictionary* d1 = [parser objectWithData:data]; 
-             if (d1 == nil) { 
-                 NSLog(@"the data from webservice was not formatted correctly"); 
-                 NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys: @"data from rlwebservice was not formatted properly", @"message", datastr, @"data" , nil]; 
-
+             
+             NSDictionary* d1 = [parser objectWithData:data];
+             if (d1 == nil) {
+                 NSLog(@"the data from webservice was not formatted correctly");
+                 NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys: @"data from rlwebservice was not formatted properly", @"message", datastr, @"data" , nil];
+                 
                  theBlock(nil, nil, [NSError errorWithDomain:@"rlwebserver" code:0 userInfo:dic]);
-                [parser release]; 
+                 [parser release];
                  return;
-            }
+             }
              
-             NSDictionary* d2; 
+             NSDictionary* d2;
              if (self.webServiceLocation == RLWEBSERVICE_LAPTOP)
              {
                  //getting from ASP.NET ---------
-                 d2 = [parser objectWithString:[d1 objectForKey:@"d"]]; 
-                 if (d2 == nil) { 
-                     NSLog(@"the data from webservice was not formatted correctly"); 
-                     NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys: @"data from rlwebservice was not formatted properly", @"message", datastr, @"data" , nil]; 
+                 d2 = [parser objectWithString:[d1 objectForKey:@"d"]];
+                 if (d2 == nil) {
+                     NSLog(@"the data from webservice was not formatted correctly");
+                     NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys: @"data from rlwebservice was not formatted properly", @"message", datastr, @"data" , nil];
                      
                      theBlock(nil, nil, [NSError errorWithDomain:@"rlwebserver" code:0 userInfo:dic]);
-                     [parser release]; 
+                     [parser release];
                      return;
                  }
              }else
-                 d2 = d1; 
+                 d2 = d1;
              
              
-             NSString* pageid = [d2 objectForKey:@"pageid"]; 
-             NSArray*  pages  = [d2 objectForKey:@"pics"]; 
+             NSString* pageid = [d2 objectForKey:@"pageid"];
+             NSArray*  pages  = [d2 objectForKey:@"pics"];
              
              if (pageid==nil || pages == nil) {
-                 NSLog(@"the data from webservice was not formatted correctly"); 
-                 NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys: @"data from rlwebservice was not formatted properly", @"message", datastr, @"data" , nil]; 
+                 NSLog(@"the data from webservice was not formatted correctly");
+                 NSDictionary* dic = [NSDictionary dictionaryWithObjectsAndKeys: @"data from rlwebservice was not formatted properly", @"message", datastr, @"data" , nil];
                  
                  theBlock(pageid, pages, [NSError errorWithDomain:@"rlwebserver" code:0 userInfo:dic]);
-                 [parser release]; 
+                 [parser release];
                  return;
              }
              
              
-             //we finally have all the stuff we need. lets call the block: 
-             theBlock(pageid, pages, nil); 
-
-             //cleanup 
+             //we finally have all the stuff we need. lets call the block:
+             theBlock(pageid, pages, nil);
+             
+             //cleanup
              [parser release];
              
          }// if 
          
      }]; 
-     
+    
+    
 }
 
 
@@ -558,7 +602,8 @@ static NSString* SERVICE_CLEARHISTORY       = @"clearHistory";
 {
     [self saveSettings]; 
     self.userid = nil; 
-    [_requestRecommend release]; 
+    [_requestRecommend release];
+    [_requestRecommendByID release]; 
     [_requestImageViewed release]; 
     [super dealloc]; 
 }

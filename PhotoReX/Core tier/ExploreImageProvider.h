@@ -19,7 +19,8 @@
 }
 
 
--(PictureInfoCollection*) retrievePageAsync:(int) howMany;        //retrieves one page of pictureInfo from the server 
+-(void) getPageFromWebserver:(PictureInfoCollection*) pic;
+-(PictureInfoCollection*) retrievePageAsync:(int) howMany;        //retrieves one page of pictureInfo from the server
 -(void) userVisitsImageAtIndex:(int) indx inPictureInfoCollection:(PictureInfoCollection*) picCollection; 
 
 @property (retain) NSMutableArray* pages;           //arrays of pictureInfoCollection

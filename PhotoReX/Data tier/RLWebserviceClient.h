@@ -24,7 +24,8 @@ enum WebServiceLocation {
 @interface RLWebserviceClient : NSObject
 {
     NSMutableURLRequest* _requestRecommend;
-    NSMutableURLRequest* _requestImageViewed; 
+    NSMutableURLRequest* _requestRecommendByID;
+    NSMutableURLRequest* _requestImageViewed;
     
     NSString* _userid; 
     NSString* _signature; 
@@ -39,7 +40,9 @@ enum WebServiceLocation {
 -(void) saveSettings; 
 
 //picInfoData is actually an array of json data that can be used to generated pictureInfos
--(void) getPageFromServerAsync:(int) howMany andRunBlock:(void (^)(NSString* pageid, NSArray* picInfoData, NSError* err)) theBlock ; 
+-(void) getPageFromServerAsync:(int) howMany andRunBlock:(void (^)(NSString* pageid, NSArray* picInfoData, NSError* err)) theBlock ;
+-(void) getPageFromServerByIDAsync:(NSString*) uniqueID andRunBlock:(void (^)(NSString* pageid, NSArray* picInfoData, NSError* err)) theBlock ;
+-(void) downloadRecommendByRequest:(NSMutableURLRequest*) request andRundBlock:(void (^)(NSString *, NSArray *, NSError* err))theBlock;
 
 //sends user activity to the server (guarantees receive on the server side) 
 -(void) sendPageActivityAsync:(NSString*) pageid pictureHash:(NSString*) hash; 
@@ -52,6 +55,7 @@ enum WebServiceLocation {
 -(void) clearHistory;           //clears the entire visited history for the current user.
 
 @property (retain, readonly) NSMutableURLRequest* requestRecommend;
+@property (retain, readonly) NSMutableURLRequest* requestRecommendByID;
 @property (retain, readonly) NSMutableURLRequest* requestImageViewed; 
 @property (nonatomic, copy) NSString* userid; 
 @property (nonatomic, copy) NSString* signature; 

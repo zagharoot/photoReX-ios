@@ -28,6 +28,7 @@
     BOOL didUserHateAutoOrientationChange;              //true when auto change applied and user didn't like it (did rotation to counter act it)
 
 
+    double currentDegree;                              //the view degree
 }
 @property (retain, nonatomic) IBOutlet UIBarButtonItem *closeBtn;
 
@@ -49,7 +50,7 @@
 @property (retain) PictureInfo* pictureInfo; 
 @property (retain, nonatomic) IBOutlet UIImageView *websiteIconImageView;
 
-- (IBAction)dismissView:(id)sender;
+- (IBAction)dismissView:(id)sender  inDirection:(UISwipeGestureRecognizerDirection) direction;
 -(id) initWithPictureInfo:(PictureInfo*) pic;  
 -(void) captureOneTouchTap:(UITapGestureRecognizer*) sender;
 -(void) captureSwipeGesture:(UISwipeGestureRecognizer*) sender;

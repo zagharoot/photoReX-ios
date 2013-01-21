@@ -31,16 +31,57 @@
 @synthesize floatingRotateBtn;
 @synthesize blurredImageView=_blurredImageView; 
 
-- (IBAction)dismissView:(id)sender 
+
+-(IBAction)dismissView:(id)sender
+{
+    [self dismissView:sender inDirection:0];
+}
+
+- (void)dismissView:(id)sender inDirection:(UISwipeGestureRecognizerDirection) direction
 {    
     [UIApplication sharedApplication].statusBarHidden = NO; 
     imageView.delegate = nil;
 
+    // the x and y difference for animation
+    float xd = 0;
+    float yd = 0;
+    
+    CGRect cf = self.scrollView.frame;
+    
+    if (direction)
+    {
+        switch (direction) {
+            case UISwipeGestureRecognizerDirectionUp:
+                xd = 0; yd = -50;
+                if (currentDegree == M_PI_2) {xd = 50; yd = 0; }
+                if (currentDegree == -M_PI_2) {xd = -50; yd = 0; }
+                break;
+            case UISwipeGestureRecognizerDirectionDown:
+                xd = 0; yd = 50;
+                if (currentDegree == M_PI_2) {xd = -50; yd = 0; }
+                if (currentDegree == -M_PI_2) {xd = 50; yd = 0; }
+                break;
+            case UISwipeGestureRecognizerDirectionLeft:
+                xd = -50; yd = 0;
+                if (currentDegree == M_PI_2) {xd = 0; yd = -50; }
+                if (currentDegree == -M_PI_2) {xd = 0; yd = 50; }
+                break;
+            case UISwipeGestureRecognizerDirectionRight:
+                xd = 50; yd = 0;
+                if (currentDegree == M_PI_2) {xd = 0; yd = 50; }
+                if (currentDegree == -M_PI_2) {xd = 0; yd = -50; }
+                break;
+            default:
+                break;
+        }
+    }
+    
+    
+    
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationCurveLinear
                      animations:^{
-                         CGRect cf = self.scrollView.bounds ;
-                         CGRect nf = CGRectMake(cf.origin.x + cf.size.width/2-10, cf.origin.y + cf.size.height/2-10, 20, 20);
-                         self.scrollView.bounds = nf;
+                         CGRect nf = CGRectMake(cf.origin.x + xd, cf.origin.y + yd, cf.size.width  , cf.size.height);
+                         self.scrollView.frame = nf;
                          self.scrollView.alpha = 0.2; 
                      }
                      completion:^(BOOL fin) {
@@ -121,7 +162,10 @@
 {
     [super viewDidLoad];
 
-    [self.view insertSubview:self.detailOverlayView belowSubview:self.floatingRotateBtn]; 
+ 
+    currentDegree = 0; 
+    
+    [self.view insertSubview:self.detailOverlayView belowSubview:self.floatingRotateBtn];
     [self.view insertSubview:self.scrollView belowSubview:self.detailOverlayView]; 
     
     [self.detailOverlayView setHidden:YES]; 
@@ -348,6 +392,7 @@
 
 -(void) rotatePictureToDegree:(double)degree
 {
+    currentDegree = degree; 
     CGAffineTransform transform = CGAffineTransformMakeRotation(degree); 
     
     //no need to do anything 
@@ -451,7 +496,7 @@
 
 -(void) captureSwipeGesture:(UISwipeGestureRecognizer *)sender
 {
-    [self dismissView:self];
+    [self dismissView:self inDirection:sender.direction]; 
 }
 
 
@@ -502,10 +547,12 @@
 
     if (view.imageOrientation == UIInterfaceOrientationLandscapeRight ) //image is landscape 
     {
-        if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight) 
-            self.scrollView.transform = CGAffineTransformMakeRotation(-M_PI_2); 
+        if ([UIDevice currentDevice].orientation == UIDeviceOrientationLandscapeRight)
+            currentDegree = -M_PI_2;
         else
-            self.scrollView.transform = CGAffineTransformMakeRotation(M_PI_2); 
+            currentDegree = M_PI_2;
+
+        self.scrollView.transform = CGAffineTransformMakeRotation(currentDegree);
 
         self.scrollView.bounds = CGRectMake(0, 0, self.scrollView.bounds.size.height, self.scrollView.bounds.size.width); 
         didAutoOrientationChange = YES; 

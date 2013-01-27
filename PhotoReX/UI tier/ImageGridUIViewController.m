@@ -185,7 +185,7 @@
 
     CGPoint origin; 
     origin.x = EDGE_PADDING + col*PICTURE_PADDING + (col)*theSize.width; 
-    origin.y = EDGE_PADDING + row*PICTURE_PADDING + (row)*theSize.height; 
+    origin.y = EDGE_PADDING + row*PICTURE_PADDING + (row)*theSize.height ;
     
     result = CGRectMake(origin.x, origin.y, theSize.width, theSize.height); 
     

@@ -86,8 +86,12 @@ static double _applicationStartTime=0;
     
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
+
+    CGRect rect = ftc.view.frame;
+    CGRect nrect = CGRectMake(rect.size.width, rect.origin.y+20, rect.size.width, rect.size.height-20);
+    ftc.view.frame  = nrect;
     if ( [[NSDate date] timeIntervalSince1970] - [AppDelegate applicationStartTime] < SPLASH_SCREEN_DURATION - 0.5)
-    [self showSplashScreenOnView:ftc ];
+        [self showSplashScreenOnView:ftc ];
 
         
     //initialize user orientation: 
@@ -307,8 +311,6 @@ static double _applicationStartTime=0;
     if (duration < 0.5) 
         return; 
     
-    
-    
     UIViewController* splash = [[[UIViewController alloc] init ] autorelease]; 
     UIImage* img;
     if (IS_IPHONE_5)
@@ -317,14 +319,31 @@ static double _applicationStartTime=0;
         img = [UIImage imageNamed:@"splash-02.png"];
     
     UIImageView* imgv = [[UIImageView alloc] initWithImage:img];
-    splash.view = imgv; 
-    [imgv release]; 
-    [v presentModalViewController:splash animated:NO]; 
-    
-    [splash performSelector:@selector(dismissModalViewControllerAnimated:) withObject:nil afterDelay:duration];
+    splash.view = imgv;
+    [imgv release];
     
     [UIApplication sharedApplication].statusBarHidden = NO;
 
+    
+    // main content is pulled from right to center. splash is moved out of screen to the left. then removed from superview
+    CGRect rect = v.view.frame;
+    CGRect srect = splash.view.frame; 
+    CGRect nrect = CGRectMake(0, rect.origin.y, rect.size.width, rect.size.height);
+    CGRect snrect = CGRectMake(-rect.origin.x, srect.origin.y, srect.size.width, srect.size.height);
+
+    [self.window addSubview:splash.view];
+//    [v presentViewController:splash animated:NO completion:^{}];
+    
+    [UIView animateWithDuration:0.8 delay:duration options:UIViewAnimationCurveEaseIn animations:^{
+        v.view.frame = nrect;
+        splash.view.frame = snrect;
+    } completion:^(BOOL fin)
+    {
+        [splash.view removeFromSuperview];
+//        [splash dismissViewControllerAnimated:NO completion:^{}];
+        [UIApplication sharedApplication].statusBarHidden = NO;
+    }];
+    
 }
 
 

@@ -147,12 +147,17 @@ static double _applicationStartTime=0;
     return YES;
 }
 
--(NSString*) getImageNamePostfix
+-(NSString*) getImageNamePostfix:(BOOL) isResolutionSensitive
 {
     NSString* retStr = @"";
     if (self.isRetinaDisplay)
         retStr = @"@2x";
-    return [NSString stringWithFormat:@"%dx%d%@", (int)self.windowSize.height, (int)self.windowSize.width, retStr];
+    
+    NSString* resStr = @"";
+    if (isResolutionSensitive)
+        resStr = [NSString stringWithFormat:@"%dx%d", (int)self.windowSize.height, (int)self.windowSize.width];
+    
+    return [NSString stringWithFormat:@"%@%@", resStr, retStr];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

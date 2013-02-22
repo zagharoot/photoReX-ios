@@ -18,7 +18,10 @@ enum UserOrientation {
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 {
-    enum UserOrientation _userOrientation; 
+    enum UserOrientation _userOrientation;
+    
+    CGSize _windowSize;
+    CGSize __isRetinaDisplay; 
 }
 
 @property (strong, nonatomic) UIWindow *window;
@@ -38,5 +41,11 @@ enum UserOrientation {
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
+
+// conf values specific to each device (is computed automatically at launch time)
+@property (readonly, nonatomic) CGSize windowSize;
+@property (readonly, nonatomic) BOOL isRetinaDisplay;
+-(NSString*) getImageNamePostfix; 
+
 
 @end

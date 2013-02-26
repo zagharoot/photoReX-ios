@@ -45,7 +45,7 @@ enum UserOrientation {
 // conf values specific to each device (is computed automatically at launch time)
 @property (readonly, nonatomic) CGSize windowSize;
 @property (readonly, nonatomic) BOOL isRetinaDisplay;
--(NSString*) getImageNamePostfix; 
+-(NSString*) getImageName:(NSString*) name isResolutionSensitive:(BOOL) isResolutionSensitive;
 
 
 @end

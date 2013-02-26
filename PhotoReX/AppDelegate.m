@@ -17,7 +17,7 @@
 #import "FancyTabbarController.h"
 
 static double _applicationStartTime=0; 
-#define SPLASH_SCREEN_DURATION 1           //number of seconds to show splash screen
+#define SPLASH_SCREEN_DURATION 6           //number of seconds to show splash screen
 
 #define IS_IPHONE ( [[[UIDevice currentDevice] model] isEqualToString:@"iPhone"] )
 #define IS_IPOD   ( [[[UIDevice currentDevice ] model] isEqualToString:@"iPod touch"] )
@@ -89,13 +89,6 @@ static double _applicationStartTime=0;
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
 
-    CGRect rect = ftc.view.frame;
-    CGRect nrect = CGRectMake(rect.size.width, rect.origin.y+20, rect.size.width, rect.size.height-20);
-    ftc.view.frame  = nrect;
-    if ( [[NSDate date] timeIntervalSince1970] - [AppDelegate applicationStartTime] < SPLASH_SCREEN_DURATION - 0.5)
-        [self showSplashScreenOnView:ftc ];
-
-
     _windowSize = [[UIScreen mainScreen] bounds].size;
     if ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] &&
         ([UIScreen mainScreen].scale == 2.0)) {
@@ -106,6 +99,13 @@ static double _applicationStartTime=0;
         _isRetinaDisplay = NO;
     }
     
+    CGRect rect = ftc.view.frame;
+    CGRect nrect = CGRectMake(rect.size.width, rect.origin.y+20, rect.size.width, rect.size.height-20);
+    ftc.view.frame  = nrect;
+    if ( [[NSDate date] timeIntervalSince1970] - [AppDelegate applicationStartTime] < SPLASH_SCREEN_DURATION - 0.5)
+        [self showSplashScreenOnView:ftc ];
+
+
     
     //initialize user orientation: 
     _userOrientation = UserOrientationUnknown; 
@@ -141,13 +141,10 @@ static double _applicationStartTime=0;
             _userOrientation = UserOrientationStanding; 
             break;
     }
-    
-
-
     return YES;
 }
 
--(NSString*) getImageNamePostfix:(BOOL) isResolutionSensitive
+-(NSString*) getImageName:(NSString*) name isResolutionSensitive:(BOOL) isResolutionSensitive
 {
     NSString* retStr = @"";
     if (self.isRetinaDisplay)
@@ -157,7 +154,7 @@ static double _applicationStartTime=0;
     if (isResolutionSensitive)
         resStr = [NSString stringWithFormat:@"%dx%d", (int)self.windowSize.height, (int)self.windowSize.width];
     
-    return [NSString stringWithFormat:@"%@%@", resStr, retStr];
+    return [NSString stringWithFormat:@"%@%@%@.png",name,  resStr, retStr];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -339,12 +336,11 @@ static double _applicationStartTime=0;
     
     UIViewController* splash = [[[UIViewController alloc] init ] autorelease]; 
     UIImage* img;
-    if (IS_IPHONE_5)
-        img = [UIImage imageNamed:@"splash-02-568.png"];                               
-    else
-        img = [UIImage imageNamed:@"splash-02.png"];
+    img = [UIImage imageNamed:[self getImageName:@"splash-02-" isResolutionSensitive:YES]];
+
     
     UIImageView* imgv = [[UIImageView alloc] initWithImage:img];
+    imgv.frame = CGRectMake(0, 0, self.windowSize.width, self.windowSize.height);
     splash.view = imgv;
     [imgv release];
     

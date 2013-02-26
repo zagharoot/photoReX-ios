@@ -11,3 +11,22 @@
 @implementation GraphChildCategory
 
 @end
+
+
+
+@implementation GraphSameUserCategory
+
+
+@end
+
+@implementation GraphUserFavoriteCategory
+
+
+
+@end
+
+
+@implementation GraphUserContactsCategory
+
+
+@end

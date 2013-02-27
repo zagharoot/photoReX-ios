@@ -17,7 +17,7 @@
 #import "FancyTabbarController.h"
 
 static double _applicationStartTime=0; 
-#define SPLASH_SCREEN_DURATION 6           //number of seconds to show splash screen
+#define SPLASH_SCREEN_DURATION 1           //number of seconds to show splash screen
 
 #define IS_IPHONE ( [[[UIDevice currentDevice] model] isEqualToString:@"iPhone"] )
 #define IS_IPOD   ( [[[UIDevice currentDevice ] model] isEqualToString:@"iPod touch"] )

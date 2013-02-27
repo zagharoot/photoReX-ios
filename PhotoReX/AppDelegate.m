@@ -31,6 +31,8 @@ static double _applicationStartTime=0;
 @synthesize managedObjectModel = __managedObjectModel;
 @synthesize persistentStoreCoordinator = __persistentStoreCoordinator;
 @synthesize userOrientation=_userOrientation; 
+@synthesize isRetinaDisplay=_isRetinaDisplay;
+@synthesize windowSize=_windowSize;
 
 - (void)dealloc
 {
@@ -93,7 +95,18 @@ static double _applicationStartTime=0;
     if ( [[NSDate date] timeIntervalSince1970] - [AppDelegate applicationStartTime] < SPLASH_SCREEN_DURATION - 0.5)
         [self showSplashScreenOnView:ftc ];
 
-        
+
+    _windowSize = [[UIScreen mainScreen] bounds].size;
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] &&
+        ([UIScreen mainScreen].scale == 2.0)) {
+        // Retina display
+        _isRetinaDisplay = YES;
+    } else {
+        // non-Retina display
+        _isRetinaDisplay = NO;
+    }
+    
+    
     //initialize user orientation: 
     _userOrientation = UserOrientationUnknown; 
     switch ( [[UIApplication sharedApplication] statusBarOrientation])
@@ -132,6 +145,19 @@ static double _applicationStartTime=0;
 
 
     return YES;
+}
+
+-(NSString*) getImageNamePostfix:(BOOL) isResolutionSensitive
+{
+    NSString* retStr = @"";
+    if (self.isRetinaDisplay)
+        retStr = @"@2x";
+    
+    NSString* resStr = @"";
+    if (isResolutionSensitive)
+        resStr = [NSString stringWithFormat:@"%dx%d", (int)self.windowSize.height, (int)self.windowSize.width];
+    
+    return [NSString stringWithFormat:@"%@%@", resStr, retStr];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

@@ -173,7 +173,13 @@
 
   
     //TODO: depending on the device, we should modify this
-    CGRect myFrame = CGRectMake(0, 0, 320, 320); 
+//    CGRect myFrame = CGRectMake(0, 0, 320, 320);
+    CGSize mySize  = ((AppDelegate*) [[UIApplication sharedApplication] delegate]).windowSize;
+    CGRect myFrame = CGRectMake(0, 0, mySize.width, mySize.height);
+    
+    self.view.frame = myFrame;
+    self.scrollView.frame = myFrame;
+    
     
     
     //initialize the image we want to show 

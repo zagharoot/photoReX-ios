@@ -152,7 +152,7 @@ static double _applicationStartTime=0;
     if (isResolutionSensitive)
         resStr = [NSString stringWithFormat:@"%dx%d", (int)self.windowSize.height, (int)self.windowSize.width];
     
-    return [NSString stringWithFormat:@"%@%@%@.png",name,  resStr, retStr];
+    return [NSString stringWithFormat:@"%@%@%@",name,  resStr, retStr];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -334,7 +334,7 @@ static double _applicationStartTime=0;
     
     UIViewController* splash = [[[UIViewController alloc] init ] autorelease]; 
     UIImage* img;
-    img = [UIImage imageNamed:[self getImageName:@"splash-02-" isResolutionSensitive:YES]];
+    img = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", [self getImageName:@"splash-02-" isResolutionSensitive:YES]]];
 
     
     UIImageView* imgv = [[UIImageView alloc] initWithImage:img];

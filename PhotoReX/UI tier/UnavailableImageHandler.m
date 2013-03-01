@@ -8,7 +8,7 @@
 
 #import "UnavailableImageHandler.h"
 #import "UINetImageView.h"
-
+#import "AppDelegate.h"
 
 static UIImage* unavailableImage4x3; 
 static UIImage* unavailableImageLandscape; 
@@ -56,7 +56,8 @@ static UIImage* unavailableImageLandscape;
 {
     if (unavailableImageLandscape == nil) 
     {
-        unavailableImageLandscape = [[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"noimageLandscape" ofType:@"png"]] retain]; 
+        NSString* name = [( (AppDelegate*)[UIApplication sharedApplication].delegate) getImageName:@"noimageLandscape" isResolutionSensitive:YES];
+        unavailableImageLandscape = [[UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:name ofType:@"png"]] retain];
     }
     return unavailableImageLandscape; 
 }
@@ -69,13 +70,19 @@ static UIImage* unavailableImageLandscape;
 
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetFillColorWithColor(context, [UIColor yellowColor].CGColor);
-
-    CGPoint center = CGPointMake(98, 87); 
-    CGFloat radius = 26; 
-    //remove me
-    CGFloat degree = 2*M_PI*self.imageView.percentageDataAvailable; 
     
+    //location of sun in iphones
+    CGPoint center = CGPointMake(98, (self.bounds.size.height - 320)/2 + 87);
+    CGFloat radius = 26;
     
+    //change values for ipad
+    if (self.bounds.size.width == 768)
+    {
+        center = CGPointMake(235, 338);
+        radius = 67;
+    }
+    
+    CGFloat degree = 2*M_PI*self.imageView.percentageDataAvailable;
     UIBezierPath*    p = [UIBezierPath bezierPath];
     
     [p moveToPoint:center]; 

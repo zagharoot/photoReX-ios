@@ -22,4 +22,5 @@
 @property (nonatomic, assign) PictureInfo* pictureInfo; 
 @property (nonatomic) BOOL isModalVisible; 
 
+
 @end

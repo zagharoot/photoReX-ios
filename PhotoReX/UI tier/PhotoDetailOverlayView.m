@@ -26,6 +26,7 @@
     
     if (self) 
     {
+        
         CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
         CGFloat colors[] =
         {

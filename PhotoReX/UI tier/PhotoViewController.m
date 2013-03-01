@@ -17,7 +17,6 @@
 
 @synthesize pictureInfo=_pictureInfo; 
 @synthesize websiteIconImageView;
-@synthesize closeBtn;
 @synthesize navBar = _navBar;
 @synthesize scrollView=_scrollView; 
 @synthesize detailOverlayView=_detailOverlayView; 
@@ -116,7 +115,9 @@
     
         //some initializations
         self.wantsFullScreenLayout = YES;
-        doubleTapFlag = NO; 
+        doubleTapFlag = NO;
+        
+        toolbarBtns = nil; 
     }
     
     
@@ -130,11 +131,11 @@
 
 - (void)dealloc
 {
+    [toolbarBtns release]; 
     [_pictureInfo release]; 
     [imageView release];
     [_blurredImageView release]; 
     [_navBar release];
-    [closeBtn release];
     [websiteIconImageView release];
     [imageTitleLabel release];
     [imageAuthorLabel release];
@@ -145,6 +146,7 @@
     [commentBtnTB release];
     [floatingRotateBtn release];
     [commentBtnPressed release];
+    [_closeBtn release];
     [super dealloc];
 }
 
@@ -163,6 +165,18 @@
     [super viewDidLoad];
 
  
+    //create the toolbar btn reference
+    NSMutableArray* tarr = [[NSMutableArray alloc] initWithCapacity:5];
+    [tarr addObject:self.favoriteBtnTB];
+    [tarr addObject:self.commentBtnTB];
+    [tarr addObject:self.rotateBtnTB];
+    [tarr addObject:self.shareBtnTB];
+    [tarr addObject:self.closeBtn];
+    toolbarBtns = (NSArray*) tarr;
+    
+//    toolbarBtns = [[NSArray arrayWithObjects:self.favoriteBtnTB, self.commentBtnTB, self.rotateBtnTB, self.shareBtnTB, self.closeBtn, nil] retain];
+    
+    
     currentDegree = 0; 
     
     [self.view insertSubview:self.detailOverlayView belowSubview:self.floatingRotateBtn];
@@ -179,7 +193,8 @@
     
     self.view.frame = myFrame;
     self.scrollView.frame = myFrame;
-    
+    self.detailOverlayView.frame = myFrame;
+    [self adjustOverlayElementPositions];
     
     
     //initialize the image we want to show 
@@ -240,10 +255,43 @@
     
 }
 
+-(void) adjustOverlayElementPositions
+{
+    CGSize s = self.detailOverlayView.frame.size;
+    CGFloat lpadding = 15;                          //left padding
+    CGFloat rpadding = 20;                          //right padding
+    int buttonCnt = 5;                              //max number of buttons
+    CGFloat btnTop = 25;                            //the y for toolbar btns
+    CGFloat btnW = 50;                              //avg width of buttons (approximate for distributing the buttons)
+
+    for(int i=0; i< toolbarBtns.count; i++)
+    {
+        UIButton* btn = (UIButton*) [toolbarBtns objectAtIndex:i];
+        if (btn == nil)
+            continue;
+        
+        CGRect bf = btn.frame;
+        CGFloat x = i*btnW + (i)*(s.width - lpadding - rpadding -buttonCnt*btnW)/(buttonCnt-1); 
+        CGRect frame = CGRectMake(lpadding + x, btnTop,bf.size.width,bf.size.height);  // favorite btn
+        btn.frame = frame;
+    }
+
+    /*
+    self.imageTitleLabel.frame = ;
+    self.imageAuthorLabel.frame = ;
+    self.imageNumberOfVisitsLabel.frame = ;
+    self.websiteIconImageView.frame = ; 
+    
+    */
+    
+    
+}
+
+
 -(void) viewWillAppear:(BOOL)animated
 {
     [self.view bringSubviewToFront:self.navBar]; 
-    self.closeBtn.title = @"Cancel"; 
+    self.closeBtn.titleLabel.text = @"Cancel";
 }
 
 
@@ -339,7 +387,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self]; 
     
     [self setNavBar:nil];
-    [self setCloseBtn:nil];
     [self setWebsiteIconImageView:nil];
     [self setImageTitleLabel:nil];
     [self setImageAuthorLabel:nil];
@@ -352,6 +399,7 @@
     [self setCommentBtnTB:nil];
     [self setFloatingRotateBtn:nil];
     [self setCommentBtnPressed:nil];
+    [self setCloseBtn:nil];
     [super viewDidUnload];
 }
 
@@ -540,7 +588,7 @@
 {
     [self hideStatusBar]; 
     [self.navBar setHidden:YES]; 
-    self.closeBtn.title = @"Close"; 
+    self.closeBtn.titleLabel.text = @"Close";
     
 
     

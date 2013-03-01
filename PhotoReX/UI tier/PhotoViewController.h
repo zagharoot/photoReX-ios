@@ -27,11 +27,12 @@
     BOOL didAutoOrientationChange;                      //whether we automatically changed the orientation of the picture 
     BOOL didUserHateAutoOrientationChange;              //true when auto change applied and user didn't like it (did rotation to counter act it)
 
+    NSArray* toolbarBtns;                               // a reference to our set of buttons in the toolbar on overlay view
 
     double currentDegree;                              //the view degree
 }
-@property (retain, nonatomic) IBOutlet UIBarButtonItem *closeBtn;
 
+@property (retain, nonatomic) IBOutlet UIButton *closeBtn;
 @property (retain, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (nonatomic, retain, readonly) IBOutlet PhotoScrollView *scrollView;
 @property (nonatomic, retain, readonly) IBOutlet PhotoDetailOverlayView* detailOverlayView; 
@@ -44,6 +45,7 @@
 @property (retain, nonatomic) IBOutlet UIButton *commentBtnTB;
 @property (retain, nonatomic) IBOutlet UIImageView* blurredImageView; 
 @property (retain, nonatomic) IBOutlet UIButton *floatingRotateBtn;
+@property (retain, nonatomic) IBOutlet UIButton *commentBtnPressed;
 
 
 - (IBAction)toggleFavorite:(id)sender;
@@ -64,11 +66,11 @@
 -(void) hideRotateButton;       //automatically calls the animated one
 - (IBAction)commentBtnPressed:(id)sender;
 - (IBAction)sharePressed:(id)sender;
-@property (retain, nonatomic) IBOutlet UIButton *commentBtnPressed;
 -(void) hideRotateButtonAnimation:(BOOL) animated;
 - (IBAction)rotatePictureToIdentityBySender:(UIButton *)sender;
 
 -(void) blurTheImage:(BOOL) blur; 
+-(void) adjustOverlayElementPositions;
 
 //-(void) rotatePictureToIdentityBySender:(UIButton*) sender;            //undoes the auto rotate to original image orientation
 -(void) rotatePictureToAutoBySender:(UIButton*) sender;                //automatically transforms the image to best fit the screen 

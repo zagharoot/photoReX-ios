@@ -36,14 +36,15 @@
         
     BOOL _clipToBound; 
     BOOL _drawUserActivityStatus; 
-    double _percentageDataAvailable; 
+    double _percentageDataAvailable;
+    BOOL _isFullScreen;
     UIImage* _tmpImage;                 //this is just because we want to delay becomeAvailable
     
     NSTimeInterval loadStartTime;               //time we started loading the image; 
 }
 
 -(id) initWithPictureInfo:(PictureInfo*) pictureInfo andFrame:(CGRect) frame; 
--(id) initWithPictureInfo:(PictureInfo *)pictureInfo andFrame:(CGRect) frame shouldClipToBound:(BOOL) clip drawUserActivity:(BOOL) activity;
+-(id) initWithPictureInfo:(PictureInfo *)pictureInfo andFrame:(CGRect) frame shouldClipToBound:(BOOL) clip drawUserActivity:(BOOL) activity isFullScreen:(BOOL) full;
 -(void) loadAsUnavailableImage; 
 -(void) loadPicture; 
 -(BOOL) isPictureAvailable;             //returns true if the image is already downloaded and ready
@@ -63,7 +64,8 @@
 @property (nonatomic, readonly) double percentageDataAvailable; 
 @property (nonatomic, retain) UnavailableImageHandler* unavailableImageHandler; 
 @property (nonatomic, readonly) ImageStatusOverlayView* imageStatusOverlayView; 
-@property (nonatomic, retain) UIImage* tmpImage; 
+@property (nonatomic, retain) UIImage* tmpImage;
+@property (nonatomic) BOOL isFullScreen; 
 
 @property (nonatomic, readonly) UIInterfaceOrientation imageOrientation; 
 

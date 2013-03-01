@@ -23,6 +23,7 @@
 @synthesize percentageDataAvailable=_percentageDataAvailable; 
 @synthesize unavailableImageHandler=_unavailableImageHandler; 
 @synthesize tmpImage=_tmpImage; 
+@synthesize isFullScreen=_isFullScreen;
 
 
 -(UIInterfaceOrientation) imageOrientation
@@ -65,7 +66,9 @@
     if (self) {
         // Initialization code
         _drawUserActivityStatus = NO;       //this is the default (dont use the property here, look at set)
-        _percentageDataAvailable = 0;       //no data is available yet 
+        _percentageDataAvailable = 0;       //no data is available yet
+        
+        _isFullScreen = NO;
     }
     return self;
 }
@@ -123,11 +126,11 @@
 
 -(id) initWithPictureInfo:(PictureInfo*)pictureInfo andFrame:(CGRect) frame
 {
-    return [self initWithPictureInfo:pictureInfo andFrame:frame shouldClipToBound:YES drawUserActivity:NO]; 
+    return [self initWithPictureInfo:pictureInfo andFrame:frame shouldClipToBound:YES drawUserActivity:NO isFullScreen:NO];
 }
 
 
--(id) initWithPictureInfo:(PictureInfo *)pictureInfo andFrame:(CGRect) frame shouldClipToBound:(BOOL) clip drawUserActivity:(BOOL)activity
+-(id) initWithPictureInfo:(PictureInfo *)pictureInfo andFrame:(CGRect) frame shouldClipToBound:(BOOL) clip drawUserActivity:(BOOL)activity isFullScreen:(BOOL) full
 {
     self = [self initWithFrame:frame]; 
     if (!self)
@@ -135,7 +138,8 @@
  
     self.clipToBound = clip; 
     self.pictureInfo = pictureInfo; 
-    self.drawUserActivityStatus = activity; 
+    self.drawUserActivityStatus = activity;
+    self.isFullScreen = full; 
     
     //register to the notification center to receive updates for this object 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageDataDidChange:) name:@"PictureInfoImageDataDidChange" object:pictureInfo]; 
@@ -171,7 +175,7 @@
 -(void) loadAsUnavailableImage
 {
     
-    if (self.frame.size.width>300)
+    if (self.isFullScreen)
         self.unavailableImageHandler = [[[UnavailableImageHandlerLandscape alloc] initWithImageView:self] autorelease]; 
     else
     {

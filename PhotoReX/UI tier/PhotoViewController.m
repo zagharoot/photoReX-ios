@@ -198,7 +198,7 @@
     
     
     //initialize the image we want to show 
-    imageView = [[UINetImageView alloc] initWithPictureInfo:self.pictureInfo andFrame:myFrame shouldClipToBound:NO drawUserActivity:NO]; 
+    imageView = [[UINetImageView alloc] initWithPictureInfo:self.pictureInfo andFrame:myFrame shouldClipToBound:NO drawUserActivity:NO isFullScreen:YES];
     imageView.delegate = self; 
     self.scrollView.delegate = self; 
     self.scrollView.scrollEnabled = NO; 

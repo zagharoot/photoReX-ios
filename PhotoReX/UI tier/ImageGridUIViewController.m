@@ -86,7 +86,7 @@
         PictureInfo* pictureInfo = [self.imageSource getPictureInfoAtLocation:i]; 
         CGPoint pos = [self getRowAndColFromIndex:i]; 
         CGRect frame = [self getPictureFrameAtPosition:pos]; 
-        UINetImageView* img = [[UINetImageView alloc] initWithPictureInfo:pictureInfo andFrame:frame shouldClipToBound:YES drawUserActivity:YES]; 
+        UINetImageView* img = [[UINetImageView alloc] initWithPictureInfo:pictureInfo andFrame:frame shouldClipToBound:YES drawUserActivity:YES isFullScreen:NO];
 //        img.drawUserActivityStatus = YES; 
         
         img.imageStatusOverlayView.alwaysShow = [self alwaysShowStatusBand];

@@ -1,19 +1,10 @@
 
-photoReX.xcodeproj/
-
-.DS_Store
-
-photoReX.xcodeproj/project.pbxproj
-
+photoReX.xcodeproj/xcshareddata/
 photoReX.xcodeproj/project.xcworkspace
-
 photoReX.xcodeproj/xcuserdata/
 
-*.xcworkspace
-
+.DS_Store
 build/
-
 *~
 .*~
-
 *#

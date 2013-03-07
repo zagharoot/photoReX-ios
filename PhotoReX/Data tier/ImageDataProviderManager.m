@@ -96,7 +96,9 @@ static ImageDataProviderManager* theProvider=nil;
         // Initialization code here.
         _flickrProvider = [[ImageFlickrDataProvider alloc] init]; 
         _instagramProvider = [[ImageInstagramDataProvider alloc] init]; 
-        _fiveHundredPXDataProvider = [[ImageFiveHundredPXDataProvider alloc] init]; 
+        _fiveHundredPXDataProvider = [[ImageFiveHundredPXDataProvider alloc] init];
+        
+        _cachedProvider = [[ImageCachedDataProvider alloc] init]; 
         //WEBSITE: 
         
     }
@@ -159,7 +161,8 @@ static ImageDataProviderManager* theProvider=nil;
 {
     [_flickrProvider release]; 
     [_instagramProvider release]; 
-    [_fiveHundredPXDataProvider release]; 
+    [_fiveHundredPXDataProvider release];
+    [_cachedProvider release]; 
     //WEBSITE: 
     
     [super dealloc]; 

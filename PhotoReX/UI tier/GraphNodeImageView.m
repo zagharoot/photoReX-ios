@@ -32,8 +32,12 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextBeginPath(context);
     CGContextAddArc(context, x, y , r , 0, 2*M_PI, YES);
+    
+    
+    CGContextSetRGBFillColor(context, 1.0f, 1.0f, 1.0f, 1.0f); // white
     CGContextClosePath(context);
-    CGContextClip(context);
+    CGContextFillPath(context);
+//    CGContextClip(context);
 }
 
 @end

@@ -39,7 +39,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 
-    [self.view addSubview:self.scrollView]; 
+//    [self.view addSubview:self.scrollView];
 
     GraphWalkView* page = [[[GraphWalkView alloc] initWithNode:self.root] autorelease];
     CGSize wSize  = ((AppDelegate*) [[UIApplication sharedApplication] delegate]).windowSize;
@@ -48,8 +48,9 @@
     
     pages = [[NSMutableArray alloc] initWithCapacity:5];
     [pages addObject:page];
-    self.scrollView.contentSize = CGSizeMake(wSize.width, wSize.height);
-    [self.scrollView addSubview:page];
+//    self.scrollView.contentSize = CGSizeMake(wSize.width, wSize.height);
+//    [self.scrollView addSubview:page];
+    [self.view addSubview:page]; 
 
 }
 

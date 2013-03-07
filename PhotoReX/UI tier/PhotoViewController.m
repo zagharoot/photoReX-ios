@@ -12,6 +12,8 @@
 #import "AppDelegate.h"
 #import "UIImageView+LBBlurredImage.h"
 
+#import "GraphWalkUIViewController.h"
+
 @implementation PhotoViewController
 @synthesize commentBtnPressed;
 
@@ -321,7 +323,13 @@
 
 - (IBAction)sharePressed:(id)sender {
 
-    [self blurTheImage:self.blurredImageView.hidden];  
+//    [self blurTheImage:self.blurredImageView.hidden];
+    
+    GraphNode* g = [[GraphNode alloc] initWithPictureInfo:self.pictureInfo andParent:nil];
+    GraphWalkUIViewController* vc = [[GraphWalkUIViewController alloc] initWithRoot:g];
+    
+    [self presentModalViewController:vc animated:YES]; 
+    
 }
 
 

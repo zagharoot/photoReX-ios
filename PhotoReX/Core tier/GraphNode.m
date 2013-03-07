@@ -62,6 +62,8 @@
 
 -(void) pictureDataBecameAvailable:(PictureInfo *)source
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     
     for(GraphChildCategory *cat in self.children)
     {

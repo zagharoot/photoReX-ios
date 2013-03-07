@@ -78,6 +78,7 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
+    NSLog(@"in draw rect"); 
     [super drawRect:rect]; 
     
     //draw progress bar indicator 

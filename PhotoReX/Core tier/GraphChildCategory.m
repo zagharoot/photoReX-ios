@@ -10,23 +10,42 @@
 
 @implementation GraphChildCategory
 
+-(NSString*) description
+{
+    return nil;
+}
+
 @end
 
 
 
 @implementation GraphSameUserCategory
 
+-(NSString*) description
+{
+    return @"From Same User";
+}
 
 @end
 
 @implementation GraphUserFavoriteCategory
 
-
+-(NSString*) description
+{
+    return @"Author's Favorites";
+}
 
 @end
 
 
 @implementation GraphUserContactsCategory
 
-
+-(NSString*) description
+{
+    return @"Author's Contacts";
+}
 @end
+
+
+
+

@@ -18,7 +18,12 @@
 
 }
 
-
+-(id) initWithPictureInfo:(PictureInfo *)pictureInfo andFrame:(CGRect)frame
+{
+    self = [super initWithPictureInfo:pictureInfo andFrame:frame];
+    
+    return self; 
+}
 
 
 - (void)drawRect:(CGRect)rect

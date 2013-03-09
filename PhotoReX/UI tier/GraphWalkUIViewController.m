@@ -8,7 +8,7 @@
 
 #import "GraphWalkUIViewController.h"
 #import "AppDelegate.h"
-
+#import "PageIndicatorHUDView.h"
 
 @interface GraphWalkUIViewController ()
 
@@ -22,12 +22,27 @@
     return nil;
 }
 
--(id) initWithRoot:(id)root
+-(id) initWithRoot:(GraphNode*) root andFrame:(CGRect)frame
 {
     self = [super initWithNibName:nil bundle:nil];
     if(self)
     {
         self.root = root;
+
+        GraphWalkView* page = [[[GraphWalkView alloc] initWithNode:self.root andFrame:frame] autorelease];
+        
+        pages = [[NSMutableArray alloc] initWithCapacity:5];
+        [pages addObject:page];
+        //    self.scrollView.contentSize = CGSizeMake(wSize.width, wSize.height);
+        //    [self.scrollView addSubview:page];
+
+        
+        CGRect mainNodeFrame = CGRectMake(50, 50, 100, 100);
+        GraphNodeImageView* mainPigImageView = [[GraphNodeImageView alloc] initWithPictureInfo:self.root.picInfo andFrame:mainNodeFrame];
+        
+        
+        [self.view addSubview:mainPigImageView];
+    
     }
     
     return self;
@@ -38,20 +53,27 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-
-//    [self.view addSubview:self.scrollView];
-
-    GraphWalkView* page = [[[GraphWalkView alloc] initWithNode:self.root] autorelease];
+    return; 
+    
     CGSize wSize  = ((AppDelegate*) [[UIApplication sharedApplication] delegate]).windowSize;
     CGRect frame = CGRectMake(0, 0 , wSize.width, wSize.height);
-    page.frame = frame;
+
+//    self.view.frame = frame;
+//    [self.view addSubview:self.scrollView];
+    
+    PageIndicatorHUDView* pv = [[PageIndicatorHUDView alloc] initWithFrame:frame];
+    pv.totalPage = 10;
+    pv.currentPage = 7;
+
+    
+    
+    GraphWalkView* page = [[[GraphWalkView alloc] initWithNode:self.root andFrame:frame] autorelease];
     
     pages = [[NSMutableArray alloc] initWithCapacity:5];
     [pages addObject:page];
 //    self.scrollView.contentSize = CGSizeMake(wSize.width, wSize.height);
 //    [self.scrollView addSubview:page];
-    [self.view addSubview:page]; 
-
+    self.view = page; 
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,6 +85,7 @@
 
 - (void) viewDidUnload
 {
+    [self setScrollView:nil];
     [self setScrollView:nil];
     [pages release];
     
@@ -107,6 +130,7 @@
 
 
 - (void)dealloc {
+    [_scrollView release];
     [_scrollView release];
     [super dealloc];
 }

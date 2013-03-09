@@ -10,4 +10,7 @@
 
 @interface GraphNodeImageView : UINetImageView
 
+-(id) initWithPictureInfo:(PictureInfo *)pictureInfo andFrame:(CGRect)frame;
+
+
 @end

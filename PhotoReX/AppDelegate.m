@@ -56,7 +56,7 @@ static double _applicationStartTime=0;
     picInfo.info = [[FiveHundredPXPictureInfo alloc] initWithID:@"Test" andBaseURL:@"http://test" andHash:@"hashtest"];
     
     GraphNode* node = [[GraphNode alloc] initWithPictureInfo:picInfo andParent:nil];
-    GraphWalkUIViewController* uc = [[GraphWalkUIViewController alloc] initWithRoot:node];
+    GraphWalkUIViewController* uc = [[GraphWalkUIViewController alloc] initWithRoot:node andFrame:[[UIScreen mainScreen] bounds]];
     
     [self.window addSubview:uc.view];
     [self.window setRootViewController:uc];

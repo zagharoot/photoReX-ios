@@ -19,7 +19,6 @@
 		081BDF7D16DAB37600B4DFD9 /* splash-02-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 081BDF7C16DAB37600B4DFD9 /* splash-02-568h@2x.png */; };
 		081BDF7F16DAB41500B4DFD9 /* splash-02-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 081BDF7E16DAB41500B4DFD9 /* splash-02-Portrait~ipad.png */; };
 		08321AC016E4271800665F32 /* GraphWalkUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08321ABE16E4271800665F32 /* GraphWalkUIViewController.m */; };
-		08321AC116E4271800665F32 /* GraphWalkUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08321ABF16E4271800665F32 /* GraphWalkUIViewController.xib */; };
 		08321AC416E43F8300665F32 /* GraphWalkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 08321AC316E43F8300665F32 /* GraphWalkView.m */; };
 		08328BA216E8A4DD00FBE632 /* zara.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 08328BA116E8A4DD00FBE632 /* zara.jpg */; };
 		083915BB14617577005C42D8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 083915BA14617577005C42D8 /* UIKit.framework */; };
@@ -85,6 +84,7 @@
 		08A19B8414A2D2FB00E49E58 /* settingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 08A19B8114A2D2FB00E49E58 /* settingsIcon.png */; };
 		08A19B8514A2D2FB00E49E58 /* settingsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08A19B8214A2D2FB00E49E58 /* settingsIcon@2x.png */; };
 		08A19B8614A2D2FB00E49E58 /* tableCellIndicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08A19B8314A2D2FB00E49E58 /* tableCellIndicator@2x.png */; };
+		08A2CAA316EAE8F00077797E /* GraphWalkUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08A2CAA216EAE8F00077797E /* GraphWalkUIViewController.xib */; };
 		08A8D38414AF9283005FFAC4 /* warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 08A8D38314AF9283005FFAC4 /* warning.png */; };
 		08B118021584D00600E5032B /* fiveHundredPXAccountIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B118001584D00600E5032B /* fiveHundredPXAccountIcon.png */; };
 		08B118031584D00600E5032B /* fiveHundredPXAccountIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B118011584D00600E5032B /* fiveHundredPXAccountIcon@2x.png */; };
@@ -172,7 +172,6 @@
 		081BDF7E16DAB41500B4DFD9 /* splash-02-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash-02-Portrait~ipad.png"; sourceTree = "<group>"; };
 		08321ABD16E4271800665F32 /* GraphWalkUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphWalkUIViewController.h; sourceTree = "<group>"; };
 		08321ABE16E4271800665F32 /* GraphWalkUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphWalkUIViewController.m; sourceTree = "<group>"; };
-		08321ABF16E4271800665F32 /* GraphWalkUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GraphWalkUIViewController.xib; sourceTree = "<group>"; };
 		08321AC216E43F8300665F32 /* GraphWalkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphWalkView.h; sourceTree = "<group>"; };
 		08321AC316E43F8300665F32 /* GraphWalkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphWalkView.m; sourceTree = "<group>"; };
 		08328BA116E8A4DD00FBE632 /* zara.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = zara.jpg; sourceTree = "<group>"; };
@@ -266,6 +265,7 @@
 		08A19B8114A2D2FB00E49E58 /* settingsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingsIcon.png; sourceTree = "<group>"; };
 		08A19B8214A2D2FB00E49E58 /* settingsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingsIcon@2x.png"; sourceTree = "<group>"; };
 		08A19B8314A2D2FB00E49E58 /* tableCellIndicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tableCellIndicator@2x.png"; sourceTree = "<group>"; };
+		08A2CAA216EAE8F00077797E /* GraphWalkUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GraphWalkUIViewController.xib; sourceTree = "<group>"; };
 		08A8D38314AF9283005FFAC4 /* warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = warning.png; sourceTree = "<group>"; };
 		08B118001584D00600E5032B /* fiveHundredPXAccountIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fiveHundredPXAccountIcon.png; sourceTree = "<group>"; };
 		08B118011584D00600E5032B /* fiveHundredPXAccountIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fiveHundredPXAccountIcon@2x.png"; sourceTree = "<group>"; };
@@ -567,7 +567,7 @@
 				08B5E64116D7F0B100D23B7F /* GraphChildCategory.m */,
 				08321ABD16E4271800665F32 /* GraphWalkUIViewController.h */,
 				08321ABE16E4271800665F32 /* GraphWalkUIViewController.m */,
-				08321ABF16E4271800665F32 /* GraphWalkUIViewController.xib */,
+				08A2CAA216EAE8F00077797E /* GraphWalkUIViewController.xib */,
 				08321AC216E43F8300665F32 /* GraphWalkView.h */,
 				08321AC316E43F8300665F32 /* GraphWalkView.m */,
 				089610E316E5826E00EF96DE /* GraphNodeImageView.h */,
@@ -875,8 +875,8 @@
 				081422EF16E139910068C955 /* noimageLandscape480x320.png in Resources */,
 				081422F016E139910068C955 /* noimageLandscape480x320@2x.png in Resources */,
 				081422F116E139910068C955 /* noimageLandscape1024x768.png in Resources */,
-				08321AC116E4271800665F32 /* GraphWalkUIViewController.xib in Resources */,
 				08328BA216E8A4DD00FBE632 /* zara.jpg in Resources */,
+				08A2CAA316EAE8F00077797E /* GraphWalkUIViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

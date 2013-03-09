@@ -26,5 +26,5 @@
 @property (nonatomic) int page; 
 @property (nonatomic, retain) GraphNode* node;
 
--(id) initWithNode:(GraphNode*) node;
+-(id) initWithNode:(GraphNode*) node andFrame:(CGRect) frame; 
 @end

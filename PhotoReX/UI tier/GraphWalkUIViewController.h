@@ -15,10 +15,10 @@
     NSMutableArray* pages;       //contains array of GraphWalkView (0 has the page for root)
     GraphNode* _root;
 }
-@property (retain, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, retain) GraphNode* root;
+@property (retain, nonatomic) IBOutlet UIScrollView *scrollView;
 
--(id) initWithRoot:(GraphNode*) root; 
+-(id) initWithRoot:(GraphNode*) root andFrame:(CGRect) frame; 
 
 
 -(void) expand:(GraphNode*) parent withChild:(GraphNode*) child atPage:(int) p; 

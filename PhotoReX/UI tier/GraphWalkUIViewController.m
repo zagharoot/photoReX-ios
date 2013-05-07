@@ -29,20 +29,6 @@
     {
         self.root = root;
 
-        GraphWalkView* page = [[[GraphWalkView alloc] initWithNode:self.root andFrame:frame] autorelease];
-        
-        pages = [[NSMutableArray alloc] initWithCapacity:5];
-        [pages addObject:page];
-        //    self.scrollView.contentSize = CGSizeMake(wSize.width, wSize.height);
-        //    [self.scrollView addSubview:page];
-
-        
-        CGRect mainNodeFrame = CGRectMake(50, 50, 100, 100);
-        GraphNodeImageView* mainPigImageView = [[GraphNodeImageView alloc] initWithPictureInfo:self.root.picInfo andFrame:mainNodeFrame];
-        
-        
-        [self.view addSubview:mainPigImageView];
-    
     }
     
     return self;
@@ -53,27 +39,33 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    return; 
     
     CGSize wSize  = ((AppDelegate*) [[UIApplication sharedApplication] delegate]).windowSize;
     CGRect frame = CGRectMake(0, 0 , wSize.width, wSize.height);
 
-//    self.view.frame = frame;
-//    [self.view addSubview:self.scrollView];
+    self.view.frame = frame;
+    [self.view addSubview:self.scrollView];
     
-    PageIndicatorHUDView* pv = [[PageIndicatorHUDView alloc] initWithFrame:frame];
+    PageIndicatorHUDView* pv = [[PageIndicatorHUDView alloc] initWithFrame:self.view.bounds];
     pv.totalPage = 10;
     pv.currentPage = 7;
 
     
-    
-    GraphWalkView* page = [[[GraphWalkView alloc] initWithNode:self.root andFrame:frame] autorelease];
+    CGFloat margin = 10;
+    CGRect vb = CGRectMake(margin, margin, wSize.width-2*margin, wSize.height-2*margin);
+    GraphWalkView* page = [[[GraphWalkView alloc] initWithNode:self.root andFrame:vb] autorelease];
     
     pages = [[NSMutableArray alloc] initWithCapacity:5];
     [pages addObject:page];
-//    self.scrollView.contentSize = CGSizeMake(wSize.width, wSize.height);
-//    [self.scrollView addSubview:page];
-    self.view = page; 
+    self.scrollView.contentSize = CGSizeMake(wSize.width, wSize.height);
+    [self.scrollView addSubview:page];
+    
+    UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"graph-bg.png"]];
+    self.scrollView.backgroundColor = background;
+    
+    [background release];
+    //    [self.view addSubview:page];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -85,8 +77,7 @@
 
 - (void) viewDidUnload
 {
-    [self setScrollView:nil];
-    [self setScrollView:nil];
+   [self setScrollView:nil];
     [pages release];
     
 }

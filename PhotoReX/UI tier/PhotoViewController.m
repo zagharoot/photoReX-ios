@@ -326,7 +326,7 @@
 //    [self blurTheImage:self.blurredImageView.hidden];
     
     GraphNode* g = [[GraphNode alloc] initWithPictureInfo:self.pictureInfo andParent:nil];
-    GraphWalkUIViewController* vc = [[GraphWalkUIViewController alloc] initWithRoot:g];
+    GraphWalkUIViewController* vc = [[GraphWalkUIViewController alloc] initWithRoot:g andFrame:self.view.bounds];
     
     [self presentModalViewController:vc animated:YES]; 
     

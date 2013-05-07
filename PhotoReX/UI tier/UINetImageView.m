@@ -73,21 +73,22 @@
     return self;
 }
 
-
+/*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
     NSLog(@"in draw rect"); 
     [super drawRect:rect]; 
-    
+ 
     //draw progress bar indicator 
     if(self.percentageDataAvailable>=0 &&  self.percentageDataAvailable < 1.0)
     {
         [self.unavailableImageHandler drawRect:rect]; 
     }
-}
 
+}
+*/
 
 
 #pragma -mark pictureInfo delegate functions 
@@ -184,6 +185,8 @@
     }
 //        self.image = [UINetImageView getUnavailableImage4x3]; 
   //  [self sizeToFit]; 
+
+    
     
     self.unavailableImageHandler.frame = self.bounds; 
     [self addSubview:self.unavailableImageHandler]; 
@@ -263,7 +266,7 @@
         CGImageRef imageRef = CGImageCreateWithImageInRect([theImage CGImage], r);
         
         // or use the UIImage wherever you like
-        theImage = [UIImage imageWithCGImage:imageRef scale:factor orientation:UIImageOrientationUp]; 
+        theImage = [UIImage imageWithCGImage:imageRef scale:factor orientation:UIImageOrientationUp];
         CGImageRelease(imageRef);
     } 
     
@@ -293,7 +296,8 @@
     [self setImage:self.tmpImage];
     self.tmpImage = nil; 
     
-    [self sizeToFit]; 
+    if (self.clipsToBounds)
+        [self sizeToFit];
     
     
     self.alpha = 0;                 

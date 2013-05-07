@@ -32,7 +32,8 @@
     // Get one and only document directory from that list
 //    NSString *documentDirectory = [documentDirectories objectAtIndex:0];
     
-    sleep(3); 
+    
+    sleep(1);
     
     
     NSString* path = @"/var/mobile/Applications/37057898-D84A-4793-9E92-7519F04B5901/photoRex.app/zara.jpg"; //[documentDirectory stringByAppendingPathComponent:@"zara.jpg"];

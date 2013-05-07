@@ -17,7 +17,7 @@
 #import "FancyTabbarController.h"
 
 
-#import "GraphWalkUIViewController.h"
+#import "DriverUIViewController.h" 
 
 static double _applicationStartTime=0; 
 #define SPLASH_SCREEN_DURATION 1           //number of seconds to show splash screen
@@ -46,6 +46,7 @@ static double _applicationStartTime=0;
     [super dealloc];
 }
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
@@ -54,9 +55,8 @@ static double _applicationStartTime=0;
 
     PictureInfo* picInfo = [[PictureInfo alloc] init];
     picInfo.info = [[FiveHundredPXPictureInfo alloc] initWithID:@"Test" andBaseURL:@"http://test" andHash:@"hashtest"];
-    
-    GraphNode* node = [[GraphNode alloc] initWithPictureInfo:picInfo andParent:nil];
-    GraphWalkUIViewController* uc = [[GraphWalkUIViewController alloc] initWithRoot:node andFrame:[[UIScreen mainScreen] bounds]];
+
+    DriverUIViewController* uc = [[DriverUIViewController alloc] initWithNibName:nil bundle:nil];
     
     [self.window addSubview:uc.view];
     [self.window setRootViewController:uc];
@@ -76,6 +76,108 @@ static double _applicationStartTime=0;
     
     return YES;
 }
+
+
+/*
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    // Override point for customization after application launch.
+    
+    //    //The explore page
+    //    ExploreNavigatorController* exploreNavigator = [[ExploreNavigatorController alloc] init];
+    //
+    //    //The settings page:
+    //    AccountsUIViewController* accViewController =     [[AccountsUIViewController alloc] initWithNibName:@"AccountsUIViewController" bundle:[NSBundle mainBundle]];
+    //    UINavigationController* sunc = [[UINavigationController alloc] init];
+    //    [sunc pushViewController:accViewController animated:NO];
+    //
+    //
+    //
+    //    exploreNavigator.tabBarItem.title = @"Explore";
+    //    sunc.tabBarItem.title = @"Settings";
+    //
+    //
+    //    //wrap the controllers into an array
+    //    NSMutableArray* controllers = [NSMutableArray  arrayWithObjects:exploreNavigator, sunc, nil];
+    //    [exploreNavigator release];
+    //    [accViewController release];
+    //    [sunc release];
+    //
+    //    //create the tabbar wrapper
+    //    HidableTabbarController* tabbarController = [HidableTabbarController getInstance];
+    //    [tabbarController setViewControllers:controllers];
+    //
+    //
+    //    [self.window addSubview:tabbarController.view];
+    //    [self.window setRootViewController:tabbarController];
+    
+    //    self.window.backgroundColor = [UIColor blackColor];
+    //    [self.window makeKeyAndVisible];
+    //
+    //    if ( [[NSDate date] timeIntervalSince1970] - [AppDelegate applicationStartTime] < SPLASH_SCREEN_DURATION - 0.5)
+    //        [self showSplashScreenOnView:tabbarController ];
+    
+    FancyTabbarController* ftc = [FancyTabbarController getInstance];
+    [self.window addSubview:ftc.view];
+    [self.window setRootViewController:ftc];
+    
+    self.window.backgroundColor = [UIColor blackColor];
+    [self.window makeKeyAndVisible];
+    
+    _windowSize = [[UIScreen mainScreen] bounds].size;
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(displayLinkWithTarget:selector:)] &&
+        ([UIScreen mainScreen].scale == 2.0)) {
+        // Retina display
+        _isRetinaDisplay = YES;
+    } else {
+        // non-Retina display
+        _isRetinaDisplay = NO;
+    }
+    
+    CGRect rect = ftc.view.frame;
+    CGRect nrect = CGRectMake(rect.size.width, rect.origin.y+20, rect.size.width, rect.size.height-20);
+    ftc.view.frame  = nrect;
+    if ( [[NSDate date] timeIntervalSince1970] - [AppDelegate applicationStartTime] < SPLASH_SCREEN_DURATION - 0.5)
+        [self showSplashScreenOnView:ftc ];
+    
+    //initialize user orientation:
+    _userOrientation = UserOrientationUnknown;
+    switch ( [[UIApplication sharedApplication] statusBarOrientation])
+    {
+        case UIInterfaceOrientationPortrait:
+        case UIInterfaceOrientationPortraitUpsideDown:
+            _userOrientation = UserOrientationStanding;
+            break;
+            
+        case UIInterfaceOrientationLandscapeLeft:
+            _userOrientation = UserOrientationLyingLeft;
+            break;
+            
+        case UIInterfaceOrientationLandscapeRight:
+            _userOrientation = UserOrientationLyingRight;
+            break;
+    }
+    
+    
+    //    UIDeviceOrientation o = [UIDevice currentDevice].orientation;
+    
+    switch ([UIDevice currentDevice].orientation) {
+        case UIDeviceOrientationLandscapeLeft:
+            _userOrientation = UserOrientationLyingLeft;
+            break;
+            
+        case UIDeviceOrientationLandscapeRight:
+            _userOrientation = UserOrientationLyingRight;
+            break;
+            
+        default:
+            _userOrientation = UserOrientationStanding; 
+            break;
+    }
+    return YES;
+}
+*/
 
 -(NSString*) getImageName:(NSString*) name isResolutionSensitive:(BOOL) isResolutionSensitive
 {
@@ -264,7 +366,7 @@ static double _applicationStartTime=0;
 {
     double duration = SPLASH_SCREEN_DURATION - ( [[NSDate date] timeIntervalSince1970] - [AppDelegate applicationStartTime]) ; 
     
-    if (duration < 0.5) 
+    if (duration < 0.5)
         return; 
     
     UIViewController* splash = [[[UIViewController alloc] init ] autorelease]; 

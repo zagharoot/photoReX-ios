@@ -85,9 +85,12 @@
 		08A19B8514A2D2FB00E49E58 /* settingsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08A19B8214A2D2FB00E49E58 /* settingsIcon@2x.png */; };
 		08A19B8614A2D2FB00E49E58 /* tableCellIndicator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08A19B8314A2D2FB00E49E58 /* tableCellIndicator@2x.png */; };
 		08A2CAA316EAE8F00077797E /* GraphWalkUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08A2CAA216EAE8F00077797E /* GraphWalkUIViewController.xib */; };
+		08A2CAA716EAED180077797E /* DriverUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08A2CAA516EAED180077797E /* DriverUIViewController.m */; };
+		08A2CAA816EAED180077797E /* DriverUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 08A2CAA616EAED180077797E /* DriverUIViewController.xib */; };
 		08A8D38414AF9283005FFAC4 /* warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 08A8D38314AF9283005FFAC4 /* warning.png */; };
 		08B118021584D00600E5032B /* fiveHundredPXAccountIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B118001584D00600E5032B /* fiveHundredPXAccountIcon.png */; };
 		08B118031584D00600E5032B /* fiveHundredPXAccountIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B118011584D00600E5032B /* fiveHundredPXAccountIcon@2x.png */; };
+		08B17A5E16FA55DC00A662B4 /* graph-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 08B17A5D16FA55DC00A662B4 /* graph-bg.png */; };
 		08B5E63F16D7F09500D23B7F /* GraphNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B5E63E16D7F09500D23B7F /* GraphNode.m */; };
 		08B5E64216D7F0B100D23B7F /* GraphChildCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B5E64116D7F0B100D23B7F /* GraphChildCategory.m */; };
 		08B6BF65149F833E002CD986 /* libObjectiveFlickr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08B6BF64149F833E002CD986 /* libObjectiveFlickr.a */; };
@@ -266,9 +269,13 @@
 		08A19B8214A2D2FB00E49E58 /* settingsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingsIcon@2x.png"; sourceTree = "<group>"; };
 		08A19B8314A2D2FB00E49E58 /* tableCellIndicator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tableCellIndicator@2x.png"; sourceTree = "<group>"; };
 		08A2CAA216EAE8F00077797E /* GraphWalkUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GraphWalkUIViewController.xib; sourceTree = "<group>"; };
+		08A2CAA416EAED180077797E /* DriverUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DriverUIViewController.h; sourceTree = "<group>"; };
+		08A2CAA516EAED180077797E /* DriverUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DriverUIViewController.m; sourceTree = "<group>"; };
+		08A2CAA616EAED180077797E /* DriverUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DriverUIViewController.xib; sourceTree = "<group>"; };
 		08A8D38314AF9283005FFAC4 /* warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = warning.png; sourceTree = "<group>"; };
 		08B118001584D00600E5032B /* fiveHundredPXAccountIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fiveHundredPXAccountIcon.png; sourceTree = "<group>"; };
 		08B118011584D00600E5032B /* fiveHundredPXAccountIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fiveHundredPXAccountIcon@2x.png"; sourceTree = "<group>"; };
+		08B17A5D16FA55DC00A662B4 /* graph-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "graph-bg.png"; sourceTree = "<group>"; };
 		08B5E63D16D7F09500D23B7F /* GraphNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphNode.h; path = "../Core tier/GraphNode.h"; sourceTree = "<group>"; };
 		08B5E63E16D7F09500D23B7F /* GraphNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GraphNode.m; path = "../Core tier/GraphNode.m"; sourceTree = "<group>"; };
 		08B5E64016D7F0B100D23B7F /* GraphChildCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GraphChildCategory.h; path = "../Core tier/GraphChildCategory.h"; sourceTree = "<group>"; };
@@ -572,6 +579,9 @@
 				08321AC316E43F8300665F32 /* GraphWalkView.m */,
 				089610E316E5826E00EF96DE /* GraphNodeImageView.h */,
 				089610E416E5826E00EF96DE /* GraphNodeImageView.m */,
+				08A2CAA416EAED180077797E /* DriverUIViewController.h */,
+				08A2CAA516EAED180077797E /* DriverUIViewController.m */,
+				08A2CAA616EAED180077797E /* DriverUIViewController.xib */,
 			);
 			name = "graph walk";
 			sourceTree = "<group>";
@@ -642,6 +652,7 @@
 		08F152501481316000CF7BD9 /* pics */ = {
 			isa = PBXGroup;
 			children = (
+				08B17A5D16FA55DC00A662B4 /* graph-bg.png */,
 				08328BA116E8A4DD00FBE632 /* zara.jpg */,
 				081422EC16E139910068C955 /* noimageLandscape480x320.png */,
 				081422ED16E139910068C955 /* noimageLandscape480x320@2x.png */,
@@ -780,7 +791,7 @@
 		083915AD14617577005C42D8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Rutgers;
 			};
 			buildConfigurationList = 083915B014617577005C42D8 /* Build configuration list for PBXProject "photoReX" */;
@@ -877,6 +888,8 @@
 				081422F116E139910068C955 /* noimageLandscape1024x768.png in Resources */,
 				08328BA216E8A4DD00FBE632 /* zara.jpg in Resources */,
 				08A2CAA316EAE8F00077797E /* GraphWalkUIViewController.xib in Resources */,
+				08A2CAA816EAED180077797E /* DriverUIViewController.xib in Resources */,
+				08B17A5E16FA55DC00A662B4 /* graph-bg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -954,6 +967,7 @@
 				08321AC016E4271800665F32 /* GraphWalkUIViewController.m in Sources */,
 				08321AC416E43F8300665F32 /* GraphWalkView.m in Sources */,
 				089610E516E5826E00EF96DE /* GraphNodeImageView.m in Sources */,
+				08A2CAA716EAED180077797E /* DriverUIViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -976,6 +990,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -989,6 +1007,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				SDKROOT = iphoneos;
@@ -1001,12 +1020,17 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
